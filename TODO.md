@@ -10,9 +10,9 @@
     - lint sass
   - [x] Prettier
     - should play nice with ESLint
-  - [ ] Testing
+  - [x] Testing
     - testing-library/react
-  - [ ] Husky && lint-staging
-    - [ ] should pass testing and linting
+  - [x] Husky && lint-staging
+    - should pass testing and linting
 
 - ## [ ] Setup
