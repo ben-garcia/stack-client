@@ -3,6 +3,7 @@
 - ## [x] Development Environment
 
   - [x] Create React App
+    - [x] tsconfig.json
   - [ ] ESLint
     - airbnb style guide
   - [ ] Prettier
