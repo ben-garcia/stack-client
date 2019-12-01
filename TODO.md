@@ -4,8 +4,10 @@
 
   - [x] Create React App
     - [x] tsconfig.json
-  - [ ] ESLint
+  - [x] ESLint
     - airbnb style guide
+  - [ ] Stylelint
+    - lint sass
   - [ ] Prettier
     - should play nice with ESLint
   - [ ] Testing
