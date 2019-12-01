@@ -1,10 +1,22 @@
 {
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".tsx", ".ts"]
+      }
+    }
+  },
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"

@@ -8,7 +8,7 @@
     - airbnb style guide
   - [ ] Stylelint
     - lint sass
-  - [ ] Prettier
+  - [x] Prettier
     - should play nice with ESLint
   - [ ] Testing
     - testing-library/react
