@@ -6,7 +6,7 @@
     - [x] tsconfig.json
   - [x] ESLint
     - airbnb style guide
-  - [ ] Stylelint
+  - [x] Stylelint
     - lint sass
   - [x] Prettier
     - should play nice with ESLint
