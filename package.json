@@ -68,9 +68,11 @@
     }
   },
   "lint-staged": {
-    "*.tsx": [
+    "*.scss": [
+      "stylelint --fix"
+    ],
+    "*.(ts|tsx)": [
       "eslint --fix",
-      "stylelint --fix",
       "prettier --write",
       "jest --passWithNoTests",
       "git add"
