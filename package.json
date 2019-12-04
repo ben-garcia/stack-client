@@ -42,7 +42,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
@@ -75,7 +75,7 @@
     "*.(ts|tsx)": [
       "eslint --fix",
       "prettier --write",
-      "jest --passWithNoTests",
+      "jest",
       "git add"
     ]
   }
