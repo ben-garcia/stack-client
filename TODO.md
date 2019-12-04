@@ -61,3 +61,5 @@
   - [ ] Channel
     - contain the messages for the channel
     - will contain an input where users can type in messages
+  - [ ] Placeholder
+    - will be rendered in place of asynchronize data
