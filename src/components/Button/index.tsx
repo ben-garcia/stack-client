@@ -1,11 +1,19 @@
 import React from 'react';
 
 import './styles.scss';
+import { ButtonProps } from './types';
 
-const Button: React.FC = () => {
+const Button: React.FC<ButtonProps> = ({ text, color = 'primary' }) => {
+  let backgroundColor: string = 'primary';
+
+  // color prop should either be 'primary' | 'transparent'
+  if (color === 'transparent') {
+    backgroundColor = 'transparent';
+  }
+
   return (
-    <button type="button" className="button">
-      Button
+    <button type="button" className={`button button--${backgroundColor}`}>
+      {text}
     </button>
   );
 };
