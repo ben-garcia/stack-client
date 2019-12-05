@@ -10,5 +10,7 @@ module.exports = {
     '<rootDir>/.storybook',
     '<rootDir>/setupTests.ts',
   ],
-  moduleNameMapper: { '\\.(scss)$': '<rootDir>/src/__mocks__/styles.ts' },
+  moduleNameMapper: {
+    '\\.(scss)$': '<rootDir>/src/__mocks__/styles.ts',
+  },
 };
