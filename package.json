@@ -77,9 +77,11 @@
       "stylelint --fix"
     ],
     "*test.(ts|tsx)": [
+      "jest",
+    ],
+    "*.(ts|tsx)": [
       "eslint --fix",
       "prettier --write",
-      "jest",
       "git add"
     ]
   }
