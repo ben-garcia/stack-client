@@ -77,7 +77,7 @@
       "stylelint --fix"
     ],
     "*test.(ts|tsx)": [
-      "jest",
+      "jest"
     ],
     "*.(ts|tsx)": [
       "eslint --fix",
