@@ -1,0 +1,15 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 10rem;
+  background-color: #fff;
+}
+
+.navigation--row {
+  flex-direction: row;
+}
+
+.navigation--column {
+  flex-direction: column;
+}
