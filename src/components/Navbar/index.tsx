@@ -12,7 +12,7 @@ const Navbar: React.FC<NavbarProps> = ({ direction = 'row', children }) => {
 
   return (
     <nav className={`navigation navigation--${directionToRender}`}>
-      {children}
+      <ul className="navigation__inner">{children}</ul>
     </nav>
   );
 };
