@@ -1,0 +1,17 @@
+@font-face {
+  font-family: Coolvetica;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../../public/fonts/coolvetica-rg.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: agagag;
+  font-style: none;
+  src: url('../../../public/fonts/Champagne-&-Limousines.ttf'),
+    format('truetype');
+}
+
+.header__heading {
+  font-family: Coolvetica, Helvetica, sans-serif;
+}
