@@ -1,5 +1,7 @@
 # TODO
 
+> The Plan
+
 - ## [x] Development Environment
 
   - [x] Create React App
@@ -35,19 +37,28 @@
 
   - [ ] LandingPage
     - will have information about the project
-    - buttons to signup and login
-  - [ ] Register
-    - where a user can create an account
-  - [ ] Login
-    - user will enter their email/password
+    - buttons that trigger a modal with either a form to register or login
 
 - ## Components
-  - [ ] Navbar
+  - [x] Button
+    - will contain text and onClick prop
+  - [x] Header
+    - prop to define the heading(h1...h6)
+  - [x] Image
+    - wrapper for image
+  - [x] Navbar
     - will contain the logo and name of the project
-    - [ ] if user is logged in
-      - will contain log out buton
-    - [ ] if user is not logged in
-      - will contain login and register buttons
+  - [x] NavbarItem
+    - to be nested inside Navbar
+  - [x] Paragraph
+    - wrapper for p tag with styles
+  - [ ] Icon
+    - will contain svg for the icons
+  - [ ] Modal
+    - will contain forms to
+      - register
+      - log in
+      - create a new Workspace and Channel
   - [ ] Footer
     - contain my name and the year
   - [ ] Dashboard
@@ -62,4 +73,4 @@
     - contain the messages for the channel
     - will contain an input where users can type in messages
   - [ ] Placeholder
-    - will be rendered in place of asynchronize data
+    - will be rendered in place for loading data
