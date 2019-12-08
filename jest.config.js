@@ -3,6 +3,7 @@ module.exports = {
   testMatch: ['/components/**/*test.tsx', '**/?(*.)+(test).+(ts|tsx)'],
   transform: {
     '^.+\\.(ts|tsx)?$': 'ts-jest',
+    '\\.(svg)$': '<rootDir>/src/__mocks__/svgTransform.ts',
   },
   setupFilesAfterEnv: ['./setupTests.ts'],
   testPathIgnorePatterns: [
