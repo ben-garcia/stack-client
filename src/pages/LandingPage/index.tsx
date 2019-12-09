@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Button,
+  Footer,
   Header,
   Image,
   Navbar,
@@ -20,29 +21,44 @@ const LandingPage: React.FC<LandingPageProps> = () => {
     <div className="landing-page">
       <Navbar style={{ padding: '0 11.5rem', margin: '1rem 0 0 0' }}>
         <NavbarItem>
-          <Image src={logo} alt="Stack Logo" />
+          <Image style={{ width: '4.5rem' }} src={logo} alt="Stack Logo" />
         </NavbarItem>
         <NavbarItem>
           <Button text="Log In" color="transparent" onClick={onClickHandler} />
-          <Button text="Register" onClick={onClickHandler} />
+          <Button
+            style={{ padding: '0.4rem', margin: '0 0.3rem' }}
+            text="Register"
+            onClick={onClickHandler}
+          />
         </NavbarItem>
       </Navbar>
       <main>
         <Header heading="Welcome to Stack">
           <Paragraph>Organize your projects</Paragraph>
-          <Button text="Get Started" onClick={onClickHandler} />
+          <Button
+            style={{ padding: '0.4rem' }}
+            text="Get Started"
+            onClick={onClickHandler}
+          />
         </Header>
+        <section className="landing-page__description">
+          <Header
+            style={{ textAlign: 'center' }}
+            as="h2"
+            heading="What is Stack"
+          >
+            <Paragraph>
+              Stack a clone of the popular messaging platform
+              <a href="https://slack.com/" target="_black">
+                Slack.
+              </a>
+            </Paragraph>
+          </Header>
+        </section>
       </main>
-      <section className="landing-page__description">
-        <Header heading="What is Stack">
-          <Paragraph>
-            Stack a clone of the popular messaging platform
-            <a href="https://slack.com/" target="_black">
-              Slack.
-            </a>
-          </Paragraph>
-        </Header>
-      </section>
+      <Footer style={{ textAlign: 'center' }}>
+        <Paragraph>Ben Garcia 2019</Paragraph>
+      </Footer>
     </div>
   );
 };
