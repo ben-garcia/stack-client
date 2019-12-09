@@ -17,27 +17,33 @@ const LandingPage: React.FC<LandingPageProps> = () => {
   const onClickHandler = () => console.log('clicked');
 
   return (
-    <>
-      <main className="landing-page">
-        <Navbar padding="0 11.5rem" margin="1rem 0 0 0">
-          <NavbarItem>
-            <Image src={logo} alt="Stack Logo" />
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              text="Sign In"
-              color="transparent"
-              onClick={onClickHandler}
-            />
-            <Button text="Register" onClick={onClickHandler} />
-          </NavbarItem>
-        </Navbar>
+    <div className="landing-page">
+      <Navbar style={{ padding: '0 11.5rem', margin: '1rem 0 0 0' }}>
+        <NavbarItem>
+          <Image src={logo} alt="Stack Logo" />
+        </NavbarItem>
+        <NavbarItem>
+          <Button text="Log In" color="transparent" onClick={onClickHandler} />
+          <Button text="Register" onClick={onClickHandler} />
+        </NavbarItem>
+      </Navbar>
+      <main>
         <Header heading="Welcome to Stack">
           <Paragraph>Organize your projects</Paragraph>
           <Button text="Get Started" onClick={onClickHandler} />
         </Header>
       </main>
-    </>
+      <section className="landing-page__description">
+        <Header heading="What is Stack">
+          <Paragraph>
+            Stack a clone of the popular messaging platform
+            <a href="https://slack.com/" target="_black">
+              Slack.
+            </a>
+          </Paragraph>
+        </Header>
+      </section>
+    </div>
   );
 };
 
