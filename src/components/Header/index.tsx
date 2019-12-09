@@ -3,7 +3,12 @@ import React from 'react';
 import './styles.scss';
 import { HeaderProps } from './types';
 
-const Header: React.FC<HeaderProps> = ({ heading, as = 'h1', children }) => {
+const Header: React.FC<HeaderProps> = ({
+  style = {},
+  heading,
+  as = 'h1',
+  children,
+}) => {
   // variable will contain the correct heading tag.
   let headingToRender: JSX.Element = (
     <h1 className="header__heading">{heading}</h1>
@@ -29,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ heading, as = 'h1', children }) => {
   }
 
   return (
-    <header className="header">
+    <header style={style} className="header">
       {headingToRender}
       {children}
     </header>
