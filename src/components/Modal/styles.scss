@@ -1,0 +1,24 @@
+@font-face {
+  font-family: Coolvetica;
+  font-style: normal;
+  src: url('../../../public/fonts/coolvetica-rg.ttf') format('truetype');
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  width: 70vw;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
+    rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
+
+  &__header {
+    font-size: 2rem;
+    font-family: Coolvetica, Helvertica, sans-serif;
+  }
+}
