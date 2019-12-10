@@ -4,6 +4,7 @@ import './styles.scss';
 import { NavbarProps } from './types';
 
 const Navbar: React.FC<NavbarProps> = ({
+  className = '',
   style = {},
   direction = 'row',
   children,
@@ -16,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <nav
-      className={`navigation navigation--${directionToRender}`}
+      className={`navigation navigation--${directionToRender} ${className}`}
       style={style}
     >
       <ul className="navigation__inner">{children}</ul>
