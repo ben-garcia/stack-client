@@ -1,3 +1,59 @@
 .landing-page {
   background-color: #fff;
+
+  &__nav {
+    padding: 0 11.5rem;
+    margin: 1rem 0 0 0;
+  }
+
+  .header-hero {
+    background-image: url(../../hero.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 30vmax;
+
+    &__header {
+      margin: 0.5rem 0 0 11.5rem;
+      padding-top: 3rem;
+    }
+
+    .header-hero__heading {
+      font-size: 3rem;
+    }
+  }
+
+  &__description {
+    .description-header {
+      text-align: center;
+
+      &__link {
+        padding-left: 0.3rem;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .landing-page__nav {
+    padding: 0 0 0 2rem;
+  }
+
+  .header-hero__header {
+    margin: 0.5rem 0 0 2rem !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .landing-page__nav {
+    padding: 0;
+  }
+
+  .header-hero__header {
+    margin-top: 0;
+  }
 }

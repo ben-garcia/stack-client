@@ -19,44 +19,59 @@ const LandingPage: React.FC<LandingPageProps> = () => {
 
   return (
     <div className="landing-page">
-      <Navbar style={{ padding: '0 11.5rem', margin: '1rem 0 0 0' }}>
+      <Navbar className="landing-page__nav">
         <NavbarItem>
           <Image style={{ width: '4.5rem' }} src={logo} alt="Stack Logo" />
         </NavbarItem>
         <NavbarItem>
           <Button text="Log In" color="transparent" onClick={onClickHandler} />
           <Button
-            style={{ padding: '0.4rem', margin: '0 0.3rem' }}
+            style={{ padding: '0.4rem', margin: '0 0.3rem', fontWeight: 600 }}
             text="Register"
             onClick={onClickHandler}
           />
         </NavbarItem>
       </Navbar>
       <main>
-        <Header heading="Welcome to Stack">
-          <Paragraph>Organize your projects</Paragraph>
-          <Button
-            style={{ padding: '0.4rem' }}
-            text="Get Started"
-            onClick={onClickHandler}
-          />
-        </Header>
+        <div className="header-hero">
+          <Header
+            className="header-hero__header"
+            headingClassName="header-hero__heading"
+            heading="Welcome to Stack"
+          >
+            <Paragraph>Organize your projects</Paragraph>
+            <Button
+              style={{
+                marginTop: '0.5rem',
+                padding: '0.4rem',
+                fontWeight: 600,
+              }}
+              text="Get Started"
+              onClick={onClickHandler}
+            />
+          </Header>
+        </div>
         <section className="landing-page__description">
           <Header
-            style={{ textAlign: 'center' }}
+            className="description-header"
             as="h2"
             heading="What is Stack"
           >
             <Paragraph>
               Stack a clone of the popular messaging platform
-              <a href="https://slack.com/" target="_black">
-                Slack.
+              <a
+                className="description-header__link"
+                href="https://slack.com/"
+                target="_black"
+              >
+                Slack
               </a>
+              .
             </Paragraph>
           </Header>
         </section>
       </main>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer style={{ height: '5vmax', textAlign: 'center' }}>
         <Paragraph>Ben Garcia 2019</Paragraph>
       </Footer>
     </div>
