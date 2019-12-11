@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ModalProps } from './types';
 import './styles.scss';
+import Button from '../Button';
 
 const Modal: React.FC<ModalProps> = ({
   header,
+  open = true,
   className = '',
   style = {},
   children,
 }) => {
+  // control the opacity property.
+  const [isOpen, setIsOpen] = useState<boolean>(open);
+  // close when the Button is pressed.
+  const handleClick = () => setIsOpen(false);
+
   return (
-    <div className={`modal ${className}`} style={style}>
-      <header className="modal__header">{header}</header>
-      {children}
+    <div className="modal-background">
+      <section
+        style={{
+          ...style,
+          opacity: isOpen ? 1 : 0,
+        }}
+        className={`modal ${className}`}
+      >
+        <header className="modal__header">
+          {header}
+          <Button
+            style={{
+              alignSelf: 'center',
+              fontSize: '1.3rem',
+            }}
+            text="X"
+            color="transparent"
+            onClick={handleClick}
+          />
+        </header>
+        {children}
+      </section>
     </div>
   );
 };

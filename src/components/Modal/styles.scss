@@ -4,21 +4,34 @@
   src: url('../../../public/fonts/coolvetica-rg.ttf') format('truetype');
 }
 
-.modal {
+.modal-background {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border-radius: 5px;
-  margin: 0 auto;
-  padding: 0.5rem;
-  width: 70vw;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
-    rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
 
-  &__header {
-    font-size: 2rem;
-    font-family: Coolvetica, Helvertica, sans-serif;
+  .modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    width: 70vw;
+    box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
+      rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+      font-size: 2rem;
+      font-family: Coolvetica, Helvertica, sans-serif;
+    }
   }
 }

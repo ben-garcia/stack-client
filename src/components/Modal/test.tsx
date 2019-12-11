@@ -7,7 +7,9 @@ import Modal from '.';
 describe('<Modal />', () => {
   it('should render', () => {
     const { container }: RenderResult = render(
-      <Modal header="Modal Example">Testing</Modal>
+      <Modal open header="Modal Example">
+        Testing
+      </Modal>
     );
 
     expect(container).toBeInTheDocument();
@@ -17,7 +19,9 @@ describe('<Modal />', () => {
   describe('stories', () => {
     it('should render with children by default', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Modal header="Modal Header">Testing Again</Modal>
+        <Modal open header="Modal Header">
+          Testing Again
+        </Modal>
       );
 
       expect(wrapper.children().length).toBeGreaterThan(0);

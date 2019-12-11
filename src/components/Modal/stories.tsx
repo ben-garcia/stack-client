@@ -4,5 +4,7 @@ import { storiesOf } from '@storybook/react';
 import Modal from '.';
 
 storiesOf('Modal', module).add('default', () => (
-  <Modal header="Modal Header">Modal Example</Modal>
+  <Modal open header="Modal Header">
+    Modal Example
+  </Modal>
 ));
