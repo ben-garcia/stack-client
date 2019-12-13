@@ -1,3 +1,3 @@
 export interface IconProps {
-  type: 'plus';
+  type: 'plus' | 'times';
 }
