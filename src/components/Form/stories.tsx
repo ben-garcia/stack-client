@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Form from '.';
-import FormGroup from './FormGroup';
 
 storiesOf('Form', module)
   .add('default', () => (
@@ -12,8 +11,10 @@ storiesOf('Form', module)
     </Form>
   ))
   .add('with FormGroup', () => (
-    <FormGroup>
-      <input />
-      <input />
-    </FormGroup>
+    <Form>
+      <Form.Group>
+        <input />
+        <input />
+      </Form.Group>
+    </Form>
   ));
