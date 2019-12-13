@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FormGroup from './FormGroup';
+import FormInput from './FormInput';
 import { FormComponent } from './types';
 import './styles.scss';
 
@@ -13,5 +14,6 @@ const Form: FormComponent = ({ children }) => {
 };
 
 Form.Group = FormGroup;
+Form.Input = FormInput;
 
 export default Form;
