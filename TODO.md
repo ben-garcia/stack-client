@@ -52,14 +52,14 @@
     - to be nested inside Navbar
   - [x] Paragraph
     - wrapper for p tag with styles
-  - [ ] Icon
-    - will contain svg for the icons
+  - [x] Icon
+    - using font icons
   - [ ] Modal
     - will contain forms to
       - register
       - log in
       - create a new Workspace and Channel
-  - [ ] Footer
+  - [x] Footer
     - contain my name and the year
   - [ ] Dashboard
     - only accessed if the user is logged in
