@@ -6,7 +6,7 @@ import NavbarItem from '.';
 
 describe('<NavbarItem />', () => {
   it('should render', () => {
-    const { container } = render(<NavbarItem />);
+    const { container } = render(<NavbarItem>link 1</NavbarItem>);
 
     expect(container).toBeInTheDocument();
     cleanup();
@@ -14,7 +14,7 @@ describe('<NavbarItem />', () => {
 
   describe('stories', () => {
     it('should render as default', () => {
-      const wrapper: ShallowWrapper = shallow(<NavbarItem />);
+      const wrapper: ShallowWrapper = shallow(<NavbarItem>link 1</NavbarItem>);
 
       expect(wrapper.hasClass('navigation__item')).toBe(true);
     });

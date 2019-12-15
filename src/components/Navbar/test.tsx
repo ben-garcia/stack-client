@@ -6,7 +6,12 @@ import Navbar from '.';
 
 describe('<Navbar />', () => {
   it('should render', () => {
-    const { container } = render(<Navbar />);
+    const { container } = render(
+      <Navbar>
+        <li>link 1</li>
+        <li>link 2</li>
+      </Navbar>
+    );
 
     expect(container).toBeInTheDocument();
     cleanup();
@@ -14,13 +19,23 @@ describe('<Navbar />', () => {
 
   describe('stories', () => {
     it('should have flex-direction: row by default', () => {
-      const wrapper: ShallowWrapper = shallow(<Navbar />);
+      const wrapper: ShallowWrapper = shallow(
+        <Navbar>
+          <li>link 1</li>
+          <li>link 2</li>
+        </Navbar>
+      );
 
       expect(wrapper.hasClass('navigation--row')).toBe(true);
     });
 
     it('should have flex-direction: column when passing in the proper prop', () => {
-      const wrapper: ShallowWrapper = shallow(<Navbar direction="column" />);
+      const wrapper: ShallowWrapper = shallow(
+        <Navbar direction="column">
+          <li>link 1</li>
+          <li>link 2</li>
+        </Navbar>
+      );
 
       expect(wrapper.hasClass('navigation--column')).toBe(true);
     });

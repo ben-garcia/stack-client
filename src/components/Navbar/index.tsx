@@ -1,9 +1,14 @@
 import React from 'react';
 
+import NavbarItem from './NavbarItem';
+import { NavbarComponent } from './types';
 import './styles.scss';
-import { NavbarProps } from './types';
 
-const Navbar: React.FC<NavbarProps> = ({
+/**
+ * Navbar is a navigation.
+ * @see NavbarItem
+ */
+const Navbar: NavbarComponent = ({
   className = '',
   style = {},
   direction = 'row',
@@ -24,5 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({
     </nav>
   );
 };
+
+Navbar.Item = NavbarItem;
 
 export default Navbar;

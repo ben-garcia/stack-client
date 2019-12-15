@@ -6,7 +6,6 @@ import {
   Header,
   Image,
   Navbar,
-  NavbarItem,
   Paragraph,
 } from '../../components';
 import { LandingPageProps } from './types';
@@ -20,17 +19,17 @@ const LandingPage: React.FC<LandingPageProps> = () => {
   return (
     <div className="landing-page">
       <Navbar className="landing-page__nav">
-        <NavbarItem>
+        <Navbar.Item>
           <Image style={{ width: '4.5rem' }} src={logo} alt="Stack Logo" />
-        </NavbarItem>
-        <NavbarItem>
+        </Navbar.Item>
+        <Navbar.Item>
           <Button text="Log In" color="transparent" onClick={onClickHandler} />
           <Button
             style={{ padding: '0.4rem', margin: '0 0.3rem', fontWeight: 600 }}
             text="Register"
             onClick={onClickHandler}
           />
-        </NavbarItem>
+        </Navbar.Item>
       </Navbar>
       <main>
         <div className="header-hero">
