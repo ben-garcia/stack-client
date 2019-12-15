@@ -32,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({
               alignSelf: 'center',
               fontSize: '1.3rem',
             }}
+            className="modal__button-close"
             text="X"
             color="transparent"
             onClick={handleClick}
