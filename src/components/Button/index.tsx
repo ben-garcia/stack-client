@@ -8,6 +8,7 @@ const Button: React.FC<ButtonProps> = ({
   text,
   color = 'primary',
   onClick,
+  className = '',
 }) => {
   let backgroundColor: string = 'primary';
 
@@ -20,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       style={style}
       type="button"
-      className={`button button--${backgroundColor}`}
+      className={`button button--${backgroundColor} ${className}`}
       onClick={onClick}
     >
       {text}
