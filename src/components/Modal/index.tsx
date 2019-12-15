@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { ModalProps } from './types';
 import './styles.scss';
-import Button from '../Button';
+import { Button } from '..';
 
 const Modal: React.FC<ModalProps> = ({
   header,
