@@ -1,20 +1,28 @@
 import React from 'react';
 
-import './styles.scss';
+import { Icon } from '..';
 import { ButtonProps } from './types';
+import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
   style = {},
-  text,
+  text = '',
   color = 'primary',
   onClick,
   className = '',
+  iconType = '',
 }) => {
   let backgroundColor: string = 'primary';
+  let iconToRender: React.ReactNode;
 
   // color prop should either be 'primary' | 'transparent'
   if (color === 'transparent') {
     backgroundColor = 'transparent';
+  }
+
+  // when icon is to be used with no text.
+  if (!text && iconType) {
+    iconToRender = <Icon type={iconType} />;
   }
 
   return (
@@ -24,7 +32,8 @@ const Button: React.FC<ButtonProps> = ({
       className={`button button--${backgroundColor} ${className}`}
       onClick={onClick}
     >
-      {text}
+      {!text && iconType ? iconToRender : ''}
+      {text && !iconType ? text : ''}
     </button>
   );
 };
