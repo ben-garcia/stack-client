@@ -10,6 +10,9 @@ describe('Button Integration', () => {
       <Button iconType="times" onClick={mockOnClick} />
     );
 
-    expect(wrapper.find('Icon').length).toBe(1);
+    expect(wrapper.find('Icon').prop('type')).toBe('times');
+    expect(wrapper.find('i').length).toBe(1);
+    expect(wrapper.find('i').hasClass('icon')).toBe(true);
+    expect(wrapper.find('i').hasClass('icon--times')).toBe(true);
   });
 });

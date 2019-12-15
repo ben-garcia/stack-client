@@ -28,27 +28,46 @@ describe('<Button />', () => {
   });
 
   describe('stories', () => {
-    it('should render primary color by default', () => {
-      const wrapper: ShallowWrapper = shallow(
-        <Button text="Button" onClick={mockOnClick} />
-      );
-      expect(wrapper.hasClass('button--primary')).toBe(true);
+    describe('default render', () => {
+      it('should have no text', () => {
+        const wrapper: ShallowWrapper = shallow(
+          <Button onClick={mockOnClick} />
+        );
+        expect(wrapper.find('.button').text()).toBe('');
+      });
+
+      it('should have primary color', () => {
+        const wrapper: ShallowWrapper = shallow(
+          <Button text="Button" color="transparent" onClick={mockOnClick} />
+        );
+
+        expect(wrapper.hasClass('button--transparent')).toBe(true);
+      });
+
+      it('should contain an onClick prop', () => {
+        const wrapper: ShallowWrapper = shallow(
+          <Button text="Button" onClick={mockOnClick} />
+        );
+
+        expect(wrapper.prop('onClick')).toEqual(mockOnClick);
+      });
     });
 
-    it('should render as transparent when passing transparent color prop', () => {
+    it('should contain a text prop when passed in', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Button text="Button" color="transparent" onClick={mockOnClick} />
+        <Button text="Button" onClick={mockOnClick} className="testing" />
       );
 
-      expect(wrapper.hasClass('button--transparent')).toBe(true);
+      expect(wrapper.find('.testing').text()).toBe('Button');
     });
 
-    it('should contain an onClick prop', () => {
+    it('should render an Icon when passed the iconType prop', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Button text="Button" onClick={mockOnClick} />
+        <Button iconType="plus" onClick={mockOnClick} />
       );
 
-      expect(wrapper.prop('onClick')).toEqual(mockOnClick);
+      expect(typeof wrapper.find('.button').text).toBe('function');
+      expect(wrapper.find('Icon')).toHaveLength(1);
     });
   });
 });
