@@ -54,6 +54,11 @@
     - wrapper for p tag with styles
   - [x] Icon
     - using font icons
+  - [ ] Form
+    - FormGroup
+      - wrapper component for fieldset element used to combine related form information
+    - FormInput
+      - wrapper components for input and label elements
   - [ ] Modal
     - will contain forms to
       - register
