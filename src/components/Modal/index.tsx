@@ -8,7 +8,6 @@ const Modal: React.FC<ModalProps> = ({
   header,
   open = true,
   className = '',
-  style = {},
   children,
 }) => {
   // control the opacity property.
@@ -20,7 +19,6 @@ const Modal: React.FC<ModalProps> = ({
     <div className="modal-background">
       <section
         style={{
-          ...style,
           opacity: isOpen ? 1 : 0,
         }}
         className={`modal ${className}`}

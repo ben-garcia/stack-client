@@ -10,7 +10,6 @@ import './styles.scss';
  */
 const Navbar: NavbarComponent = ({
   className = '',
-  style = {},
   direction = 'row',
   children,
 }) => {
@@ -21,10 +20,7 @@ const Navbar: NavbarComponent = ({
   }
 
   return (
-    <nav
-      className={`navigation navigation--${directionToRender} ${className}`}
-      style={style}
-    >
+    <nav className={`navigation navigation--${directionToRender} ${className}`}>
       <ul className="navigation__inner">{children}</ul>
     </nav>
   );
