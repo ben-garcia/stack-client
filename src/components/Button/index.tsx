@@ -5,7 +5,6 @@ import { ButtonProps } from './types';
 import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
-  style = {},
   text = '',
   color = 'primary',
   onClick,
@@ -25,9 +24,15 @@ const Button: React.FC<ButtonProps> = ({
     iconToRender = <Icon type={iconType} />;
   }
 
+  // make sure onClick prop is a function
+  if (onClick && typeof onClick !== 'function') {
+    throw new TypeError(
+      `onClick prop must be a function. You passed in a ${typeof onClick}`
+    );
+  }
+
   return (
     <button
-      style={style}
       type="button"
       className={`button button--${backgroundColor} ${className}`}
       onClick={onClick}

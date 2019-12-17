@@ -28,10 +28,6 @@ const Modal: React.FC<ModalProps> = ({
         <header className="modal__header">
           {header}
           <Button
-            style={{
-              alignSelf: 'center',
-              fontSize: '1.3rem',
-            }}
             className="modal__button-close"
             text="X"
             color="transparent"
