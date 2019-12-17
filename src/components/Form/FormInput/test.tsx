@@ -29,5 +29,13 @@ describe('<FormInput />', () => {
 
       expect(wrapper.find('input').prop('type')).toBe('text');
     });
+
+    it('should render with with class passed in a prop', () => {
+      const wrapper: ShallowWrapper = shallow(
+        <FormInput label="Full Name" type="text" className="testing" />
+      );
+
+      expect(wrapper.hasClass('testing')).toBe(true);
+    });
   });
 });

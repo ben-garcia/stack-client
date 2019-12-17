@@ -27,5 +27,15 @@ describe('<FormGroup />', () => {
 
       expect(wrapper.children().length).toBeGreaterThan(1);
     });
+    it('should render with default class', () => {
+      const wrapper: ShallowWrapper = shallow(
+        <FormGroup>
+          <label />
+          <input />
+        </FormGroup>
+      );
+
+      expect(wrapper.hasClass('form__group')).toBe(true);
+    });
   });
 });
