@@ -55,7 +55,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           </Header>
         </section>
       </main>
-      <Footer style={{ height: '5vmax', textAlign: 'center' }}>
+      <Footer>
         <Paragraph>Ben Garcia 2019</Paragraph>
       </Footer>
     </div>
