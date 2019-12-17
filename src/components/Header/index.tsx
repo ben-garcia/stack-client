@@ -6,7 +6,6 @@ import { HeaderProps } from './types';
 const Header: React.FC<HeaderProps> = ({
   className = '',
   headingClassName = '',
-  style = {},
   heading,
   as = 'h1',
   children,
@@ -46,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header style={style} className={`header ${className}`}>
+    <header className={`header ${className}`}>
       {headingToRender}
       {children}
     </header>
