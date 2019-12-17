@@ -17,7 +17,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
     <div className="landing-page">
       <Navbar className="landing-page__nav">
         <Navbar.Item>
-          <Image style={{ width: '4.5rem' }} src={logo} alt="Stack Logo" />
+          <Image src={logo} alt="Stack Logo" size="sm" />
         </Navbar.Item>
         <Navbar.Item>
           <Button text="Log In" color="transparent" />
