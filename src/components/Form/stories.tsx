@@ -4,12 +4,7 @@ import { storiesOf } from '@storybook/react';
 import Form from '.';
 
 storiesOf('Form', module)
-  .add('default', () => (
-    <Form>
-      <label htmlFor="name">Name:</label>
-      <input type="text" id="name" />
-    </Form>
-  ))
+  .add('default', () => <Form />)
   .add('with FormGroup', () => (
     <Form>
       <Form.Group>

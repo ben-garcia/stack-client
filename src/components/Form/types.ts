@@ -2,7 +2,7 @@ import FormGroup from './FormGroup';
 import FormInput from './FormInput';
 
 export interface FormProps {
-  children: React.ReactNode[] | React.ReactNode;
+  children?: React.ReactNode[] | React.ReactNode;
 }
 
 /** Structure that describes the components that make up a Form  */

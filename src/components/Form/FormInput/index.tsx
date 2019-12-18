@@ -8,10 +8,15 @@ const FormInput: React.FC<FormInputProps> = ({
   type,
   className = '',
 }) => {
+  let classNamesToRender: string = 'form__input';
+
   if (className.trim() !== '') {
-    return <input type={type} placeholder={label} className={className} />;
+    classNamesToRender += ` ${className}`;
   }
-  return <input type={type} placeholder={label} />;
+
+  return (
+    <input type={type} placeholder={label} className={classNamesToRender} />
+  );
 };
 
 export default FormInput;
