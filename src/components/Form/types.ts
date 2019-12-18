@@ -1,7 +1,11 @@
+import { FormEvent } from 'react';
+
 import FormGroup from './FormGroup';
 import FormInput from './FormInput';
 
 export interface FormProps {
+  className?: string;
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
   children?: React.ReactNode[] | React.ReactNode;
 }
 
