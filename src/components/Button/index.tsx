@@ -5,6 +5,7 @@ import { ButtonProps } from './types';
 import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
+  type,
   text = '',
   color = 'primary',
   onClick,
@@ -33,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      type="button"
+      type={type}
       className={`button button--${backgroundColor} ${className}`}
       onClick={onClick}
     >
