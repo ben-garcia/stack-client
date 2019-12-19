@@ -16,4 +16,17 @@ describe('Modal Integration', () => {
     expect(button.length).toBe(1);
     expect(button.hasClass('modal__button-close')).toBe(true);
   });
+
+  it('should render with times Icon', () => {
+    const wrapper: ReactWrapper = mount(
+      <Modal open header="Header">
+        The Modal
+      </Modal>
+    );
+    const icon: ReactWrapper = wrapper.find('i');
+
+    expect(icon.length).toBe(1);
+    expect(icon.hasClass('icon')).toBe(true);
+    expect(icon.hasClass('icon--times')).toBe(true);
+  });
 });
