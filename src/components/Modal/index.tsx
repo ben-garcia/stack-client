@@ -26,8 +26,9 @@ const Modal: React.FC<ModalProps> = ({
         <header className="modal__header">
           {header}
           <Button
+            type="button"
+            iconType="times"
             className="modal__button-close"
-            text="X"
             color="transparent"
             onClick={handleClick}
           />
