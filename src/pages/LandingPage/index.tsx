@@ -20,8 +20,8 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           <Image src={logo} alt="Stack Logo" size="sm" />
         </Navbar.Item>
         <Navbar.Item>
-          <Button text="Log In" color="transparent" />
-          <Button text="Register" />
+          <Button type="button" text="Log In" color="transparent" />
+          <Button type="button" text="Register" />
         </Navbar.Item>
       </Navbar>
       <main>
@@ -32,7 +32,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             heading="Welcome to Stack"
           >
             <Paragraph>Organize your projects</Paragraph>
-            <Button text="Get Started" />
+            <Button type="button" text="Get Started" />
           </Header>
         </div>
         <section className="landing-page__description">
