@@ -25,13 +25,15 @@
     box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
       rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
 
+    &__button-close {
+      align-self: flex-end;
+    }
+
     &__header {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
       border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-      font-size: 2rem;
+      font-size: 1.2rem;
       font-family: Coolvetica, Helvertica, sans-serif;
+      width: 100%;
     }
   }
 }
