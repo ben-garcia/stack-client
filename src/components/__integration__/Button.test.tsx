@@ -7,7 +7,7 @@ describe('Button Integration', () => {
   it('should render with an Icon when passing iconType prop', () => {
     const mockOnClick = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Button iconType="times" onClick={mockOnClick} />
+      <Button type="button" iconType="times" onClick={mockOnClick} />
     );
 
     expect(wrapper.find('Icon').prop('type')).toBe('times');
