@@ -28,5 +28,18 @@ describe('<Form />', () => {
 
       expect(wrapper.children().length).toBeGreaterThan(1);
     });
+
+    it('should call onSubmit handler when submitting', () => {
+      const onSubmitHandler = jest.fn();
+      const wrapper: ShallowWrapper = shallow(
+        <Form onSubmit={onSubmitHandler} />
+      );
+
+      expect(onSubmitHandler).toHaveBeenCalledTimes(0);
+
+      wrapper.find('.form').simulate('submit');
+
+      expect(onSubmitHandler).toHaveBeenCalledTimes(1);
+    });
   });
 });
