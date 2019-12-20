@@ -26,17 +26,14 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       </Navbar>
       <main>
         <div className="header-hero">
-          <Header
-            className="header-hero__header"
-            headingClassName="header-hero__heading"
-            heading="Welcome to Stack"
-          >
+          <Header className="header-hero__header" heading="Welcome to Stack">
             <Paragraph>Organize your projects</Paragraph>
             <Button type="button" text="Get Started" />
           </Header>
         </div>
         <section className="landing-page__description">
           <Header
+            textAlign="center"
             className="description-header"
             as="h2"
             heading="What is Stack"
