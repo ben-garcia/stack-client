@@ -5,13 +5,9 @@ import Modal from '.';
 import RegisterPage from '../../pages/RegisterPage';
 
 storiesOf('Modal', module)
-  .add('default', () => (
-    <Modal open header="Modal Header">
-      Modal Example
-    </Modal>
-  ))
+  .add('default', () => <Modal header="Modal Header">Modal Example</Modal>)
   .add('with RegisterPage', () => (
-    <Modal open header="Register">
+    <Modal header="Register">
       <RegisterPage />
     </Modal>
   ));

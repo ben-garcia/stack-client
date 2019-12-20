@@ -7,9 +7,7 @@ import Modal from '.';
 describe('<Modal />', () => {
   it('should render', () => {
     const { container }: RenderResult = render(
-      <Modal open header="Modal Example">
-        Testing
-      </Modal>
+      <Modal header="Modal Example">Testing</Modal>
     );
 
     expect(container).toBeInTheDocument();
@@ -19,12 +17,24 @@ describe('<Modal />', () => {
   describe('stories', () => {
     it('should render with children by default', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Modal open header="Modal Header">
-          Testing Again
-        </Modal>
+        <Modal header="Modal Header">Testing Again</Modal>
       );
 
       expect(wrapper.children().length).toBeGreaterThan(0);
+    });
+    it('should call the onClose method when close button is clicked', () => {
+      const onCloseMock = jest.fn();
+      const wrapper: ShallowWrapper = shallow(
+        <Modal header="Modal Header" onClose={onCloseMock}>
+          Testing Testing
+        </Modal>
+      );
+
+      expect(onCloseMock).toHaveBeenCalledTimes(0);
+
+      wrapper.find('.modal__button-close').simulate('click');
+
+      expect(onCloseMock).toHaveBeenCalledTimes(1);
     });
   });
 });
