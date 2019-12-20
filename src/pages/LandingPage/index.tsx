@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
   Footer,
   Header,
   Image,
+  Modal,
   Navbar,
   Paragraph,
 } from '../../components';
+import { RegisterPage } from '..';
 import { LandingPageProps } from './types';
 import logo from '../../logo.svg';
 import './styles.scss';
 
 const LandingPage: React.FC<LandingPageProps> = () => {
+  const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(
+    false
+  );
+
   return (
     <div className="landing-page">
       <Navbar className="landing-page__nav">
@@ -21,7 +27,11 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         </Navbar.Item>
         <Navbar.Item>
           <Button type="button" text="Log In" color="transparent" />
-          <Button type="button" text="Register" />
+          <Button
+            type="button"
+            text="Register"
+            onClick={() => setRegisterModalIsOpen(true)}
+          />
         </Navbar.Item>
       </Navbar>
       <main>
@@ -55,6 +65,14 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       <Footer>
         <Paragraph>Ben Garcia 2019</Paragraph>
       </Footer>
+      {registerModalIsOpen && (
+        <Modal
+          header="Register | Create An Account"
+          onClose={() => setRegisterModalIsOpen(false)}
+        >
+          <RegisterPage />
+        </Modal>
+      )}
     </div>
   );
 };
