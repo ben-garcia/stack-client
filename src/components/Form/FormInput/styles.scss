@@ -10,10 +10,27 @@
   flex-direction: column;
   flex-basis: auto;
   font-family: ChampagneLimousines, sans-serif;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
+  color: #747474;
 
   .field-label {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 400;
+  }
+
+  .field-input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #747474;
+    box-shadow: none;
+    font-size: 1rem;
+
+    &:focus {
+      border-bottom-color: #378ef0;
+    }
+  }
+
+  .field-input--error {
+    border-bottom-color: #d7373f;
   }
 }
