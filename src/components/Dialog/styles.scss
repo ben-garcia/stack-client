@@ -1,0 +1,17 @@
+.dialog {
+  border-radius: 5px;
+  width: 100%;
+
+  &__content {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.dialog--success {
+  color: #21ba45;
+}
+
+.dialog--failure {
+  color: #d7373f;
+}
