@@ -17,9 +17,9 @@ storiesOf('Form', module)
   .add('with FormInput', () => (
     <Form>
       <Form.Group>
-        <Form.Input type="text" label="Full Name" />
-        <Form.Input type="email" label="Email" />
-        <Form.Input type="password" label="Password" />
+        <Form.Input type="text" inputId="full-name" label="Full Name" />
+        <Form.Input type="email" inputId="email" label="Email" />
+        <Form.Input type="password" inputId="password" label="Password" />
       </Form.Group>
     </Form>
   ))
@@ -30,8 +30,8 @@ storiesOf('Form', module)
       }}
     >
       <Form.Group>
-        <Form.Input type="text" label="Name" />
-        <Form.Input type="password" label="Password" />
+        <Form.Input inputId="name" type="text" label="Name" />
+        <Form.Input inputId="password" type="password" label="Password" />
       </Form.Group>
       <Button type="submit" text="Submit" />
     </Form>

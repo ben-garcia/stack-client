@@ -1,3 +1,19 @@
-.form__input {
+@font-face {
+  font-family: ChampagneLimousines;
+  font-style: normal;
+  src: url('../../../../public/fonts/Champagne-&-Limousines.ttf'),
+    format('truetype');
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
   flex-basis: auto;
+  font-family: ChampagneLimousines, sans-serif;
+  margin: 0.5rem 0;
+
+  .field-label {
+    font-size: 1rem;
+    font-weight: 400;
+  }
 }
