@@ -6,9 +6,7 @@ import Modal from '../Modal';
 describe('Modal Integration', () => {
   it('should render a Button with the proper class', () => {
     const wrapper: ReactWrapper = mount(
-      <Modal open header="Header">
-        The Modal
-      </Modal>
+      <Modal header="Header">The Modal</Modal>
     );
     const button: ReactWrapper = wrapper.find('button');
 
@@ -19,9 +17,7 @@ describe('Modal Integration', () => {
 
   it('should render with times Icon', () => {
     const wrapper: ReactWrapper = mount(
-      <Modal open header="Header">
-        The Modal
-      </Modal>
+      <Modal header="Header">The Modal</Modal>
     );
     const icon: ReactWrapper = wrapper.find('i');
 

@@ -8,23 +8,25 @@ describe('FormGroup Integration', () => {
   it('should render FormInput', () => {
     const wrapper: ReactWrapper = mount(
       <FormGroup>
-        <FormInput label="label" type="text" />
+        <FormInput inputId="id" label="label" type="text" />
       </FormGroup>
     );
 
     expect(wrapper.find('FormInput').length).toBe(1);
+    expect(wrapper.find('label').length).toBe(1);
     expect(wrapper.find('input').length).toBe(1);
   });
 
-  it('should render an input element with the proper attributes', () => {
+  it('should render a label that points to input', () => {
     const wrapper: ReactWrapper = mount(
       <FormGroup>
-        <FormInput label="label" type="text" />
+        <FormInput inputId="test" label="label" type="text" />
       </FormGroup>
     );
+    const label: ReactWrapper = wrapper.find('label');
     const input: ReactWrapper = wrapper.find('input');
 
-    expect(input.prop('type')).toBe('text');
-    expect(input.prop('placeholder')).toBe('label');
+    expect(label.prop('htmlFor')).toBe('test');
+    expect(input.prop('id')).toBe(label.prop('htmlFor'));
   });
 });
