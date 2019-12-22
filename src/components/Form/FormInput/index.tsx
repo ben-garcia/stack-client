@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Dialog } from '../..';
 import { FormInputProps } from './types';
 import './styles.scss';
 
@@ -8,6 +9,7 @@ const FormInput: React.FC<FormInputProps> = ({
   type,
   inputId,
   className = '',
+  error = [],
 }) => {
   let classNamesToRender: string = 'form__field';
 
@@ -21,6 +23,7 @@ const FormInput: React.FC<FormInputProps> = ({
         {label}
       </label>
       <input className="field-input" id={inputId} type={type} />
+      <Dialog failure className="field-error" content={error} />
     </div>
   );
 };
