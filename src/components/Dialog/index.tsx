@@ -32,7 +32,7 @@ const Dialog: React.FC<DialogProps> = ({
     contentToRender = (
       <ul className="dialog-list">
         {content.map(error => (
-          <li>
+          <li key={error}>
             <Paragraph className="dialog-list__item">{error}</Paragraph>
           </li>
         ))}
