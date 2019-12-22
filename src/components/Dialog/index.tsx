@@ -12,6 +12,7 @@ const Dialog: React.FC<DialogProps> = ({
   className = '',
 }) => {
   let classesToAdd: string = 'dialog';
+  let contentToRender: React.ReactNode;
 
   if (success && !failure) {
     classesToAdd += ' dialog--success';
@@ -26,12 +27,29 @@ const Dialog: React.FC<DialogProps> = ({
     classesToAdd += ` ${className}`;
   }
 
+  // check if content being passed in an array
+  if (typeof content === 'object') {
+    contentToRender = (
+      <ul className="dialog-list">
+        {content.map(error => (
+          <li>
+            <Paragraph className="dialog-list__item">{error}</Paragraph>
+          </li>
+        ))}
+      </ul>
+    );
+  } else {
+    contentToRender = (
+      <Paragraph className="dialog__content">{content}</Paragraph>
+    );
+  }
+
   return (
     <section className={classesToAdd}>
       {header.trim() !== '' && (
         <Header as="h2" heading={header} className="dialog__header" />
       )}
-      <Paragraph className="dialog__content">{content}</Paragraph>
+      {contentToRender}
     </section>
   );
 };
