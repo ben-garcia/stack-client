@@ -9,6 +9,7 @@ const Dialog: React.FC<DialogProps> = ({
   content,
   success = false,
   failure = false,
+  className = '',
 }) => {
   let classesToAdd: string = 'dialog';
 
@@ -18,6 +19,11 @@ const Dialog: React.FC<DialogProps> = ({
 
   if (failure && !success) {
     classesToAdd += ' dialog--failure';
+  }
+
+  // if the className prop isn't empty
+  if (className.trim() !== '') {
+    classesToAdd += ` ${className}`;
   }
 
   return (
