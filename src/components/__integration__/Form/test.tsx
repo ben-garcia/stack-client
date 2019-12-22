@@ -10,7 +10,7 @@ describe('Form Integration', () => {
     const wrapper: ReactWrapper = mount(
       <Form>
         <FormGroup>
-          <FormInput label="this is a label" type="text" />
+          <FormInput inputId="testing" label="this is a label" type="text" />
         </FormGroup>
       </Form>
     );

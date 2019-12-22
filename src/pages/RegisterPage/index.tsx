@@ -13,9 +13,17 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
         }}
       >
         <Form.Group flexDirection="column">
-          <Form.Input type="email" label="Email" />
-          <Form.Input type="text" label="Username" />
-          <Form.Input type="password" label="Password" />
+          <Form.Input inputId="register-email" type="email" label="Email" />
+          <Form.Input
+            inputId="register-username"
+            type="text"
+            label="Username"
+          />
+          <Form.Input
+            inputId="register-password"
+            type="password"
+            label="Password"
+          />
         </Form.Group>
         <Button type="submit" text="Register" />
       </Form>
