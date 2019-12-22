@@ -30,7 +30,7 @@ describe('LandingPage Integration', () => {
       fireEvent.click(registerButton);
 
       const registerModal = await waitForElement(() =>
-        container.getByText('Register | Create An Account')
+        container.getByText('Create An Account')
       );
 
       expect(registerModal).toBeDefined();
