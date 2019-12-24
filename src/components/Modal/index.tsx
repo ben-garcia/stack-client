@@ -10,9 +10,17 @@ const Modal: React.FC<ModalProps> = ({
   className = '',
   onClose = () => {},
 }) => {
+  // keeps track of all classes to add to the modal
+  let classesToAdd: string = 'modal';
+
+  // make sure className isn't empty
+  if (className.trim() !== '') {
+    classesToAdd += ` ${className}`;
+  }
+
   return (
     <div className="modal-background">
-      <section className={`modal ${className}`}>
+      <section className={classesToAdd}>
         <Button
           type="button"
           iconType="times"
