@@ -40,7 +40,9 @@ const Dialog: React.FC<DialogProps> = ({
     );
   } else {
     contentToRender = (
-      <Paragraph className="dialog__content">{content}</Paragraph>
+      <Paragraph className="dialog__content">
+        {content !== '' && content}
+      </Paragraph>
     );
   }
 
