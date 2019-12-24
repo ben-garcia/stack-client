@@ -8,7 +8,7 @@ describe('FormGroup Integration', () => {
   it('should render FormInput', () => {
     const wrapper: ReactWrapper = mount(
       <FormGroup>
-        <FormInput inputId="id" label="label" type="text" />
+        <FormInput onChange={() => {}} inputId="id" label="label" type="text" />
       </FormGroup>
     );
 
@@ -20,7 +20,12 @@ describe('FormGroup Integration', () => {
   it('should render a label that points to input', () => {
     const wrapper: ReactWrapper = mount(
       <FormGroup>
-        <FormInput inputId="test" label="label" type="text" />
+        <FormInput
+          onChange={() => {}}
+          inputId="test"
+          label="label"
+          type="text"
+        />
       </FormGroup>
     );
     const label: ReactWrapper = wrapper.find('label');

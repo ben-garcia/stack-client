@@ -7,6 +7,7 @@ describe('FormInput Integration', () => {
   it('should render single error message when single error is passed', () => {
     const wrapper: ReactWrapper = mount(
       <FormInput
+        onChange={() => {}}
         error="single-error"
         inputId="inputId"
         label="the label"
@@ -27,6 +28,7 @@ describe('FormInput Integration', () => {
   it('should render multiple error messages when array is passed', () => {
     const wrapper: ReactWrapper = mount(
       <FormInput
+        onChange={() => {}}
         error={[
           'houston we have a problem',
           'houston we have got another problem',
