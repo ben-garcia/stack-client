@@ -67,6 +67,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       </Footer>
       {registerModalIsOpen && (
         <Modal
+          className="register-modal"
           header="Create An Account"
           onClose={() => setRegisterModalIsOpen(false)}
         >

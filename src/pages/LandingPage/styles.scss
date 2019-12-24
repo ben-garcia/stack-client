@@ -55,4 +55,10 @@
       }
     }
   }
+
+  .register-modal {
+    @include media-query($breakpoint-sm) {
+      width: 100%;
+    }
+  }
 }
