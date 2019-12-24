@@ -133,8 +133,9 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
   return (
     <div className="register-page">
       <Form onSubmit={handleSubmit}>
-        <Form.Group flexDirection="column">
+        <Form.Group className="form-group" flexDirection="column">
           <Form.Input
+            className="form-input"
             onChange={handleChange}
             onBlur={handleBlur}
             inputId="email"
@@ -144,6 +145,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             error={emailError}
           />
           <Form.Input
+            className="form-input"
             onChange={handleChange}
             onBlur={handleBlur}
             inputId="username"
@@ -153,6 +155,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             error={usernameError}
           />
           <Form.Input
+            className="form-input"
             onChange={handleChange}
             onBlur={handleBlur}
             inputId="password"
