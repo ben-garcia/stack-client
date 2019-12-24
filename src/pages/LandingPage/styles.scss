@@ -1,9 +1,20 @@
+@import '../sass/variables.scss';
+@import '../sass/mixins.scss';
+
 .landing-page {
   background-color: #fff;
 
   &__nav {
     padding: 0 11.5rem;
     margin: 1rem 0 0 0;
+
+    @include media-query($breakpoint-xlg) {
+      padding: 0 0 0 2rem;
+    }
+
+    @include media-query($breakpoint-sm) {
+      padding: 0;
+    }
   }
 
   .header-hero {
@@ -15,6 +26,14 @@
     &__header {
       margin: 0.5rem 0 0 11.5rem;
       padding-top: 3rem;
+
+      @include media-query($breakpoint-xlg) {
+        margin: 0.5rem 0 0 2rem !important;
+      }
+
+      @include media-query($breakpoint-sm) {
+        margin-top: 0;
+      }
     }
 
     .header-hero__heading {
@@ -35,25 +54,5 @@
         }
       }
     }
-  }
-}
-
-@media screen and (max-width: 1300px) {
-  .landing-page__nav {
-    padding: 0 0 0 2rem;
-  }
-
-  .header-hero__header {
-    margin: 0.5rem 0 0 2rem !important;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .landing-page__nav {
-    padding: 0;
-  }
-
-  .header-hero__header {
-    margin-top: 0;
   }
 }
