@@ -10,6 +10,9 @@ const FormInput: React.FC<FormInputProps> = ({
   inputId,
   className = '',
   error = [],
+  onChange,
+  onBlur,
+  value = '',
 }) => {
   let classNamesToRender: string = 'form__field';
 
@@ -22,8 +25,18 @@ const FormInput: React.FC<FormInputProps> = ({
       <label className="field-label" htmlFor={inputId}>
         {label}
       </label>
-      <input className="field-input" id={inputId} type={type} />
-      <Dialog failure className="field-error" content={error} />
+      <input
+        onChange={onChange}
+        onBlur={onBlur}
+        className="field-input"
+        name={inputId}
+        id={inputId}
+        type={type}
+        value={value}
+      />
+      {error !== '' && error.length > 0 && (
+        <Dialog failure className="field-error" content={error} />
+      )}
     </div>
   );
 };

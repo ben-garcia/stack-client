@@ -6,7 +6,12 @@ import FormInput from '.';
 
 describe('<FormInput />', () => {
   const { container }: RenderResult = render(
-    <FormInput inputId="full-name" label="Full Name" type="text" />
+    <FormInput
+      onChange={() => {}}
+      inputId="full-name"
+      label="Full Name"
+      type="text"
+    />
   );
 
   expect(container).toBeInTheDocument();
@@ -15,7 +20,12 @@ describe('<FormInput />', () => {
   describe('stories', () => {
     it('should render with the required props', () => {
       const wrapper: ShallowWrapper = shallow(
-        <FormInput inputId="full-name" label="Full Name" type="text" />
+        <FormInput
+          onChange={() => {}}
+          inputId="full-name"
+          label="Full Name"
+          type="text"
+        />
       );
 
       expect(wrapper.prop('type')).not.toBe('');
@@ -26,6 +36,7 @@ describe('<FormInput />', () => {
     it('should render a label element iwth the corerct attributes', () => {
       const wrapper: ShallowWrapper = shallow(
         <FormInput
+          onChange={() => {}}
           inputId="testing-fullname"
           label="testing-label"
           type="text"
@@ -39,7 +50,12 @@ describe('<FormInput />', () => {
 
     it('should render an input element with the correct attributes', () => {
       const wrapper: ShallowWrapper = shallow(
-        <FormInput inputId="full-name" label="Full Name" type="text" />
+        <FormInput
+          onChange={() => {}}
+          inputId="full-name"
+          label="Full Name"
+          type="text"
+        />
       );
       const input: ShallowWrapper = wrapper.find('input');
 
@@ -51,6 +67,7 @@ describe('<FormInput />', () => {
     it('should render with with class passed in a prop', () => {
       const wrapper: ShallowWrapper = shallow(
         <FormInput
+          onChange={() => {}}
           inputId="full-name"
           label="Full Name"
           type="text"
