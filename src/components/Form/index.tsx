@@ -20,7 +20,7 @@ const Form: FormComponent = ({ children, onSubmit, className = '' }) => {
   // when onSubmit prop is valid
   if (onSubmit) {
     return (
-      <form onSubmit={onSubmit} className={classNamesToRender}>
+      <form noValidate onSubmit={onSubmit} className={classNamesToRender}>
         {children}
       </form>
     );
