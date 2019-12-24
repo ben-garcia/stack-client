@@ -5,12 +5,18 @@
   margin: 0;
   padding: 0.3rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     cursor: pointer;
   }
 }
 
-.button--primary {
+.button--disabled {
+  background-color: #fff;
+  color: #3f0e40;
+  border: 1px solid #3f0e40;
+}
+
+.button--primary:not(:disabled) {
   background-color: #3f0e40;
   color: #fff;
 

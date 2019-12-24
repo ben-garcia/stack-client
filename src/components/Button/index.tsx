@@ -11,13 +11,16 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = '',
   iconType = '',
+  disabled = false,
 }) => {
-  let backgroundColor: string = 'primary';
   let iconToRender: React.ReactNode;
+  let classesToAdd: string = 'button';
 
   // color prop should either be 'primary' | 'transparent'
   if (color === 'transparent') {
-    backgroundColor = 'transparent';
+    classesToAdd += ' button--transparent';
+  } else {
+    classesToAdd += ' button--primary';
   }
 
   // when icon is to be used with no text.
@@ -32,11 +35,22 @@ const Button: React.FC<ButtonProps> = ({
     );
   }
 
+  // className to add
+  if (className.trim() !== '') {
+    classesToAdd += ` ${className}`;
+  }
+
+  // determine if the button should be disabled
+  if (disabled) {
+    classesToAdd += ' button--disabled';
+  }
+
   return (
     <button
       type={type}
-      className={`button button--${backgroundColor} ${className}`}
+      className={classesToAdd}
       onClick={onClick}
+      disabled={disabled}
     >
       {!text && iconType ? iconToRender : ''}
       {text && !iconType ? text : ''}

@@ -9,4 +9,5 @@ export interface ButtonProps {
   color?: 'primary' | 'transparent';
   className?: string;
   iconType?: IconProps['type'];
+  disabled?: boolean;
 }
