@@ -8,13 +8,13 @@ export const emailSchema = yup
 export const usernameSchema = yup
   .string()
   .trim()
-  .min(2, 'field must contain a minumun length of 3')
+  .min(2, 'minumun length of 3')
   .required();
 
 export const passwordSchema = yup
   .string()
   .trim()
-  .min(5, 'field must contain a minumum length of 6')
+  .min(5, 'minumum length of 6')
   .required();
 
 export const newUserSchema = yup.object().shape({

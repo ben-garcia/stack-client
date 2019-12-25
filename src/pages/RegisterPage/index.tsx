@@ -87,6 +87,15 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
    */
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // if there are any errors, then submit button must be disabled
+    if (
+      errors.email.length > 0 ||
+      errors.username.length > 0 ||
+      errors.password.length > 0
+    ) {
+      setButtonIsDisabled(true);
+    }
+
     if (
       isFieldValid('email') &&
       isFieldValid('username') &&
