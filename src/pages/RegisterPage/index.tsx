@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, Form } from '../../components';
-import { RegisterPageProps } from './types';
+import { RegisterPageProps, User, UserErrors } from './types';
 import {
   emailSchema,
   usernameSchema,
@@ -11,12 +11,16 @@ import {
 import './styles.scss';
 
 const RegisterPage: React.FC<RegisterPageProps> = () => {
-  const [email, setEmail] = useState<string>('');
-  const [emailError, setEmailError] = useState<string[]>([]);
-  const [username, setUsername] = useState<string>('');
-  const [usernameError, setUsernameError] = useState<string[]>([]);
-  const [password, setPassword] = useState<string>('');
-  const [passwordError, setPasswordError] = useState<string[]>([]);
+  const [user, setUser] = useState<User>({
+    email: '',
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState<UserErrors>({
+    email: [],
+    username: [],
+    password: [],
+  });
   const [buttonIsDisabled, setButtonIsDisabled] = useState<boolean>(true);
 
   /**
@@ -28,19 +32,28 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
   const validateField = async (targetName: string) => {
     try {
       if (targetName === 'email') {
-        await emailSchema.validate(email, { abortEarly: false });
+        await emailSchema.validate(user.email, { abortEarly: false });
       } else if (targetName === 'username') {
-        await usernameSchema.validate(username, { abortEarly: false });
+        await usernameSchema.validate(user.username, { abortEarly: false });
       } else if (targetName === 'password') {
-        await passwordSchema.validate(password, { abortEarly: false });
+        await passwordSchema.validate(user.password, { abortEarly: false });
       }
     } catch (err) {
       if (targetName === 'email') {
-        setEmailError([...err.errors]);
+        setErrors({
+          ...errors,
+          email: [...err.errors],
+        });
       } else if (targetName === 'username') {
-        setUsernameError([...err.errors]);
+        setErrors({
+          ...errors,
+          username: [...err.errors],
+        });
       } else if (targetName === 'password') {
-        setPasswordError([...err.errors]);
+        setErrors({
+          ...errors,
+          password: [...err.errors],
+        });
       }
     }
   };
@@ -55,13 +68,13 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
    */
   const isFieldValid = (targetName: string) => {
     if (targetName === 'email') {
-      return emailSchema.isValidSync(email);
+      return emailSchema.isValidSync(user.email);
     }
     if (targetName === 'username') {
-      return usernameSchema.isValidSync(username);
+      return usernameSchema.isValidSync(user.username);
     }
     if (targetName === 'password') {
-      return passwordSchema.isValidSync(password);
+      return passwordSchema.isValidSync(user.password);
     }
     return null;
   };
@@ -72,36 +85,57 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
    *
    * update state
    */
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
       isFieldValid('email') &&
       isFieldValid('username') &&
       isFieldValid('password')
     ) {
-      setEmailError([]);
-      setUsernameError([]);
-      setPasswordError([]);
+      setErrors({
+        email: [],
+        username: [],
+        password: [],
+      });
       setButtonIsDisabled(false);
     }
 
     if (e.target.name === 'email') {
-      setEmail(e.target.value);
+      setUser({
+        ...user,
+        email: e.target.value,
+      });
       if (isFieldValid('email')) {
-        setEmailError([]);
+        setErrors({
+          ...errors,
+          email: [],
+        });
       } else {
         validateField('email');
       }
     } else if (e.target.name === 'username') {
-      setUsername(e.target.value);
+      setUser({
+        ...user,
+        username: e.target.value,
+      });
       if (isFieldValid('username')) {
-        setUsernameError([]);
+        setErrors({
+          ...errors,
+          username: [],
+        });
       } else {
         validateField('username');
       }
     } else if (e.target.name === 'password') {
-      setPassword(e.target.value);
+      setUser({
+        ...user,
+        password: e.target.value,
+      });
       if (isFieldValid('password')) {
-        setPasswordError([]);
+        setErrors({
+          ...errors,
+          password: [],
+        });
       } else {
         validateField('password');
       }
@@ -119,11 +153,7 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     e.preventDefault();
 
     try {
-      await newUserSchema.isValid({
-        email,
-        username,
-        password,
-      });
+      await newUserSchema.isValid(user);
     } catch (err) {
       // eslint-disable-next-line
       console.log('handleSubmit error: ', err);
@@ -141,8 +171,8 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             inputId="email"
             type="email"
             label="email"
-            value={email}
-            error={emailError}
+            value={user.email}
+            error={errors.email}
           />
           <Form.Input
             className="form-input"
@@ -151,8 +181,8 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             inputId="username"
             type="text"
             label="username"
-            value={username}
-            error={usernameError}
+            value={user.username}
+            error={errors.username}
           />
           <Form.Input
             className="form-input"
@@ -161,8 +191,8 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             inputId="password"
             type="password"
             label="password"
-            value={password}
-            error={passwordError}
+            value={user.password}
+            error={errors.password}
           />
         </Form.Group>
         <Button type="submit" text="Register" disabled={buttonIsDisabled} />
