@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 
 import { Button, Form } from '../../components';
 import { RegisterPageProps, User, UserErrors } from './types';
-import {
-  emailSchema,
-  usernameSchema,
-  passwordSchema,
-  newUserSchema,
-} from './utils';
+import { emailSchema, usernameSchema, passwordSchema } from './utils';
+import sendRequest from '../../api';
 import './styles.scss';
 
 const RegisterPage: React.FC<RegisterPageProps> = () => {
@@ -162,7 +158,27 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
     e.preventDefault();
 
     try {
-      await newUserSchema.isValid(user);
+      // disable the button
+      setButtonIsDisabled(true);
+
+      await validateField(user.email);
+      await validateField(user.username);
+      await validateField(user.password);
+
+      let response;
+
+      if (!buttonIsDisabled) {
+        response = await sendRequest({
+          method: 'POST',
+          url: '/auth/register',
+          data: {
+            ...user,
+          },
+        });
+      }
+
+      // eslint-disable-next-line
+      console.log('response: ', response);
     } catch (err) {
       // eslint-disable-next-line
       console.log('handleSubmit error: ', err);
