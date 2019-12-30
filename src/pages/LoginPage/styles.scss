@@ -1,0 +1,19 @@
+@import '../sass/variables.scss';
+@import '../sass/mixins.scss';
+
+.login-page {
+  width: 100%;
+
+  .form-group {
+    @include media-query($breakpoint-sm) {
+      width: 100%;
+    }
+
+    .form-input {
+      @include media-query($breakpoint-sm) {
+        width: inherit;
+        margin: 0.3rem 0;
+      }
+    }
+  }
+}
