@@ -56,7 +56,8 @@
     }
   }
 
-  .register-modal {
+  .register-modal,
+  .login-modal {
     @include media-query($breakpoint-sm) {
       width: 100%;
     }

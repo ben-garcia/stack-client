@@ -9,7 +9,7 @@ import {
   Navbar,
   Paragraph,
 } from '../../components';
-import { RegisterPage } from '..';
+import { RegisterPage, LoginPage } from '..';
 import { LandingPageProps } from './types';
 import logo from '../../logo.svg';
 import './styles.scss';
@@ -18,6 +18,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
   const [registerModalIsOpen, setRegisterModalIsOpen] = useState<boolean>(
     false
   );
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
 
   return (
     <div className="landing-page">
@@ -26,7 +27,12 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           <Image src={logo} alt="Stack Logo" size="sm" />
         </Navbar.Item>
         <Navbar.Item>
-          <Button type="button" text="Log In" color="transparent" />
+          <Button
+            type="button"
+            text="Log In"
+            color="transparent"
+            onClick={() => setLoginModalIsOpen(true)}
+          />
           <Button
             type="button"
             text="Register"
@@ -72,6 +78,15 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           onClose={() => setRegisterModalIsOpen(false)}
         >
           <RegisterPage />
+        </Modal>
+      )}
+      {loginModalIsOpen && (
+        <Modal
+          className="login-modal"
+          header="Log In"
+          onClose={() => setLoginModalIsOpen(false)}
+        >
+          <LoginPage />
         </Modal>
       )}
     </div>
