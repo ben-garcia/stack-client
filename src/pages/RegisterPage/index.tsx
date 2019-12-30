@@ -165,10 +165,8 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
       await validateField(user.username);
       await validateField(user.password);
 
-      let response;
-
       if (!buttonIsDisabled) {
-        response = await sendRequest({
+        await sendRequest({
           method: 'POST',
           url: '/auth/register',
           data: {
@@ -176,12 +174,25 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
           },
         });
       }
-
-      // eslint-disable-next-line
-      console.log('response: ', response);
     } catch (err) {
       // eslint-disable-next-line
       console.log('handleSubmit error: ', err);
+
+      // if there was a problem with the email address
+      // add the message to errors.email
+      if (/(email)/.test(err.response.data.error)) {
+        setErrors({
+          ...errors,
+          email: err.response.data.error.split('=')[1],
+        });
+      }
+
+      if (/(username)/.test(err.response.data.error)) {
+        setErrors({
+          ...errors,
+          username: err.response.data.error.split('=')[1],
+        });
+      }
     }
   };
 
