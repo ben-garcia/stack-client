@@ -1,4 +1,34 @@
+@import '../sass/variables';
+
 .dashboard {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: min-content;
+  grid-template-areas:
+    'dashboard__top-nav dashboard__top-nav'
+    'dashboard__sidebar dashboard__main';
+
+  &__top-nav {
+    background-color: $background-color;
+    grid-area: dashboard__top-nav;
+    width: inherit;
+  }
+
+  &__sidebar {
+    background-color: $primary-color;
+    color: $background-color;
+    grid-area: dashboard__sidebar;
+    display: flex;
+
+    .sidebar-channels {
+      width: 220px;
+    }
+  }
+
+  &__main {
+    background-color: $background-color;
+    grid-area: dashboard__main;
+  }
 }
