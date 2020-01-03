@@ -1,3 +1,5 @@
+@import './pages/sass/variables';
+
 *,
 *::before,
 *::after {
@@ -10,4 +12,5 @@ html,
 body {
   font-size: 16px;
   overflow-x: hidden;
+  font-family: $font-text;
 }

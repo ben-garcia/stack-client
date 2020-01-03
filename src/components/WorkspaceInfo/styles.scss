@@ -1,0 +1,41 @@
+@import '../../pages/sass/variables';
+
+.workspace-info {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+
+  &__inner-left {
+    background-color: $primary-color;
+    color: $background-color;
+    min-width: 280px;
+    padding: 1rem;
+
+    &:hover {
+      background-color: $primary-color-hover;
+      cursor: pointer;
+    }
+  }
+
+  &__inner-right {
+    border-bottom: 1px solid #ccc;
+    padding: 0.8rem;
+    width: 100%;
+
+    .channel-name {
+      font-weight: 600;
+    }
+
+    .channel-info {
+      display: flex;
+
+      .channel-description {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
+}

@@ -1,3 +1,15 @@
+@font-face {
+  font-family: ChampagneLimousines;
+  font-style: normal;
+  src: url('../../assets/fonts/Champagne-&-Limousines.ttf'), format('truetype');
+}
+
+@font-face {
+  font-family: Coolvetica;
+  font-style: normal;
+  src: url('../../assets/fonts/coolvetica-rg.ttf') format('truetype');
+}
+
 $breakpoint-xm: 0;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
@@ -7,3 +19,6 @@ $breakpoint-xlg: 1200px;
 $primary-color: #3f0e40;
 $primary-color-hover: #350d36;
 $background-color: rgb(255, 255, 255);
+
+$font-header: Coolvetica, Helvetica sans-serif;
+$font-text: ChampagneLimousines, sans-serif;
