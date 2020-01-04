@@ -31,6 +31,10 @@
     .channel-info {
       display: flex;
 
+      .channel-member-count {
+        flex-shrink: 0;
+      }
+
       .channel-description {
         text-overflow: ellipsis;
         overflow: hidden;
