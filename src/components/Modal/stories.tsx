@@ -8,7 +8,10 @@ storiesOf('Modal', module)
   .add('default', () => <Modal header="Modal Header">Modal Example</Modal>)
   .add('with RegisterPage', () => (
     <Modal header="Register">
-      <RegisterPage />
+      <RegisterPage
+        setLoginModalIsOpen={() => {}}
+        setRegisterModalIsOpen={() => {}}
+      />
     </Modal>
   ))
   .add('with LoginPage', () => (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Button, Form } from '../../components';
 import { LoginPageProps, User, UserErrors } from './types';
@@ -14,6 +15,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     email: [],
     password: [],
   });
+  const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -32,13 +34,17 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           ...user,
         },
       });
+
+      // when a successfull response from the server
+      // redirect to dashboard
+      history.replace('/dashboard');
     } catch (err) {
       // eslint-disable-next-line
       console.log('handleSubmit error: ', err);
 
       setErrors({
-        email: err.response.data.error,
-        password: err.response.data.error,
+        email: err.response?.data.error,
+        password: err.response?.data.error,
       });
     }
   };

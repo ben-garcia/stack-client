@@ -6,7 +6,10 @@ import { emailSchema, usernameSchema, passwordSchema } from './utils';
 import sendRequest from '../../api';
 import './styles.scss';
 
-const RegisterPage: React.FC<RegisterPageProps> = () => {
+const RegisterPage: React.FC<RegisterPageProps> = ({
+  setRegisterModalIsOpen,
+  setLoginModalIsOpen,
+}) => {
   const [user, setUser] = useState<User>({
     email: '',
     username: '',
@@ -173,6 +176,10 @@ const RegisterPage: React.FC<RegisterPageProps> = () => {
             ...user,
           },
         });
+
+        // close the register modal and show the login modal
+        setRegisterModalIsOpen(false);
+        setLoginModalIsOpen(true);
       }
     } catch (err) {
       // eslint-disable-next-line
