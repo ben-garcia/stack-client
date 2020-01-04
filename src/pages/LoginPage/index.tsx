@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import { Button, Form } from '../../components';
 import { LoginPageProps, User, UserErrors } from './types';
 import sendRequest from '../../api';
+import { userLoggedIn } from '../../actions/user';
 import './styles.scss';
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
@@ -34,6 +37,9 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           ...user,
         },
       });
+
+      // dispatch the action to update the user.isLoggedIn
+      userLoggedInAction();
 
       // when a successfull response from the server
       // redirect to dashboard
@@ -78,4 +84,8 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   );
 };
 
-export default LoginPage;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  userLoggedInAction: () => dispatch(userLoggedIn()),
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

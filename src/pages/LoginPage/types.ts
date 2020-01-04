@@ -1,4 +1,8 @@
-export interface LoginPageProps {}
+import { Action } from '../../reducers/types';
+
+export interface LoginPageProps {
+  userLoggedInAction: () => Action;
+}
 
 export interface User {
   email: string;
