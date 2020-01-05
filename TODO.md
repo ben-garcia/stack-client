@@ -22,20 +22,20 @@
 
   - [ ] Redux
     - state management
-    - [ ] react-redux
-    - [ ] redux-saga
+    - [x] react-redux
+    - [x] redux-saga
       - handling asynchronize actions
-    - [ ] create store
-    - [ ] create actions
-    - [ ] create reducers
+    - [x] create store
+    - [x] create actions
+    - [x] create reducers
     - [ ] create sagas
-  - [ ] React Router
+  - [x] React Router
     - routing
     - creating a router folder
 
 - ## Pages
 
-  - [ ] LandingPage
+  - [x] LandingPage
     - will have information about the project
     - buttons that trigger a modal with either a form to register or login
 
@@ -54,16 +54,15 @@
     - wrapper for p tag with styles
   - [x] Icon
     - using font icons
-  - [ ] Form
+  - [x] Form
     - FormGroup
       - wrapper component for fieldset element used to combine related form information
     - FormInput
       - wrapper components for input and label elements
-  - [ ] Modal
+  - [x] Modal
     - will contain forms to
       - register
       - log in
-      - create a new Workspace and Channel
   - [x] Footer
     - contain my name and the year
   - [ ] Dashboard
