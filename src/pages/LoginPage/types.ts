@@ -1,7 +1,7 @@
-import { Action } from '../../reducers/types';
+import userLoggedIn from '../../store/user/actions';
 
 export interface LoginPageProps {
-  userLoggedInAction: () => Action;
+  userLoggedInAction: typeof userLoggedIn;
 }
 
 export interface User {

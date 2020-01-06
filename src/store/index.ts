@@ -1,24 +1,9 @@
-import { createStore, /* applyMiddleware, */ compose } from 'redux';
-// import createSagaMiddleware from 'redux-saga';
+import { combineReducers } from 'redux';
 
-import rootReducer from '../reducers';
-// import rootSaga from '../sagas';
+import userReducer from './user/reducer';
 
-// const sagaMiddleware = createSagaMiddleware();
+export const rootReducer = combineReducers({
+  user: userReducer,
+});
 
-const store = createStore(
-  rootReducer,
-  compose(
-    // applyMiddleware(sagaMiddleware),
-    // redux dev tools
-    // NOTE: remove when building static files for production
-    // eslint-disable-next-line
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      // eslint-disable-next-line
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
-
-// sagaMiddleware.run(rootSaga);
-
-export default store;
+export type AppState = ReturnType<typeof rootReducer>;

@@ -6,7 +6,8 @@ import { Dispatch } from 'redux';
 import { Button, Form } from '../../components';
 import { LoginPageProps, User, UserErrors } from './types';
 import sendRequest from '../../api';
-import { userLoggedIn } from '../../actions/user';
+import userLoggedIn from '../../store/user/actions';
+import { User as StoreUser } from '../../store/user/types';
 import './styles.scss';
 
 const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
@@ -30,7 +31,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
     e.preventDefault();
 
     try {
-      await sendRequest({
+      const response = await sendRequest({
         method: 'POST',
         url: '/auth/login',
         data: {
@@ -38,8 +39,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
         },
       });
 
+      // eslint-disable-next-line
+      console.log(response);
+
       // dispatch the action to update the user.isLoggedIn
-      userLoggedInAction();
+      userLoggedInAction(response.data.user);
 
       // when a successfull response from the server
       // redirect to dashboard
@@ -85,7 +89,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  userLoggedInAction: () => dispatch(userLoggedIn()),
+  userLoggedInAction: (user: StoreUser) => dispatch(userLoggedIn(user)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginPage);
