@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { LandingPage, Dashboard, NotFound } from '../pages';
+import { LandingPage, Dashboard, NotFound } from 'pages';
 
 const Routes: React.FC = () => (
   <BrowserRouter>

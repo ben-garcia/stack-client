@@ -8,10 +8,10 @@ import {
   Modal,
   Navbar,
   Paragraph,
-} from '../../components';
+} from 'components';
+import logo from 'logo.svg';
 import { RegisterPage, LoginPage } from '..';
 import { LandingPageProps } from './types';
-import logo from '../../logo.svg';
 import './styles.scss';
 
 const LandingPage: React.FC<LandingPageProps> = () => {

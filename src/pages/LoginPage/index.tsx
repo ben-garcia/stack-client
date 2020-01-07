@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form } from '../../components';
+import sendRequest from 'api';
+import { Button, Form } from 'components';
+import userLoggedIn from 'store/user/actions';
+import { User as StoreUser } from 'store/user/types';
 import { LoginPageProps, User, UserErrors } from './types';
-import sendRequest from '../../api';
-import userLoggedIn from '../../store/user/actions';
-import { User as StoreUser } from '../../store/user/types';
 import './styles.scss';
 
 const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {

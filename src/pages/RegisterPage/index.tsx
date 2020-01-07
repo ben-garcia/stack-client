@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { Button, Form } from '../../components';
+import { Button, Form } from 'components';
+import sendRequest from 'api';
 import { RegisterPageProps, User, UserErrors } from './types';
 import { emailSchema, usernameSchema, passwordSchema } from './utils';
-import sendRequest from '../../api';
 import './styles.scss';
 
 const RegisterPage: React.FC<RegisterPageProps> = ({
