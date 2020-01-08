@@ -36,8 +36,15 @@
 - ## Pages
 
   - [x] LandingPage
+
     - will have information about the project
     - buttons that trigger a modal with either a form to register or login
+
+  - [x] RegisterPage
+    - register form
+  - [x] LoginPage
+    - login form
+  - [ ] Dashboard
 
 - ## Components
   - [x] Button
@@ -48,8 +55,8 @@
     - wrapper for image
   - [x] Navbar
     - will contain the logo and name of the project
-  - [x] NavbarItem
-    - to be nested inside Navbar
+    - NavbarItem
+      - to be nested inside Navbar
   - [x] Paragraph
     - wrapper for p tag with styles
   - [x] Icon
