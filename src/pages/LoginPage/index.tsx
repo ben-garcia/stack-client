@@ -39,8 +39,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
         },
       });
 
-      // eslint-disable-next-line
-      console.log(response);
+      // save user to localStorage
+      localStorage.setItem('user', JSON.stringify(response.data.user));
 
       // dispatch the action to update the user.isLoggedIn
       userLoggedInAction(response.data.user);

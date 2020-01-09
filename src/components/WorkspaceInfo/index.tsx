@@ -1,13 +1,14 @@
 import React from 'react';
 
+import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
-const WorkspaceInfo: React.FC = () => {
+const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ user }) => {
   return (
     <div className="workspace-info">
       <section className="workspace-info__inner-left">
         <div className="workspace-name">Testing</div>
-        <div className="workspace-username">Ben Garcia</div>
+        <div className="workspace-username">{user.username}</div>
       </section>
       <section className="workspace-info__inner-right">
         <div className="channel-name">#general</div>

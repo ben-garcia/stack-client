@@ -1,13 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import { WorkspaceInfo } from '../../components';
+import { WorkspaceInfo } from 'components';
+import { AppState } from 'store';
+import { DashboardProps } from './types';
 import './styles.scss';
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   return (
     <div className="dashboard">
       <section className="dashboard__top-nav">
-        <WorkspaceInfo />
+        <WorkspaceInfo user={user} />
       </section>
       <aside className="dashboard__sidebar">
         <section className="sidebar-workspaces">Workspaces</section>
@@ -18,4 +21,8 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state: AppState): AppState => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Dashboard);
