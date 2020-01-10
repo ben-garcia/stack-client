@@ -9,6 +9,7 @@ import Modal from './Modal';
 import Navbar from './Navbar';
 import Paragraph from './Paragraph';
 import WorkspaceInfo from './WorkspaceInfo';
+import WorkspaceList from './WorkspaceList';
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   Navbar,
   Paragraph,
   WorkspaceInfo,
+  WorkspaceList,
 };

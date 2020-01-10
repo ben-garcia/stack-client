@@ -1,0 +1,27 @@
+.workspace-list {
+  &__inner {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item {
+    width: 45px;
+    height: 45px;
+    margin: 0.2rem 0;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.5);
+    }
+  }
+}
