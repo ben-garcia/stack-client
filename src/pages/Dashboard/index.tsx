@@ -5,16 +5,27 @@ import { Dispatch } from 'redux';
 import { WorkspaceInfo } from 'components';
 import { AppState } from 'store';
 import userLoggedIn from 'store/user/actions';
+import { requestUserWorkspaces } from 'store/workspaces/actions';
 import { User } from 'store/user/types';
 import { DashboardProps } from './types';
 import './styles.scss';
 
-const Dashboard: React.FC<DashboardProps> = ({ user, userLoggedInAction }) => {
-  // set up redux via localStorage on page reload
+const Dashboard: React.FC<DashboardProps> = ({
+  user,
+  userLoggedInAction,
+  requestUserWorkspacesAction,
+}) => {
+  // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
-    const parsedUser = JSON.parse(userFromLocalStorage!);
-    userLoggedInAction(parsedUser);
+    // if a user is stored in localStorage
+    if (userFromLocalStorage) {
+      const parsedUser = JSON.parse(userFromLocalStorage!);
+      // dispatch action to updated user in the store
+      userLoggedInAction(parsedUser);
+      // dispatch action to get all user's workspaces
+      requestUserWorkspacesAction();
+    }
   }
 
   return (
@@ -33,10 +44,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user, userLoggedInAction }) => {
 
 const mapStateToProps = (state: AppState): AppState => ({
   user: state.user,
+  workspaces: state.workspaces,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   userLoggedInAction: (user: User) => dispatch(userLoggedIn(user)),
+  requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

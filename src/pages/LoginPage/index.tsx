@@ -7,10 +7,14 @@ import sendRequest from 'api';
 import { Button, Form } from 'components';
 import userLoggedIn from 'store/user/actions';
 import { User as StoreUser } from 'store/user/types';
+import { requestUserWorkspaces } from 'store/workspaces/actions';
 import { LoginPageProps, User, UserErrors } from './types';
 import './styles.scss';
 
-const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
+const LoginPage: React.FC<LoginPageProps> = ({
+  userLoggedInAction,
+  requestUserWorkspacesAction,
+}) => {
   const [user, setUser] = useState<User>({
     email: '',
     password: '',
@@ -44,6 +48,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
 
       // dispatch the action to update the user.isLoggedIn
       userLoggedInAction(response.data.user);
+
+      // dispatch the action to get user's workspaces
+      requestUserWorkspacesAction();
 
       // when a successfull response from the server
       // redirect to dashboard
@@ -90,6 +97,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ userLoggedInAction }) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   userLoggedInAction: (user: StoreUser) => dispatch(userLoggedIn(user)),
+  requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
 });
 
 export default connect(null, mapDispatchToProps)(LoginPage);
