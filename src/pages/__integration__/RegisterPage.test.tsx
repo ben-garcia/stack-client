@@ -11,7 +11,12 @@ import { RegisterPage } from '..';
 
 describe('RegisterPage Integration', () => {
   it('should render', () => {
-    const { container }: RenderResult = render(<RegisterPage />);
+    const { container }: RenderResult = render(
+      <RegisterPage
+        setLoginModalIsOpen={() => {}}
+        setRegisterModalIsOpen={() => {}}
+      />
+    );
 
     expect(container).toBeInTheDocument();
     cleanup();
@@ -21,7 +26,12 @@ describe('RegisterPage Integration', () => {
     let result: RenderResult;
 
     beforeEach(() => {
-      result = render(<RegisterPage />);
+      result = render(
+        <RegisterPage
+          setLoginModalIsOpen={() => {}}
+          setRegisterModalIsOpen={() => {}}
+        />
+      );
     });
     afterEach(cleanup);
 
