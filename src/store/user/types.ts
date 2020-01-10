@@ -10,7 +10,7 @@ export interface User {
 
 export interface UserState {
   isLoggedIn: boolean;
-  id?: string;
+  id?: number;
   email?: string;
   username?: string;
   createdAt?: string;
