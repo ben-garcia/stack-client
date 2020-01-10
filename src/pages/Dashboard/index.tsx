@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { WorkspaceInfo } from 'components';
+import { WorkspaceInfo, WorkspaceList } from 'components';
 import { AppState } from 'store';
 import userLoggedIn from 'store/user/actions';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
@@ -12,6 +12,7 @@ import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
   user,
+  workspaces,
   userLoggedInAction,
   requestUserWorkspacesAction,
 }) => {
@@ -34,7 +35,10 @@ const Dashboard: React.FC<DashboardProps> = ({
         <WorkspaceInfo user={user} />
       </section>
       <aside className="dashboard__sidebar">
-        <section className="sidebar-workspaces">Workspaces</section>
+        <WorkspaceList
+          workspaces={workspaces.list}
+          className="sidebar-workspaces"
+        />
         <section className="sidebar-channels">Channel Nav</section>
       </aside>
       <main className="dashboard__main">Main</main>
