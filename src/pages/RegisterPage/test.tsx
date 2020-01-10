@@ -5,7 +5,12 @@ import RegisterPage from '.';
 
 describe('<RegisterPage />', () => {
   it('should render', () => {
-    const { container }: RenderResult = render(<RegisterPage />);
+    const { container }: RenderResult = render(
+      <RegisterPage
+        setLoginModalIsOpen={() => {}}
+        setRegisterModalIsOpen={() => {}}
+      />
+    );
 
     expect(container).toBeInTheDocument();
     cleanup();
