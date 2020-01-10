@@ -1,4 +1,5 @@
 module.exports = {
+  moduleDirectories: ['node_modules', 'src'],
   roots: ['<rootDir>/src'],
   testMatch: ['/components/**/*test.tsx', '**/?(*.)+(test).+(ts|tsx)'],
   transform: {
