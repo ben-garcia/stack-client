@@ -6,7 +6,7 @@ import {
 } from './types';
 
 const initialState: WorkspacesState = {
-  workspaces: [],
+  list: [],
 };
 
 const workspacesReducer = (
@@ -16,11 +16,11 @@ const workspacesReducer = (
   switch (action.type) {
     case RECEIVED_USER_WORKSPACES:
       return {
-        workspaces: [...action.payload],
+        list: [...action.payload],
       };
     case RECEIVED_USER_WORKSPACES_ERROR:
       return {
-        workspaces: [],
+        list: [],
         error: action.payload,
       };
     default:

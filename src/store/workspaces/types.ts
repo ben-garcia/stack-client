@@ -10,7 +10,7 @@ export interface Workspace {
 }
 
 export interface WorkspacesState {
-  workspaces: Workspace[];
+  list: Workspace[];
   error?: WorkspacesError;
 }
 
