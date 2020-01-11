@@ -5,25 +5,38 @@ import {
   fireEvent,
   RenderResult,
 } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 import { LoginPage } from '..';
 
-describe('LoginPage Integration', () => {
-  it('should render', () => {
-    const { container }: RenderResult = render(<LoginPage />);
+const mockStore = configureStore();
+const store = mockStore({});
 
-    expect(container).toBeInTheDocument();
-    cleanup();
+// stub out useHistory hook
+jest.mock('react-router-dom', () => ({
+  useHistory: () => ({
+    replace: jest.fn(),
+  }),
+}));
+
+describe('LoginPage Integration', () => {
+  let result: RenderResult;
+
+  beforeEach(() => {
+    result = render(
+      <Provider store={store}>
+        <LoginPage />
+      </Provider>
+    );
+  });
+  afterEach(cleanup);
+
+  it('should render', () => {
+    expect(result.container).toBeInTheDocument();
   });
 
   describe('user interactions', () => {
-    let result: RenderResult;
-
-    beforeEach(() => {
-      result = render(<LoginPage />);
-    });
-    afterEach(cleanup);
-
     it('should change value of email when user types', () => {
       const emailInput = result.getByLabelText(/email/, { selector: 'input' });
       expect(emailInput.getAttribute('value')).toBe('');
