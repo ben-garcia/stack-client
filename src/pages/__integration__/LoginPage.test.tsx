@@ -8,10 +8,12 @@ import {
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
+import userLoggedIn from 'store/user/actions';
+import { requestUserWorkspaces } from 'store/workspaces/actions';
 import { LoginPage } from '..';
 
 const mockStore = configureStore();
-const store = mockStore({});
+let store = mockStore({});
 
 // stub out useHistory hook
 jest.mock('react-router-dom', () => ({
@@ -55,6 +57,38 @@ describe('LoginPage Integration', () => {
         target: { value: 'password' },
       });
       expect(passwordInput.getAttribute('value')).toBe('password');
+    });
+  });
+
+  describe('redux', () => {
+    describe('actions', () => {
+      beforeEach(() => {
+        store = mockStore({});
+      });
+
+      it('should dispatch userLoggedIn with user', () => {
+        const user = {
+          id: 1,
+          username: 'test',
+          email: 'test@testing.com',
+          createdAt: 'gjgjgjg',
+          updatedAt: 'fjfjfjffjf',
+        };
+
+        store.dispatch(userLoggedIn(user));
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({ type: 'USER_LOGGED_IN', payload: user });
+      });
+
+      it('should dispatch requestUserWorkspaces action', () => {
+        store.dispatch(requestUserWorkspaces());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({ type: 'REQUEST_USER_WORKSPACES' });
+      });
     });
   });
 });

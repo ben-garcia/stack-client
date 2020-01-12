@@ -1,7 +1,7 @@
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   username: string;
   createdAt: string;
