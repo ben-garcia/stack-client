@@ -1,0 +1,19 @@
+.channel {
+  &__name {
+    font-weight: 600;
+  }
+
+  &__inner {
+    display: flex;
+  }
+
+  &__member-count {
+    flex-shrink: 0;
+  }
+
+  &__description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
