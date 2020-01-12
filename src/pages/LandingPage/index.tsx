@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   Button,
@@ -19,6 +20,13 @@ const LandingPage: React.FC<LandingPageProps> = () => {
     false
   );
   const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
+  const history = useHistory();
+
+  // check if a user exists in localStorage
+  // redirect to dashboard
+  if (localStorage.getItem('user')) {
+    history.replace('/dashboard');
+  }
 
   return (
     <div className="landing-page">

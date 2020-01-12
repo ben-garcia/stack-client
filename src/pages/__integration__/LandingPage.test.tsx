@@ -9,6 +9,12 @@ import {
 
 import { LandingPage } from '..';
 
+jest.mock('react-router-dom', () => ({
+  useHistory: () => ({
+    replace: jest.fn(),
+  }),
+}));
+
 describe('LandingPage Integration', () => {
   it('should render', () => {
     const { container }: RenderResult = render(<LandingPage />);
