@@ -32,7 +32,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="dashboard">
       <section className="dashboard__top-nav">
-        <WorkspaceInfo user={user} />
+        <WorkspaceInfo />
       </section>
       <aside className="dashboard__sidebar">
         <WorkspaceList

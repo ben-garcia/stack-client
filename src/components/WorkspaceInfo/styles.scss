@@ -23,23 +23,5 @@
     border-bottom: 1px solid #ccc;
     padding: 0.8rem;
     width: 100%;
-
-    .channel-name {
-      font-weight: 600;
-    }
-
-    .channel-info {
-      display: flex;
-
-      .channel-member-count {
-        flex-shrink: 0;
-      }
-
-      .channel-description {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-    }
   }
 }
