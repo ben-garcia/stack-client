@@ -1,3 +1,5 @@
+@import '../../pages/sass/variables';
+
 @font-face {
   font-family: 'Stack';
   src: url('../../assets/fonts/icons/Stack.ttf?n5dut7') format('truetype');
@@ -24,8 +26,9 @@
 
 .icon {
   /* color chosen so that it is visible in storybook */
+
   /* TODO: change to white */
-  color: #000;
+  color: $background-color;
 }
 
 .icon--plus::before {
