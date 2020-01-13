@@ -11,6 +11,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = '',
   iconType = '',
+  iconColor = '',
   disabled = false,
 }) => {
   let iconToRender: React.ReactNode;
@@ -24,8 +25,8 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   // when icon is to be used with no text.
-  if (!text && iconType) {
-    iconToRender = <Icon type={iconType} />;
+  if (!text && iconType && iconColor) {
+    iconToRender = <Icon color={iconColor} type={iconType} />;
   }
 
   // make sure onClick prop is a function
