@@ -25,10 +25,15 @@
 }
 
 .icon {
-  /* color chosen so that it is visible in storybook */
+  line-height: 1;
+}
 
-  /* TODO: change to white */
+.icon--white {
   color: $background-color;
+}
+
+.icon--black {
+  color: $color-black;
 }
 
 .icon--plus::before {
