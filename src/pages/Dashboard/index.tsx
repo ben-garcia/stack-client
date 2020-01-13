@@ -31,9 +31,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="dashboard">
-      <section className="dashboard__top-nav">
-        <WorkspaceInfo />
-      </section>
+      <WorkspaceInfo className="dashboard__top-nav" />
       <aside className="dashboard__sidebar">
         <WorkspaceList
           workspaces={workspaces.list}

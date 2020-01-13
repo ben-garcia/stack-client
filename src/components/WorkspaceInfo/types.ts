@@ -1,1 +1,3 @@
-export interface WorkspaceInfoProps {}
+export interface WorkspaceInfoProps {
+  className?: string;
+}
