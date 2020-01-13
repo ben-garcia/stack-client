@@ -24,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
         <Button
           type="button"
           iconType="times"
+          iconColor="black"
           className="modal__button-close"
           color="transparent"
           onClick={onClose}
