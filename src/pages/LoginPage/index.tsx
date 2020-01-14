@@ -89,7 +89,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
             error={errors.password}
           />
         </Form.Group>
-        <Button type="submit" text="Register" />
+        <Button type="submit">Register</Button>
       </Form>
     </div>
   );

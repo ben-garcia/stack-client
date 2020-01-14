@@ -27,7 +27,7 @@ storiesOf('Form', module)
     <Form>
       <Form.Input inputId="name" type="text" label="Name" />
       <Form.Input inputId="password" type="password" label="Password" />
-      <Button type="submit" text="Submit" />
+      <Button type="submit">Submit</Button>
     </Form>
   ))
   .add('with single error', () => (

@@ -18,13 +18,12 @@ storiesOf('Navbar', module)
         <Image src={logo} alt="Stack logo" />
       </Navbar.Item>
       <Navbar.Item>
-        <Button
-          type="button"
-          text="Log in"
-          color="transparent"
-          onClick={action('click')}
-        />
-        <Button type="button" text="Register" onClick={action('click')} />
+        <Button type="button" color="transparent" onClick={action('click')}>
+          Log In
+        </Button>
+        <Button type="button" onClick={action('click')}>
+          Register
+        </Button>
       </Navbar.Item>
     </Navbar>
   ));
