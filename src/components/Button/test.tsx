@@ -11,14 +11,18 @@ describe('<Button />', () => {
 
   it('should render', () => {
     const { container } = render(
-      <Button type="button" text="Button" onClick={mockOnClick} />
+      <Button type="button" onClick={mockOnClick}>
+        Button
+      </Button>
     );
     expect(container).toBeInTheDocument();
   });
 
   it('should call the onClick handler when button is pressed', () => {
     const { getByText } = render(
-      <Button type="button" text="Button" onClick={mockOnClick} />
+      <Button type="button" onClick={mockOnClick}>
+        Button
+      </Button>
     );
 
     expect(mockOnClick).not.toHaveBeenCalled();
@@ -28,56 +32,34 @@ describe('<Button />', () => {
   });
 
   describe('stories', () => {
-    describe('default render', () => {
-      it('should have no text', () => {
-        const wrapper: ShallowWrapper = shallow(
-          <Button type="button" onClick={mockOnClick} />
-        );
-        expect(wrapper.find('.button').text()).toBe('');
-      });
-
-      it('should have primary color', () => {
-        const wrapper: ShallowWrapper = shallow(
-          <Button
-            type="button"
-            text="Button"
-            color="transparent"
-            onClick={mockOnClick}
-          />
-        );
-
-        expect(wrapper.hasClass('button--transparent')).toBe(true);
-      });
-
-      it('should contain an onClick prop', () => {
-        const wrapper: ShallowWrapper = shallow(
-          <Button type="button" text="Button" onClick={mockOnClick} />
-        );
-
-        expect(wrapper.prop('onClick')).toEqual(mockOnClick);
-      });
-    });
-
-    it('should contain a text prop when passed in', () => {
+    it('should have primary color', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Button
-          type="button"
-          text="Button"
-          onClick={mockOnClick}
-          className="testing"
-        />
+        <Button type="button" onClick={mockOnClick}>
+          Button
+        </Button>
       );
 
-      expect(wrapper.find('.testing').text()).toBe('Button');
+      expect(wrapper.hasClass('button--primary')).toBe(true);
     });
 
-    it('should render an Icon when passed the iconType prop', () => {
+    it('should have transparent color when color is transparent', () => {
       const wrapper: ShallowWrapper = shallow(
-        <Button type="button" iconType="plus" onClick={mockOnClick} />
+        <Button type="button" color="transparent">
+          Button
+        </Button>
       );
 
-      expect(typeof wrapper.find('.button').text).toBe('function');
-      expect(wrapper.find('Icon')).toHaveLength(1);
+      expect(wrapper.hasClass('button--transparent')).toBe(true);
+    });
+
+    it('should contain an onClick prop', () => {
+      const wrapper: ShallowWrapper = shallow(
+        <Button type="button" onClick={mockOnClick}>
+          Button
+        </Button>
+      );
+
+      expect(wrapper.prop('onClick')).toEqual(mockOnClick);
     });
   });
 });

@@ -238,7 +238,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
             error={errors.password}
           />
         </Form.Group>
-        <Button type="submit" text="Register" disabled={buttonIsDisabled} />
+        <Button type="submit" disabled={buttonIsDisabled}>
+          Register
+        </Button>
       </Form>
     </div>
   );

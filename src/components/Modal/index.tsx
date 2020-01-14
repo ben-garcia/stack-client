@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ModalProps } from './types';
 import './styles.scss';
-import { Button, Header } from '..';
+import { Button, Header, Icon } from '..';
 
 const Modal: React.FC<ModalProps> = ({
   header,
@@ -23,12 +23,12 @@ const Modal: React.FC<ModalProps> = ({
       <section className={classesToAdd}>
         <Button
           type="button"
-          iconType="times"
-          iconColor="black"
           className="modal__button-close"
           color="transparent"
           onClick={onClose}
-        />
+        >
+          <Icon type="times" color="black" />
+        </Button>
         <Header textAlign="center" heading={header} className="modal__header" />
         {children}
       </section>

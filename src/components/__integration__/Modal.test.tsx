@@ -24,5 +24,6 @@ describe('Modal Integration', () => {
     expect(icon.length).toBe(1);
     expect(icon.hasClass('icon')).toBe(true);
     expect(icon.hasClass('icon--times')).toBe(true);
+    expect(icon.hasClass('icon--black')).toBe(true);
   });
 });

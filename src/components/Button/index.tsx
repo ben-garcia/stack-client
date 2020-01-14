@@ -1,20 +1,16 @@
 import React from 'react';
 
-import { Icon } from '..';
 import { ButtonProps } from './types';
 import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
   type,
-  text = '',
+  children,
   color = 'primary',
   onClick,
   className = '',
-  iconType = '',
-  iconColor = '',
   disabled = false,
 }) => {
-  let iconToRender: React.ReactNode;
   let classesToAdd: string = 'button';
 
   // color prop should either be 'primary' | 'transparent'
@@ -22,11 +18,6 @@ const Button: React.FC<ButtonProps> = ({
     classesToAdd += ' button--transparent';
   } else {
     classesToAdd += ' button--primary';
-  }
-
-  // when icon is to be used with no text.
-  if (!text && iconType && iconColor) {
-    iconToRender = <Icon color={iconColor} type={iconType} />;
   }
 
   // make sure onClick prop is a function
@@ -53,8 +44,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {!text && iconType ? iconToRender : ''}
-      {text && !iconType ? text : ''}
+      {children}
     </button>
   );
 };

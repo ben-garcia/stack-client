@@ -37,22 +37,21 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         <Navbar.Item>
           <Button
             type="button"
-            text="Log In"
             color="transparent"
             onClick={() => setLoginModalIsOpen(true)}
-          />
-          <Button
-            type="button"
-            text="Register"
-            onClick={() => setRegisterModalIsOpen(true)}
-          />
+          >
+            Log In
+          </Button>
+          <Button type="button" onClick={() => setRegisterModalIsOpen(true)}>
+            Register
+          </Button>
         </Navbar.Item>
       </Navbar>
       <main>
         <div className="header-hero">
           <Header className="header-hero__header" heading="Welcome to Stack">
             <Paragraph>Organize your projects</Paragraph>
-            <Button type="button" text="Get Started" />
+            <Button type="button">Get Started</Button>
           </Header>
         </div>
         <section className="landing-page__description">
