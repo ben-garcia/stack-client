@@ -34,7 +34,9 @@ const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
           onClose={() => setCreateWorkspaceFormIsOpen(false)}
           className="create-workspace-modal"
         >
-          <CreateWorkspaceForm />
+          <CreateWorkspaceForm
+            createWorkspaceFormIsOpen={setCreateWorkspaceFormIsOpen}
+          />
         </Modal>
       )}
     </section>

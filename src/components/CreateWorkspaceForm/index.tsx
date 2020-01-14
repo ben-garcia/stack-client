@@ -4,10 +4,15 @@ import { connect } from 'react-redux';
 import { Button, Form } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
+import { Dispatch } from 'redux';
+import { Workspace } from 'store/workspaces/types';
+import { addWorkspace } from 'store/workspaces/actions';
 import { CreateWorkspaceFormProps } from './types';
 
 const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
   userId,
+  addWorkspaceAction,
+  createWorkspaceFormIsOpen,
 }) => {
   const [workspaceName, setWorkspaceName] = useState<string>('');
   const [workspaceNameError, setWorkspaceNameError] = useState<string>('');
@@ -39,8 +44,11 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
         },
       });
 
-      // eslint-disable-next-line
-      console.log(response);
+      // dispatch action to add it to the store
+      addWorkspaceAction(response.data.workspace);
+
+      // close the modal
+      createWorkspaceFormIsOpen(false);
     }
   };
 
@@ -65,4 +73,12 @@ const mapStateToProps = (state: AppState) => ({
   userId: state.user.id,
 });
 
-export default connect(mapStateToProps)(CreateWorkspaceForm);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addWorkspaceAction: (workspace: Workspace) =>
+    dispatch(addWorkspace(workspace)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateWorkspaceForm);

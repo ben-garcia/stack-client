@@ -1,6 +1,7 @@
 import {
   RECEIVED_USER_WORKSPACES,
   RECEIVED_USER_WORKSPACES_ERROR,
+  ADD_WORKSPACE,
   WorkspacesState,
   WorkspacesActionTypes,
 } from './types';
@@ -22,6 +23,10 @@ const workspacesReducer = (
       return {
         list: [],
         error: action.payload,
+      };
+    case ADD_WORKSPACE:
+      return {
+        list: [...state.list, action.payload],
       };
     default:
       return state;

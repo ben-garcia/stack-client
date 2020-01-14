@@ -2,6 +2,7 @@ import {
   REQUEST_USER_WORKSPACES,
   RECEIVED_USER_WORKSPACES,
   RECEIVED_USER_WORKSPACES_ERROR,
+  ADD_WORKSPACE,
   WorkspacesError,
   Workspace,
   WorkspacesActionTypes,
@@ -23,4 +24,9 @@ export const receivedUserWorkspacesError = (
 ): WorkspacesActionTypes => ({
   type: RECEIVED_USER_WORKSPACES_ERROR,
   payload: error,
+});
+
+export const addWorkspace = (workspace: Workspace): WorkspacesActionTypes => ({
+  type: ADD_WORKSPACE,
+  payload: workspace,
 });
