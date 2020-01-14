@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button } from 'components';
+import { Button, CreateWorkspaceForm, Icon, Modal } from 'components';
 import { WorkspaceProps } from './types';
 import './styles.scss';
 
 const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
+  const [createWorkspaceFormIsOpen, setCreateWorkspaceFormIsOpen] = useState<
+    boolean
+  >(false);
   let classesToAdd: string = 'workspace';
 
   if (className?.trim() !== '') {
@@ -21,8 +24,19 @@ const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
         className="workspace__add-button"
         type="button"
         color="transparent"
-        iconType="plus"
-      />
+        onClick={() => setCreateWorkspaceFormIsOpen(true)}
+      >
+        <Icon color="white" type="plus" />
+      </Button>
+      {createWorkspaceFormIsOpen && (
+        <Modal
+          header="Create a Workspace"
+          onClose={() => setCreateWorkspaceFormIsOpen(false)}
+          className="create-workspace-modal"
+        >
+          <CreateWorkspaceForm />
+        </Modal>
+      )}
     </section>
   );
 };
