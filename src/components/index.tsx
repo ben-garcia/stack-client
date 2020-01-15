@@ -1,6 +1,7 @@
 import Button from './Button';
 import Channel from './Channel';
 import ChannelList from './ChannelList';
+import CreateChannelForm from './CreateChannelForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Dialog from './Dialog';
 import Footer from './Footer';
@@ -21,6 +22,7 @@ export {
   Button,
   Channel,
   ChannelList,
+  CreateChannelForm,
   CreateWorkspaceForm,
   Dialog,
   Footer,
