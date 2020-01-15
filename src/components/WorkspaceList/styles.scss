@@ -1,4 +1,7 @@
 .workspace-list {
+  height: 91vh;
+  overflow-y: scroll;
+
   &__inner {
     list-style: none;
     display: flex;
