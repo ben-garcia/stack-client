@@ -1,0 +1,25 @@
+@import '../../pages/sass/variables';
+
+.channel-list {
+  &__inner {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__heading {
+    margin-right: 1.5rem;
+  }
+
+  &__add-button {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    font-size: 0.6rem;
+
+    &:hover {
+      border-color: $background-color;
+    }
+  }
+}
