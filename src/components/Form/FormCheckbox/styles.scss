@@ -6,34 +6,52 @@
   align-items: center;
   position: relative;
 
-  &::before {
-    border-radius: 50%;
-    background-color: $color-dark-grey;
-    content: '';
-    height: 25px;
-    position: absolute;
-    right: 2.3rem;
-    width: 25px;
-    transform: scaleY(1);
-    transition: transform 0.3s ease-in;
-  }
+  .checkbox-hack {
+    &::before {
+      border-radius: 50%;
+      background-color: $color-dark-grey;
+      content: '';
+      height: 25px;
+      position: absolute;
+      right: 2.3rem;
+      top: 0.24rem;
+      width: 25px;
+      transform: translateX(0);
+      transition: transform 0.2s ease-in;
+      z-index: 9;
+    }
 
-  &::after {
-    border: 1px solid rgba(97, 96, 97, 0.7);
-    content: '';
-    height: 33px;
-    width: 60px;
-    position: relative;
-    right: 0.5rem;
-    border-radius: 18px;
+    &::after {
+      border: 1px solid rgba(97, 96, 97, 0.7);
+      content: '';
+      display: inline-block;
+      height: 33px;
+      width: 60px;
+      position: relative;
+      right: 0.5rem;
+      border-radius: 18px;
+    }
   }
 
   .form__input {
-    margin-right: 1rem;
-    visibility: hidden;
+    height: 33px;
+    width: 60px;
+    position: absolute;
+    right: 0.5rem;
+    opacity: 0;
+    z-index: 10;
 
-    &:checked {
-      background-color: red;
+    &:checked ~ .checkbox-hack::after {
+      background-color: $primary-color;
+    }
+
+    &:checked ~ .checkbox-hack::before {
+      background-color: $background-color;
+      transform: translateX(22px);
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }

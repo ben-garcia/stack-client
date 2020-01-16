@@ -34,6 +34,7 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({
           id={inputId}
           value={value}
         />
+        <div className="checkbox-hack" />
         {error !== '' && error.length > 0 && (
           <Dialog failure className="field-error" content={error} />
         )}
