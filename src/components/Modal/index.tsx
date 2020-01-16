@@ -7,6 +7,7 @@ import { Button, Header, Icon } from '..';
 const Modal: React.FC<ModalProps> = ({
   header,
   children,
+  size = '',
   className = '',
   onClose = () => {},
 }) => {
@@ -16,6 +17,11 @@ const Modal: React.FC<ModalProps> = ({
   // make sure className isn't empty
   if (className.trim() !== '') {
     classesToAdd += ` ${className}`;
+  }
+
+  // if size is specified
+  if (size?.trim() !== '') {
+    classesToAdd += ` modal--${size}`;
   }
 
   return (
