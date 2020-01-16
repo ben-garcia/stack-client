@@ -1,8 +1,9 @@
 @import '../../pages/sass/variables';
 
 .create-channel {
+  color: rgba($color-dark-grey, 1);
+
   &__sub-header {
     font-size: 0.9rem;
-    color: $color-dark-grey;
   }
 }

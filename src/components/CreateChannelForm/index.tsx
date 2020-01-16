@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, Form } from 'components';
+import { Button, Form, Paragraph } from 'components';
 import sendRequest from 'api';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
@@ -56,17 +56,17 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
 
   return (
     <div className="create-channel">
-      <p className="create-channel__sub-header">
+      <Paragraph className="create-channel__sub-header">
         Channels are where your team communicates. They’re best when organized
         around a topic — #marketing, for example.
-      </p>
+      </Paragraph>
       <Form onSubmit={handleSubmit}>
         <Form.Group flexDirection="column">
           <Form.Input
             onChange={handleChange}
             inputId="name"
             type="text"
-            label="name"
+            label="Name"
             value={channel.name}
             error={errors.name}
           />
@@ -74,11 +74,21 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
             onChange={handleChange}
             inputId="description"
             type="text"
-            label="description"
+            label="Description"
             value={channel.description}
             error={errors.description}
           />
+          <Form.Checkbox
+            onChange={handleChange}
+            inputId="public"
+            label="Make Public"
+            value={`${channel.public}`}
+          />
         </Form.Group>
+        <Paragraph>
+          When a channel is set to private, it can only be viewed or joined by
+          invitation.
+        </Paragraph>
         <Button type="submit" disabled={disableButton}>
           Create
         </Button>
