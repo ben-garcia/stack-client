@@ -1,5 +1,6 @@
 import React from 'react';
 
+import FormCheckbox from './FormCheckbox';
 import FormGroup from './FormGroup';
 import FormInput from './FormInput';
 import { FormComponent } from './types';
@@ -29,6 +30,7 @@ const Form: FormComponent = ({ children, onSubmit, className = '' }) => {
   return <form className={classNamesToRender}>{children}</form>;
 };
 
+Form.Checkbox = FormCheckbox;
 Form.Group = FormGroup;
 Form.Input = FormInput;
 
