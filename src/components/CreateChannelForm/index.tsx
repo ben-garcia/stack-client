@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form } from 'components';
 import sendRequest from 'api';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
+import './styles.scss';
 
 const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   const [channel, setChannel] = useState<Channel>({
@@ -54,29 +55,35 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group flexDirection="column">
-        <Form.Input
-          onChange={handleChange}
-          inputId="name"
-          type="text"
-          label="name"
-          value={channel.name}
-          error={errors.name}
-        />
-        <Form.Input
-          onChange={handleChange}
-          inputId="description"
-          type="text"
-          label="description"
-          value={channel.description}
-          error={errors.description}
-        />
-      </Form.Group>
-      <Button type="submit" disabled={disableButton}>
-        Create
-      </Button>
-    </Form>
+    <div className="create-channel">
+      <p className="create-channel__sub-header">
+        Channels are where your team communicates. They’re best when organized
+        around a topic — #marketing, for example.
+      </p>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group flexDirection="column">
+          <Form.Input
+            onChange={handleChange}
+            inputId="name"
+            type="text"
+            label="name"
+            value={channel.name}
+            error={errors.name}
+          />
+          <Form.Input
+            onChange={handleChange}
+            inputId="description"
+            type="text"
+            label="description"
+            value={channel.description}
+            error={errors.description}
+          />
+        </Form.Group>
+        <Button type="submit" disabled={disableButton}>
+          Create
+        </Button>
+      </Form>
+    </div>
   );
 };
 
