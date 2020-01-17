@@ -4,8 +4,26 @@
   src: url('../../assets/fonts/Champagne-&-Limousines.ttf'), format('truetype');
 }
 
-.paragraph {
-  margin: 0;
-  padding: 0;
+.text {
   font-family: ChampagneLimousines, sans-serif;
+}
+
+.text--xm {
+  font-size: 0.7rem;
+}
+
+.text--sm {
+  font-size: 0.9rem;
+}
+
+.text--md {
+  font-size: 1rem;
+}
+
+.text--lg {
+  font-size: 1.3rem;
+}
+
+.text--xlg {
+  font-size: 1.8rem;
 }

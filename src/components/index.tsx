@@ -12,7 +12,7 @@ import Image from './Image';
 import MessageList from './MessageList';
 import Modal from './Modal';
 import Navbar from './Navbar';
-import Paragraph from './Paragraph';
+import Text from './Text';
 import Workspace from './Workspace';
 import WorkspaceInfo from './WorkspaceInfo';
 import WorkspaceList from './WorkspaceList';
@@ -33,7 +33,7 @@ export {
   MessageList,
   Modal,
   Navbar,
-  Paragraph,
+  Text,
   Workspace,
   WorkspaceInfo,
   WorkspaceList,
