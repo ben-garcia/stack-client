@@ -28,6 +28,7 @@
   line-height: 1;
 }
 
+/* colors */
 .icon--white {
   color: $background-color;
 }
@@ -36,10 +37,36 @@
   color: $color-black;
 }
 
+/* icons */
 .icon--plus::before {
   content: '\e900';
 }
 
 .icon--times::before {
   content: '\e100';
+}
+
+/* sizes */
+.icon--xm {
+  font-size: 0.8em;
+}
+
+.icon--sm {
+  font-size: 1.1em;
+}
+
+.icon--md {
+  font-size: 1.7rem;
+}
+
+.icon--lg {
+  font-size: 2rem;
+}
+
+.icon--xlg {
+  font-size: 3rem;
+}
+
+.icon--xxl {
+  font-size: 5rem;
 }
