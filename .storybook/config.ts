@@ -1,4 +1,5 @@
-import { configure } from '@storybook/react';
+import { addParameters, configure } from '@storybook/react';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import '../src/index.scss';
 
