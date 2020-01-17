@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DialogProps } from './types';
-import { Header, Paragraph } from '..';
+import { Header, Text } from '..';
 import './styles.scss';
 
 const Dialog: React.FC<DialogProps> = ({
@@ -33,16 +33,14 @@ const Dialog: React.FC<DialogProps> = ({
       <ul className="dialog-list">
         {content.map(error => (
           <li key={error}>
-            <Paragraph className="dialog-list__item">{error}</Paragraph>
+            <Text className="dialog-list__item">{error}</Text>
           </li>
         ))}
       </ul>
     );
   } else {
     contentToRender = (
-      <Paragraph className="dialog__content">
-        {content !== '' && content}
-      </Paragraph>
+      <Text className="dialog__content">{content !== '' && content}</Text>
     );
   }
 

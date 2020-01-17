@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import {
-  Button,
-  Footer,
-  Header,
-  Image,
-  Modal,
-  Navbar,
-  Paragraph,
-} from 'components';
+import { Button, Footer, Header, Image, Modal, Navbar, Text } from 'components';
 import logo from 'logo.svg';
 import { RegisterPage, LoginPage } from '..';
 import { LandingPageProps } from './types';
@@ -50,7 +42,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       <main>
         <div className="header-hero">
           <Header className="header-hero__header" heading="Welcome to Stack">
-            <Paragraph>Organize your projects</Paragraph>
+            <Text>Organize your projects</Text>
             <Button type="button">Get Started</Button>
           </Header>
         </div>
@@ -61,7 +53,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             as="h2"
             heading="What is Stack"
           >
-            <Paragraph>
+            <Text>
               Stack a clone of the popular messaging platform
               <a
                 className="description-header__link"
@@ -71,12 +63,12 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                 Slack
               </a>
               .
-            </Paragraph>
+            </Text>
           </Header>
         </section>
       </main>
       <Footer>
-        <Paragraph>Ben Garcia 2019</Paragraph>
+        <Text>Ben Garcia 2019</Text>
       </Footer>
       {registerModalIsOpen && (
         <Modal

@@ -6,4 +6,10 @@
   &__sub-header {
     font-size: 0.9rem;
   }
+
+  &__message {
+    max-width: 430px;
+    align-self: flex-start;
+    margin-bottom: 1rem !important;
+  }
 }

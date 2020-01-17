@@ -6,11 +6,11 @@ import { Dialog } from '..';
 describe('Dialog Integration', () => {
   it('should render a Paragraph component by default', () => {
     const wrapper: ReactWrapper = mount(<Dialog content="content" />);
-    const Paragraph: ReactWrapper = wrapper.find('Paragraph');
+    const Text: ReactWrapper = wrapper.find('Text');
 
-    expect(Paragraph.length).toBe(1);
-    expect(Paragraph.find('p').length).toBe(1);
-    expect(Paragraph.find('p').text()).toBe('content');
+    expect(Text.length).toBe(1);
+    expect(Text.find('p').length).toBe(1);
+    expect(Text.find('p').text()).toBe('content');
   });
 
   it('should reder a Header component when header prop is passed', () => {
