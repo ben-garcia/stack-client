@@ -3,6 +3,12 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import '../src/index.scss';
 
+addParameters({
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+  },
+});
+
 // automatically import all stories.tsx files.
 configure(
   [
