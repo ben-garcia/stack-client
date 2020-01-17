@@ -26,7 +26,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
         color="transparent"
         onClick={() => setCreateWorkspaceFormIsOpen(true)}
       >
-        <Icon color="white" type="plus" />
+        <Icon color="white" type="plus" size="sm" />
       </Button>
       {createWorkspaceFormIsOpen && (
         <Modal
