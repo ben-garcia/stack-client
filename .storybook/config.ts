@@ -1,5 +1,7 @@
 import { configure } from '@storybook/react';
 
+import '../src/index.scss';
+
 // automatically import all stories.tsx files.
 configure(
   [
