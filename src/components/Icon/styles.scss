@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Stack';
-  src: url('../../assets/fonts/icons/Stack.ttf?n5dut7') format('truetype');
+  src: url('../../assets/fonts/icons/Stack.ttf?oe8n8f') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -38,12 +38,40 @@
 }
 
 /* icons */
-.icon--plus::before {
+.icon--user::before {
   content: '\e900';
 }
 
 .icon--times::before {
-  content: '\e100';
+  content: '\e901';
+}
+
+.icon--plus:before {
+  content: '\e902';
+}
+
+.icon--pencil:before {
+  content: '\e903';
+}
+
+.icon--lock:before {
+  content: '\e904';
+}
+
+.icon--chevron-up:before {
+  content: '\e905';
+}
+
+.icon--chevron-right:before {
+  content: '\e906';
+}
+
+.icon--chevron-left:before {
+  content: '\e907';
+}
+
+.icon--chevron-down:before {
+  content: '\e908';
 }
 
 /* sizes */

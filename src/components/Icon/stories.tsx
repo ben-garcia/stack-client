@@ -3,8 +3,74 @@ import { storiesOf } from '@storybook/react';
 
 import Icon from '.';
 
-storiesOf('Icon', module).add('default', () => (
+storiesOf('Icon', module).add('all', () => (
   <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="chevron-down" />
+      <Icon size="sm" type="chevron-down" />
+      <Icon size="md" type="chevron-down" />
+      <Icon size="lg" type="chevron-down" />
+      <Icon size="xlg" type="chevron-down" />
+      <Icon size="xxl" type="chevron-down" />
+      <span style={{ alignSelf: 'center' }}>chevron-down</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="chevron-left" />
+      <Icon size="sm" type="chevron-left" />
+      <Icon size="md" type="chevron-left" />
+      <Icon size="lg" type="chevron-left" />
+      <Icon size="xlg" type="chevron-left" />
+      <Icon size="xxl" type="chevron-left" />
+      <span style={{ alignSelf: 'center' }}>chevron-left</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="chevron-right" />
+      <Icon size="sm" type="chevron-right" />
+      <Icon size="md" type="chevron-right" />
+      <Icon size="lg" type="chevron-right" />
+      <Icon size="xlg" type="chevron-right" />
+      <Icon size="xxl" type="chevron-right" />
+      <span style={{ alignSelf: 'center' }}>chevron-right</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="chevron-up" />
+      <Icon size="sm" type="chevron-up" />
+      <Icon size="md" type="chevron-up" />
+      <Icon size="lg" type="chevron-up" />
+      <Icon size="xlg" type="chevron-up" />
+      <Icon size="xxl" type="chevron-up" />
+      <span style={{ alignSelf: 'center' }}>chevron-up</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="lock" />
+      <Icon size="sm" type="lock" />
+      <Icon size="md" type="lock" />
+      <Icon size="lg" type="lock" />
+      <Icon size="xlg" type="lock" />
+      <Icon size="xxl" type="lock" />
+      <span style={{ alignSelf: 'center' }}>lock</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="pencil" />
+      <Icon size="sm" type="pencil" />
+      <Icon size="md" type="pencil" />
+      <Icon size="lg" type="pencil" />
+      <Icon size="xlg" type="pencil" />
+      <Icon size="xxl" type="pencil" />
+      <span style={{ alignSelf: 'center' }}>pencil</span>
+    </div>
     <div
       style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
     >
@@ -26,6 +92,17 @@ storiesOf('Icon', module).add('default', () => (
       <Icon size="xlg" type="times" />
       <Icon size="xxl" type="times" />
       <span style={{ alignSelf: 'center' }}>times</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="user" />
+      <Icon size="sm" type="user" />
+      <Icon size="md" type="user" />
+      <Icon size="lg" type="user" />
+      <Icon size="xlg" type="user" />
+      <Icon size="xxl" type="user" />
+      <span style={{ alignSelf: 'center' }}>user</span>
     </div>
   </div>
 ));
