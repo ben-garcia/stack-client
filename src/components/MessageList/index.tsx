@@ -20,7 +20,7 @@ const MessageList: React.FC<MessageListProps> = ({ className = '' }) => {
           type="button"
           color="transparent"
         >
-          <Icon type="plus" color="white" />
+          <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
     </section>

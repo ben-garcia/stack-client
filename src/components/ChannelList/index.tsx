@@ -24,7 +24,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
           color="transparent"
           onClick={() => setCreateChannelFormIsOpen(true)}
         >
-          <Icon type="plus" color="white" />
+          <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
       {createChannelFormIsOpen && (
