@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Stack';
-  src: url('../../assets/fonts/icons/Stack.ttf?oe8n8f') format('truetype');
+  src: url('../../assets/fonts/icons/Stack.ttf?dyw1zo') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -72,6 +72,14 @@
 
 .icon--chevron-down::before {
   content: '\e908';
+}
+
+.icon--hash::before {
+  content: '\e909';
+}
+
+.icon--circle::before {
+  content: '\e910';
 }
 
 /* sizes */

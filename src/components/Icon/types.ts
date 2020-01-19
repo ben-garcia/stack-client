@@ -3,6 +3,8 @@ type IconType =
   | 'chevron-left'
   | 'chevron-right'
   | 'chevron-up'
+  | 'circle'
+  | 'hash'
   | 'lock'
   | 'pencil'
   | 'plus'
