@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({
           color="transparent"
           onClick={onClose}
         >
-          <Icon type="times" color="black" />
+          <Icon type="times" color="black" size="sm" />
         </Button>
         <Header textAlign="center" heading={header} className="modal__header" />
         {children}

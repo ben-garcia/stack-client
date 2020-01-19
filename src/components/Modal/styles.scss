@@ -33,6 +33,11 @@
 
     &__button-close {
       align-self: flex-end;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     &__header {
