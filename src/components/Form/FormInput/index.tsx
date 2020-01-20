@@ -13,10 +13,11 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   onBlur,
   value = '',
+  required = true,
 }) => {
   let classNamesToRender: string = 'form__field';
 
-  if (className.trim() !== '') {
+  if (className?.trim() !== '') {
     classNamesToRender += ` ${className}`;
   }
 
@@ -24,6 +25,7 @@ const FormInput: React.FC<FormInputProps> = ({
     <div className={classNamesToRender}>
       <label className="field-label" htmlFor={inputId}>
         {label}
+        {required ? ` (required)` : ` (optional)`}
       </label>
       <input
         onChange={onChange}

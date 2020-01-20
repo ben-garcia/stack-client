@@ -14,4 +14,5 @@ export interface FormInputProps {
   // function to be called when the input losses focus
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   value?: string;
+  required?: boolean;
 }
