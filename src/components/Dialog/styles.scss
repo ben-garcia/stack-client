@@ -8,6 +8,12 @@
 
   .dialog-list {
     margin: 0.3rem 0;
+    list-style-type: circle;
+    list-style-position: inside;
+
+    &__item {
+      display: inline;
+    }
   }
 }
 

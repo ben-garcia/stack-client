@@ -33,7 +33,9 @@ const Dialog: React.FC<DialogProps> = ({
       <ul className="dialog-list">
         {content.map(error => (
           <li key={error}>
-            <Text className="dialog-list__item">{error}</Text>
+            <Text tag="div" className="dialog-list__item">
+              {error}
+            </Text>
           </li>
         ))}
       </ul>
