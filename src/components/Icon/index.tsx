@@ -3,7 +3,12 @@ import React from 'react';
 import { IconProps } from './types';
 import './styles.scss';
 
-const Icon: React.FC<IconProps> = ({ type, size = 'md', color = 'black' }) => {
+const Icon: React.FC<IconProps> = ({
+  type,
+  size = 'md',
+  color = 'black',
+  className = '',
+}) => {
   let classesToAdd: string = `icon icon--${type}`;
 
   // determine the color to apply
@@ -18,6 +23,11 @@ const Icon: React.FC<IconProps> = ({ type, size = 'md', color = 'black' }) => {
     classesToAdd += ` icon--${size}`;
   } else {
     classesToAdd += ' icon--md';
+  }
+
+  // add className passed in if any
+  if (className?.trim() !== '') {
+    classesToAdd += ` ${className}`;
   }
 
   return <i className={classesToAdd} />;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dialog } from '../..';
+import { Dialog, Icon } from '../..';
 import { FormCheckboxProps } from './types';
 import './styles.scss';
 
@@ -34,7 +34,14 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({
           id={inputId}
           value={value}
         />
-        <div className="checkbox-hack" />
+        <div className="checkbox-hack">
+          <Icon
+            type="checkmark"
+            color="white"
+            size="xm"
+            className="checkbox-hack__checkmark"
+          />
+        </div>
         {error !== '' && error.length > 0 && (
           <Dialog failure className="field-error" content={error} />
         )}
