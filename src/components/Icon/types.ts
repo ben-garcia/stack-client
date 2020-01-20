@@ -1,4 +1,5 @@
 type IconType =
+  | 'checkmark'
   | 'chevron-down'
   | 'chevron-left'
   | 'chevron-right'

@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Stack';
-  src: url('../../assets/fonts/icons/Stack.ttf?dyw1zo') format('truetype');
+  src: url('../../assets/fonts/icons/Stack.ttf?puer0p') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -80,6 +80,10 @@
 
 .icon--circle::before {
   content: '\e910';
+}
+
+.icon--checkmark::before {
+  content: '\e911';
 }
 
 /* sizes */

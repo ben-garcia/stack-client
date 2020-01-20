@@ -8,6 +8,17 @@ storiesOf('Icon', module).add('all', () => (
     <div
       style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
     >
+      <Icon size="xm" type="checkmark" />
+      <Icon size="sm" type="checkmark" />
+      <Icon size="md" type="checkmark" />
+      <Icon size="lg" type="checkmark" />
+      <Icon size="xlg" type="checkmark" />
+      <Icon size="xxl" type="checkmark" />
+      <span style={{ alignSelf: 'center' }}>checkmark</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
       <Icon size="xm" type="chevron-down" />
       <Icon size="sm" type="chevron-down" />
       <Icon size="md" type="chevron-down" />
