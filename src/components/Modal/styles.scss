@@ -50,13 +50,17 @@
 }
 
 .modal--sm {
-  max-width: 360px;
+  width: 30vw;
 }
 
 .modal--md {
-  max-width: 540px;
+  width: 50vw;
+}
+
+.modal--lg {
+  width: 70vw;
 }
 
 .modal--fullscreen {
-  max-width: 95vw;
+  width: 95vw;
 }

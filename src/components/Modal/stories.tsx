@@ -1,11 +1,30 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import { RegisterPage } from 'pages';
 import Modal from '.';
-import { RegisterPage } from '../../pages';
 
 storiesOf('Modal', module)
-  .add('default', () => <Modal header="Modal Header">Modal Example</Modal>)
+  .add('sm', () => (
+    <Modal size="sm" header="Modal">
+      This is a small Modal
+    </Modal>
+  ))
+  .add('md', () => (
+    <Modal size="md" header="Modal">
+      This is a medium Modal
+    </Modal>
+  ))
+  .add('lg', () => (
+    <Modal size="lg" header="Modal">
+      This is a large Modal
+    </Modal>
+  ))
+  .add('fullscreen', () => (
+    <Modal size="fullscreen" header="Modal">
+      This is a fullscreen Modal
+    </Modal>
+  ))
   .add('with RegisterPage', () => (
     <Modal header="Register">
       <RegisterPage
