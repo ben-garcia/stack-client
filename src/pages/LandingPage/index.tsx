@@ -41,7 +41,11 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       </Navbar>
       <main>
         <div className="header-hero">
-          <Header className="header-hero__header" heading="Welcome to Stack">
+          <Header
+            className="header-hero__header"
+            heading="Welcome to Stack"
+            headerPosition="left"
+          >
             <Text>Organize your projects</Text>
             <Button type="button">Get Started</Button>
           </Header>

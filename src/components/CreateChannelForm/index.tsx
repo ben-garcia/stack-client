@@ -9,7 +9,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
-    public: false,
+    public: true,
   });
   const [errors, setErrors] = useState<ChannelErrors>({
     name: '',
@@ -17,9 +17,32 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   });
   const [disableButton, setDisableButton] = useState<boolean>(true);
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setErrors({
+        ...errors,
+        [e.target.name]: 'required',
+      });
+    }
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // if no errors then enable submit button
-    if (errors.description === '' && errors.name === '') {
+    // check if the event referes to the checkbox
+    if (e.target.name === 'public') {
+      setChannel({
+        ...channel,
+        public: e.target.checked,
+      });
+      // no need to continue
+      return;
+    }
+
+    // if no errors and channel name, description are not empty then enable submit button
+    if (
+      errors.description === '' &&
+      errors.name === '' &&
+      channel.name !== '' &&
+      channel.description !== ''
+    ) {
       setDisableButton(false);
     }
 
@@ -27,6 +50,11 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
       setErrors({
         ...errors,
         [e.target.name]: 'required',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        [e.target.name]: '',
       });
     }
 
@@ -63,6 +91,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group flexDirection="column">
           <Form.Input
+            onBlur={handleBlur}
             onChange={handleChange}
             inputId="name"
             type="text"
@@ -71,6 +100,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
             error={errors.name}
           />
           <Form.Input
+            onBlur={handleBlur}
             onChange={handleChange}
             inputId="description"
             type="text"
@@ -81,7 +111,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
           <Form.Checkbox
             onChange={handleChange}
             inputId="public"
-            label="Make Public"
+            label="Make Private"
             value={`${channel.public}`}
           />
         </Form.Group>
