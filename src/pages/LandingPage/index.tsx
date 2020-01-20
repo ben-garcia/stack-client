@@ -48,7 +48,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         </div>
         <section className="landing-page__description">
           <Header
-            textAlign="center"
+            headerPosition="center"
             className="description-header"
             as="h2"
             heading="What is Stack"

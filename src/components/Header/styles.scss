@@ -9,6 +9,7 @@
   font-family: Coolvetica, Helvetica, sans-serif;
 }
 
+// header position
 .header__heading--left {
   text-align: left;
 }
@@ -19,4 +20,29 @@
 
 .header__heading--right {
   text-align: right;
+}
+
+// header size
+.header__heading--xm {
+  font-size: 0.8rem;
+}
+
+.header__heading--sm {
+  font-size: 1.1rem;
+}
+
+.header__heading--md {
+  font-size: 1.4rem;
+}
+
+.header__heading--lg {
+  font-size: 1.8rem;
+}
+
+.header__heading--xlg {
+  font-size: 2.2em;
+}
+
+.header__heading--xxl {
+  font-size: 2.5rem;
 }

@@ -35,7 +35,11 @@ const Modal: React.FC<ModalProps> = ({
         >
           <Icon type="times" color="black" size="sm" />
         </Button>
-        <Header textAlign="center" heading={header} className="modal__header" />
+        <Header
+          headerPosition="center"
+          heading={header}
+          className="modal__header"
+        />
         {children}
       </section>
     </div>
