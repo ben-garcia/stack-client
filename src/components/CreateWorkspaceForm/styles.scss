@@ -1,0 +1,15 @@
+@import '../../pages/sass/variables';
+
+.create-workspace {
+  color: rgba($color-dark-grey, 1);
+
+  &__sub-header {
+    max-width: 430px;
+    font-size: 0.9rem;
+  }
+
+  &__message {
+    max-width: 430px;
+    margin-bottom: 1rem;
+  }
+}
