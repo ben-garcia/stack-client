@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
+import { requestWorkspaceChannels } from 'store/channels/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
@@ -16,6 +17,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   workspaces,
   userLoggedInAction,
   requestUserWorkspacesAction,
+  requestWorkspaceChannelsAction,
   getCurrentWorkspaceIdAction,
 }) => {
   // set up redux store via localStorage on page reload
@@ -37,6 +39,9 @@ const Dashboard: React.FC<DashboardProps> = ({
       const currentWorkspaceId = Number(workspaceIdFromLocalStorage);
       // dispatch action to update store
       getCurrentWorkspaceIdAction(currentWorkspaceId);
+      // ONLY when the store has been updatd with the current workspace id
+      // dispatch action to get all current workspace's channels
+      requestWorkspaceChannelsAction();
     }
   }
 
@@ -65,6 +70,7 @@ const mapStateToProps = (state: AppState): AppState => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   userLoggedInAction: (user: User) => dispatch(userLoggedIn(user)),
   requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
+  requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
 });

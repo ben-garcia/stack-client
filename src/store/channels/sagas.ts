@@ -10,7 +10,7 @@ import {
 // selector to get current workspace id
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspaceId;
 
-function* getWorkspaceChannels() {
+function* getAllCurrentWorkspaceChannels() {
   try {
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
     const {
@@ -30,4 +30,4 @@ function* getWorkspaceChannels() {
   }
 }
 
-export default getWorkspaceChannels;
+export default getAllCurrentWorkspaceChannels;

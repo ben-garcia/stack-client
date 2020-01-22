@@ -1,3 +1,4 @@
+import { requestWorkspaceChannels } from 'store/channels/actions';
 import { UserState } from 'store/user/types';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
@@ -9,5 +10,6 @@ export interface DashboardProps {
   workspaces: WorkspacesState;
   userLoggedInAction: typeof userLoggedIn;
   requestUserWorkspacesAction: typeof requestUserWorkspaces;
+  requestWorkspaceChannelsAction: typeof requestWorkspaceChannels;
   getCurrentWorkspaceIdAction: typeof getCurrentWorkspaceId;
 }

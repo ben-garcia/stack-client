@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { takeLatest } from 'redux-saga/effects';
 
+import getAllCurrentWorkspaceChannels from './channels/sagas';
+import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
 import channelsReducer from './channels/reducer';
 import userReducer from './user/reducer';
 import workspaceReducer from './workspace/reducer';
@@ -20,6 +22,7 @@ export function* rootSaga() {
   // if two actions are fired one after another, the last action will fire
   // while the first is canceled
   yield takeLatest(REQUEST_USER_WORKSPACES, getAllUserWorkspaces);
+  yield takeLatest(REQUEST_WORKSPACE_CHANNELS, getAllCurrentWorkspaceChannels);
 }
 
 export type AppState = ReturnType<typeof rootReducer>;
