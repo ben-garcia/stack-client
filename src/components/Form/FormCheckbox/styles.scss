@@ -6,6 +6,10 @@
   align-items: center;
   position: relative;
 
+  .form__label {
+    color: $color-black;
+  }
+
   .checkbox-hack {
     display: flex;
     align-items: center;

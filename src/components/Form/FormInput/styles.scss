@@ -1,3 +1,5 @@
+@import '../../../pages/sass/variables';
+
 @font-face {
   font-family: ChampagneLimousines;
   font-style: normal;
@@ -15,7 +17,12 @@
   width: 100%;
 
   .field-label {
+    color: $color-black;
     font-weight: 400;
+
+    &__message {
+      color: $color-dark-grey;
+    }
   }
 
   .field-input {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dialog, Icon } from '../..';
+import { Dialog, Icon, Text } from 'components';
 import { FormCheckboxProps } from './types';
 import './styles.scss';
 
@@ -23,7 +23,9 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({
     <div className={classesToAdd}>
       <div className="form__checkbox">
         <label className="form__label" htmlFor={inputId}>
-          {label}
+          <Text tag="span" size="md" className="label-message">
+            {label}
+          </Text>
         </label>
         <input
           type="checkbox"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dialog } from '../..';
+import { Dialog, Text } from 'components';
 import { FormInputProps } from './types';
 import './styles.scss';
 
@@ -25,7 +25,17 @@ const FormInput: React.FC<FormInputProps> = ({
     <div className={classNamesToRender}>
       <label className="field-label" htmlFor={inputId}>
         {label}
-        {required ? ` (required)` : ` (optional)`}
+        {required ? (
+          <Text tag="span" size="xm" className="field-label__message">
+            {' '}
+            (Required)
+          </Text>
+        ) : (
+          <Text tag="span" size="xm" className="field-label__message">
+            {' '}
+            (Optional
+          </Text>
+        )}
       </label>
       <input
         onChange={onChange}
