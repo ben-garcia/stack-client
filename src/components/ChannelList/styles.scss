@@ -6,6 +6,19 @@
     justify-content: space-around;
   }
 
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    padding: 0 1.5rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary-color-hover;
+    }
+  }
+
   &__heading {
     margin-right: 1.5rem;
   }

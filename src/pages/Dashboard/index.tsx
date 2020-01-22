@@ -60,10 +60,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState): AppState => ({
-  channels: state.channels,
+const mapStateToProps = (state: AppState) => ({
   user: state.user,
-  currentWorkspaceId: state.currentWorkspaceId,
   workspaces: state.workspaces,
 });
 
