@@ -9,7 +9,7 @@ export interface CreateChannelFormProps {
 export interface Channel {
   name: string;
   description: string;
-  public: boolean;
+  private: boolean;
 }
 
 export interface ChannelErrors {

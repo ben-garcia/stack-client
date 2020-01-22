@@ -17,7 +17,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
-    public: true,
+    private: false,
   });
   const [errors, setErrors] = useState<ChannelErrors>({
     name: '',
@@ -35,10 +35,10 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // check if the event referes to the checkbox
-    if (e.target.name === 'public') {
+    if (e.target.name === 'private') {
       setChannel({
         ...channel,
-        public: e.target.checked,
+        private: e.target.checked,
       });
       // no need to continue
       return;
@@ -73,6 +73,9 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // eslint-disable-next-line
+    console.log(channel.private);
 
     //  make sure there are no errors and that current workspace id is
     // set before sending the request.
@@ -130,9 +133,9 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
           />
           <Form.Checkbox
             onChange={handleChange}
-            inputId="public"
+            inputId="private"
             label="Make Private"
-            value={`${channel.public}`}
+            value={`${channel.private}`}
           />
         </Form.Group>
         <Text className="create-channel__message">

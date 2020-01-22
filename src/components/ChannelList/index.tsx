@@ -40,7 +40,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
           <li key={c.id} className="channel-list__item">
             <Button type="button" color="transparent" onClick={() => {}}>
               <Icon
-                type="hash"
+                type={c.private ? 'lock' : 'hash'}
                 size="xm"
                 color="white"
                 className="channel-list__icon"

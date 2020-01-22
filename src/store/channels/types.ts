@@ -9,6 +9,7 @@ export interface Channel {
   id: number;
   name: string;
   description: string;
+  private: boolean;
   createdAt: string;
   updatedAt: string;
 }
