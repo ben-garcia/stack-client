@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
+import { AppState } from 'store';
+import { addChannel } from 'store/channels/actions';
+import { Channel as StoreChannel } from 'store/channels/types';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
-const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
+const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
+  currentWorkspaceId,
+  addChannelAction,
+}) => {
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
@@ -66,19 +74,31 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      const response = await sendRequest({
-        method: 'POST',
-        url: '/channels',
-        data: {
-          ...channel,
-        },
-      });
-      // eslint-disable-next-line
-      console.log(response.data);
-    } catch (err) {
-      // eslint-disable-next-line
-      console.log('handleSubmit error: ', err);
+    //  make sure there are no errors and that current workspace id is
+    // set before sending the request.
+    if (
+      errors.name === '' &&
+      errors.description === '' &&
+      currentWorkspaceId !== 0
+    ) {
+      try {
+        const {
+          data: { channel: newChannel },
+        } = await sendRequest({
+          method: 'POST',
+          url: '/channels',
+          data: {
+            ...channel,
+            workspace: currentWorkspaceId,
+          },
+        });
+
+        // dispatch action to add newly created channel to the store.
+        addChannelAction(newChannel);
+      } catch (err) {
+        // eslint-disable-next-line
+        console.log('handleSubmit error: ', err);
+      }
     }
   };
 
@@ -127,4 +147,12 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = () => {
   );
 };
 
-export default CreateChannelForm;
+const mapStateToProps = (state: AppState) => ({
+  currentWorkspaceId: state.currentWorkspaceId,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addChannelAction: (channel: StoreChannel) => dispatch(addChannel(channel)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateChannelForm);

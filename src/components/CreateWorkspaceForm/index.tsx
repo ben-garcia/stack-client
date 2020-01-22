@@ -49,27 +49,32 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
     e.preventDefault();
 
     if (workspaceName.length > 0 && !workspaceNameError) {
-      // submit request
-      const {
-        data: { workspace },
-      } = await sendRequest({
-        method: 'POST',
-        url: '/workspaces',
-        data: {
-          name: workspaceName,
-          owner: userId,
-        },
-      });
+      try {
+        // submit request
+        const {
+          data: { workspace },
+        } = await sendRequest({
+          method: 'POST',
+          url: '/workspaces',
+          data: {
+            name: workspaceName,
+            owner: userId,
+          },
+        });
 
-      // dispatch action to add it to the store
-      addWorkspaceAction(workspace);
+        // dispatch action to add it to the store
+        addWorkspaceAction(workspace);
 
-      // close the modal
-      createWorkspaceFormIsOpen(false);
+        // close the modal
+        createWorkspaceFormIsOpen(false);
 
-      // check whether the newly created workspace should open
-      if (openWorkspace) {
-        getCurrentWorkspaceIdAction(workspace.id);
+        // check whether the newly created workspace should open
+        if (openWorkspace) {
+          getCurrentWorkspaceIdAction(workspace.id);
+        }
+      } catch (err) {
+        // eslint-disable-next-line
+        console.log('CreateWorkspaceForm submit Error: ', err);
       }
     }
   };
