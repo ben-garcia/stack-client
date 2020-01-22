@@ -39,6 +39,12 @@ const ChannelList: React.FC<ChannelListProps> = ({
         {channels.list.map((c: Channel) => (
           <li key={c.id} className="channel-list__item">
             <Button type="button" color="transparent" onClick={() => {}}>
+              <Icon
+                type="hash"
+                size="xm"
+                color="white"
+                className="channel-list__icon"
+              />
               {c.name}
             </Button>
           </li>

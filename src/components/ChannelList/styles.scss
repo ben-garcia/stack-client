@@ -8,6 +8,7 @@
 
   &__list {
     list-style: none;
+    margin-top: 0.5rem;
   }
 
   &__item {
@@ -17,6 +18,11 @@
       cursor: pointer;
       background-color: $primary-color-hover;
     }
+  }
+
+  &__icon {
+    opacity: 0.3;
+    margin-right: 0.5rem;
   }
 
   &__heading {
