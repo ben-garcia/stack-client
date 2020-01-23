@@ -32,7 +32,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
         <Modal
           header="Create a Workspace"
           onClose={() => setCreateWorkspaceFormIsOpen(false)}
-          size="md"
+          size="sm"
         >
           <CreateWorkspaceForm
             createWorkspaceFormIsOpen={setCreateWorkspaceFormIsOpen}

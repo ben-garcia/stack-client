@@ -67,7 +67,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
       {createChannelFormIsOpen && (
         <Modal
           header="Create a Channel"
-          size="md"
+          size="sm"
           onClose={() => setCreateChannelFormIsOpen(false)}
         >
           <CreateChannelForm />
