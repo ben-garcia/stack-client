@@ -150,7 +150,9 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (
+  state: AppState
+): Pick<AppState, 'currentWorkspaceId'> => ({
   currentWorkspaceId: state.currentWorkspaceId,
 });
 

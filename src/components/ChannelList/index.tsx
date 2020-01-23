@@ -63,7 +63,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppState): Pick<AppState, 'channels'> => ({
   channels: state.channels,
 });
 

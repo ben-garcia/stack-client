@@ -60,7 +60,9 @@ const Dashboard: React.FC<DashboardProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (
+  state: AppState
+): Pick<AppState, 'user' | 'workspaces'> => ({
   user: state.user,
   workspaces: state.workspaces,
 });
