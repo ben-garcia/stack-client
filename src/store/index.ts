@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { takeLatest } from 'redux-saga/effects';
 
+import channelReducer from './channel/reducer';
 import getAllCurrentWorkspaceChannels from './channels/sagas';
 import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
 import channelsReducer from './channels/reducer';
@@ -11,9 +12,10 @@ import { REQUEST_USER_WORKSPACES } from './workspaces/types';
 import getAllUserWorkspaces from './workspaces/sagas';
 
 export const rootReducer = combineReducers({
+  currentChannelId: channelReducer,
+  currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
   user: userReducer,
-  currentWorkspaceId: workspaceReducer,
   workspaces: workspacesReducer,
 });
 

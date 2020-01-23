@@ -18,7 +18,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     classesToAdd += ` ${className}`;
   }
 
-  const saveId = (id: number) => {
+  const saveWorkspaceId = (id: number) => {
     // save current workspace id to be used on page refresh
     localStorage.setItem('currentWorkspaceId', `${id}`);
     // dispatch action to change the store
@@ -33,7 +33,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
             <Button
               type="button"
               color="transparent"
-              onClick={() => saveId(w.id)}
+              onClick={() => saveWorkspaceId(w.id)}
             >
               {w.name[0].toUpperCase()}
             </Button>

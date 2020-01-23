@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
+import getCurrentChannelId from 'store/channel/actions';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
@@ -13,12 +14,13 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
-  user,
-  workspaces,
-  userLoggedInAction,
+  getCurrentChannelIdAction,
+  getCurrentWorkspaceIdAction,
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
-  getCurrentWorkspaceIdAction,
+  user,
+  userLoggedInAction,
+  workspaces,
 }) => {
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
@@ -26,6 +28,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     const workspaceIdFromLocalStorage = localStorage.getItem(
       'currentWorkspaceId'
     );
+    const channelIdFromLocalStorage = localStorage.getItem('currentChannelId');
     // if a user is stored in localStorage
     if (userFromLocalStorage) {
       const parsedUser = JSON.parse(userFromLocalStorage!);
@@ -39,9 +42,17 @@ const Dashboard: React.FC<DashboardProps> = ({
       const currentWorkspaceId = Number(workspaceIdFromLocalStorage);
       // dispatch action to update store
       getCurrentWorkspaceIdAction(currentWorkspaceId);
-      // ONLY when the store has been updatd with the current workspace id
+      // ONLY when the store has been updated with the current workspace id
       // dispatch action to get all current workspace's channels
       requestWorkspaceChannelsAction();
+    }
+    // set up channelId on page reload
+    if (channelIdFromLocalStorage) {
+      const currentChannelId = Number(channelIdFromLocalStorage);
+      // dispatch action to update store
+      getCurrentChannelIdAction(currentChannelId);
+      // ONLY when thte stora has been updated with the current channel is
+      // dispatch actoin to get all current channel's messages
     }
   }
 
@@ -73,6 +84,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
+  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
