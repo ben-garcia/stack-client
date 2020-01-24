@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Icon } from 'components';
+import { Button, Icon, Text } from 'components';
 import { MessageListProps } from './types';
 import './styles.scss';
 
@@ -14,7 +14,9 @@ const MessageList: React.FC<MessageListProps> = ({ className = '' }) => {
   return (
     <section className={classesToAdd}>
       <div className="message-list__inner">
-        <span className="message-list__header">Direct Message</span>
+        <Text tag="span" className="message-list__header" size="sm">
+          Direct Message
+        </Text>
         <Button
           className="message-list__add-button"
           type="button"

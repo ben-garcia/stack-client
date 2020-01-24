@@ -26,7 +26,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   };
 
   return (
-    <section className={classesToAdd}>
+    <aside className={classesToAdd}>
       <ul className="workspace-list__inner">
         {workspaces.map(w => (
           <li key={w.id} className="workspace-list__item" title={w.name}>
@@ -40,7 +40,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
           </li>
         ))}
       </ul>
-    </section>
+    </aside>
   );
 };
 

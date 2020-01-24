@@ -58,14 +58,12 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="dashboard">
+      <WorkspaceList
+        workspaces={workspaces.list}
+        className="dashboard__workspaces-list"
+      />
       <WorkspaceInfo className="dashboard__top-nav" />
-      <aside className="dashboard__sidebar">
-        <WorkspaceList
-          workspaces={workspaces.list}
-          className="sidebar-workspaces"
-        />
-        <WorkspaceSidebar className="sidebar-channels" />
-      </aside>
+      <WorkspaceSidebar className="dashboard__sidebar" />
       <main className="dashboard__main">Main</main>
     </div>
   );

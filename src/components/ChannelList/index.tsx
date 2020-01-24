@@ -33,7 +33,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
   return (
     <section className={classesToAdd}>
       <div className="channel-list__inner">
-        <Text tag="span" className="channel-list__heading">
+        <Text tag="span" className="channel-list__heading" size="sm">
           Channels
         </Text>
         <Button

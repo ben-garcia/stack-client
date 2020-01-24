@@ -4,12 +4,18 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 280px 1fr;
-  grid-template-rows: min-content;
+  grid-template-columns: 60px 220px auto;
+  grid-template-rows: 60px auto;
   grid-template-areas:
-    'dashboard__top-nav dashboard__top-nav'
-    'dashboard__sidebar dashboard__main';
+    'dashboard__workspaces-list dashboard__top-nav dashboard__top-nav'
+    'dashboard__workspaces-list dashboard__sidebar dashboard__main';
   overflow: hidden;
+
+  &__workspaces-list {
+    background-color: $primary-color;
+    min-width: 60px;
+    grid-area: dashboard__workspaces-list;
+  }
 
   &__top-nav {
     background-color: $background-color;
@@ -21,15 +27,6 @@
     background-color: $primary-color;
     color: $background-color;
     grid-area: dashboard__sidebar;
-    display: flex;
-
-    .sidebar-workspaces {
-      min-width: 60px;
-    }
-
-    .sidebar-channels {
-      width: 220px;
-    }
   }
 
   &__main {

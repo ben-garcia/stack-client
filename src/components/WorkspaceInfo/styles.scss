@@ -1,16 +1,13 @@
 @import '../../pages/sass/variables';
 
 .workspace-info {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
 
   &__inner-left {
     background-color: $primary-color;
     color: $background-color;
-    min-width: 280px;
+    min-width: 220px;
     padding: 1rem;
 
     &:hover {
