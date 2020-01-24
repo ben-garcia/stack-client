@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, CreateWorkspaceForm, Icon, Modal } from 'components';
+import { Button, CreateWorkspaceForm, Icon, Modal, Text } from 'components';
 import { WorkspaceProps } from './types';
 import './styles.scss';
 
@@ -21,8 +21,26 @@ const Workspace: React.FC<WorkspaceProps> = ({
   return (
     <section className={classesToAdd}>
       <div className="workspace__inner">
-        <div className="workspace__name">{workspaceName}</div>
-        <div className="workspace__username">{username}</div>
+        <div className="workspace__name">
+          {workspaceName}
+          <Icon
+            type="chevron-down"
+            size="xm"
+            color="white"
+            className="workspace__chevron-icon"
+          />
+        </div>
+        <div className="workspace__inner-two">
+          <Icon
+            type="circle"
+            size="xm"
+            color="green"
+            className="workspace__circle-icon"
+          />
+          <Text tag="span" className="workspace__username">
+            {username}
+          </Text>
+        </div>
       </div>
       <Button
         className="workspace__add-button"

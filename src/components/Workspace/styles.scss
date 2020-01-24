@@ -4,11 +4,43 @@
   display: flex;
   justify-content: space-between;
 
+  &:hover {
+    background-color: $primary-color-hover;
+    cursor: pointer;
+  }
+
+  &__chevron-icon {
+    font-size: 0.5rem;
+    margin-left: 0.3rem;
+    opacity: 0.6;
+  }
+
+  &__username {
+    opacity: 0.6;
+  }
+
+  &:hover &__chevron-icon,
+  &:hover &__username {
+    opacity: 1;
+  }
+
+  &__name {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  &__circle-icon {
+    background-color: #2bac76;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+  }
+
   &__add-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: center;
+    align-self: start;
     cursor: pointer;
     width: 20px;
     height: 20px;
