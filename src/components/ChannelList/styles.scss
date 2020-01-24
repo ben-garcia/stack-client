@@ -3,8 +3,8 @@
 .channel-list {
   &__inner {
     display: flex;
-    justify-content: space-around;
-    padding: 0.3rem 0;
+    justify-content: space-between;
+    padding: 0.3rem 1rem;
   }
 
   &__list {
@@ -12,7 +12,7 @@
   }
 
   &__item {
-    padding: 0 1.5rem;
+    padding-left: 0.85rem;
 
     &:hover {
       cursor: pointer;
@@ -23,10 +23,6 @@
   &__icon {
     opacity: 0.3;
     margin-right: 0.5rem;
-  }
-
-  &__heading {
-    margin-right: 1.5rem;
   }
 
   &__add-button {

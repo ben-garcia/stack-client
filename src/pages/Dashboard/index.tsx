@@ -14,6 +14,7 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
+  currentWorkspaceId,
   getCurrentChannelIdAction,
   getCurrentWorkspaceIdAction,
   requestUserWorkspacesAction,
@@ -39,9 +40,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
-      const currentWorkspaceId = Number(workspaceIdFromLocalStorage);
+      const workspaceId = Number(workspaceIdFromLocalStorage);
       // dispatch action to update store
-      getCurrentWorkspaceIdAction(currentWorkspaceId);
+      getCurrentWorkspaceIdAction(workspaceId);
       // ONLY when the store has been updated with the current workspace id
       // dispatch action to get all current workspace's channels
       requestWorkspaceChannelsAction();
@@ -56,13 +57,21 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
   }
 
+  // get the name of the current workspace
+  let workspaceName: string | undefined = 'Loading';
+  workspaceName = workspaces.list.find(w => w.id === currentWorkspaceId)?.name;
+
   return (
     <div className="dashboard">
       <WorkspaceList
         workspaces={workspaces.list}
         className="dashboard__workspaces-list"
       />
-      <WorkspaceInfo className="dashboard__top-nav" />
+      <WorkspaceInfo
+        workspaceName={workspaceName}
+        username={user.username}
+        className="dashboard__top-nav"
+      />
       <WorkspaceSidebar className="dashboard__sidebar" />
       <main className="dashboard__main">Main</main>
     </div>
@@ -71,7 +80,8 @@ const Dashboard: React.FC<DashboardProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'user' | 'workspaces'> => ({
+): Pick<AppState, 'currentWorkspaceId' | 'user' | 'workspaces'> => ({
+  currentWorkspaceId: state.currentWorkspaceId,
   user: state.user,
   workspaces: state.workspaces,
 });

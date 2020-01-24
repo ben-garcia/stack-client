@@ -4,7 +4,11 @@ import { Button, CreateWorkspaceForm, Icon, Modal } from 'components';
 import { WorkspaceProps } from './types';
 import './styles.scss';
 
-const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
+const Workspace: React.FC<WorkspaceProps> = ({
+  workspaceName,
+  username,
+  className = '',
+}) => {
   const [createWorkspaceFormIsOpen, setCreateWorkspaceFormIsOpen] = useState<
     boolean
   >(false);
@@ -17,8 +21,8 @@ const Workspace: React.FC<WorkspaceProps> = ({ className }) => {
   return (
     <section className={classesToAdd}>
       <div className="workspace__inner">
-        <div className="workspace__name">Workspace Name</div>
-        <div className="workspace__owner">Workspace Owner</div>
+        <div className="workspace__name">{workspaceName}</div>
+        <div className="workspace__username">{username}</div>
       </div>
       <Button
         className="workspace__add-button"

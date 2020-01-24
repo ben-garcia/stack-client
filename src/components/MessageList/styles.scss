@@ -3,8 +3,8 @@
 .message-list {
   &__inner {
     display: flex;
-    justify-content: space-evenly;
-    padding: 0.3rem 0;
+    justify-content: space-between;
+    padding: 0.3rem 1rem;
   }
 
   &__add-button {

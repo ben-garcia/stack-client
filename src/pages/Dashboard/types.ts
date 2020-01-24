@@ -7,6 +7,7 @@ import { requestUserWorkspaces } from 'store/workspaces/actions';
 import { WorkspacesState } from 'store/workspaces/types';
 
 export interface DashboardProps {
+  currentWorkspaceId: number;
   getCurrentChannelIdAction: typeof getCurrentChannelId;
   getCurrentWorkspaceIdAction: typeof getCurrentWorkspaceId;
   requestUserWorkspacesAction: typeof requestUserWorkspaces;

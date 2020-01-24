@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button } from 'components';
+import { requestWorkspaceChannels } from 'store/channels/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
@@ -11,6 +12,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   workspaces,
   className,
   getCurrentWorkspaceIdAction,
+  requestWorkspaceChannelsAction,
 }) => {
   let classesToAdd: string = 'workspace-list';
 
@@ -23,6 +25,8 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     localStorage.setItem('currentWorkspaceId', `${id}`);
     // dispatch action to change the store
     getCurrentWorkspaceIdAction(id);
+    // dispatch action to get current workspace channels
+    requestWorkspaceChannelsAction();
   };
 
   return (
@@ -47,6 +51,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
+  requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
 });
 
 export default connect(null, mapDispatchToProps)(WorkspaceList);
