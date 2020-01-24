@@ -1,6 +1,25 @@
 .channel {
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+
   &__name {
+    display: flex;
     font-weight: 600;
+  }
+
+  &__icon-sm {
+    font-size: 1rem !important;
+    margin-right: 0.2rem;
+  }
+
+  &__icon-user,
+  &__icon-pencil {
+    font-size: 0.7rem !important;
+  }
+
+  &__icon-pencil {
+    align-self: center;
   }
 
   &__inner {
@@ -11,7 +30,7 @@
     flex-shrink: 0;
   }
 
-  &__description {
+  &__topic {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

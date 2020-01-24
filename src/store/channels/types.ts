@@ -10,6 +10,7 @@ export interface Channel {
   name: string;
   description: string;
   private: boolean;
+  topic: string;
   createdAt: string;
   updatedAt: string;
 }

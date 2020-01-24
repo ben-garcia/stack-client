@@ -5,6 +5,7 @@ import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
+  channel,
   workspaceName,
   username,
   className = '',
@@ -22,7 +23,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
         username={username}
         className="workspace-info__inner-left"
       />
-      <Channel className="workspace-info__inner-right" />
+      <Channel channel={channel} className="workspace-info__inner-right" />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
+import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
@@ -14,7 +15,9 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
+  channels,
   currentWorkspaceId,
+  currentChannelId,
   getCurrentChannelIdAction,
   getCurrentWorkspaceIdAction,
   requestUserWorkspacesAction,
@@ -49,9 +52,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
     // set up channelId on page reload
     if (channelIdFromLocalStorage) {
-      const currentChannelId = Number(channelIdFromLocalStorage);
+      const channelId = Number(channelIdFromLocalStorage);
       // dispatch action to update store
-      getCurrentChannelIdAction(currentChannelId);
+      getCurrentChannelIdAction(channelId);
       // ONLY when thte stora has been updated with the current channel is
       // dispatch actoin to get all current channel's messages
     }
@@ -61,6 +64,11 @@ const Dashboard: React.FC<DashboardProps> = ({
   let workspaceName: string | undefined = 'Loading';
   workspaceName = workspaces.list.find(w => w.id === currentWorkspaceId)?.name;
 
+  // get the current channel
+  const currentChannel: Channel | undefined = channels.list.find(
+    c => c.id === currentChannelId
+  );
+
   return (
     <div className="dashboard">
       <WorkspaceList
@@ -68,6 +76,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         className="dashboard__workspaces-list"
       />
       <WorkspaceInfo
+        channel={currentChannel}
         workspaceName={workspaceName}
         username={user.username}
         className="dashboard__top-nav"
@@ -78,10 +87,10 @@ const Dashboard: React.FC<DashboardProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: AppState
-): Pick<AppState, 'currentWorkspaceId' | 'user' | 'workspaces'> => ({
+const mapStateToProps = (state: AppState): AppState => ({
+  currentChannelId: state.currentChannelId,
   currentWorkspaceId: state.currentWorkspaceId,
+  channels: state.channels,
   user: state.user,
   workspaces: state.workspaces,
 });
