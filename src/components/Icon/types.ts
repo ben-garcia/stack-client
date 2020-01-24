@@ -15,6 +15,6 @@ type IconType =
 export interface IconProps {
   type: IconType;
   size?: 'xm' | 'sm' | 'md' | 'lg' | 'xlg' | 'xxl';
-  color?: 'white' | 'black';
+  color?: 'white' | 'black' | 'green';
   className?: string;
 }

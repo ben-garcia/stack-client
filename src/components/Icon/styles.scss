@@ -37,6 +37,10 @@
   color: $color-black;
 }
 
+.icon--green {
+  color: $color-green;
+}
+
 /* icons */
 .icon--user::before {
   content: '\e900';
