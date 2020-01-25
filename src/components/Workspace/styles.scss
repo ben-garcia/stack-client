@@ -10,6 +10,7 @@
   }
 
   &__chevron-icon {
+    align-self: center;
     font-size: 0.5rem;
     margin-left: 0.3rem;
     opacity: 0.6;
@@ -24,9 +25,18 @@
     opacity: 1;
   }
 
+  &__inner {
+    display: flex;
+  }
+
   &__name {
     font-weight: 700;
     margin-bottom: 0.3rem;
+    max-width: 140px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__circle-icon {

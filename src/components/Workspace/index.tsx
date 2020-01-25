@@ -20,9 +20,11 @@ const Workspace: React.FC<WorkspaceProps> = ({
 
   return (
     <section className={classesToAdd}>
-      <div className="workspace__inner">
-        <div className="workspace__name">
-          {workspaceName}
+      <div>
+        <div className="workspace__inner">
+          <Text tag="span" size="md" className="workspace__name">
+            {workspaceName}
+          </Text>
           <Icon
             type="chevron-down"
             size="xm"
