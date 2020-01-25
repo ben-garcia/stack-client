@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 import { ModalProps } from './types';
 import './styles.scss';
@@ -24,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({
     classesToAdd += ` modal--${size}`;
   }
 
-  return (
+  return createPortal(
     <div className="modal-background">
       <section className={classesToAdd}>
         <Button
@@ -42,7 +43,8 @@ const Modal: React.FC<ModalProps> = ({
         />
         {children}
       </section>
-    </div>
+    </div>,
+    document.getElementById('modal-root') as Element
   );
 };
 
