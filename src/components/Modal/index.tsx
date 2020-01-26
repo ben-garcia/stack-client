@@ -6,7 +6,7 @@ import './styles.scss';
 import { Button, Header, Icon } from '..';
 
 const Modal: React.FC<ModalProps> = ({
-  header,
+  header = '',
   children,
   size = '',
   className = '',
@@ -59,19 +59,23 @@ const Modal: React.FC<ModalProps> = ({
       }}
     >
       <section className={classesToAdd}>
-        <Button
-          type="button"
-          className="modal__button-close"
-          color="transparent"
-          onClick={onClose}
-        >
-          <Icon type="times" color="black" size="sm" />
-        </Button>
-        <Header
-          headerPosition="center"
-          heading={header}
-          className="modal__header"
-        />
+        {header?.trim() !== '' && (
+          <Button
+            type="button"
+            className="modal__button-close"
+            color="transparent"
+            onClick={onClose}
+          >
+            <Icon type="times" color="black" size="sm" />
+          </Button>
+        )}
+        {header?.trim() !== '' && (
+          <Header
+            headerPosition="center"
+            heading={header}
+            className="modal__header"
+          />
+        )}
         {children}
       </section>
     </div>,
