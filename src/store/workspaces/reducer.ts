@@ -11,7 +11,7 @@ const initialState: WorkspacesState = {
 };
 
 const workspacesReducer = (
-  state: WorkspacesState = initialState,
+  state: Readonly<WorkspacesState> = initialState,
   action: WorkspacesActionTypes
 ): WorkspacesState => {
   switch (action.type) {

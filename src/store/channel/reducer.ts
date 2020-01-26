@@ -7,7 +7,7 @@ import {
 const initialState: ChannelState = 0;
 
 const ChannelReducer = (
-  state: ChannelState = initialState,
+  state: Readonly<ChannelState> = initialState,
   action: ChannelActionTypes
 ) => {
   switch (action.type) {

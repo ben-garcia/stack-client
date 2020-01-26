@@ -5,7 +5,7 @@ const initialState: UserState = {
 };
 
 const userReducer = (
-  state: UserState = initialState,
+  state: Readonly<UserState> = initialState,
   action: UserActionTypes
 ): UserState => {
   switch (action.type) {

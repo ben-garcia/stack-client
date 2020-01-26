@@ -11,7 +11,7 @@ const initialState: ChannelsState = {
 };
 
 const ChannelsReducer = (
-  state: ChannelsState = initialState,
+  state: Readonly<ChannelsState> = initialState,
   action: ChannelsActionTypes
 ): ChannelsState => {
   switch (action.type) {

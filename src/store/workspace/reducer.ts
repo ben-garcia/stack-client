@@ -7,7 +7,7 @@ import {
 const initialState: WorkspaceState = 0;
 
 const workspaceReducer = (
-  state: WorkspaceState = initialState,
+  state: Readonly<WorkspaceState> = initialState,
   action: WorkspaceActionTypes
 ): WorkspaceState => {
   switch (action.type) {
