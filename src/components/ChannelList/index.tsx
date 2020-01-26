@@ -10,6 +10,7 @@ import { ChannelListProps } from './types';
 import './styles.scss';
 
 const ChannelList: React.FC<ChannelListProps> = ({
+  currentChannelId,
   channels,
   getCurrentChannelIdAction,
   className = '',
@@ -47,7 +48,12 @@ const ChannelList: React.FC<ChannelListProps> = ({
       </div>
       <ul className="channel-list__list">
         {channels.list.map((c: Channel) => (
-          <li key={c.id} className="channel-list__item">
+          <li
+            key={c.id}
+            className={`channel-list__item ${
+              c.id === currentChannelId ? `channel-list__item--active` : ``
+            }`}
+          >
             <Button
               type="button"
               color="transparent"
@@ -77,7 +83,10 @@ const ChannelList: React.FC<ChannelListProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState): Pick<AppState, 'channels'> => ({
+const mapStateToProps = (
+  state: AppState
+): Pick<AppState, 'currentChannelId' | 'channels'> => ({
+  currentChannelId: state.currentChannelId,
   channels: state.channels,
 });
 

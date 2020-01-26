@@ -14,9 +14,13 @@
   &__item {
     padding-left: 0.85rem;
 
-    &:hover {
+    &:hover:not(&--active) {
       cursor: pointer;
       background-color: $primary-color-hover;
+    }
+
+    &--active {
+      background-color: $color-blue-active;
     }
   }
 
