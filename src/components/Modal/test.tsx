@@ -15,6 +15,12 @@ describe('<Modal />', () => {
   });
 
   describe('stories', () => {
+    // add a div with #modal-root id to the global body
+    const modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    const body = document.querySelector('body');
+    body!.appendChild(modalRoot);
+
     it('should render with children by default', () => {
       const wrapper: ShallowWrapper = shallow(
         <Modal header="Modal Header">Testing Again</Modal>

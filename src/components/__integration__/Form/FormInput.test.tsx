@@ -44,13 +44,15 @@ describe('FormInput Integration', () => {
     expect(
       lists
         .at(0)
-        .find('p')
+        .find('.dialog-list__item')
+        .at(0)
         .text()
     ).toBe('houston we have a problem');
     expect(
       lists
         .at(1)
-        .find('p')
+        .find('.dialog-list__item')
+        .at(1)
         .text()
     ).toBe('houston we have got another problem');
   });

@@ -26,6 +26,12 @@ describe('LandingPage Integration', () => {
   describe('User interactions', () => {
     let container: RenderResult;
 
+    // add a div with #modal-root id to the global body
+    const modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    const body = document.querySelector('body');
+    body!.appendChild(modalRoot);
+
     beforeEach(() => {
       container = render(<LandingPage />);
     });
