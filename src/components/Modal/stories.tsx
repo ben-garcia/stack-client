@@ -25,6 +25,11 @@ storiesOf('Modal', module)
       This is a fullscreen Modal
     </Modal>
   ))
+  .add('transparent background', () => (
+    <Modal header="Modal" background={false}>
+      This is a Modal without dark background
+    </Modal>
+  ))
   .add('with RegisterPage', () => (
     <Modal header="Register">
       <RegisterPage

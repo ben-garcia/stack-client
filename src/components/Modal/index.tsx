@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ModalProps } from './types';
@@ -11,9 +11,19 @@ const Modal: React.FC<ModalProps> = ({
   size = '',
   className = '',
   onClose = () => {},
+  background = true,
 }) => {
+  // background div ref
+  const backgroundRef = useRef<HTMLDivElement>(null);
   // keeps track of all classes to add to the modal
   let classesToAdd: string = 'modal';
+
+  // runs synchronously
+  useLayoutEffect(() => {
+    if (backgroundRef?.current) {
+      backgroundRef.current.focus();
+    }
+  }, []);
 
   // make sure className isn't empty
   if (className.trim() !== '') {
@@ -26,7 +36,28 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   return createPortal(
-    <div className="modal-background">
+    <div
+      ref={background ? backgroundRef : null}
+      role="button"
+      tabIndex={0}
+      className={
+        background
+          ? 'modal-background modal-background--dark'
+          : 'modal-background modal-background--transparent'
+      }
+      onClick={e => {
+        // close modal ONLY when background is clicked
+        if (e.currentTarget === e.target) {
+          onClose();
+        }
+      }}
+      onKeyUp={e => {
+        // close modal when escape key is pressed
+        if (e.keyCode === 27) {
+          onClose();
+        }
+      }}
+    >
       <section className={classesToAdd}>
         <Button
           type="button"
