@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button } from 'components';
+import { AppState } from 'store';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
 
 const WorkspaceList: React.FC<WorkspaceListProps> = ({
+  currentWorkspaceId,
   workspaces,
   className,
   getCurrentWorkspaceIdAction,
@@ -33,7 +35,13 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     <aside className={classesToAdd}>
       <ul className="workspace-list__inner">
         {workspaces.map(w => (
-          <li key={w.id} className="workspace-list__item" title={w.name}>
+          <li
+            key={w.id}
+            className={`workspace-list__item ${
+              w.id === currentWorkspaceId ? `workspace-list__item--active` : ``
+            }`}
+            title={w.name}
+          >
             <Button
               type="button"
               color="transparent"
@@ -48,10 +56,16 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   );
 };
 
+const mapStateToProps = (
+  state: AppState
+): Pick<AppState, 'currentWorkspaceId'> => ({
+  currentWorkspaceId: state.currentWorkspaceId,
+});
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
 });
 
-export default connect(null, mapDispatchToProps)(WorkspaceList);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceList);
