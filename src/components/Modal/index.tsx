@@ -66,7 +66,12 @@ const Modal: React.FC<ModalProps> = ({
             color="transparent"
             onClick={onClose}
           >
-            <Icon type="times" color="black" size="sm" />
+            <Icon
+              type="times"
+              color="black"
+              size="sm"
+              className="modal__times-icon"
+            />
           </Button>
         )}
         {header?.trim() !== '' && (
