@@ -5,4 +5,5 @@ export interface ButtonProps {
   color?: 'primary' | 'transparent';
   className?: string;
   disabled?: boolean;
+  title?: string;
 }

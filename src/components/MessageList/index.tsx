@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button, Icon, Text } from 'components';
+import { Button, Icon, InvitePeopleForm, Modal, Text } from 'components';
 import { MessageListProps } from './types';
 import './styles.scss';
 
 const MessageList: React.FC<MessageListProps> = ({ className = '' }) => {
+  const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
+    false
+  );
   let classesToAdd: string = 'message-list';
 
   if (className?.trim() !== '') {
@@ -21,10 +24,21 @@ const MessageList: React.FC<MessageListProps> = ({ className = '' }) => {
           className="message-list__add-button"
           type="button"
           color="transparent"
+          onClick={() => setInvitePeopleFormIsOpen(true)}
+          title="Invite People"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
+      {invitePeopleFormIsOpen && (
+        <Modal
+          header="Invite People"
+          size="sm"
+          onClose={() => setInvitePeopleFormIsOpen(false)}
+        >
+          <InvitePeopleForm />
+        </Modal>
+      )}
     </section>
   );
 };

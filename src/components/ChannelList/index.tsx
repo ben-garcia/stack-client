@@ -42,6 +42,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
           type="button"
           color="transparent"
           onClick={() => setCreateChannelFormIsOpen(true)}
+          title="Create a new Channel"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>

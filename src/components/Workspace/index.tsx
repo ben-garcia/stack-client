@@ -49,6 +49,7 @@ const Workspace: React.FC<WorkspaceProps> = ({
         type="button"
         color="transparent"
         onClick={() => setCreateWorkspaceFormIsOpen(true)}
+        title="Create a new Workspace"
       >
         <Icon color="white" type="plus" size="sm" />
       </Button>

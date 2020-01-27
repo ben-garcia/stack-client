@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = '',
   disabled = false,
+  title = '',
 }) => {
   let classesToAdd: string = 'button';
 
@@ -43,6 +44,7 @@ const Button: React.FC<ButtonProps> = ({
       className={classesToAdd}
       onClick={onClick}
       disabled={disabled}
+      title={title}
     >
       {children}
     </button>
