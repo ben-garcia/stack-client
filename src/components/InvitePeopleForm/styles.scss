@@ -1,0 +1,62 @@
+@import '../../pages/sass/variables';
+
+.invite-people-form__inner {
+  display: flex;
+  width: 100%;
+}
+
+.invite-people-form {
+  &__sub-header {
+    color: $color-dark-grey;
+  }
+
+  &__add-input-button {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .invite-people-form__plus-icon {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba($color-dark-grey, 0.6);
+      border-radius: 50%;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 0.3rem;
+    }
+
+    &:hover .invite-people-form__plus-icon {
+      border-color: $color-dark-grey;
+    }
+
+    &:hover .invite-people-form__add-text {
+      color: $primary-color;
+    }
+  }
+
+  &__message {
+    margin-top: 0.5rem;
+    color: $color-dark-grey;
+  }
+}
+
+.invite-people-form__delete-button {
+  align-self: center;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+
+  &:hover {
+    background-color: rgba($color-dark-grey, 0.1);
+  }
+
+  .invite-people-form__times-icon {
+    opacity: 0.6;
+  }
+
+  &:hover .invite-people-form__icon {
+    opacity: 1;
+  }
+}

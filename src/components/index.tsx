@@ -9,6 +9,7 @@ import Form from './Form';
 import Header from './Header';
 import Icon from './Icon';
 import Image from './Image';
+import InvitePeopleForm from './InvitePeopleForm';
 import MessageList from './MessageList';
 import Modal from './Modal';
 import Navbar from './Navbar';
@@ -30,6 +31,7 @@ export {
   Header,
   Icon,
   Image,
+  InvitePeopleForm,
   MessageList,
   Modal,
   Navbar,
