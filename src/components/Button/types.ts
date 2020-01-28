@@ -6,4 +6,5 @@ export interface ButtonProps {
   className?: string;
   disabled?: boolean;
   title?: string;
+  customAttribute?: { [key: string]: string };
 }

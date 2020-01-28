@@ -11,6 +11,7 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   disabled = false,
   title = '',
+  customAttribute = {},
 }) => {
   let classesToAdd: string = 'button';
 
@@ -38,17 +39,23 @@ const Button: React.FC<ButtonProps> = ({
     classesToAdd += ' button--disabled';
   }
 
-  return (
-    <button
-      type={type}
-      className={classesToAdd}
-      onClick={onClick}
-      disabled={disabled}
-      title={title}
-    >
-      {children}
-    </button>
-  );
+  // props to pass along
+  const props: any = {
+    type,
+    className: classesToAdd,
+    onClick,
+    disabled,
+    title,
+  };
+
+  // customAttribute should be an empty object.
+  if (customAttribute !== {}) {
+    const [key] = Object.keys(customAttribute);
+    const [value] = Object.values(customAttribute);
+    props[`data-${key?.toLowerCase()}`] = value;
+  }
+
+  return <button {...props}>{children}</button>;
 };
 
 export default Button;
