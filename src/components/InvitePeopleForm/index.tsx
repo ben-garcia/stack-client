@@ -5,8 +5,12 @@ import { InvitePeopleFormProps, Username } from './types';
 import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
-  const [numberOfInputs, setNumberOfInputs] = useState<number>(1);
-  const [usernames, setUsernames] = useState<{ [key: string]: Username }>({});
+  const [usernames, setUsernames] = useState<Username[]>([
+    {
+      id: 1,
+      'username-1': '',
+    },
+  ]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,41 +18,26 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     // eslint-disable-next-line
     console.log(usernames);
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsernames({
-      [e.target.name]: {
-        id: Number(e.target.name.split('-')[1]),
-        name: e.target.value,
-      },
-    });
-  };
-
-  const FormInputs: React.ReactNode[] = [];
-
-  for (let i = 0; i < numberOfInputs; i += 1) {
-    FormInputs.push(
-      <div key={i} className="invite-people-form__inner">
-        <Form.Input
-          inputId={`username-${i}`}
-          type="text"
-          label="Username"
-          onChange={handleChange}
-        />
-        <Button
-          type="button"
-          color="transparent"
-          onClick={() => setNumberOfInputs(prev => prev - 1)}
-          className="invite-people-form__delete-button"
-        >
-          <Icon
-            type="times"
-            size="sm"
-            className="invite-people-form__times-icon"
-          />
-        </Button>
-      </div>
+  const handleDeleteInput = (e: React.SyntheticEvent) => {
+    const usernameid = e.currentTarget.getAttribute('data-usernameid');
+    const usernamesAfterDelete = usernames.filter(
+      (u: Username) => u.id !== Number(usernameid)
     );
-  }
+
+    setUsernames([...usernamesAfterDelete]);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line
+    console.log(e.target.name);
+    // eslint-disable-next-line
+    console.log(usernames);
+
+    setUsernames([
+      {
+        [e.target.name]: e.target.value,
+      },
+    ]);
+  };
 
   return (
     <div className="invite-people-form">
@@ -56,11 +45,44 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
         Invite people who are part of your team.
       </Text>
       <Form onSubmit={handleSubmit}>
-        <Form.Group flexDirection="column">{FormInputs}</Form.Group>
+        <Form.Group flexDirection="column">
+          {usernames.map((u: Username, i: number) => (
+            <div key={`${u.name}${u.id}`} className="invite-people-form__inner">
+              <Form.Input
+                inputId={`username-${i + 1}`}
+                type="text"
+                label={`Username ${u.id}`}
+                value={usernames[i][`username-${i}`] as string}
+                onChange={handleChange}
+              />
+              <Button
+                type="button"
+                color="transparent"
+                onClick={handleDeleteInput}
+                className="invite-people-form__delete-button"
+                customAttribute={{ usernameId: `${u.id}` }}
+              >
+                <Icon
+                  type="times"
+                  size="sm"
+                  className="invite-people-form__times-icon"
+                />
+              </Button>
+            </div>
+          ))}
+        </Form.Group>
         <Button
           type="button"
           color="transparent"
-          onClick={() => setNumberOfInputs(prev => prev + 1)}
+          onClick={() => {
+            setUsernames([
+              ...usernames,
+              {
+                id: usernames.length + 1,
+                [`username-${usernames.length + 1}`]: '',
+              },
+            ]);
+          }}
           className="invite-people-form__add-input-button"
         >
           <Icon
