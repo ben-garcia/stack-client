@@ -19,24 +19,20 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     console.log(usernames);
   };
   const handleDeleteInput = (e: React.SyntheticEvent) => {
-    const usernameid = e.currentTarget.getAttribute('data-usernameid');
-    const usernamesAfterDelete = usernames.filter(
-      (u: Username) => u.id !== Number(usernameid)
-    );
+    if (usernames.length > 1) {
+      const usernameId = e.currentTarget.getAttribute('data-usernameid');
+      const usernamesAfterDelete = usernames.filter(
+        (u: Username) => u.id !== Number(usernameId)
+      );
 
-    setUsernames([...usernamesAfterDelete]);
+      setUsernames([...usernamesAfterDelete]);
+    }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // eslint-disable-next-line
-    console.log(e.target.name);
+    console.log(e.target.name.split('-')[1]);
     // eslint-disable-next-line
     console.log(usernames);
-
-    setUsernames([
-      {
-        [e.target.name]: e.target.value,
-      },
-    ]);
   };
 
   return (
@@ -45,13 +41,13 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
         Invite people who are part of your team.
       </Text>
       <Form onSubmit={handleSubmit}>
-        <Form.Group flexDirection="column">
+        <Form.Group className="invite-people-form__group">
           {usernames.map((u: Username, i: number) => (
             <div key={`${u.name}${u.id}`} className="invite-people-form__inner">
               <Form.Input
                 inputId={`username-${i + 1}`}
                 type="text"
-                label={`Username ${u.id}`}
+                label="Username"
                 value={usernames[i][`username-${i}`] as string}
                 onChange={handleChange}
               />

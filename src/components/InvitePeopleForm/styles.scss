@@ -6,6 +6,11 @@
 }
 
 .invite-people-form {
+  &__group {
+    max-height: 240px;
+    overflow-y: scroll;
+  }
+
   &__sub-header {
     color: $color-dark-grey;
   }
