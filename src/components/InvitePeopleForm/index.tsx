@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 
 import { Button, Form, Icon, Text } from 'components';
-import { InvitePeopleFormProps, Username } from './types';
+import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
+  // variable used to map through the number of input fields
   const [usernames, setUsernames] = useState<Username[]>([
     {
       id: 1,
-      'username-1': '',
     },
   ]);
-
+  // keep track of the user inputs
+  const [values, setValues] = useState<UsernameValues>({
+    'username-1': '',
+  });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // eslint-disable-next-line
-    console.log(usernames);
+    console.log(values);
   };
   const handleDeleteInput = (e: React.SyntheticEvent) => {
     if (usernames.length > 1) {
@@ -29,10 +32,12 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // eslint-disable-next-line
-    console.log(e.target.name.split('-')[1]);
-    // eslint-disable-next-line
-    console.log(usernames);
+    const id = Number(e.target.name.split('-')[1]);
+
+    setValues({
+      ...values,
+      [`username-${id}`]: e.target.value,
+    });
   };
 
   return (
@@ -42,13 +47,16 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
       </Text>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="invite-people-form__group">
-          {usernames.map((u: Username, i: number) => (
-            <div key={`${u.name}${u.id}`} className="invite-people-form__inner">
+          {usernames.map((u: Username) => (
+            <div
+              key={Math.random() * Number(u.id)}
+              className="invite-people-form__inner"
+            >
               <Form.Input
-                inputId={`username-${i + 1}`}
+                inputId={`username-${u.id}`}
                 type="text"
                 label="Username"
-                value={usernames[i][`username-${i}`] as string}
+                value={values[`username-${u.id}`]}
                 onChange={handleChange}
               />
               <Button
@@ -75,9 +83,12 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
               ...usernames,
               {
                 id: usernames.length + 1,
-                [`username-${usernames.length + 1}`]: '',
               },
             ]);
+            setValues({
+              ...values,
+              [`username-${usernames.length + 1}`]: '',
+            });
           }}
           className="invite-people-form__add-input-button"
         >

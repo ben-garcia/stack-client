@@ -1,5 +1,10 @@
 export interface InvitePeopleFormProps {}
 
 export interface Username {
-  [key: string]: string | number;
+  id: number;
+  error?: string;
+}
+
+export interface UsernameValues {
+  [key: string]: string;
 }
