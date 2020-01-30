@@ -9,26 +9,49 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const [usernames, setUsernames] = useState<Username[]>([
     {
       id: 1,
+      key: Math.random() * 100,
+      visible: true,
     },
   ]);
   // keep track of the user inputs
   const [values, setValues] = useState<UsernameValues>({
     'username-1': '',
   });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // eslint-disable-next-line
-    console.log(values);
-  };
-  const handleDeleteInput = (e: React.SyntheticEvent) => {
-    if (usernames.length > 1) {
-      const usernameId = e.currentTarget.getAttribute('data-usernameid');
-      const usernamesAfterDelete = usernames.filter(
-        (u: Username) => u.id !== Number(usernameId)
-      );
+    const invalidIds: number[] = [];
+    usernames
+      .filter(u => !u.visible)
+      .forEach(u => {
+        invalidIds.push(u.id);
+      });
 
-      setUsernames([...usernamesAfterDelete]);
+    // copy of the state
+    const members = { ...values };
+
+    // loop through the members array and delete
+    // those usernames that the usernames has removed.
+    invalidIds.forEach((i: number) => {
+      delete members[`username-${i}`];
+    });
+  };
+
+  const hideInput = (e: React.SyntheticEvent) => {
+    if (usernames.length > 1) {
+      const usernameId = Number(
+        e.currentTarget.getAttribute('data-usernameid')
+      );
+      // find the correct username from the state
+      const usernameToDismiss = usernames.find(
+        (u: Username) => u.id === usernameId
+      );
+      // make sure it isn't rendered
+      // as the user has choosen to remove it
+      usernameToDismiss!.visible = false;
+
+      setUsernames([...usernames]);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,33 +70,36 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
       </Text>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="invite-people-form__group">
-          {usernames.map((u: Username) => (
-            <div
-              key={Math.random() * Number(u.id)}
-              className="invite-people-form__inner"
-            >
-              <Form.Input
-                inputId={`username-${u.id}`}
-                type="text"
-                label="Username"
-                value={values[`username-${u.id}`]}
-                onChange={handleChange}
-              />
-              <Button
-                type="button"
-                color="transparent"
-                onClick={handleDeleteInput}
-                className="invite-people-form__delete-button"
-                customAttribute={{ usernameId: `${u.id}` }}
-              >
-                <Icon
-                  type="times"
-                  size="sm"
-                  className="invite-people-form__times-icon"
-                />
-              </Button>
-            </div>
-          ))}
+          {usernames.map(
+            (u: Username) =>
+              u.visible && (
+                <div
+                  key={`${u.key}--${u.id}`}
+                  className="invite-people-form__inner"
+                >
+                  <Form.Input
+                    inputId={`username-${u.id}`}
+                    type="text"
+                    label="Username"
+                    value={values[`username-${u.id}`]}
+                    onChange={handleChange}
+                  />
+                  <Button
+                    type="button"
+                    color="transparent"
+                    onClick={hideInput}
+                    className="invite-people-form__delete-button"
+                    customAttribute={{ usernameId: `${u.id}` }}
+                  >
+                    <Icon
+                      type="times"
+                      size="sm"
+                      className="invite-people-form__times-icon"
+                    />
+                  </Button>
+                </div>
+              )
+          )}
         </Form.Group>
         <Button
           type="button"
@@ -83,6 +109,8 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
               ...usernames,
               {
                 id: usernames.length + 1,
+                key: Math.random() * (usernames.length + 100),
+                visible: true,
               },
             ]);
             setValues({

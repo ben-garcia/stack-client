@@ -2,7 +2,8 @@ export interface InvitePeopleFormProps {}
 
 export interface Username {
   id: number;
-  error?: string;
+  key: number; // used to create a key prop
+  visible: boolean; // whether to show the input
 }
 
 export interface UsernameValues {
