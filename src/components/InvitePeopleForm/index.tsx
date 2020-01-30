@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, Form, Icon, Text } from 'components';
+import sendRequest from 'api';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
@@ -18,7 +19,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     'username-1': '',
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const invalidIds: number[] = [];
@@ -28,6 +29,14 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
         invalidIds.push(u.id);
       });
 
+    // add ids of those usernames that aren't at least 5 characters
+    // to the invalidIds array.
+    Object.entries(values).forEach(([key, value]) => {
+      if (value.length < 6) {
+        invalidIds.push(Number(key[key.length - 1]));
+      }
+    });
+
     // copy of the state
     const members = { ...values };
 
@@ -36,6 +45,23 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     invalidIds.forEach((i: number) => {
       delete members[`username-${i}`];
     });
+
+    // eslint-disable-next-line
+    console.log(invalidIds);
+
+    try {
+      const response = await sendRequest({
+        method: 'PUT',
+        url: `/workspaces/1`,
+        data: members,
+      });
+
+      // eslint-disable-next-line
+      console.log(response);
+    } catch (err) {
+      // eslint-disable-next-line
+      console.log('InvitePeopleForm handleSubmit error: ', err);
+    }
   };
 
   const hideInput = (e: React.SyntheticEvent) => {
