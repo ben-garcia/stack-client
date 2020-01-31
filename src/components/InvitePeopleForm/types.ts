@@ -1,4 +1,8 @@
-export interface InvitePeopleFormProps {}
+import { UserState } from 'store/user/types';
+
+export interface InvitePeopleFormProps {
+  username: UserState['username'];
+}
 
 export interface Username {
   id: number;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
+import { AppState } from 'store';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
-const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
+const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({ username }) => {
   // variable used to map through the number of input fields
   const [usernames, setUsernames] = useState<Username[]>([
     {
@@ -30,9 +32,10 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
       });
 
     // add ids of those usernames that aren't at least 5 characters
+    // or the username entered is equal to the owner of the workspace
     // to the invalidIds array.
     Object.entries(values).forEach(([key, value]) => {
-      if (value.length < 6) {
+      if (value.length < 6 || value === username) {
         invalidIds.push(Number(key[key.length - 1]));
       }
     });
@@ -164,4 +167,8 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   );
 };
 
-export default InvitePeopleForm;
+const mapStateToProps = (state: AppState) => ({
+  username: state.user.username,
+});
+
+export default connect(mapStateToProps)(InvitePeopleForm);
