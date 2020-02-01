@@ -8,6 +8,7 @@ import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
+import getCurrentMemberId from 'store/member/actions';
 import { requestWorkspaceMembers } from 'store/members/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
@@ -21,6 +22,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   currentWorkspaceId,
   currentChannelId,
   getCurrentChannelIdAction,
+  getCurrentMemberIdAction,
   getCurrentWorkspaceIdAction,
   requestWorkspaceMembersAction,
   requestUserWorkspacesAction,
@@ -33,6 +35,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
+    const memberIdFromLocalStorage = localStorage.getItem('currentMemberId');
     const workspaceIdFromLocalStorage = localStorage.getItem(
       'currentWorkspaceId'
     );
@@ -49,6 +52,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       // it means the user isn't logged in so
       // redirect to the landing page
       history.replace('/');
+    }
+    // set up current member id on page reload
+    if (memberIdFromLocalStorage) {
+      getCurrentMemberIdAction(Number(memberIdFromLocalStorage));
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -99,7 +106,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState): AppState => ({
+const mapStateToProps = (state: AppState) => ({
   currentChannelId: state.currentChannelId,
   currentWorkspaceId: state.currentWorkspaceId,
   channels: state.channels,
@@ -113,9 +120,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   requestWorkspaceMembersAction: () => dispatch(requestWorkspaceMembers()),
   requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
+  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
+  getCurrentMemberIdAction: (id: number) => dispatch(getCurrentMemberId(id)),
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
-  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
