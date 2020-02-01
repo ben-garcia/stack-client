@@ -6,7 +6,7 @@ import {
 
 const initialState: ChannelState = 0;
 
-const ChannelReducer = (
+const channelReducer = (
   state: Readonly<ChannelState> = initialState,
   action: ChannelActionTypes
 ) => {
@@ -18,4 +18,4 @@ const ChannelReducer = (
   }
 };
 
-export default ChannelReducer;
+export default channelReducer;

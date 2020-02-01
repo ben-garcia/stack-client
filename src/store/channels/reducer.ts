@@ -10,7 +10,7 @@ const initialState: ChannelsState = {
   list: [],
 };
 
-const ChannelsReducer = (
+const channelsReducer = (
   state: Readonly<ChannelsState> = initialState,
   action: ChannelsActionTypes
 ): ChannelsState => {
@@ -33,4 +33,4 @@ const ChannelsReducer = (
   }
 };
 
-export default ChannelsReducer;
+export default channelsReducer;

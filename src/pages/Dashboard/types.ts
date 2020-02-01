@@ -1,6 +1,8 @@
 import getCurrentChannelId from 'store/channel/actions';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import { ChannelsState } from 'store/channels/types';
+import { requestWorkspaceMembers } from 'store/members/actions';
+import { MembersState } from 'store/members/types';
 import { UserState } from 'store/user/types';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
@@ -13,6 +15,8 @@ export interface DashboardProps {
   currentWorkspaceId: number;
   getCurrentChannelIdAction: typeof getCurrentChannelId;
   getCurrentWorkspaceIdAction: typeof getCurrentWorkspaceId;
+  members: MembersState;
+  requestWorkspaceMembersAction: typeof requestWorkspaceMembers;
   requestUserWorkspacesAction: typeof requestUserWorkspaces;
   requestWorkspaceChannelsAction: typeof requestWorkspaceChannels;
   user: UserState;

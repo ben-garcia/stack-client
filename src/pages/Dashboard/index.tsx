@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -7,6 +8,7 @@ import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
+import { requestWorkspaceMembers } from 'store/members/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
@@ -20,12 +22,14 @@ const Dashboard: React.FC<DashboardProps> = ({
   currentChannelId,
   getCurrentChannelIdAction,
   getCurrentWorkspaceIdAction,
+  requestWorkspaceMembersAction,
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
   user,
   userLoggedInAction,
   workspaces,
 }) => {
+  const history = useHistory();
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
@@ -40,6 +44,11 @@ const Dashboard: React.FC<DashboardProps> = ({
       userLoggedInAction(parsedUser);
       // dispatch action to get all user's workspaces
       requestUserWorkspacesAction();
+    } else {
+      // if there is no user item in local storage then
+      // it means the user isn't logged in so
+      // redirect to the landing page
+      history.replace('/');
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -49,6 +58,9 @@ const Dashboard: React.FC<DashboardProps> = ({
       // ONLY when the store has been updated with the current workspace id
       // dispatch action to get all current workspace's channels
       requestWorkspaceChannelsAction();
+      // ONLY when the store has been pudated with the curent workspace id
+      // dispatch action to get all current workpace's members
+      requestWorkspaceMembersAction();
     }
     // set up channelId on page reload
     if (channelIdFromLocalStorage) {
@@ -91,12 +103,14 @@ const mapStateToProps = (state: AppState): AppState => ({
   currentChannelId: state.currentChannelId,
   currentWorkspaceId: state.currentWorkspaceId,
   channels: state.channels,
+  members: state.members,
   user: state.user,
   workspaces: state.workspaces,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   userLoggedInAction: (user: User) => dispatch(userLoggedIn(user)),
+  requestWorkspaceMembersAction: () => dispatch(requestWorkspaceMembers()),
   requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
   getCurrentWorkspaceIdAction: (id: number) =>
