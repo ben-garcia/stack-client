@@ -10,7 +10,7 @@ import Header from './Header';
 import Icon from './Icon';
 import Image from './Image';
 import InvitePeopleForm from './InvitePeopleForm';
-import MessageList from './MessageList';
+import MembersList from './MembersList';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import Text from './Text';
@@ -32,7 +32,7 @@ export {
   Icon,
   Image,
   InvitePeopleForm,
-  MessageList,
+  MembersList,
   Modal,
   Navbar,
   Text,
