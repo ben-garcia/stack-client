@@ -5,6 +5,7 @@ import channelReducer from './channel/reducer';
 import getAllCurrentWorkspaceChannels from './channels/sagas';
 import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
 import channelsReducer from './channels/reducer';
+import memberReducer from './member/reducer';
 import membersReducer from './members/reducer';
 import getAllCurrentWorkspaceMembers from './members/sagas';
 import { REQUEST_WORKSPACE_MEMBERS } from './members/types';
@@ -16,6 +17,7 @@ import getAllUserWorkspaces from './workspaces/sagas';
 
 export const rootReducer = combineReducers({
   currentChannelId: channelReducer,
+  currentMemberId: memberReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
   members: membersReducer,
