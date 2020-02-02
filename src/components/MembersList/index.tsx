@@ -13,9 +13,10 @@ import './styles.scss';
 const MembersList: React.FC<MembersListProps> = ({
   currentMemberId,
   className = '',
-  members,
   getCurrentChannelIdAction,
   getCurrentMemberIdAction,
+  members,
+  user,
 }) => {
   const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
     false
@@ -71,6 +72,7 @@ const MembersList: React.FC<MembersListProps> = ({
                 className="members-list__icon"
               />
               {m.username}
+              {user.id === m.id ? ` (You)` : ''}
             </Button>
           </li>
         ))}
@@ -90,7 +92,8 @@ const MembersList: React.FC<MembersListProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'currentMemberId' | 'members'> => ({
+): Pick<AppState, 'currentMemberId' | 'members' | 'user'> => ({
+  user: state.user,
   currentMemberId: state.currentMemberId,
   members: state.members,
 });
