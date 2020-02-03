@@ -26,7 +26,7 @@ export const receivedWorkspaceMembersError = (
   payload: error,
 });
 
-export const addMember = (member: Member) => ({
+export const addMember = (member: Member): MembersActionTypes => ({
   type: ADD_MEMBER,
   payload: member,
 });
