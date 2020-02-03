@@ -34,6 +34,8 @@ const MembersList: React.FC<MembersListProps> = ({
     getCurrentMemberIdAction(id);
     // dispatch action to remove the current channel id
     getCurrentChannelIdAction(0);
+    // remove current mmeber id from local storage
+    localStorage.removeItem('currentChannelId');
   };
 
   return (

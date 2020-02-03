@@ -1,9 +1,11 @@
 import getCurrentChannelId from 'store/channel/actions';
 import { ChannelsState } from 'store/channels/types';
+import getCurrentMemberId from 'store/member/actions';
 
 export interface ChannelListProps {
   currentChannelId: number;
   channels: ChannelsState;
-  getCurrentChannelIdAction: typeof getCurrentChannelId;
   className?: string;
+  getCurrentChannelIdAction: typeof getCurrentChannelId;
+  getCurrentMemberIdAction: typeof getCurrentMemberId;
 }

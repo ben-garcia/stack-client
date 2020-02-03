@@ -6,14 +6,16 @@ import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
+import getCurrentMemberId from 'store/member/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
 const ChannelList: React.FC<ChannelListProps> = ({
   currentChannelId,
   channels,
-  getCurrentChannelIdAction,
   className = '',
+  getCurrentChannelIdAction,
+  getCurrentMemberIdAction,
 }) => {
   const [createChannelFormIsOpen, setCreateChannelFormIsOpen] = useState<
     boolean
@@ -29,6 +31,11 @@ const ChannelList: React.FC<ChannelListProps> = ({
     localStorage.setItem('currentChannelId', `${id}`);
     // dispatch action to change the store
     getCurrentChannelIdAction(id);
+    // dispatch action to set current member id to 0
+    // so it isn't active
+    getCurrentMemberIdAction(0);
+    // delete current member id from local storage too
+    localStorage.removeItem('currentMemberId');
   };
 
   return (
@@ -93,6 +100,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
+  getCurrentMemberIdAction: (id: number) => dispatch(getCurrentMemberId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);
