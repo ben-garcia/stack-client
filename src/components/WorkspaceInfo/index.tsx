@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Channel, Workspace } from 'components';
+import { ChannelInfo, MemberInfo, Workspace } from 'components';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
   channel,
-  workspaceName,
-  username,
   className = '',
+  member,
+  username,
+  workspaceName,
 }) => {
   let classesToAdd: string = 'workspace-info';
 
@@ -23,7 +24,15 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
         username={username}
         className="workspace-info__inner-left"
       />
-      <Channel channel={channel} className="workspace-info__inner-right" />
+      {channel && !member && (
+        <ChannelInfo
+          channel={channel}
+          className="workspace-info__inner-right"
+        />
+      )}
+      {member && !channel && (
+        <MemberInfo member={member} className="workspace-info__inner-right" />
+      )}
     </div>
   );
 };

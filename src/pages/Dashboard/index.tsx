@@ -19,11 +19,13 @@ import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
   channels,
-  currentWorkspaceId,
   currentChannelId,
+  currentMemberId,
+  currentWorkspaceId,
   getCurrentChannelIdAction,
   getCurrentMemberIdAction,
   getCurrentWorkspaceIdAction,
+  members,
   requestWorkspaceMembersAction,
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
@@ -75,7 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       // dispatch action to update store
       getCurrentChannelIdAction(channelId);
       // ONLY when thte stora has been updated with the current channel is
-      // dispatch actoin to get all current channel's messages
+      // dispatch action to get all current channel's messages
     }
   }
 
@@ -88,6 +90,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     c => c.id === currentChannelId
   );
 
+  // get the current member
+  const currentMember = members.list.find(m => m.id === currentMemberId);
+
   return (
     <div className="dashboard">
       <WorkspaceList
@@ -96,9 +101,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       />
       <WorkspaceInfo
         channel={currentChannel}
-        workspaceName={workspaceName}
-        username={user.username}
         className="dashboard__top-nav"
+        member={currentMember}
+        username={user.username}
+        workspaceName={workspaceName}
       />
       <WorkspaceSidebar className="dashboard__sidebar" />
       <main className="dashboard__main">Main</main>
@@ -108,6 +114,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
 const mapStateToProps = (state: AppState) => ({
   currentChannelId: state.currentChannelId,
+  currentMemberId: state.currentMemberId,
   currentWorkspaceId: state.currentWorkspaceId,
   channels: state.channels,
   members: state.members,

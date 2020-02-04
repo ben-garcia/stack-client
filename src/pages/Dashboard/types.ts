@@ -13,6 +13,7 @@ import { WorkspacesState } from 'store/workspaces/types';
 export interface DashboardProps {
   channels: ChannelsState;
   currentChannelId: number;
+  currentMemberId: number;
   currentWorkspaceId: number;
   getCurrentChannelIdAction: typeof getCurrentChannelId;
   getCurrentMemberIdAction: typeof getCurrentMemberId;
