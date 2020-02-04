@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { Icon, Text } from 'components';
-import { ChannelProps } from './types';
+import { ChannelInfoProps } from './types';
 import './styles.scss';
 
-const Channel: React.FC<ChannelProps> = ({ channel, className = '' }) => {
+const ChannelInfo: React.FC<ChannelInfoProps> = ({
+  channel,
+  className = '',
+}) => {
   let classesToAdd: string = 'channel';
 
   if (className?.trim() !== '') {
@@ -45,4 +48,4 @@ const Channel: React.FC<ChannelProps> = ({ channel, className = '' }) => {
   );
 };
 
-export default Channel;
+export default ChannelInfo;

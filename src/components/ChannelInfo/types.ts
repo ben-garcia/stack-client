@@ -1,6 +1,6 @@
 import { Channel } from 'store/channels/types';
 
-export interface ChannelProps {
+export interface ChannelInfoProps {
   channel?: Channel;
   className?: string;
 }
