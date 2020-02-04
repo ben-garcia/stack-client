@@ -1,0 +1,16 @@
+@import '../../pages/sass/variables';
+
+.member {
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+
+  &__name {
+    font-weight: 900;
+  }
+
+  &__circle-icon {
+    background-color: $color-green;
+    border-radius: 50%;
+  }
+}
