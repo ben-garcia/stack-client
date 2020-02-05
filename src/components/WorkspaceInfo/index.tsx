@@ -7,7 +7,7 @@ import './styles.scss';
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
   channel,
   className = '',
-  member,
+  teammate,
   username,
   workspaceName,
 }) => {
@@ -24,14 +24,14 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
         username={username}
         className="workspace-info__inner-left"
       />
-      {channel && !member && (
+      {channel && !teammate && (
         <ChannelInfo
           channel={channel}
           className="workspace-info__inner-right"
         />
       )}
-      {member && !channel && (
-        <MemberInfo member={member} className="workspace-info__inner-right" />
+      {teammate && !channel && (
+        <MemberInfo member={teammate} className="workspace-info__inner-right" />
       )}
     </div>
   );

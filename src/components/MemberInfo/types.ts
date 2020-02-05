@@ -1,6 +1,6 @@
-import { Member } from 'store/members/types';
+import { Teammate } from 'store/teammates/types';
 
 export interface MemberInfoProps {
-  member?: Member;
+  member?: Teammate;
   className?: string;
 }

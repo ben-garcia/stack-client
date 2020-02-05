@@ -20,7 +20,7 @@
 
 - ## [ ] Setup
 
-  - [ ] Redux
+  - [x] Redux
     - state management
     - [x] react-redux
     - [x] redux-saga
@@ -28,7 +28,7 @@
     - [x] create store
     - [x] create actions
     - [x] create reducers
-    - [ ] create sagas
+    - [x] create sagas
   - [x] React Router
     - routing
     - creating a router folder

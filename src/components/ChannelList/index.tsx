@@ -6,7 +6,7 @@ import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
-import getCurrentMemberId from 'store/member/actions';
+import getCurrentTeammateId from 'store/teammate/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
@@ -15,7 +15,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
   channels,
   className = '',
   getCurrentChannelIdAction,
-  getCurrentMemberIdAction,
+  getCurrentTeammateIdAction,
 }) => {
   const [createChannelFormIsOpen, setCreateChannelFormIsOpen] = useState<
     boolean
@@ -33,9 +33,9 @@ const ChannelList: React.FC<ChannelListProps> = ({
     getCurrentChannelIdAction(id);
     // dispatch action to set current member id to 0
     // so it isn't active
-    getCurrentMemberIdAction(0);
-    // delete current member id from local storage too
-    localStorage.removeItem('currentMemberId');
+    getCurrentTeammateIdAction(0);
+    // delete current teammate id from local storage too
+    localStorage.removeItem('currentTeammateId');
   };
 
   return (
@@ -100,7 +100,8 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentMemberIdAction: (id: number) => dispatch(getCurrentMemberId(id)),
+  getCurrentTeammateIdAction: (id: number) =>
+    dispatch(getCurrentTeammateId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

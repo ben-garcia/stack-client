@@ -8,8 +8,8 @@ import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
-import getCurrentMemberId from 'store/member/actions';
-import { requestWorkspaceMembers } from 'store/members/actions';
+import getCurrentTeammateId from 'store/teammate/actions';
+import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
@@ -20,15 +20,15 @@ import './styles.scss';
 const Dashboard: React.FC<DashboardProps> = ({
   channels,
   currentChannelId,
-  currentMemberId,
+  currentTeammateId,
   currentWorkspaceId,
   getCurrentChannelIdAction,
-  getCurrentMemberIdAction,
+  getCurrentTeammateIdAction,
   getCurrentWorkspaceIdAction,
-  members,
-  requestWorkspaceMembersAction,
+  requestWorkspaceTeammatesAction,
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
+  teammates,
   user,
   userLoggedInAction,
   workspaces,
@@ -37,7 +37,9 @@ const Dashboard: React.FC<DashboardProps> = ({
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
-    const memberIdFromLocalStorage = localStorage.getItem('currentMemberId');
+    const teammateIdFromLocalStorage = localStorage.getItem(
+      'currentTeammateId'
+    );
     const workspaceIdFromLocalStorage = localStorage.getItem(
       'currentWorkspaceId'
     );
@@ -55,9 +57,9 @@ const Dashboard: React.FC<DashboardProps> = ({
       // redirect to the landing page
       history.replace('/');
     }
-    // set up current member id on page reload
-    if (memberIdFromLocalStorage) {
-      getCurrentMemberIdAction(Number(memberIdFromLocalStorage));
+    // set up current teammate id on page reload
+    if (teammateIdFromLocalStorage) {
+      getCurrentTeammateIdAction(Number(teammateIdFromLocalStorage));
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -68,8 +70,8 @@ const Dashboard: React.FC<DashboardProps> = ({
       // dispatch action to get all current workspace's channels
       requestWorkspaceChannelsAction();
       // ONLY when the store has been pudated with the curent workspace id
-      // dispatch action to get all current workpace's members
-      requestWorkspaceMembersAction();
+      // dispatch action to get all current workpace's teammates
+      requestWorkspaceTeammatesAction();
     }
     // set up channelId on page reload
     if (channelIdFromLocalStorage) {
@@ -90,8 +92,8 @@ const Dashboard: React.FC<DashboardProps> = ({
     c => c.id === currentChannelId
   );
 
-  // get the current member
-  const currentMember = members.list.find(m => m.id === currentMemberId);
+  // get the current teammate
+  const currentTeammate = teammates.list.find(m => m.id === currentTeammateId);
 
   return (
     <div className="dashboard">
@@ -102,7 +104,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       <WorkspaceInfo
         channel={currentChannel}
         className="dashboard__top-nav"
-        member={currentMember}
+        teammate={currentTeammate}
         username={user.username}
         workspaceName={workspaceName}
       />
@@ -114,21 +116,22 @@ const Dashboard: React.FC<DashboardProps> = ({
 
 const mapStateToProps = (state: AppState) => ({
   currentChannelId: state.currentChannelId,
-  currentMemberId: state.currentMemberId,
+  currentTeammateId: state.currentTeammateId,
   currentWorkspaceId: state.currentWorkspaceId,
   channels: state.channels,
-  members: state.members,
+  teammates: state.teammates,
   user: state.user,
   workspaces: state.workspaces,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   userLoggedInAction: (user: User) => dispatch(userLoggedIn(user)),
-  requestWorkspaceMembersAction: () => dispatch(requestWorkspaceMembers()),
+  requestWorkspaceTeammatesAction: () => dispatch(requestWorkspaceTeammates()),
   requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentMemberIdAction: (id: number) => dispatch(getCurrentMemberId(id)),
+  getCurrentTeammateIdAction: (id: number) =>
+    dispatch(getCurrentTeammateId(id)),
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
 });

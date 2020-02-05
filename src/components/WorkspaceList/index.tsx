@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { Button } from 'components';
 import { AppState } from 'store';
-import { requestWorkspaceMembers } from 'store/members/actions';
+import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { WorkspaceListProps } from './types';
@@ -16,7 +16,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   className,
   getCurrentWorkspaceIdAction,
   requestWorkspaceChannelsAction,
-  requestWorkspaceMembersAction,
+  requestWorkspaceTeammatesAction,
 }) => {
   let classesToAdd: string = 'workspace-list';
 
@@ -31,8 +31,8 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     getCurrentWorkspaceIdAction(id);
     // dispatch action to get current workspace channels
     requestWorkspaceChannelsAction();
-    // dispatch action to get the current workspace members
-    requestWorkspaceMembersAction();
+    // dispatch action to get the current workspace teammates
+    requestWorkspaceTeammatesAction();
   };
 
   return (
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
-  requestWorkspaceMembersAction: () => dispatch(requestWorkspaceMembers()),
+  requestWorkspaceTeammatesAction: () => dispatch(requestWorkspaceTeammates()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceList);
