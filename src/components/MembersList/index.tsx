@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 import { Button, Icon, InvitePeopleForm, Modal, Text } from 'components';
 import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
-import getCurrentMemberId from 'store/member/actions';
-import { Member } from 'store/members/types';
+import getCurrentTeammateId from 'store/teammate/actions';
+import { Teammate } from 'store/teammates/types';
 import { MembersListProps } from './types';
 import './styles.scss';
 
 const MembersList: React.FC<MembersListProps> = ({
-  currentMemberId,
+  currentTeammateId,
   className = '',
   getCurrentChannelIdAction,
-  getCurrentMemberIdAction,
-  members,
+  getCurrentTeammateIdAction,
+  teammates,
   user,
 }) => {
   const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
@@ -28,10 +28,10 @@ const MembersList: React.FC<MembersListProps> = ({
   }
 
   const saveChannelId = (id: number) => {
-    // save current channel id to be used on page reload
-    localStorage.setItem('currentMemberId', `${id}`);
+    // save current teammate id to be used on page reload
+    localStorage.setItem('currentTeammateId', `${id}`);
     // dispatch action to change the store
-    getCurrentMemberIdAction(id);
+    getCurrentTeammateIdAction(id);
     // dispatch action to remove the current channel id
     getCurrentChannelIdAction(0);
     // remove current mmeber id from local storage
@@ -42,7 +42,7 @@ const MembersList: React.FC<MembersListProps> = ({
     <section className={classesToAdd}>
       <div className="members-list__inner">
         <Text tag="span" className="members-list__header" size="sm">
-          Members
+          Teammates
         </Text>
         <Button
           className="members-list__add-button"
@@ -55,11 +55,11 @@ const MembersList: React.FC<MembersListProps> = ({
         </Button>
       </div>
       <ul className="members-list__list">
-        {members.list.map((m: Member) => (
+        {teammates.list.map((m: Teammate) => (
           <li
             key={m.id}
             className={`members-list__item ${
-              m.id === currentMemberId ? `members-list__item--active` : ``
+              m.id === currentTeammateId ? `members-list__item--active` : ``
             }`}
           >
             <Button
@@ -94,15 +94,16 @@ const MembersList: React.FC<MembersListProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'currentMemberId' | 'members' | 'user'> => ({
+): Pick<AppState, 'currentTeammateId' | 'teammates' | 'user'> => ({
+  currentTeammateId: state.currentTeammateId,
+  teammates: state.teammates,
   user: state.user,
-  currentMemberId: state.currentMemberId,
-  members: state.members,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentMemberIdAction: (id: number) => dispatch(getCurrentMemberId(id)),
+  getCurrentTeammateIdAction: (id: number) =>
+    dispatch(getCurrentTeammateId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MembersList);
