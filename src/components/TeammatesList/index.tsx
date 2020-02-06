@@ -7,10 +7,10 @@ import { AppState } from 'store';
 import getCurrentChannelId from 'store/channel/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { Teammate } from 'store/teammates/types';
-import { MembersListProps } from './types';
+import { TeammatesListProps } from './types';
 import './styles.scss';
 
-const MembersList: React.FC<MembersListProps> = ({
+const TeammatesList: React.FC<TeammatesListProps> = ({
   currentTeammateId,
   className = '',
   getCurrentChannelIdAction,
@@ -21,7 +21,7 @@ const MembersList: React.FC<MembersListProps> = ({
   const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
     false
   );
-  let classesToAdd: string = 'members-list';
+  let classesToAdd: string = 'teammates-list';
 
   if (className?.trim() !== '') {
     classesToAdd += ` ${className}`;
@@ -40,12 +40,12 @@ const MembersList: React.FC<MembersListProps> = ({
 
   return (
     <section className={classesToAdd}>
-      <div className="members-list__inner">
-        <Text tag="span" className="members-list__header" size="sm">
+      <div className="teammates-list__inner">
+        <Text tag="span" className="teammates-list__header" size="sm">
           Teammates
         </Text>
         <Button
-          className="members-list__add-button"
+          className="teammates-list__add-button"
           type="button"
           color="transparent"
           onClick={() => setInvitePeopleFormIsOpen(true)}
@@ -54,12 +54,12 @@ const MembersList: React.FC<MembersListProps> = ({
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
-      <ul className="members-list__list">
+      <ul className="teammates-list__list">
         {teammates.list.map((m: Teammate) => (
           <li
             key={m.id}
-            className={`members-list__item ${
-              m.id === currentTeammateId ? `members-list__item--active` : ``
+            className={`teammates-list__item ${
+              m.id === currentTeammateId ? `teammates-list__item--active` : ``
             }`}
           >
             <Button
@@ -71,7 +71,7 @@ const MembersList: React.FC<MembersListProps> = ({
                 type="circle"
                 size="xm"
                 color="white"
-                className="members-list__icon"
+                className="teammates-list__icon"
               />
               {m.username}
               {user.id === m.id ? ` (You)` : ''}
@@ -106,4 +106,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(getCurrentTeammateId(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MembersList);
+export default connect(mapStateToProps, mapDispatchToProps)(TeammatesList);

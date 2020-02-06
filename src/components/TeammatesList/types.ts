@@ -3,7 +3,7 @@ import { TeammatesState } from 'store/teammates/types';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { UserState } from 'store/user/types';
 
-export interface MembersListProps {
+export interface TeammatesListProps {
   currentTeammateId: number;
   className?: string;
   getCurrentChannelIdAction: typeof getCurrentChannelId;

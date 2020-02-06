@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChannelList, MembersList } from 'components';
+import { ChannelList, TeammatesList } from 'components';
 import { WorkspaceSidebarProps } from './types';
 import './styles.scss';
 
@@ -16,7 +16,7 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   return (
     <div className={classesToAdd}>
       <ChannelList />
-      <MembersList />
+      <TeammatesList />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import Icon from './Icon';
 import Image from './Image';
 import InvitePeopleForm from './InvitePeopleForm';
 import TeammateInfo from './TeammateInfo';
-import MembersList from './MembersList';
+import TeammatesList from './TeammatesList';
 import Modal from './Modal';
 import Navbar from './Navbar';
 import Text from './Text';
@@ -34,7 +34,7 @@ export {
   Image,
   InvitePeopleForm,
   TeammateInfo,
-  MembersList,
+  TeammatesList,
   Modal,
   Navbar,
   Text,
