@@ -1,3 +1,5 @@
+@import '../../pages/sass/variables';
+
 .channel {
   padding: 0.8rem 0.8rem 0 0.8rem;
   width: 100%;
@@ -20,10 +22,48 @@
 
   &__icon-pencil {
     align-self: center;
+    margin-right: 0.3rem;
+  }
+
+  &__edit-topic {
+    opacity: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    color: $color-blue-active;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__add-topic {
+    margin-left: 0.1rem;
+    margin-right: 0.3rem;
+    border-radius: 5px;
+    padding: 2px 1rem 2px 2px;
+    cursor: default;
   }
 
   &__inner {
     display: flex;
+  }
+
+  &__inner-two {
+    display: flex;
+
+    &::before {
+      content: '|';
+      color: rgba($color-dark-grey, 0.5);
+      margin-left: 0.2rem;
+    }
+
+    &:hover .channel__add-topic {
+      border: 1px solid rgba($color-dark-grey, 0.6);
+    }
+
+    &:hover > .channel__edit-topic {
+      opacity: 1;
+    }
   }
 
   &__member-count {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon, Text } from 'components';
+import { Button, Icon, Text } from 'components';
 import { ChannelInfoProps } from './types';
 import './styles.scss';
 
@@ -36,12 +36,26 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             className="channel__icon-user"
           />
         </div>
-        {channel?.topic !== null ? (
-          <Icon type="pencil" size="xm" className="channel__icon-pencil" />
-        ) : (
+        {channel?.topic ? (
           <Text tag="div" className="channel__topic" size="md">
             {channel?.topic}
           </Text>
+        ) : (
+          <div className="channel__inner-two">
+            <div className="channel__add-topic">
+              <Icon type="pencil" size="xm" className="channel__icon-pencil" />
+              <Text tag="span" size="sm">
+                Add a topic
+              </Text>
+            </div>
+            <Button
+              type="button"
+              color="transparent"
+              className="channel__edit-topic"
+            >
+              Edit
+            </Button>
+          </div>
         )}
       </div>
     </section>
