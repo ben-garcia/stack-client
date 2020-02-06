@@ -1,11 +1,14 @@
 import React from 'react';
 
 import { Icon, Text } from 'components';
-import { MemberInfoProps } from './types';
+import { TeammateInfoProps } from './types';
 import './styles.scss';
 
-const ChannelInfo: React.FC<MemberInfoProps> = ({ member, className = '' }) => {
-  let classesToAdd: string = 'member';
+const TeammateInfo: React.FC<TeammateInfoProps> = ({
+  teammate,
+  className = '',
+}) => {
+  let classesToAdd: string = 'teammate';
 
   if (className?.trim() !== '') {
     classesToAdd += ` ${className}`;
@@ -13,17 +16,17 @@ const ChannelInfo: React.FC<MemberInfoProps> = ({ member, className = '' }) => {
 
   return (
     <section className={classesToAdd}>
-      <Text tag="div" size="md" className="member__name">
-        {member?.username}
+      <Text tag="div" size="md" className="teammate__name">
+        {teammate?.username}
       </Text>
       <Icon
         type="circle"
         color="green"
         size="xm"
-        className="member__circle-icon"
+        className="teammate__circle-icon"
       />
     </section>
   );
 };
 
-export default ChannelInfo;
+export default TeammateInfo;

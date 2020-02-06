@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ChannelInfo, MemberInfo, Workspace } from 'components';
+import { ChannelInfo, TeammateInfo, Workspace } from 'components';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
@@ -31,7 +31,10 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
         />
       )}
       {teammate && !channel && (
-        <MemberInfo member={teammate} className="workspace-info__inner-right" />
+        <TeammateInfo
+          teammate={teammate}
+          className="workspace-info__inner-right"
+        />
       )}
     </div>
   );
