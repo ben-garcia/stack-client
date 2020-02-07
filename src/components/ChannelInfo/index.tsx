@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button, Icon, Text } from 'components';
+import { Button, EditChannelTopic, Icon, Modal, Text } from 'components';
 import { ChannelInfoProps } from './types';
 import './styles.scss';
 
@@ -8,6 +8,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
   channel,
   className = '',
 }) => {
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel';
 
   if (className?.trim() !== '') {
@@ -52,12 +53,22 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
               type="button"
               color="transparent"
               className="channel__edit-topic"
+              onClick={() => setOpenEditModal(true)}
             >
               Edit
             </Button>
           </div>
         )}
       </div>
+      {openEditModal && (
+        <Modal
+          header="Edit channel topic"
+          size="md"
+          onClose={() => setOpenEditModal(false)}
+        >
+          <EditChannelTopic />
+        </Modal>
+      )}
     </section>
   );
 };

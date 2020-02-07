@@ -4,6 +4,7 @@ import ChannelList from './ChannelList';
 import CreateChannelForm from './CreateChannelForm';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Dialog from './Dialog';
+import EditChannelTopic from './EditChannelTopic';
 import Footer from './Footer';
 import Form from './Form';
 import Header from './Header';
@@ -27,6 +28,7 @@ export {
   CreateChannelForm,
   CreateWorkspaceForm,
   Dialog,
+  EditChannelTopic,
   Footer,
   Form,
   Header,
