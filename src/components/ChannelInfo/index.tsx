@@ -66,7 +66,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
           size="md"
           onClose={() => setOpenEditModal(false)}
         >
-          <EditChannelTopic />
+          <EditChannelTopic setOpenEditModal={setOpenEditModal} />
         </Modal>
       )}
     </section>

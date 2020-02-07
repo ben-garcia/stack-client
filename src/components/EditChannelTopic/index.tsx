@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Button, Form } from 'components';
+import sendRequest from 'api';
+import { AppState } from 'store';
+import { EditChannelTopicProps } from './types';
 import './styles.scss';
 
-const EditChannelTopic: React.FC = () => {
+const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
+  currentChannelId,
+  setOpenEditModal,
+}) => {
   const [topic, setTopic] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const response = await sendRequest({
+      method: 'PUT',
+      url: `/channels/${currentChannelId}`,
+      data: { topic },
+    });
+
+    setOpenEditModal(false);
+
     // eslint-disable-next-line
-    console.log(topic);
+    console.log(response);
   };
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTopic(e.target.value);
@@ -18,12 +33,16 @@ const EditChannelTopic: React.FC = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <textarea className="form__textarea" onChange={handleChange} />
-      </Form.Group>
+      <textarea className="form__textarea" onChange={handleChange} />
       <Button type="submit">Set topic</Button>
     </Form>
   );
 };
 
-export default EditChannelTopic;
+const mapStateToProps = (
+  state: AppState
+): Pick<AppState, 'currentChannelId'> => ({
+  currentChannelId: state.currentChannelId,
+});
+
+export default connect(mapStateToProps)(EditChannelTopic);
