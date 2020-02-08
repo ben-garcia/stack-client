@@ -37,28 +37,34 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             className="channel__icon-user"
           />
         </div>
-        {channel?.topic ? (
-          <Text tag="div" className="channel__topic" size="md">
-            {channel?.topic}
-          </Text>
-        ) : (
-          <div className="channel__inner-two">
-            <div className="channel__add-topic">
-              <Icon type="pencil" size="xm" className="channel__icon-pencil" />
-              <Text tag="span" size="sm">
-                Add a topic
+        <div className="channel__inner-two">
+          <div className="channel__add-topic">
+            {channel?.topic ? (
+              <Text tag="div" className="channel__topic" size="md">
+                {channel?.topic}
               </Text>
-            </div>
-            <Button
-              type="button"
-              color="transparent"
-              className="channel__edit-topic"
-              onClick={() => setOpenEditModal(true)}
-            >
-              Edit
-            </Button>
+            ) : (
+              <div>
+                <Icon
+                  type="pencil"
+                  size="xm"
+                  className="channel__icon-pencil"
+                />
+                <Text tag="span" size="sm">
+                  Add a topic
+                </Text>
+              </div>
+            )}
           </div>
-        )}
+          <Button
+            type="button"
+            color="transparent"
+            className="channel__edit-topic"
+            onClick={() => setOpenEditModal(true)}
+          >
+            Edit
+          </Button>
+        </div>
       </div>
       {openEditModal && (
         <Modal
@@ -66,7 +72,10 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
           size="md"
           onClose={() => setOpenEditModal(false)}
         >
-          <EditChannelTopic setOpenEditModal={setOpenEditModal} />
+          <EditChannelTopic
+            setOpenEditModal={setOpenEditModal}
+            value={channel?.topic}
+          />
         </Modal>
       )}
     </section>

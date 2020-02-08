@@ -10,8 +10,9 @@ import './styles.scss';
 const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
   currentChannelId,
   setOpenEditModal,
+  value,
 }) => {
-  const [topic, setTopic] = useState<string>('');
+  const [topic, setTopic] = useState<string>(value || '');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,7 +34,11 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <textarea className="form__textarea" onChange={handleChange} />
+      <textarea
+        className="form__textarea"
+        onChange={handleChange}
+        value={topic}
+      />
       <Button type="submit">Set topic</Button>
     </Form>
   );
