@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { Button, EditChannelTopic, Icon, Modal, Text } from 'components';
+import { AppState } from 'store';
 import { ChannelInfoProps } from './types';
 import './styles.scss';
 
 const ChannelInfo: React.FC<ChannelInfoProps> = ({
   channel,
   className = '',
+  currentChannel,
 }) => {
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel';
@@ -39,9 +42,9 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
         </div>
         <div className="channel__inner-two">
           <div className="channel__add-topic">
-            {channel?.topic ? (
+            {currentChannel?.topic ? (
               <Text tag="div" className="channel__topic" size="md">
-                {channel?.topic}
+                {currentChannel?.topic}
               </Text>
             ) : (
               <div>
@@ -82,4 +85,8 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
   );
 };
 
-export default ChannelInfo;
+const mapStateToProps = (state: AppState) => ({
+  currentChannel: state.currentChannel,
+});
+
+export default connect(mapStateToProps)(ChannelInfo);
