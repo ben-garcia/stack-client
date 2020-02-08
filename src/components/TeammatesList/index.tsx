@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Button, Icon, InvitePeopleForm, Modal, Text } from 'components';
 import { AppState } from 'store';
-import getCurrentChannelId from 'store/channel/actions';
+import { getCurrentChannelId } from 'store/channel/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';

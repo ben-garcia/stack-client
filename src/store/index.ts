@@ -16,7 +16,7 @@ import { REQUEST_USER_WORKSPACES } from './workspaces/types';
 import getAllUserWorkspaces from './workspaces/sagas';
 
 export const rootReducer = combineReducers({
-  currentChannelId: channelReducer,
+  currentChannel: channelReducer,
   currentTeammateId: teammateReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,

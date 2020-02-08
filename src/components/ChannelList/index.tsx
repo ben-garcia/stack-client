@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 
 import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
-import getCurrentChannelId from 'store/channel/actions';
+import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
 const ChannelList: React.FC<ChannelListProps> = ({
-  currentChannelId,
+  currentChannel,
   channels,
   className = '',
   getCurrentChannelIdAction,
   getCurrentTeammateIdAction,
+  updateChannelTopicAction,
 }) => {
   const [createChannelFormIsOpen, setCreateChannelFormIsOpen] = useState<
     boolean
@@ -26,7 +27,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
     classesToAdd += ` ${className}`;
   }
 
-  const saveChannelId = (id: number) => {
+  const saveChannelId = (id: number, topic: string) => {
     // save current channel id to be used on page reload
     localStorage.setItem('currentChannelId', `${id}`);
     // dispatch action to change the store
@@ -34,6 +35,10 @@ const ChannelList: React.FC<ChannelListProps> = ({
     // dispatch action to set current member id to 0
     // so it isn't active
     getCurrentTeammateIdAction(0);
+    // save current channel topic to be used on page reload
+    localStorage.setItem('currentChannelTopic', topic);
+    // dispatch action to set the current channel topic
+    updateChannelTopicAction(topic);
     // delete current teammate id from local storage too
     localStorage.removeItem('currentTeammateId');
   };
@@ -59,13 +64,13 @@ const ChannelList: React.FC<ChannelListProps> = ({
           <li
             key={c.id}
             className={`channel-list__item ${
-              c.id === currentChannelId ? `channel-list__item--active` : ``
+              c.id === currentChannel.id ? `channel-list__item--active` : ``
             }`}
           >
             <Button
               type="button"
               color="transparent"
-              onClick={() => saveChannelId(c.id)}
+              onClick={() => saveChannelId(c.id, c.topic)}
             >
               <Icon
                 type={c.private ? 'lock' : 'hash'}
@@ -93,8 +98,8 @@ const ChannelList: React.FC<ChannelListProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'currentChannelId' | 'channels'> => ({
-  currentChannelId: state.currentChannelId,
+): Pick<AppState, 'currentChannel' | 'channels'> => ({
+  currentChannel: state.currentChannel,
   channels: state.channels,
 });
 
@@ -102,6 +107,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
   getCurrentTeammateIdAction: (id: number) =>
     dispatch(getCurrentTeammateId(id)),
+  updateChannelTopicAction: (topic: string) =>
+    dispatch(updateChannelTopic(topic)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

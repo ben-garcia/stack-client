@@ -1,4 +1,5 @@
-import getCurrentChannelId from 'store/channel/actions';
+import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
+import { ChannelState } from 'store/channel/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import { ChannelsState } from 'store/channels/types';
 import getCurrentTeammateId from 'store/teammate/actions';
@@ -12,7 +13,7 @@ import { WorkspacesState } from 'store/workspaces/types';
 
 export interface DashboardProps {
   channels: ChannelsState;
-  currentChannelId: number;
+  currentChannel: ChannelState;
   currentTeammateId: number;
   currentWorkspaceId: number;
   getCurrentChannelIdAction: typeof getCurrentChannelId;
@@ -22,6 +23,7 @@ export interface DashboardProps {
   requestUserWorkspacesAction: typeof requestUserWorkspaces;
   requestWorkspaceChannelsAction: typeof requestWorkspaceChannels;
   teammates: TeammatesState;
+  updateChannelTopicAction: typeof updateChannelTopic;
   user: UserState;
   userLoggedInAction: typeof userLoggedIn;
   workspaces: WorkspacesState;

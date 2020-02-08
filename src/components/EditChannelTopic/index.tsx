@@ -8,7 +8,7 @@ import { EditChannelTopicProps } from './types';
 import './styles.scss';
 
 const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
-  currentChannelId,
+  currentChannel,
   setOpenEditModal,
   value,
 }) => {
@@ -19,7 +19,7 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
 
     const response = await sendRequest({
       method: 'PUT',
-      url: `/channels/${currentChannelId}`,
+      url: `/channels/${currentChannel.id}`,
       data: { topic },
     });
 
@@ -46,8 +46,8 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'currentChannelId'> => ({
-  currentChannelId: state.currentChannelId,
+): Pick<AppState, 'currentChannel'> => ({
+  currentChannel: state.currentChannel,
 });
 
 export default connect(mapStateToProps)(EditChannelTopic);

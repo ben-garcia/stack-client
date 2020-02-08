@@ -1,5 +1,7 @@
+import { ChannelState } from 'store/channel/types';
+
 export interface EditChannelTopicProps {
-  currentChannelId: number;
+  currentChannel: ChannelState;
   setOpenEditModal: (state: boolean) => void;
   value?: string;
 }

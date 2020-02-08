@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
-import getCurrentChannelId from 'store/channel/actions';
+import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
@@ -19,7 +19,7 @@ import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = ({
   channels,
-  currentChannelId,
+  currentChannel,
   currentTeammateId,
   currentWorkspaceId,
   getCurrentChannelIdAction,
@@ -29,6 +29,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
   teammates,
+  updateChannelTopicAction,
   user,
   userLoggedInAction,
   workspaces,
@@ -44,6 +45,8 @@ const Dashboard: React.FC<DashboardProps> = ({
       'currentWorkspaceId'
     );
     const channelIdFromLocalStorage = localStorage.getItem('currentChannelId');
+    // get current channel topic from local storage
+    const currentChannelTopic = localStorage.getItem('currentChannelTopic');
     // if a user is stored in localStorage
     if (userFromLocalStorage) {
       const parsedUser = JSON.parse(userFromLocalStorage!);
@@ -78,8 +81,10 @@ const Dashboard: React.FC<DashboardProps> = ({
       const channelId = Number(channelIdFromLocalStorage);
       // dispatch action to update store
       getCurrentChannelIdAction(channelId);
-      // ONLY when thte stora has been updated with the current channel is
-      // dispatch action to get all current channel's messages
+      if (currentChannelTopic) {
+        // dispatch action to update the current channel's topic
+        updateChannelTopicAction(currentChannelTopic);
+      }
     }
   }
 
@@ -88,8 +93,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   workspaceName = workspaces.list.find(w => w.id === currentWorkspaceId)?.name;
 
   // get the current channel
-  const currentChannel: Channel | undefined = channels.list.find(
-    c => c.id === currentChannelId
+  const channel: Channel | undefined = channels.list.find(
+    c => c.id === currentChannel.id
   );
 
   // get the current teammate
@@ -102,7 +107,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         className="dashboard__workspaces-list"
       />
       <WorkspaceInfo
-        channel={currentChannel}
+        channel={channel}
         className="dashboard__top-nav"
         teammate={currentTeammate}
         username={user.username}
@@ -115,7 +120,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 };
 
 const mapStateToProps = (state: AppState) => ({
-  currentChannelId: state.currentChannelId,
+  currentChannel: state.currentChannel,
   currentTeammateId: state.currentTeammateId,
   currentWorkspaceId: state.currentWorkspaceId,
   channels: state.channels,
@@ -134,6 +139,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(getCurrentTeammateId(id)),
   getCurrentWorkspaceIdAction: (id: number) =>
     dispatch(getCurrentWorkspaceId(id)),
+  updateChannelTopicAction: (topic: string) =>
+    dispatch(updateChannelTopic(topic)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
