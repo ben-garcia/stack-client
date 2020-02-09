@@ -8,6 +8,7 @@ import { AppState } from 'store';
 import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
+import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import userLoggedIn from 'store/user/actions';
@@ -28,6 +29,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   requestWorkspaceTeammatesAction,
   requestUserWorkspacesAction,
   requestWorkspaceChannelsAction,
+  requestChannelMembersAction,
   teammates,
   updateChannelTopicAction,
   user,
@@ -85,6 +87,8 @@ const Dashboard: React.FC<DashboardProps> = ({
         // dispatch action to update the current channel's topic
         updateChannelTopicAction(currentChannelTopic);
       }
+      // dispatch action to get the current channel's members
+      requestChannelMembersAction();
     }
   }
 
@@ -134,6 +138,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   requestWorkspaceTeammatesAction: () => dispatch(requestWorkspaceTeammates()),
   requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
   requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
+  requestChannelMembersAction: () => dispatch(requestChannelMembers()),
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
   getCurrentTeammateIdAction: (id: number) =>
     dispatch(getCurrentTeammateId(id)),

@@ -2,6 +2,7 @@ import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { ChannelState } from 'store/channel/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import { ChannelsState } from 'store/channels/types';
+import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import { TeammatesState } from 'store/teammates/types';
@@ -22,6 +23,7 @@ export interface DashboardProps {
   requestWorkspaceTeammatesAction: typeof requestWorkspaceTeammates;
   requestUserWorkspacesAction: typeof requestUserWorkspaces;
   requestWorkspaceChannelsAction: typeof requestWorkspaceChannels;
+  requestChannelMembersAction: typeof requestChannelMembers;
   teammates: TeammatesState;
   updateChannelTopicAction: typeof updateChannelTopic;
   user: UserState;

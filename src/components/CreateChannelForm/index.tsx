@@ -74,9 +74,6 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // eslint-disable-next-line
-    console.log(channel.private);
-
     //  make sure there are no errors and that current workspace id is
     // set before sending the request.
     if (
