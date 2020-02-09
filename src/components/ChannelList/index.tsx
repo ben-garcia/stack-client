@@ -89,7 +89,9 @@ const ChannelList: React.FC<ChannelListProps> = ({
           size="sm"
           onClose={() => setCreateChannelFormIsOpen(false)}
         >
-          <CreateChannelForm />
+          <CreateChannelForm
+            createChannelFormIsOpen={setCreateChannelFormIsOpen}
+          />
         </Modal>
       )}
     </section>

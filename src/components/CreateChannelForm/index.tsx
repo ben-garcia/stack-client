@@ -11,6 +11,7 @@ import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
 const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
+  createChannelFormIsOpen,
   currentWorkspaceId,
   addChannelAction,
 }) => {
@@ -95,6 +96,8 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
 
         // dispatch action to add newly created channel to the store.
         addChannelAction(newChannel);
+        // close the create channel modal
+        createChannelFormIsOpen(false);
       } catch (err) {
         // eslint-disable-next-line
         console.log('handleSubmit error: ', err);
