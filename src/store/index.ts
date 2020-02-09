@@ -5,6 +5,9 @@ import channelReducer from './channel/reducer';
 import getAllCurrentWorkspaceChannels from './channels/sagas';
 import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
 import channelsReducer from './channels/reducer';
+import getAllCurrentChannelMembers from './members/sagas';
+import { REQUEST_CHANNEL_MEMBERS } from './members/types';
+import membersReducer from './members/reducer';
 import teammateReducer from './teammate/reducer';
 import teammatesReducer from './teammates/reducer';
 import getAllCurrentWorkspaceTeammates from './teammates/sagas';
@@ -20,6 +23,7 @@ export const rootReducer = combineReducers({
   currentTeammateId: teammateReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
+  members: membersReducer,
   teammates: teammatesReducer,
   user: userReducer,
   workspaces: workspacesReducer,
@@ -29,6 +33,7 @@ export function* rootSaga() {
   // takeLatest effect takes the latest action dispatched
   // if two actions are fired one after another, the last action will fire
   // while the first is canceled
+  yield takeLatest(REQUEST_CHANNEL_MEMBERS, getAllCurrentChannelMembers);
   yield takeLatest(
     REQUEST_WORKSPACE_TEAMMATES,
     getAllCurrentWorkspaceTeammates
