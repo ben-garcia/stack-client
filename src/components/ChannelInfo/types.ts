@@ -5,4 +5,5 @@ export interface ChannelInfoProps {
   channel?: Channel;
   className?: string;
   currentChannel?: ChannelState;
+  membersSize?: number;
 }

@@ -10,6 +10,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
   channel,
   className = '',
   currentChannel,
+  membersSize,
 }) => {
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel';
@@ -32,13 +33,16 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
         </Text>
       </div>
       <div className="channel__inner">
-        <div className="channel__member-count">
+        <div className="channel__inner-inside">
           <Icon
             type="user"
             color="black"
             size="xm"
             className="channel__icon-user"
           />
+          <Text tag="span" size="sm" className="channel__members-count">
+            {membersSize}
+          </Text>
         </div>
         <div className="channel__inner-two">
           <div className="channel__add-topic">
@@ -87,6 +91,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
 
 const mapStateToProps = (state: AppState) => ({
   currentChannel: state.currentChannel,
+  membersSize: state.members.list.length,
 });
 
 export default connect(mapStateToProps)(ChannelInfo);
