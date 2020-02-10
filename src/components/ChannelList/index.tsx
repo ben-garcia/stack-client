@@ -6,6 +6,7 @@ import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
+import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
@@ -16,6 +17,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
   className = '',
   getCurrentChannelIdAction,
   getCurrentTeammateIdAction,
+  requestChannelMembersAction,
   updateChannelTopicAction,
 }) => {
   const [createChannelFormIsOpen, setCreateChannelFormIsOpen] = useState<
@@ -41,6 +43,8 @@ const ChannelList: React.FC<ChannelListProps> = ({
     updateChannelTopicAction(topic);
     // delete current teammate id from local storage too
     localStorage.removeItem('currentTeammateId');
+    // dispatch action to get all current channel's members
+    requestChannelMembersAction();
   };
 
   return (
@@ -109,6 +113,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
   getCurrentTeammateIdAction: (id: number) =>
     dispatch(getCurrentTeammateId(id)),
+  requestChannelMembersAction: () => dispatch(requestChannelMembers()),
   updateChannelTopicAction: (topic: string) =>
     dispatch(updateChannelTopic(topic)),
 });
