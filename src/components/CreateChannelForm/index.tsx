@@ -11,9 +11,10 @@ import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
 const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
+  addChannelAction,
   createChannelFormIsOpen,
   currentWorkspaceId,
-  addChannelAction,
+  user,
 }) => {
   const [channel, setChannel] = useState<Channel>({
     name: '',
@@ -89,8 +90,11 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
           method: 'POST',
           url: '/channels',
           data: {
-            ...channel,
-            workspace: currentWorkspaceId,
+            channel: {
+              ...channel,
+              workspace: currentWorkspaceId,
+            },
+            userId: user.id,
           },
         });
 
@@ -152,8 +156,9 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
 
 const mapStateToProps = (
   state: AppState
-): Pick<AppState, 'currentWorkspaceId'> => ({
+): Pick<AppState, 'currentWorkspaceId' | 'user'> => ({
   currentWorkspaceId: state.currentWorkspaceId,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
