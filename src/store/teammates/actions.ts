@@ -26,7 +26,7 @@ export const receivedWorkspaceTeammatesError = (
   payload: error,
 });
 
-export const addMember = (teammate: Teammate): TeammatesActionTypes => ({
+export const addTeammate = (teammate: Teammate): TeammatesActionTypes => ({
   type: ADD_TEAMMATE,
   payload: teammate,
 });

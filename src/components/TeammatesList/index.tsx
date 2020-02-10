@@ -85,7 +85,9 @@ const TeammatesList: React.FC<TeammatesListProps> = ({
           size="sm"
           onClose={() => setInvitePeopleFormIsOpen(false)}
         >
-          <InvitePeopleForm />
+          <InvitePeopleForm
+            setInvitePeopleFormIsOpen={setInvitePeopleFormIsOpen}
+          />
         </Modal>
       )}
     </section>
