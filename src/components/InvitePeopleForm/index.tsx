@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
+import { addTeammate } from 'store/teammates/actions';
+import { Teammate } from 'store/teammates/types';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
-const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({ username }) => {
+const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
+  addTeammateAction,
+  setInvitePeopleFormIsOpen,
+  username,
+}) => {
   // variable used to map through the number of input fields
   const [usernames, setUsernames] = useState<Username[]>([
     {
@@ -24,6 +31,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({ username }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    let isSubmittable: boolean = false;
     const invalidIds: number[] = [];
     usernames
       .filter(u => !u.visible)
@@ -49,21 +57,35 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({ username }) => {
       delete members[`username-${i}`];
     });
 
-    // eslint-disable-next-line
-    console.log(invalidIds);
+    // make sure inputs have values before submitting
+    Object.values(members).forEach((value: string) => {
+      if (value.length !== 0) {
+        isSubmittable = true;
+      }
+    });
 
-    try {
-      const response = await sendRequest({
-        method: 'PUT',
-        url: `/workspaces/1`,
-        data: members,
-      });
+    if (isSubmittable) {
+      try {
+        const {
+          data: { teammates },
+        } = await sendRequest({
+          method: 'PUT',
+          url: `/workspaces/1`,
+          data: members,
+        });
 
-      // eslint-disable-next-line
-      console.log(response);
-    } catch (err) {
-      // eslint-disable-next-line
-      console.log('InvitePeopleForm handleSubmit error: ', err);
+        // loop through each teamate returned from the server
+        // which are the teammates added.
+        teammates.forEach((teammate: Teammate) => {
+          // dispatch action to add new teammate
+          addTeammateAction(teammate);
+        });
+        // close the modal
+        setInvitePeopleFormIsOpen(false);
+      } catch (err) {
+        // eslint-disable-next-line
+        console.log('InvitePeopleForm handleSubmit error: ', err);
+      }
     }
   };
 
@@ -171,4 +193,8 @@ const mapStateToProps = (state: AppState) => ({
   username: state.user.username,
 });
 
-export default connect(mapStateToProps)(InvitePeopleForm);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addTeammateAction: (teammate: Teammate) => dispatch(addTeammate(teammate)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvitePeopleForm);
