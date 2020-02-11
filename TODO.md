@@ -18,7 +18,7 @@
   - [x] Husky && lint-staging
     - should pass testing and linting
 
-- ## [ ] Setup
+- ## [x] Setup
 
   - [x] Redux
     - state management
@@ -44,7 +44,7 @@
     - register form
   - [x] LoginPage
     - login form
-  - [ ] Dashboard
+  - [x] Dashboard
 
 - ## Components
   - [x] Button
