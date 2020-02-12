@@ -33,7 +33,7 @@
     - routing
     - creating a router folder
 
-- ## Pages
+- ## [ ] Pages
 
   - [x] LandingPage
 
@@ -46,42 +46,65 @@
     - login form
   - [x] Dashboard
 
-- ## Components
+- ## [ ] Components
+
   - [x] Button
     - will contain text and onClick prop
-  - [x] Header
-    - prop to define the heading(h1...h6)
-  - [x] Image
-    - wrapper for image
-  - [x] Navbar
-    - will contain the logo and name of the project
-    - NavbarItem
-      - to be nested inside Navbar
-  - [x] Paragraph
-    - wrapper for p tag with styles
-  - [x] Icon
-    - using font icons
+  - [x] ChnanelInfo
+    - will contain channel name / member username
+  - [x] ChannelList
+    - contains list of all the user's channels
+  - [x] CreateChannelForm
+    - form which contains inputs fields to create a new channel
+  - [x] CreateWorkspaceForm
+    - contains form with inputs to create a new wokspace
+  - [x] Dialog
+    - will contain information to get the users attention(form errors)
+  - [x] EditChannelTopic
+    - contains the form to add/update channel topic
+  - [x] Footer
+    - contain my name and the year
   - [x] Form
     - FormGroup
       - wrapper component for fieldset element used to combine related form information
     - FormInput
       - wrapper components for input and label elements
+    - FormCheckbox
+      - checkbox styled as it appears in Slack
+  - [x] Header
+    - prop to define the heading(h1...h6)
+  - [x] Icon
+    - using font icons
+  - [x] Image
+    - wrapper for image
   - [x] Modal
     - will contain forms to
       - register
       - log in
-  - [x] Footer
-    - contain my name and the year
-  - [ ] Dashboard
-    - only accessed if the user is logged in
-    - contains all the users workspaces
-  - [ ] Workspace
-    - will contain the name of the workspace
-    - will contain all the channels the associated with it
-    - will contain the members
-    - will contain the messages
-  - [ ] Channel
-    - contain the messages for the channel
-    - will contain an input where users can type in messages
+      - edit channel form
+      - create channel form
+      - create workspace form
+  - [x] Navbar
+    - will contain the logo and name of the project
+    - NavbarItem
+      - to be nested inside Navbar
+  - [x] Paragraph
+
+    - wrapper for either p, span, or div tag with styles
+
   - [ ] Placeholder
+
     - will be rendered in place for loading data
+
+  - [x] TeammatesInfo
+    - contain infomation about the current teammate
+  - [x] TeammatesList
+
+    - contains list of workspace teammates
+
+  - [x] WorkspaceInfo
+    - conatains wokspace name
+  - [x] WokspaceList
+    - aside tag in the Dashboard which contains workspaces
+  - [x] WorkspaceSidebar
+    - parent for ChannelList TeammatesList
