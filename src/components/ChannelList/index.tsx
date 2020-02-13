@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
+import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
@@ -63,14 +63,9 @@ const ChannelList: React.FC<ChannelListProps> = ({
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
-      <ul className="channel-list__list">
+      <List>
         {channels.list.map((c: Channel) => (
-          <li
-            key={c.id}
-            className={`channel-list__item ${
-              c.id === currentChannel.id ? `channel-list__item--active` : ``
-            }`}
-          >
+          <List.Item active={c.id === currentChannel.id}>
             <Button
               type="button"
               color="transparent"
@@ -84,9 +79,9 @@ const ChannelList: React.FC<ChannelListProps> = ({
               />
               {c.name}
             </Button>
-          </li>
+          </List.Item>
         ))}
-      </ul>
+      </List>
       {createChannelFormIsOpen && (
         <Modal
           header="Create a Channel"

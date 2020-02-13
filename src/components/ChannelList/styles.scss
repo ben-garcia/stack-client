@@ -7,23 +7,6 @@
     padding: 0.3rem 1rem;
   }
 
-  &__list {
-    list-style: none;
-  }
-
-  &__item {
-    padding-left: 0.85rem;
-
-    &:hover:not(&--active) {
-      cursor: pointer;
-      background-color: $primary-color-hover;
-    }
-
-    &--active {
-      background-color: $color-blue-active;
-    }
-  }
-
   &__icon {
     opacity: 0.3;
     margin-right: 0.5rem;
