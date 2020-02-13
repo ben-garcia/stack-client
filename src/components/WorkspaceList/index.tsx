@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button } from 'components';
+import { Button, List } from 'components';
 import { AppState } from 'store';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import { requestWorkspaceChannels } from 'store/channels/actions';
@@ -37,15 +37,9 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
 
   return (
     <aside className={classesToAdd}>
-      <ul className="workspace-list__inner">
+      <List>
         {workspaces.map(w => (
-          <li
-            key={w.id}
-            className={`workspace-list__item ${
-              w.id === currentWorkspaceId ? `workspace-list__item--active` : ``
-            }`}
-            title={w.name}
-          >
+          <List.Item key={w.id} active={w.id === currentWorkspaceId}>
             <Button
               type="button"
               color="transparent"
@@ -53,9 +47,9 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
             >
               {w.name[0].toUpperCase()}
             </Button>
-          </li>
+          </List.Item>
         ))}
-      </ul>
+      </List>
     </aside>
   );
 };
