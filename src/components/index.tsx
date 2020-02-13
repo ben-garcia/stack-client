@@ -11,10 +11,11 @@ import Header from './Header';
 import Icon from './Icon';
 import Image from './Image';
 import InvitePeopleForm from './InvitePeopleForm';
-import TeammateInfo from './TeammateInfo';
-import TeammatesList from './TeammatesList';
+import List from './List';
 import Modal from './Modal';
 import Navbar from './Navbar';
+import TeammateInfo from './TeammateInfo';
+import TeammatesList from './TeammatesList';
 import Text from './Text';
 import Workspace from './Workspace';
 import WorkspaceInfo from './WorkspaceInfo';
@@ -35,10 +36,11 @@ export {
   Icon,
   Image,
   InvitePeopleForm,
-  TeammateInfo,
-  TeammatesList,
+  List,
   Modal,
   Navbar,
+  TeammateInfo,
+  TeammatesList,
   Text,
   Workspace,
   WorkspaceInfo,

@@ -1,0 +1,14 @@
+@import '../../../pages/sass/variables';
+
+.list__item {
+  padding-left: 0.85rem;
+
+  &:hover:not(&--active) {
+    cursor: pointer;
+    background-color: $primary-color-hover;
+  }
+}
+
+.list__item--active {
+  background-color: $color-blue-active;
+}
