@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { Button, Icon, InvitePeopleForm, Modal, Text } from 'components';
+import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannelId } from 'store/channel/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
@@ -54,18 +54,13 @@ const TeammatesList: React.FC<TeammatesListProps> = ({
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
-      <ul className="teammates-list__list">
-        {teammates.list.map((m: Teammate) => (
-          <li
-            key={m.id}
-            className={`teammates-list__item ${
-              m.id === currentTeammateId ? `teammates-list__item--active` : ``
-            }`}
-          >
+      <List>
+        {teammates.list.map((t: Teammate) => (
+          <List.Item key={t.id} active={t.id === currentTeammateId}>
             <Button
               type="button"
               color="transparent"
-              onClick={() => saveChannelId(m.id)}
+              onClick={() => saveChannelId(t.id)}
             >
               <Icon
                 type="circle"
@@ -73,12 +68,12 @@ const TeammatesList: React.FC<TeammatesListProps> = ({
                 color="white"
                 className="teammates-list__icon"
               />
-              {m.username}
-              {user.id === m.id ? ` (You)` : ''}
+              {t.username}
+              {user.id === t.id ? ` (You)` : ''}
             </Button>
-          </li>
+          </List.Item>
         ))}
-      </ul>
+      </List>
       {invitePeopleFormIsOpen && (
         <Modal
           header="Invite People"

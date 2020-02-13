@@ -65,7 +65,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
       </div>
       <List>
         {channels.list.map((c: Channel) => (
-          <List.Item active={c.id === currentChannel.id}>
+          <List.Item key={c.id} active={c.id === currentChannel.id}>
             <Button
               type="button"
               color="transparent"
