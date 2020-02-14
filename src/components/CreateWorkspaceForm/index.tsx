@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import getCurrentWorkspaceId from 'store/workspace/actions';
-import { Workspace } from 'store/workspaces/types';
 import { addWorkspace } from 'store/workspaces/actions';
 import { CreateWorkspaceFormProps } from './types';
 import './styles.scss';
 
 const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
-  userId,
-  addWorkspaceAction,
-  getCurrentWorkspaceIdAction,
   createWorkspaceFormIsOpen,
 }) => {
+  const dispatch: Dispatch = useDispatch();
+  const { userId } = useSelector((state: AppState) => ({
+    userId: state.user.id,
+  }));
   const [workspaceName, setWorkspaceName] = useState<string>('');
   const [openWorkspace, setOpenWorkspace] = useState<boolean>(false);
   const [workspaceNameError, setWorkspaceNameError] = useState<string>('');
@@ -63,14 +63,13 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
         });
 
         // dispatch action to add it to the store
-        addWorkspaceAction(workspace);
-
+        dispatch(addWorkspace(workspace));
         // close the modal
         createWorkspaceFormIsOpen(false);
 
         // check whether the newly created workspace should open
         if (openWorkspace) {
-          getCurrentWorkspaceIdAction(workspace.id);
+          dispatch(getCurrentWorkspaceId(workspace.id));
         }
       } catch (err) {
         // eslint-disable-next-line
@@ -115,18 +114,4 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  userId: state.user.id,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addWorkspaceAction: (workspace: Workspace) =>
-    dispatch(addWorkspace(workspace)),
-  getCurrentWorkspaceIdAction: (id: number) =>
-    dispatch(dispatch(getCurrentWorkspaceId(id))),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateWorkspaceForm);
+export default CreateWorkspaceForm;
