@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, List } from 'components';
@@ -11,13 +11,13 @@ import { WorkspaceListProps } from './types';
 import './styles.scss';
 
 const WorkspaceList: React.FC<WorkspaceListProps> = ({
-  currentWorkspaceId,
   workspaces,
   className,
-  getCurrentWorkspaceIdAction,
-  requestWorkspaceChannelsAction,
-  requestWorkspaceTeammatesAction,
 }) => {
+  const dispatch: Dispatch = useDispatch();
+  const { currentWorkspaceId } = useSelector((state: AppState) => ({
+    currentWorkspaceId: state.currentWorkspaceId,
+  }));
   let classesToAdd: string = 'workspace-list';
 
   if (className?.trim() !== '') {
@@ -28,11 +28,11 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     // save current workspace id to be used on page refresh
     localStorage.setItem('currentWorkspaceId', `${id}`);
     // dispatch action to change the store
-    getCurrentWorkspaceIdAction(id);
+    dispatch(getCurrentWorkspaceId(id));
     // dispatch action to get current workspace channels
-    requestWorkspaceChannelsAction();
+    dispatch(requestWorkspaceChannels());
     // dispatch action to get the current workspace teammates
-    requestWorkspaceTeammatesAction();
+    dispatch(requestWorkspaceTeammates());
   };
 
   return (
@@ -54,17 +54,4 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: AppState
-): Pick<AppState, 'currentWorkspaceId'> => ({
-  currentWorkspaceId: state.currentWorkspaceId,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCurrentWorkspaceIdAction: (id: number) =>
-    dispatch(getCurrentWorkspaceId(id)),
-  requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
-  requestWorkspaceTeammatesAction: () => dispatch(requestWorkspaceTeammates()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceList);
+export default WorkspaceList;
