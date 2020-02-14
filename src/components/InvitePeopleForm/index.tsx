@@ -13,7 +13,7 @@ import './styles.scss';
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
   setInvitePeopleFormIsOpen,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
   const { username } = useSelector((state: AppState) => ({
     username: state.user.username,
   }));

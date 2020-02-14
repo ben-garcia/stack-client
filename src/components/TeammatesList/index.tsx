@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 
 import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
 import { AppState } from 'store';
@@ -10,14 +10,15 @@ import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
 import './styles.scss';
 
-const TeammatesList: React.FC<TeammatesListProps> = ({
-  currentTeammateId,
-  className = '',
-  getCurrentChannelIdAction,
-  getCurrentTeammateIdAction,
-  teammates,
-  user,
-}) => {
+const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
+  const dispatch: Dispatch = useDispatch();
+  const { currentTeammateId, teammates, user } = useSelector(
+    (state: AppState) => ({
+      currentTeammateId: state.currentTeammateId,
+      teammates: state.teammates,
+      user: state.user,
+    })
+  );
   const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
     false
   );
@@ -31,9 +32,9 @@ const TeammatesList: React.FC<TeammatesListProps> = ({
     // save current teammate id to be used on page reload
     localStorage.setItem('currentTeammateId', `${id}`);
     // dispatch action to change the store
-    getCurrentTeammateIdAction(id);
+    dispatch(getCurrentTeammateId(id));
     // dispatch action to remove the current channel id
-    getCurrentChannelIdAction(0);
+    dispatch(getCurrentChannelId(0));
     // remove current mmeber id from local storage
     localStorage.removeItem('currentChannelId');
   };
@@ -89,18 +90,4 @@ const TeammatesList: React.FC<TeammatesListProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: AppState
-): Pick<AppState, 'currentTeammateId' | 'teammates' | 'user'> => ({
-  currentTeammateId: state.currentTeammateId,
-  teammates: state.teammates,
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentTeammateIdAction: (id: number) =>
-    dispatch(getCurrentTeammateId(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TeammatesList);
+export default TeammatesList;
