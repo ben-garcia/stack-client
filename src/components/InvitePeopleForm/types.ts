@@ -1,10 +1,5 @@
-import { addTeammate } from 'store/teammates/actions';
-import { UserState } from 'store/user/types';
-
 export interface InvitePeopleFormProps {
-  addTeammateAction: typeof addTeammate;
   setInvitePeopleFormIsOpen: (state: boolean) => void;
-  username: UserState['username'];
 }
 
 export interface Username {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
@@ -11,10 +11,12 @@ import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
-  addTeammateAction,
   setInvitePeopleFormIsOpen,
-  username,
 }) => {
+  const dispatch = useDispatch();
+  const { username } = useSelector((state: AppState) => ({
+    username: state.user.username,
+  }));
   // variable used to map through the number of input fields
   const [usernames, setUsernames] = useState<Username[]>([
     {
@@ -78,7 +80,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
         // which are the teammates added.
         teammates.forEach((teammate: Teammate) => {
           // dispatch action to add new teammate
-          addTeammateAction(teammate);
+          dispatch(addTeammate(teammate));
         });
         // close the modal
         setInvitePeopleFormIsOpen(false);
@@ -189,12 +191,4 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  username: state.user.username,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addTeammateAction: (teammate: Teammate) => dispatch(addTeammate(teammate)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(InvitePeopleForm);
+export default InvitePeopleForm;
