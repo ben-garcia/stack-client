@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Button, EditChannelTopic, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
@@ -9,9 +9,11 @@ import './styles.scss';
 const ChannelInfo: React.FC<ChannelInfoProps> = ({
   channel,
   className = '',
-  currentChannel,
-  membersSize,
 }) => {
+  const { currentChannel, membersSize } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
+    membersSize: state.members.list.length,
+  }));
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel';
 
@@ -89,9 +91,4 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  currentChannel: state.currentChannel,
-  membersSize: state.members.list.length,
-});
-
-export default connect(mapStateToProps)(ChannelInfo);
+export default ChannelInfo;
