@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import { addChannel } from 'store/channels/actions';
-import { Channel as StoreChannel } from 'store/channels/types';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
 const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
-  addChannelAction,
   createChannelFormIsOpen,
-  currentWorkspaceId,
-  user,
 }) => {
+  const dispatch: Dispatch = useDispatch();
+  const { currentWorkspaceId, user } = useSelector((state: AppState) => ({
+    currentWorkspaceId: state.currentWorkspaceId,
+    user: state.user,
+  }));
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
@@ -99,7 +100,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
         });
 
         // dispatch action to add newly created channel to the store.
-        addChannelAction(newChannel);
+        dispatch(addChannel(newChannel));
         // close the create channel modal
         createChannelFormIsOpen(false);
       } catch (err) {
@@ -154,15 +155,4 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: AppState
-): Pick<AppState, 'currentWorkspaceId' | 'user'> => ({
-  currentWorkspaceId: state.currentWorkspaceId,
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addChannelAction: (channel: StoreChannel) => dispatch(addChannel(channel)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateChannelForm);
+export default CreateChannelForm;
