@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
@@ -14,28 +13,28 @@ import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
-import { User } from 'store/user/types';
 import { DashboardProps } from './types';
 import './styles.scss';
 
-const Dashboard: React.FC<DashboardProps> = ({
-  channels,
-  currentChannel,
-  currentTeammateId,
-  currentWorkspaceId,
-  getCurrentChannelIdAction,
-  getCurrentTeammateIdAction,
-  getCurrentWorkspaceIdAction,
-  requestWorkspaceTeammatesAction,
-  requestUserWorkspacesAction,
-  requestWorkspaceChannelsAction,
-  requestChannelMembersAction,
-  teammates,
-  updateChannelTopicAction,
-  user,
-  userLoggedInAction,
-  workspaces,
-}) => {
+const Dashboard: React.FC<DashboardProps> = () => {
+  const {
+    currentChannel,
+    currentTeammateId,
+    currentWorkspaceId,
+    channels,
+    teammates,
+    user,
+    workspaces,
+  } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
+    currentTeammateId: state.currentTeammateId,
+    currentWorkspaceId: state.currentWorkspaceId,
+    channels: state.channels,
+    teammates: state.teammates,
+    user: state.user,
+    workspaces: state.workspaces,
+  }));
+  const dispatch = useDispatch();
   const history = useHistory();
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
@@ -53,9 +52,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     if (userFromLocalStorage) {
       const parsedUser = JSON.parse(userFromLocalStorage!);
       // dispatch action to updated user in the store
-      userLoggedInAction(parsedUser);
+      dispatch(userLoggedIn(parsedUser));
       // dispatch action to get all user's workspaces
-      requestUserWorkspacesAction();
+      dispatch(requestUserWorkspaces());
     } else {
       // if there is no user item in local storage then
       // it means the user isn't logged in so
@@ -64,31 +63,31 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
     // set up current teammate id on page reload
     if (teammateIdFromLocalStorage) {
-      getCurrentTeammateIdAction(Number(teammateIdFromLocalStorage));
+      dispatch(getCurrentTeammateId(Number(teammateIdFromLocalStorage)));
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
       const workspaceId = Number(workspaceIdFromLocalStorage);
       // dispatch action to update store
-      getCurrentWorkspaceIdAction(workspaceId);
+      dispatch(getCurrentWorkspaceId(workspaceId));
       // ONLY when the store has been updated with the current workspace id
       // dispatch action to get all current workspace's channels
-      requestWorkspaceChannelsAction();
+      dispatch(requestWorkspaceChannels());
       // ONLY when the store has been pudated with the curent workspace id
       // dispatch action to get all current workpace's teammates
-      requestWorkspaceTeammatesAction();
+      dispatch(requestWorkspaceTeammates());
     }
     // set up channelId on page reload
     if (channelIdFromLocalStorage) {
       const channelId = Number(channelIdFromLocalStorage);
       // dispatch action to update store
-      getCurrentChannelIdAction(channelId);
+      dispatch(getCurrentChannelId(channelId));
       if (currentChannelTopic) {
         // dispatch action to update the current channel's topic
-        updateChannelTopicAction(currentChannelTopic);
+        dispatch(updateChannelTopic(currentChannelTopic));
       }
       // dispatch action to get the current channel's members
-      requestChannelMembersAction();
+      dispatch(requestChannelMembers());
     }
   }
 
@@ -123,29 +122,4 @@ const Dashboard: React.FC<DashboardProps> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  currentChannel: state.currentChannel,
-  currentTeammateId: state.currentTeammateId,
-  currentWorkspaceId: state.currentWorkspaceId,
-  channels: state.channels,
-  teammates: state.teammates,
-  user: state.user,
-  workspaces: state.workspaces,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  userLoggedInAction: (user: User) => dispatch(userLoggedIn(user)),
-  requestWorkspaceTeammatesAction: () => dispatch(requestWorkspaceTeammates()),
-  requestUserWorkspacesAction: () => dispatch(requestUserWorkspaces()),
-  requestWorkspaceChannelsAction: () => dispatch(requestWorkspaceChannels()),
-  requestChannelMembersAction: () => dispatch(requestChannelMembers()),
-  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentTeammateIdAction: (id: number) =>
-    dispatch(getCurrentTeammateId(id)),
-  getCurrentWorkspaceIdAction: (id: number) =>
-    dispatch(getCurrentWorkspaceId(id)),
-  updateChannelTopicAction: (topic: string) =>
-    dispatch(updateChannelTopic(topic)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default Dashboard;
