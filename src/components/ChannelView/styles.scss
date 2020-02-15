@@ -1,0 +1,35 @@
+@import '../../pages/sass/variables';
+
+.channel-view {
+  &__inner {
+    margin: 0.8rem 0;
+  }
+
+  &__name,
+  &__created-at,
+  &__description {
+    margin: 0 0.3rem;
+  }
+
+  &__name {
+    font-size: 1.5rem !important;
+  }
+
+  &__inner-two {
+    margin: 0 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  &__inner-three {
+    display: inline;
+  }
+
+  &__edit-button {
+    padding: 0;
+    color: $color-blue-active;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

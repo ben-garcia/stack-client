@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { Button, Icon, Text } from 'components';
 import { AppState } from 'store';
 import { ChannelViewProps } from './types';
+import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   const { channel } = useSelector((state: AppState) => ({
@@ -16,7 +18,51 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
 
   return (
     <main className={classesToAdd}>
-      <div className="channel-view__description">{channel.topic}</div>
+      <h1 className="channel-view__inner">
+        <Icon className="channel-view__hash-icon" type="hash" size="xm" />
+        <Text className="channel-view__name" tag="span">
+          {channel.name}
+        </Text>
+      </h1>
+      <div className="channel-view__inner">
+        <Text tag="span" size="sm">
+          You created this channel on
+        </Text>
+        <Text className="channel-view__created-at" tag="span" size="sm">
+          {channel.createdAt}
+        </Text>
+        <Text tag="span" size="sm">
+          This is the very beginning of the
+        </Text>
+        <strong className="channel-view__inner-two">
+          <Icon type="hash" size="sm" />
+          <Text tag="span">{channel.name}</Text>
+        </strong>
+        {channel.description && (
+          <div className="channel-view__inner-three">
+            <Text tag="span" size="sm">
+              Description:
+            </Text>
+            <Text className="channel-view__description" tag="span">
+              {channel.description}
+            </Text>
+            <Text tag="span">
+              (
+              <Button
+                className="channel-view__edit-button"
+                type="button"
+                color="transparent"
+                title="Edit Channel Description"
+              >
+                <Text tag="span" size="sm">
+                  edit
+                </Text>
+              </Button>
+              )
+            </Text>
+          </div>
+        )}
+      </div>
     </main>
   );
 };
