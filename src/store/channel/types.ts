@@ -1,14 +1,21 @@
-export const GET_CURRENT_CHANNEL_ID = 'GET_CURRENT_CHANNEL_ID';
+import { Channel } from 'store/channels/types';
+
+export const GET_CURRENT_CHANNEL = 'GET_CURRENT_CHANNEL';
 export const UPDATE_CHANNEL_TOPIC = 'UPDATE_CHANNEL_TOPIC';
 
 export interface ChannelState {
   id: number;
-  topic: string;
+  name?: string;
+  description?: string;
+  topic?: string;
+  private?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-interface GetCurrentChannelId {
-  type: typeof GET_CURRENT_CHANNEL_ID;
-  payload: number;
+interface GetCurrentChannel {
+  type: typeof GET_CURRENT_CHANNEL;
+  payload: Channel;
 }
 
 interface UpdateChannelTopic {
@@ -16,4 +23,4 @@ interface UpdateChannelTopic {
   payload: string;
 }
 
-export type ChannelActionTypes = GetCurrentChannelId | UpdateChannelTopic;
+export type ChannelActionTypes = GetCurrentChannel | UpdateChannelTopic;
