@@ -1,4 +1,5 @@
 import Button from './Button';
+import ChannelView from './ChannelView';
 import ChannelInfo from './ChannelInfo';
 import ChannelList from './ChannelList';
 import CreateChannelForm from './CreateChannelForm';
@@ -24,6 +25,7 @@ import WorkspaceSidebar from './WorkspaceSidebar';
 
 export {
   Button,
+  ChannelView,
   ChannelInfo,
   ChannelList,
   CreateChannelForm,
