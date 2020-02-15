@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 
 import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
 import { AppState } from 'store';
-import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
+import { getCurrentChannel } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
-const ChannelList: React.FC<ChannelListProps> = ({
-  currentChannel,
-  channels,
-  className = '',
-  getCurrentChannelIdAction,
-  getCurrentTeammateIdAction,
-  requestChannelMembersAction,
-  updateChannelTopicAction,
-}) => {
+const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
+  const dispatch: Dispatch = useDispatch();
+  const { currentChannel, channels } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
+    channels: state.channels,
+  }));
   const [createChannelFormIsOpen, setCreateChannelFormIsOpen] = useState<
     boolean
   >(false);
@@ -29,22 +26,18 @@ const ChannelList: React.FC<ChannelListProps> = ({
     classesToAdd += ` ${className}`;
   }
 
-  const saveChannelId = (id: number, topic: string) => {
+  const saveChannel = (channel: Channel) => {
     // save current channel id to be used on page reload
-    localStorage.setItem('currentChannelId', `${id}`);
+    localStorage.setItem('currentChannel', JSON.stringify(channel));
     // dispatch action to change the store
-    getCurrentChannelIdAction(id);
+    dispatch(getCurrentChannel(channel));
     // dispatch action to set current member id to 0
     // so it isn't active
-    getCurrentTeammateIdAction(0);
-    // save current channel topic to be used on page reload
-    localStorage.setItem('currentChannelTopic', topic);
-    // dispatch action to set the current channel topic
-    updateChannelTopicAction(topic);
+    dispatch(getCurrentTeammateId(0));
     // delete current teammate id from local storage too
     localStorage.removeItem('currentTeammateId');
     // dispatch action to get all current channel's members
-    requestChannelMembersAction();
+    dispatch(requestChannelMembers());
   };
 
   return (
@@ -69,7 +62,7 @@ const ChannelList: React.FC<ChannelListProps> = ({
             <Button
               type="button"
               color="transparent"
-              onClick={() => saveChannelId(c.id, c.topic)}
+              onClick={() => saveChannel(c)}
             >
               <Icon
                 type={c.private ? 'lock' : 'hash'}
@@ -97,20 +90,4 @@ const ChannelList: React.FC<ChannelListProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: AppState
-): Pick<AppState, 'currentChannel' | 'channels'> => ({
-  currentChannel: state.currentChannel,
-  channels: state.channels,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCurrentChannelIdAction: (id: number) => dispatch(getCurrentChannelId(id)),
-  getCurrentTeammateIdAction: (id: number) =>
-    dispatch(getCurrentTeammateId(id)),
-  requestChannelMembersAction: () => dispatch(requestChannelMembers()),
-  updateChannelTopicAction: (topic: string) =>
-    dispatch(updateChannelTopic(topic)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);
+export default ChannelList;
