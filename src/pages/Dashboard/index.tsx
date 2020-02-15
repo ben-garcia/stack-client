@@ -2,9 +2,14 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { WorkspaceInfo, WorkspaceList, WorkspaceSidebar } from 'components';
+import {
+  ChannelView,
+  WorkspaceInfo,
+  WorkspaceList,
+  WorkspaceSidebar,
+} from 'components';
 import { AppState } from 'store';
-import { getCurrentChannelId, updateChannelTopic } from 'store/channel/actions';
+import { getCurrentChannel, updateChannelTopic } from 'store/channel/actions';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import { requestChannelMembers } from 'store/members/actions';
@@ -45,9 +50,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     const workspaceIdFromLocalStorage = localStorage.getItem(
       'currentWorkspaceId'
     );
-    const channelIdFromLocalStorage = localStorage.getItem('currentChannelId');
-    // get current channel topic from local storage
-    const currentChannelTopic = localStorage.getItem('currentChannelTopic');
+    const channelFromLocalStorage = localStorage.getItem('currentChannel');
     // if a user is stored in localStorage
     if (userFromLocalStorage) {
       const parsedUser = JSON.parse(userFromLocalStorage!);
@@ -78,14 +81,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(requestWorkspaceTeammates());
     }
     // set up channelId on page reload
-    if (channelIdFromLocalStorage) {
-      const channelId = Number(channelIdFromLocalStorage);
+    if (channelFromLocalStorage) {
+      const channel = JSON.parse(channelFromLocalStorage);
       // dispatch action to update store
-      dispatch(getCurrentChannelId(channelId));
-      if (currentChannelTopic) {
-        // dispatch action to update the current channel's topic
-        dispatch(updateChannelTopic(currentChannelTopic));
-      }
+      dispatch(getCurrentChannel(channel));
+      // dispatch action to update the current channel's topic
+      dispatch(updateChannelTopic(channel.topic));
       // dispatch action to get the current channel's members
       dispatch(requestChannelMembers());
     }
@@ -117,7 +118,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         workspaceName={workspaceName}
       />
       <WorkspaceSidebar className="dashboard__sidebar" />
-      <main className="dashboard__main">Main</main>
+      <ChannelView className="dashboard__main" />
     </div>
   );
 };

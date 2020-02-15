@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
 import { AppState } from 'store';
-import { getCurrentChannelId } from 'store/channel/actions';
+import { getCurrentChannel } from 'store/channel/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
@@ -34,9 +34,19 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
     // dispatch action to change the store
     dispatch(getCurrentTeammateId(id));
     // dispatch action to remove the current channel id
-    dispatch(getCurrentChannelId(0));
-    // remove current mmeber id from local storage
-    localStorage.removeItem('currentChannelId');
+    dispatch(
+      getCurrentChannel({
+        id: 0,
+        name: '',
+        topic: '',
+        description: '',
+        private: false,
+        createdAt: '',
+        updatedAt: '',
+      })
+    );
+    // remove current channel from local storage
+    localStorage.removeItem('currentChannel');
   };
 
   return (
