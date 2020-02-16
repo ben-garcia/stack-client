@@ -1,6 +1,7 @@
 import {
   GET_CURRENT_CHANNEL,
   UPDATE_CHANNEL_TOPIC,
+  UPDATE_CHANNEL_DESCRIPTION,
   ChannelState,
   ChannelActionTypes,
 } from './types';
@@ -25,6 +26,11 @@ const channelReducer = (
       return {
         ...state,
         topic: action.payload,
+      };
+    case UPDATE_CHANNEL_DESCRIPTION:
+      return {
+        ...state,
+        description: action.payload,
       };
     default:
       return state;

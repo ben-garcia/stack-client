@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Button, Icon, Text } from 'components';
+import { Button, EditChannelDescription, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { ChannelViewProps } from './types';
 import './styles.scss';
@@ -10,6 +10,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   const { channel } = useSelector((state: AppState) => ({
     channel: state.currentChannel,
   }));
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel-view';
 
   if (className?.trim() !== '') {
@@ -53,6 +54,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                 type="button"
                 color="transparent"
                 title="Edit Channel Description"
+                onClick={() => setOpenEditModal(true)}
               >
                 <Text tag="span" size="sm">
                   edit
@@ -60,6 +62,18 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
               </Button>
               )
             </Text>
+            {openEditModal && (
+              <Modal
+                header="Edit channel description"
+                size="md"
+                onClose={() => setOpenEditModal(false)}
+              >
+                <EditChannelDescription
+                  setOpenEditModal={setOpenEditModal}
+                  value={channel?.description}
+                />
+              </Modal>
+            )}
           </div>
         )}
         <div className="channel-view__inner-four">
