@@ -24,7 +24,16 @@
     display: inline;
   }
 
-  &__edit-button {
+  &__inner-four {
+    margin-top: 0.5rem;
+  }
+
+  &__user-icon {
+    margin-left: 0.3rem;
+  }
+
+  &__edit-button,
+  &__user-icon {
     padding: 0;
     color: $color-blue-active;
 

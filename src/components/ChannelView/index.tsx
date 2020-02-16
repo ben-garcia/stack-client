@@ -62,6 +62,18 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
             </Text>
           </div>
         )}
+        <div className="channel-view__inner-four">
+          <Icon type="user" size="xm" />
+          <Button
+            className="channel-view__user-icon"
+            type="button"
+            color="transparent"
+          >
+            <Text tag="span" size="xm">
+              Add people
+            </Text>
+          </Button>
+        </div>
       </div>
     </main>
   );
