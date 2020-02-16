@@ -28,8 +28,14 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
       data: { topic },
     });
 
-    // save the channel topic to local storage
-    localStorage.setItem('currentChannelTopic', topic);
+    // get the current channel from local storage and update topic
+    const channelFromLocalStorage = localStorage.getItem('currentChannel');
+    const parsedChannel = JSON.parse(channelFromLocalStorage!);
+    parsedChannel.topic = topic;
+
+    // save the current channel with the updated topic to local storage
+    localStorage.setItem('currentChannel', JSON.stringify(parsedChannel));
+
     // dispatch action to update the current channel topic
     dispatch(updateChannelTopic(topic));
     // close the modal
