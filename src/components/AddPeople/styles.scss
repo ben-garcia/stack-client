@@ -1,17 +1,42 @@
 @import '../../pages/sass/variables';
 
-.form__textarea {
+.form__message {
+  color: rgba($color-dark-grey, 0.8);
+  margin: 0.5rem 0;
+}
+
+.channel-name {
+  margin: 0 0.3rem;
+  font-weight: 900;
+  color: rgba($color-black, 0.8);
+}
+
+.form__inner {
   width: 100%;
-  height: 4rem;
+  min-height: 5rem;
   margin-bottom: 1rem;
   font-size: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid rgba($color-dark-grey, 0.5);
-  resize: none;
+}
 
-  &:focus {
-    border-color: transparent;
-    box-shadow: 0 0 4px 0 rgb(18, 100, 163) inset;
-  }
+.form__button {
+  background-color: transparent;
+  box-shadow: 1px 1px 9px 0 rgba($color-dark-grey, 0.8);
+  font-weight: 800;
+  margin: 0.3rem;
+  min-width: 4rem;
+  transition: background-color 0.4s ease;
+}
+
+.form__button--active {
+  background-color: $primary-color !important;
+  color: $background-color;
+}
+
+.form__icon {
+  margin-left: 0.3rem;
+  position: relative;
+  bottom: 1px;
 }
