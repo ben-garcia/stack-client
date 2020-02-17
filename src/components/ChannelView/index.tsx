@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Button, EditChannelDescription, Icon, Modal, Text } from 'components';
+import {
+  AddPeople,
+  Button,
+  EditChannelDescription,
+  Icon,
+  Modal,
+  Text,
+} from 'components';
 import { AppState } from 'store';
 import { ChannelViewProps } from './types';
 import './styles.scss';
@@ -11,6 +18,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     channel: state.currentChannel,
   }));
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openAddPeopleModal, setOpenAddPeopleModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel-view';
 
   if (className?.trim() !== '') {
@@ -82,11 +90,21 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
             className="channel-view__user-icon"
             type="button"
             color="transparent"
+            onClick={() => setOpenAddPeopleModal(true)}
           >
             <Text tag="span" size="xm">
               Add people
             </Text>
           </Button>
+          {openAddPeopleModal && (
+            <Modal
+              header="Add People"
+              size="md"
+              onClose={() => setOpenAddPeopleModal(false)}
+            >
+              <AddPeople setOpenAddPeopleModal={setOpenAddPeopleModal} />
+            </Modal>
+          )}
         </div>
       </div>
     </main>

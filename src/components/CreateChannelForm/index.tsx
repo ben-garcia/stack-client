@@ -5,7 +5,9 @@ import { Dispatch } from 'redux';
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
+import { getCurrentChannel } from 'store/channel/actions';
 import { addChannel } from 'store/channels/actions';
+import { Teammate } from 'store/teammates/types';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
@@ -13,10 +15,13 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   createChannelFormIsOpen,
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspaceId, user } = useSelector((state: AppState) => ({
-    currentWorkspaceId: state.currentWorkspaceId,
-    user: state.user,
-  }));
+  const { currentWorkspaceId, teammates, user } = useSelector(
+    (state: AppState) => ({
+      currentWorkspaceId: state.currentWorkspaceId,
+      teammates: state.teammates.list,
+      user: state.user,
+    })
+  );
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
@@ -85,22 +90,35 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
       currentWorkspaceId !== 0
     ) {
       try {
+        // data to send to the server in the request object
+        const data: any = {
+          channel: {
+            ...channel,
+            workspace: currentWorkspaceId,
+          },
+          userId: user.id,
+        };
+
+        // make sure that there is at least one teammate
+        // and channel is set to public
+        if (teammates.length > 0 && !channel.private) {
+          data.channel.members = teammates.map((t: Teammate) => t.username);
+        }
+
         const {
           data: { channel: newChannel },
         } = await sendRequest({
           method: 'POST',
           url: '/channels',
-          data: {
-            channel: {
-              ...channel,
-              workspace: currentWorkspaceId,
-            },
-            userId: user.id,
-          },
+          data,
         });
 
         // dispatch action to add newly created channel to the store.
         dispatch(addChannel(newChannel));
+        // store the newly createted channel in local storage
+        localStorage.setItem('currentChannel', JSON.stringify(newChannel));
+        // dispatch action to change the current channel in the store
+        dispatch(getCurrentChannel(newChannel));
         // close the create channel modal
         createChannelFormIsOpen(false);
       } catch (err) {
@@ -146,6 +164,10 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
         <Text className="create-channel__message">
           When a channel is set to private, it can only be viewed or joined by
           invitation.
+        </Text>
+        <Text className="create-channel__message">
+          When a channel is set to public, ALL teammates will be added as
+          members of the channel.
         </Text>
         <Button type="submit" disabled={disableButton}>
           Create
