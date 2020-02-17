@@ -1,3 +1,4 @@
+import AddPeople from './AddPeople';
 import Button from './Button';
 import ChannelView from './ChannelView';
 import ChannelInfo from './ChannelInfo';
@@ -25,6 +26,7 @@ import WorkspaceList from './WorkspaceList';
 import WorkspaceSidebar from './WorkspaceSidebar';
 
 export {
+  AddPeople,
   Button,
   ChannelView,
   ChannelInfo,
