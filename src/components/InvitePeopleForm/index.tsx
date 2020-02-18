@@ -5,14 +5,13 @@ import { Dispatch } from 'redux';
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
+import { closeInvitePeopleModal } from 'store/invitePeopleModal/actions';
 import { addTeammate } from 'store/teammates/actions';
 import { Teammate } from 'store/teammates/types';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
-const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
-  setInvitePeopleFormIsOpen,
-}) => {
+const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const dispatch: Dispatch = useDispatch();
   const { username } = useSelector((state: AppState) => ({
     username: state.user.username,
@@ -83,7 +82,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
           dispatch(addTeammate(teammate));
         });
         // close the modal
-        setInvitePeopleFormIsOpen(false);
+        dispatch(closeInvitePeopleModal());
       } catch (err) {
         // eslint-disable-next-line
         console.log('InvitePeopleForm handleSubmit error: ', err);

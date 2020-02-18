@@ -1,6 +1,4 @@
-export interface InvitePeopleFormProps {
-  setInvitePeopleFormIsOpen: (state: boolean) => void;
-}
+export interface InvitePeopleFormProps {}
 
 export interface Username {
   id: number;

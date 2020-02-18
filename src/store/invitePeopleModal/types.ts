@@ -5,12 +5,10 @@ export type InvitePeopleModalState = boolean;
 
 interface OpenInvitePeopleModal {
   type: typeof OPEN_INVITE_PEOPLE_MODAL;
-  payload: boolean;
 }
 
 interface CloseInvitePeopleModal {
   type: typeof CLOSE_INVITE_PEOPLE_MODAL;
-  payload: boolean;
 }
 
 export type InvitePeopleModalActionTypes =

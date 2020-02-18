@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel/actions';
+import {
+  openInvitePeopleModal,
+  closeInvitePeopleModal,
+} from 'store/invitePeopleModal/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
@@ -12,16 +16,17 @@ import './styles.scss';
 
 const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentTeammateId, teammates, user } = useSelector(
-    (state: AppState) => ({
-      currentTeammateId: state.currentTeammateId,
-      teammates: state.teammates,
-      user: state.user,
-    })
-  );
-  const [invitePeopleFormIsOpen, setInvitePeopleFormIsOpen] = useState<boolean>(
-    false
-  );
+  const {
+    currentTeammateId,
+    invitePeopleModalIsOpen,
+    teammates,
+    user,
+  } = useSelector((state: AppState) => ({
+    currentTeammateId: state.currentTeammateId,
+    invitePeopleModalIsOpen: state.invitePeopleModalIsOpen,
+    teammates: state.teammates,
+    user: state.user,
+  }));
   let classesToAdd: string = 'teammates-list';
 
   if (className?.trim() !== '') {
@@ -59,7 +64,8 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
           className="teammates-list__add-button"
           type="button"
           color="transparent"
-          onClick={() => setInvitePeopleFormIsOpen(true)}
+          // onClick={() => setInvitePeopleFormIsOpen(true)}
+          onClick={() => dispatch(openInvitePeopleModal())}
           title="Invite People"
         >
           <Icon type="plus" color="white" size="sm" />
@@ -85,15 +91,13 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
           </List.Item>
         ))}
       </List>
-      {invitePeopleFormIsOpen && (
+      {invitePeopleModalIsOpen && (
         <Modal
           header="Invite People"
           size="sm"
-          onClose={() => setInvitePeopleFormIsOpen(false)}
+          onClose={() => dispatch(closeInvitePeopleModal())}
         >
-          <InvitePeopleForm
-            setInvitePeopleFormIsOpen={setInvitePeopleFormIsOpen}
-          />
+          <InvitePeopleForm />
         </Modal>
       )}
     </section>

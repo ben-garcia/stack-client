@@ -13,9 +13,9 @@ const invitePeopleModalReducer = (
 ): InvitePeopleModalState => {
   switch (action.type) {
     case OPEN_INVITE_PEOPLE_MODAL:
-      return action.payload;
+      return true;
     case CLOSE_INVITE_PEOPLE_MODAL:
-      return action.payload;
+      return false;
     default:
       return state;
   }

@@ -4,16 +4,10 @@ import {
   InvitePeopleModalActionTypes,
 } from './types';
 
-export const openInvitePeopleModal = (
-  openState: boolean
-): InvitePeopleModalActionTypes => ({
+export const openInvitePeopleModal = (): InvitePeopleModalActionTypes => ({
   type: OPEN_INVITE_PEOPLE_MODAL,
-  payload: openState,
 });
 
-export const closeInvitePeopleModal = (
-  closeState: boolean
-): InvitePeopleModalActionTypes => ({
+export const closeInvitePeopleModal = (): InvitePeopleModalActionTypes => ({
   type: CLOSE_INVITE_PEOPLE_MODAL,
-  payload: closeState,
 });
