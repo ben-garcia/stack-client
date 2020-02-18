@@ -5,6 +5,7 @@ import channelReducer from './channel/reducer';
 import getAllCurrentWorkspaceChannels from './channels/sagas';
 import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
 import channelsReducer from './channels/reducer';
+import invitePeopleModalReducer from './invitePeopleModal/reducer';
 import getAllCurrentChannelMembers from './members/sagas';
 import { REQUEST_CHANNEL_MEMBERS } from './members/types';
 import membersReducer from './members/reducer';
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
   currentTeammateId: teammateReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
+  invitePeopleModalIsOpen: invitePeopleModalReducer,
   members: membersReducer,
   teammates: teammatesReducer,
   user: userReducer,
