@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
 import { AppState } from 'store';
+import { openInvitePeopleModal } from 'store/invitePeopleModal/actions';
 import { Member } from 'store/members/types';
 import { AddPeopleProps } from './types';
 import './styles.scss';
 
 const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
+  const dispatch = useDispatch();
   const { channelName, members, user } = useSelector((state: AppState) => ({
     channelName: state.currentChannel.name,
     members: state.members,
@@ -71,6 +73,10 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
           className="form__open-invite-button"
           type="button"
           color="transparent"
+          onClick={() => {
+            setOpenAddPeopleModal(false);
+            dispatch(openInvitePeopleModal());
+          }}
         >
           invite them first
         </Button>
