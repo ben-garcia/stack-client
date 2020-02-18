@@ -1,6 +1,7 @@
 @import '../../pages/sass/variables';
 
 .form__message {
+  align-self: flex-start;
   color: rgba($color-dark-grey, 0.8);
   margin: 0.5rem 0;
 }
@@ -14,7 +15,6 @@
 .form__inner {
   width: 100%;
   min-height: 5rem;
-  margin-bottom: 1rem;
   font-size: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
@@ -23,15 +23,20 @@
 
 .form__button {
   background-color: transparent;
-  box-shadow: 1px 1px 9px 0 rgba($color-dark-grey, 0.8);
+  border: 1px solid rgba($color-dark-grey, 0.6) !important;
   font-weight: 800;
   margin: 0.3rem;
   min-width: 4rem;
   transition: background-color 0.4s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 9px 0 rgba($color-dark-grey, 0.8);
+  }
 }
 
 .form__button--active {
   background-color: $primary-color !important;
+  box-shadow: none !important;
   color: $background-color;
 }
 
@@ -39,4 +44,17 @@
   margin-left: 0.3rem;
   position: relative;
   bottom: 1px;
+}
+
+.form__open-invite-button {
+  color: $color-blue-active;
+  font-size: 0.7rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form__submit-button {
+  width: 4rem;
 }

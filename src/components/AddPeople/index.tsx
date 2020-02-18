@@ -13,11 +13,11 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
     members: state.members,
     user: state.user,
   }));
-  const [ids, setIds] = useState<number[]>([]);
+  const [usernames, setUsernames] = useState<string[]>([]);
   const onSubmit = () => {
     setOpenAddPeopleModal(false);
     // eslint-disable-next-line
-    console.log(ids);
+    console.log(usernames);
   };
 
   return (
@@ -32,8 +32,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
         {members.list
           .filter((m: Member) => m.id !== user.id)
           .map((m: Member) => {
-            const active = ids.includes(m.id);
-
+            const active = usernames.includes(m.username);
             return (
               <Button
                 key={m.id}
@@ -42,30 +41,45 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
                 }`}
                 type="button"
                 color="transparent"
+                title={m.username}
                 onClick={() => {
-                  const newIds = ids.filter((n: number) => n !== m.id);
+                  const newUsernames = usernames.filter(
+                    (n: string) => n !== m.username
+                  );
 
                   if (active) {
-                    setIds([...newIds]);
+                    setUsernames([...newUsernames]);
                   } else {
-                    setIds([...ids, m.id]);
+                    setUsernames([...usernames, m.username]);
                   }
                 }}
               >
                 {m.username}
-                {active && (
-                  <Icon
-                    className="form__icon"
-                    type="checkmark"
-                    color="white"
-                    size="xm"
-                  />
-                )}
+                <Icon
+                  className="form__icon"
+                  type="checkmark"
+                  color="white"
+                  size="xm"
+                />
               </Button>
             );
           })}
       </div>
-      <Button className="form__button" type="submit">
+      <Text className="form__message" tag="span" size="xm">
+        To add a teammate who’s not on Stack, you’ll need to
+        <Button
+          className="form__open-invite-button"
+          type="button"
+          color="transparent"
+        >
+          invite them first
+        </Button>
+      </Text>
+      <Button
+        className="form__submit-button"
+        type="submit"
+        disabled={usernames.length < 1}
+      >
         Add
       </Button>
     </Form>
