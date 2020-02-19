@@ -57,8 +57,15 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
       data: { members: usernames },
     });
 
-    // loop through the mmebers to add variable
-    membersToAdd.forEach((m: Member) => dispatch(addMember(m)));
+    // loop through the usernames and members to add
+    usernames.forEach((s: string) => {
+      membersToAdd.forEach((m: Member) => {
+        if (s === m.username) {
+          // dispatch action to add new member
+          dispatch(addMember({ id: m.id, username: s }));
+        }
+      });
+    });
 
     // close the modal
     setOpenAddPeopleModal(false);
