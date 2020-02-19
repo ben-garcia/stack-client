@@ -1,4 +1,5 @@
 import {
+  ADD_MEMBER,
   REQUEST_CHANNEL_MEMBERS,
   RECEIVED_CHANNEL_MEMBERS,
   RECEIVED_CHANNEL_MEMBERS_ERROR,
@@ -7,8 +8,9 @@ import {
   MembersActionTypes,
 } from './types';
 
-export const requestChannelMembers = (): MembersActionTypes => ({
-  type: REQUEST_CHANNEL_MEMBERS,
+export const addMember = (member: Member): MembersActionTypes => ({
+  type: ADD_MEMBER,
+  payload: member,
 });
 
 export const receivedChannelMembers = (
@@ -18,7 +20,13 @@ export const receivedChannelMembers = (
   payload: members,
 });
 
-export const receivedChannelMembersError = (error: MembersError) => ({
+export const receivedChannelMembersError = (
+  error: MembersError
+): MembersActionTypes => ({
   type: RECEIVED_CHANNEL_MEMBERS_ERROR,
   payload: error,
+});
+
+export const requestChannelMembers = (): MembersActionTypes => ({
+  type: REQUEST_CHANNEL_MEMBERS,
 });

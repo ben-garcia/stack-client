@@ -1,4 +1,5 @@
 import {
+  ADD_MEMBER,
   RECEIVED_CHANNEL_MEMBERS,
   RECEIVED_CHANNEL_MEMBERS_ERROR,
   MembersState,
@@ -12,6 +13,10 @@ const membersReducer = (
   action: MembersActionTypes
 ) => {
   switch (action.type) {
+    case ADD_MEMBER:
+      return {
+        list: [...state.list, action.payload],
+      };
     case RECEIVED_CHANNEL_MEMBERS:
       return {
         list: [...action.payload],
