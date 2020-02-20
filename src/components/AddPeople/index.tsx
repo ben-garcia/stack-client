@@ -47,9 +47,6 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // eslint-disable-next-line
-    console.log(membersToAdd);
-
     // send request to the server
     await sendRequest({
       method: 'PUT',
