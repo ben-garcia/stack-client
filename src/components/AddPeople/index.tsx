@@ -42,6 +42,8 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
         }
       }
     }
+    // Disable the warning in the dev tools
+    // eslint-disable-next-line
   }, [members, teammates]);
 
   const onSubmit = async (e: FormEvent) => {
