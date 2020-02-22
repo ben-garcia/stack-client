@@ -10,13 +10,19 @@ import {
   Text,
 } from 'components';
 import { AppState } from 'store';
+import { Teammate } from 'store/teammates/types';
 import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const { channel } = useSelector((state: AppState) => ({
-    channel: state.currentChannel,
-  }));
+  const { currentTeammateId, channel, teammates, user } = useSelector(
+    (state: AppState) => ({
+      currentTeammateId: state.currentTeammateId,
+      channel: state.currentChannel,
+      teammates: state.teammates,
+      user: state.user,
+    })
+  );
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openAddPeopleModal, setOpenAddPeopleModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel-view';
@@ -25,88 +31,131 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
+  // get the current teammate
+  const currentTeammate = teammates.list.find(
+    (t: Teammate) => t.id === currentTeammateId
+  );
+
   return (
     <main className={classesToAdd}>
-      <h1 className="channel-view__inner">
-        <Icon className="channel-view__hash-icon" type="hash" size="xm" />
-        <Text className="channel-view__name" tag="span">
-          {channel.name}
-        </Text>
-      </h1>
-      <div className="channel-view__inner">
-        <Text tag="span" size="sm">
-          You created this channel on
-        </Text>
-        <Text className="channel-view__created-at" tag="span" size="sm">
-          {channel.createdAt}
-        </Text>
-        <Text tag="span" size="sm">
-          This is the very beginning of the
-        </Text>
-        <strong className="channel-view__inner-two">
-          <Icon type="hash" size="sm" />
-          <Text tag="span">{channel.name}</Text>
-        </strong>
-        {channel.description && (
-          <div className="channel-view__inner-three">
+      {channel.id !== 0 && !currentTeammate && (
+        <div>
+          <h1 className="channel-view__inner">
+            <Icon className="channel-view__hash-icon" type="hash" size="xm" />
+            <Text className="channel-view__name" tag="span">
+              {channel.name}
+            </Text>
+          </h1>
+          <div className="channel-view__inner">
             <Text tag="span" size="sm">
-              Description:
+              You created this channel on
             </Text>
-            <Text className="channel-view__description" tag="span">
-              {channel.description}
+            <Text className="channel-view__created-at" tag="span" size="sm">
+              {channel.createdAt}
             </Text>
-            <Text tag="span">
-              (
+            <Text tag="span" size="sm">
+              This is the very beginning of the
+            </Text>
+            <strong className="channel-view__inner-two">
+              <Icon type="hash" size="sm" />
+              <Text tag="span">{channel.name}</Text>
+            </strong>
+            {channel.description && (
+              <div className="channel-view__inner-three">
+                <Text tag="span" size="sm">
+                  Description:
+                </Text>
+                <Text className="channel-view__description" tag="span">
+                  {channel.description}
+                </Text>
+                <Text tag="span">
+                  (
+                  <Button
+                    className="channel-view__edit-button"
+                    type="button"
+                    color="transparent"
+                    title="Edit Channel Description"
+                    onClick={() => setOpenEditModal(true)}
+                  >
+                    <Text tag="span" size="sm">
+                      edit
+                    </Text>
+                  </Button>
+                  )
+                </Text>
+                {openEditModal && (
+                  <Modal
+                    header="Edit channel description"
+                    size="md"
+                    onClose={() => setOpenEditModal(false)}
+                  >
+                    <EditChannelDescription
+                      setOpenEditModal={setOpenEditModal}
+                      value={channel?.description}
+                    />
+                  </Modal>
+                )}
+              </div>
+            )}
+            <div className="channel-view__inner-four">
+              <Icon type="user" size="xm" />
               <Button
-                className="channel-view__edit-button"
+                className="channel-view__user-icon"
                 type="button"
                 color="transparent"
-                title="Edit Channel Description"
-                onClick={() => setOpenEditModal(true)}
+                onClick={() => setOpenAddPeopleModal(true)}
               >
-                <Text tag="span" size="sm">
-                  edit
+                <Text tag="span" size="xm">
+                  Add people
                 </Text>
               </Button>
-              )
+              {openAddPeopleModal && (
+                <Modal
+                  header="Add People"
+                  size="md"
+                  onClose={() => setOpenAddPeopleModal(false)}
+                >
+                  <AddPeople setOpenAddPeopleModal={setOpenAddPeopleModal} />
+                </Modal>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {currentTeammate && channel.id === 0 && (
+        <div className="channel-view__inner">
+          <div className="c-teammate">
+            <Icon className="c-teammate__user-icon" type="user" size="lg" />
+            <Text className="c-teammate__username" tag="span">
+              {currentTeammate.username}
             </Text>
-            {openEditModal && (
-              <Modal
-                header="Edit channel description"
-                size="md"
-                onClose={() => setOpenEditModal(false)}
-              >
-                <EditChannelDescription
-                  setOpenEditModal={setOpenEditModal}
-                  value={channel?.description}
-                />
-              </Modal>
+            <Icon className="c-teammate__circle-icon" type="circle" size="xm" />
+          </div>
+          <div className="c-teammate__inner channel-view__inner">
+            {user.id === currentTeammate.id ? (
+              <Text size="sm">
+                <Text className="c-teammate__message" tag="span" size="sm">
+                  This is your space.
+                </Text>
+                Draft messages, list your to-dos, or keep links and files handy.
+                You can also talk to yourself here, but please bear in mind
+                you’ll have to supply both sides of the conversation.
+              </Text>
+            ) : (
+              <Text size="sm">
+                This is the very beginning of your direct message history with
+                <Text
+                  className="c-teammate__message c-teammate__message--margin-left"
+                  tag="span"
+                  size="sm"
+                >
+                  {currentTeammate.username}
+                </Text>
+              </Text>
             )}
           </div>
-        )}
-        <div className="channel-view__inner-four">
-          <Icon type="user" size="xm" />
-          <Button
-            className="channel-view__user-icon"
-            type="button"
-            color="transparent"
-            onClick={() => setOpenAddPeopleModal(true)}
-          >
-            <Text tag="span" size="xm">
-              Add people
-            </Text>
-          </Button>
-          {openAddPeopleModal && (
-            <Modal
-              header="Add People"
-              size="md"
-              onClose={() => setOpenAddPeopleModal(false)}
-            >
-              <AddPeople setOpenAddPeopleModal={setOpenAddPeopleModal} />
-            </Modal>
-          )}
         </div>
-      </div>
+      )}
     </main>
   );
 };

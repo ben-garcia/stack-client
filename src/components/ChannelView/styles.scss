@@ -5,6 +5,7 @@
     margin: 0.8rem 0;
   }
 
+  // channel
   &__name,
   &__created-at,
   &__description {
@@ -39,6 +40,33 @@
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+}
+// teammate
+.c-teammate {
+  display: flex;
+  align-items: center;
+
+  &__username {
+    margin: 0 0.3rem;
+  }
+
+  &__circle-icon {
+    background-color: $color-green;
+    border-radius: 50%;
+  }
+
+  &__inner {
+    font-size: 0.9rem;
+  }
+
+  &__message {
+    font-weight: 900;
+    margin-right: 0.3rem;
+
+    &--margin-left {
+      margin-left: 0.3rem;
     }
   }
 }
