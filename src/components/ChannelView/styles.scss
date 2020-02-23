@@ -1,6 +1,11 @@
 @import '../../pages/sass/variables';
 
 .channel-view {
+  &--height {
+    min-height: 77%;
+    margin-bottom: 0 !important;
+  }
+
   &__inner {
     margin: 0.8rem 0;
   }

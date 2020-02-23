@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import {
   AddPeople,
   Button,
+  CreateMessage,
   EditChannelDescription,
   Icon,
   Modal,
@@ -39,7 +40,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   return (
     <main className={classesToAdd}>
       {channel.id !== 0 && !currentTeammate && (
-        <div>
+        <div className="channel-view--height">
           <h1 className="channel-view__inner">
             <Icon className="channel-view__hash-icon" type="hash" size="xm" />
             <Text className="channel-view__name" tag="span">
@@ -123,7 +124,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
         </div>
       )}
       {currentTeammate && channel.id === 0 && (
-        <div className="channel-view__inner">
+        <div className="channel-view__inner channel-view--height">
           <div className="c-teammate">
             <Icon className="c-teammate__user-icon" type="user" size="lg" />
             <Text className="c-teammate__username" tag="span">
@@ -156,6 +157,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         </div>
       )}
+      <CreateMessage />
     </main>
   );
 };
