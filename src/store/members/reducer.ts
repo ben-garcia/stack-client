@@ -1,27 +1,21 @@
-import {
-  ADD_MEMBER,
-  RECEIVED_CHANNEL_MEMBERS,
-  RECEIVED_CHANNEL_MEMBERS_ERROR,
-  MembersState,
-  MembersActionTypes,
-} from './types';
+import { MembersActions, MembersState, MembersActionTypes } from './types';
 
 const initialState: MembersState = { list: [] };
 
-const membersReducer = (
+const MembersReducer = (
   state: Readonly<MembersState> = initialState,
   action: MembersActionTypes
 ) => {
   switch (action.type) {
-    case ADD_MEMBER:
+    case MembersActions.ADD_MEMBER:
       return {
         list: [...state.list, action.payload],
       };
-    case RECEIVED_CHANNEL_MEMBERS:
+    case MembersActions.RECEIVED_CHANNEL_MEMBERS:
       return {
         list: [...action.payload],
       };
-    case RECEIVED_CHANNEL_MEMBERS_ERROR:
+    case MembersActions.RECEIVED_CHANNEL_MEMBERS_ERROR:
       return {
         list: [],
         error: action.payload,
@@ -31,4 +25,4 @@ const membersReducer = (
   }
 };
 
-export default membersReducer;
+export default MembersReducer;

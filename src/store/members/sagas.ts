@@ -7,7 +7,7 @@ import { receivedChannelMembers, receivedChannelMembersError } from './actions';
 // selector to get the current channel id
 const getCurrentChannelId = (state: AppState) => state.currentChannel.id;
 
-function* getAllCurrentChannelMembers() {
+function* getAllChannelMembers() {
   try {
     const currentChannelId = yield select(getCurrentChannelId);
     const {
@@ -27,4 +27,4 @@ function* getAllCurrentChannelMembers() {
   }
 }
 
-export default getAllCurrentChannelMembers;
+export default getAllChannelMembers;

@@ -11,7 +11,7 @@ import {
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { Channel, requestWorkspaceChannels } from 'store/channels';
-import { requestChannelMembers } from 'store/members/actions';
+import { requestChannelMembers } from 'store/members';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import userLoggedIn from 'store/user/actions';

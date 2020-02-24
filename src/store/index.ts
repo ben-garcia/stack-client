@@ -8,9 +8,11 @@ import {
   getAllWorkspaceChannels,
 } from './channels';
 import invitePeopleModalReducer from './invitePeopleModal/reducer';
-import getAllCurrentChannelMembers from './members/sagas';
-import { REQUEST_CHANNEL_MEMBERS } from './members/types';
-import membersReducer from './members/reducer';
+import {
+  MembersActions,
+  membersReducer,
+  getAllCurrentChannelMembers,
+} from './members';
 import teammateReducer from './teammate/reducer';
 import teammatesReducer from './teammates/reducer';
 import getAllCurrentWorkspaceTeammates from './teammates/sagas';
@@ -37,7 +39,10 @@ export function* rootSaga() {
   // takeLatest effect takes the latest action dispatched
   // if two actions are fired one after another, the last action will fire
   // while the first is canceled
-  yield takeLatest(REQUEST_CHANNEL_MEMBERS, getAllCurrentChannelMembers);
+  yield takeLatest(
+    MembersActions.REQUEST_CHANNEL_MEMBERS,
+    getAllCurrentChannelMembers
+  );
   yield takeLatest(
     REQUEST_WORKSPACE_TEAMMATES,
     getAllCurrentWorkspaceTeammates

@@ -6,7 +6,7 @@ import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels';
-import { requestChannelMembers } from 'store/members/actions';
+import { requestChannelMembers } from 'store/members';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { ChannelListProps } from './types';
 import './styles.scss';
