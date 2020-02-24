@@ -1,4 +1,6 @@
-export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export enum UserActions {
+  USER_LOGGED_IN = 'USER_LOGGED_IN',
+}
 
 export interface User {
   id: number;
@@ -18,7 +20,7 @@ export interface UserState {
 }
 
 interface UserLoggedIn {
-  type: typeof USER_LOGGED_IN;
+  type: typeof UserActions.USER_LOGGED_IN;
   payload: User;
 }
 

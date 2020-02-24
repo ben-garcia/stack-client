@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import sendRequest from 'api';
 import { Button, Form } from 'components';
-import userLoggedIn from 'store/user/actions';
+import { userLoggedIn } from 'store/user';
 import { requestUserWorkspaces } from 'store/workspaces/actions';
 import { LoginPageProps, User, UserErrors } from './types';
 import './styles.scss';

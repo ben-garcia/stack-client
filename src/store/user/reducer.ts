@@ -1,15 +1,15 @@
-import { USER_LOGGED_IN, UserState, UserActionTypes } from './types';
+import { UserActions, UserActionTypes, UserState } from './types';
 
 const initialState: UserState = {
   isLoggedIn: false,
 };
 
-const userReducer = (
+const UserReducer = (
   state: Readonly<UserState> = initialState,
   action: UserActionTypes
 ): UserState => {
   switch (action.type) {
-    case USER_LOGGED_IN:
+    case UserActions.USER_LOGGED_IN:
       return {
         isLoggedIn: true,
         ...action.payload,
@@ -19,4 +19,4 @@ const userReducer = (
   }
 };
 
-export default userReducer;
+export default UserReducer;
