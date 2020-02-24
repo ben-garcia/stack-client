@@ -21,9 +21,11 @@ import {
 } from './teammates';
 import { userReducer } from './user';
 import { workspaceReducer } from './workspace';
-import workspacesReducer from './workspaces/reducer';
-import { REQUEST_USER_WORKSPACES } from './workspaces/types';
-import getAllUserWorkspaces from './workspaces/sagas';
+import {
+  getUserWorkspaces,
+  WorkspacesActions,
+  workspacesReducer,
+} from './workspaces';
 
 export const rootReducer = combineReducers({
   currentChannel: channelReducer,
@@ -49,7 +51,10 @@ export function* rootSaga() {
     TeammatesActions.REQUEST_WORKSPACE_TEAMMATES,
     getAllCurrentWorkspaceTeammates
   );
-  yield takeLatest(REQUEST_USER_WORKSPACES, getAllUserWorkspaces);
+  yield takeLatest(
+    WorkspacesActions.REQUEST_USER_WORKSPACES,
+    getUserWorkspaces
+  );
   yield takeLatest(
     ChannelsActions.REQUEST_WORKSPACE_CHANNELS,
     getAllWorkspaceChannels

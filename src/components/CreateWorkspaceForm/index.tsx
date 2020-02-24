@@ -6,7 +6,7 @@ import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import { getCurrentWorkspaceId } from 'store/workspace';
-import { addWorkspace } from 'store/workspaces/actions';
+import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
 import './styles.scss';
 

@@ -16,7 +16,7 @@ import { getCurrentTeammateId } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import { userLoggedIn } from 'store/user';
 import { getCurrentWorkspaceId } from 'store/workspace';
-import { requestUserWorkspaces } from 'store/workspaces/actions';
+import { requestUserWorkspaces } from 'store/workspaces';
 import { DashboardProps } from './types';
 import './styles.scss';
 

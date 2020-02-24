@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { userLoggedIn } from 'store/user';
-import { requestUserWorkspaces } from 'store/workspaces/actions';
+import { requestUserWorkspaces } from 'store/workspaces';
 import { LoginPage } from '..';
 
 const mockStore = configureStore();

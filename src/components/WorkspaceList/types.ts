@@ -1,4 +1,4 @@
-import { Workspace } from 'store/workspaces/types';
+import { Workspace } from 'store/workspaces';
 
 export interface WorkspaceListProps {
   className?: string;

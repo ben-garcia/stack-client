@@ -7,7 +7,7 @@ import { receivedUserWorkspaces, receivedUserWorkspacesError } from './actions';
 // selector to retrieve the user's id
 const getUserId = (state: AppState) => state.user.id;
 
-function* getUserWorkspaces() {
+function* GetUserWorkspaces() {
   try {
     const userId = yield select(getUserId);
     // get workspaces by calling api using call effect
@@ -28,4 +28,4 @@ function* getUserWorkspaces() {
   }
 }
 
-export default getUserWorkspaces;
+export default GetUserWorkspaces;
