@@ -7,7 +7,7 @@ import {
   channelsReducer,
   getAllWorkspaceChannels,
 } from './channels';
-import invitePeopleModalReducer from './invitePeopleModal/reducer';
+import { invitePeopleModalReducer } from './invitePeopleModal';
 import {
   MembersActions,
   membersReducer,
@@ -19,8 +19,8 @@ import {
   TeammatesActions,
   teammatesReducer,
 } from './teammates';
-import userReducer from './user/reducer';
-import workspaceReducer from './workspace/reducer';
+import { userReducer } from './user';
+import { workspaceReducer } from './workspace';
 import workspacesReducer from './workspaces/reducer';
 import { REQUEST_USER_WORKSPACES } from './workspaces/types';
 import getAllUserWorkspaces from './workspaces/sagas';

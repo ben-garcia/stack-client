@@ -6,7 +6,7 @@ import { Button, List } from 'components';
 import { AppState } from 'store';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import { requestWorkspaceChannels } from 'store/channels';
-import getCurrentWorkspaceId from 'store/workspace/actions';
+import { getCurrentWorkspaceId } from 'store/workspace';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
 

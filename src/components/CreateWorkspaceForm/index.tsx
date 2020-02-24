@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
-import getCurrentWorkspaceId from 'store/workspace/actions';
+import { getCurrentWorkspaceId } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces/actions';
 import { CreateWorkspaceFormProps } from './types';
 import './styles.scss';
