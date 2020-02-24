@@ -16,10 +16,10 @@ import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const { currentTeammateId, channel, teammates, user } = useSelector(
+  const { currentChannel, currentTeammateId, teammates, user } = useSelector(
     (state: AppState) => ({
+      currentChannel: state.currentChannel,
       currentTeammateId: state.currentTeammateId,
-      channel: state.currentChannel,
       teammates: state.teammates,
       user: state.user,
     })
@@ -39,12 +39,12 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
 
   return (
     <main className={classesToAdd}>
-      {channel.id !== 0 && !currentTeammate && (
+      {currentChannel.id !== 0 && !currentTeammate && (
         <div className="channel-view--height">
           <h1 className="channel-view__inner">
             <Icon className="channel-view__hash-icon" type="hash" size="xm" />
             <Text className="channel-view__name" tag="span">
-              {channel.name}
+              {currentChannel.name}
             </Text>
           </h1>
           <div className="channel-view__inner">
@@ -52,22 +52,22 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
               You created this channel on
             </Text>
             <Text className="channel-view__created-at" tag="span" size="sm">
-              {channel.createdAt}
+              {currentChannel.createdAt}
             </Text>
             <Text tag="span" size="sm">
               This is the very beginning of the
             </Text>
             <strong className="channel-view__inner-two">
               <Icon type="hash" size="sm" />
-              <Text tag="span">{channel.name}</Text>
+              <Text tag="span">{currentChannel.name}</Text>
             </strong>
-            {channel.description && (
+            {currentChannel.description && (
               <div className="channel-view__inner-three">
                 <Text tag="span" size="sm">
                   Description:
                 </Text>
                 <Text className="channel-view__description" tag="span">
-                  {channel.description}
+                  {currentChannel.description}
                 </Text>
                 <Text tag="span">
                   (
@@ -92,7 +92,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                   >
                     <EditChannelDescription
                       setOpenEditModal={setOpenEditModal}
-                      value={channel?.description}
+                      value={currentChannel?.description}
                     />
                   </Modal>
                 )}
@@ -123,7 +123,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         </div>
       )}
-      {currentTeammate && channel.id === 0 && (
+      {currentTeammate && currentChannel.id === 0 && (
         <div className="channel-view__inner channel-view--height">
           <div className="c-teammate">
             <Icon className="c-teammate__user-icon" type="user" size="lg" />
@@ -157,7 +157,10 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         </div>
       )}
-      <CreateMessage />
+      {(currentChannel.id && !currentTeammateId) ||
+      (currentTeammateId && !currentChannel.id) ? (
+        <CreateMessage />
+      ) : null}
     </main>
   );
 };

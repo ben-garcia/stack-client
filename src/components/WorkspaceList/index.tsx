@@ -4,7 +4,8 @@ import { Dispatch } from 'redux';
 
 import { Button, List } from 'components';
 import { AppState } from 'store';
-import { requestWorkspaceTeammates } from 'store/teammates/actions';
+import { requestWorkspaceTeammates } from 'store/teammates';
+import { getCurrentChannel } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
 import { getCurrentWorkspaceId } from 'store/workspace';
 import { WorkspaceListProps } from './types';
@@ -27,6 +28,20 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   const saveWorkspaceId = (id: number) => {
     // save current workspace id to be used on page refresh
     localStorage.setItem('currentWorkspaceId', `${id}`);
+    // remove current channel from local storage
+    localStorage.removeItem('currentChannel');
+    // dispatch action to remove the current channel from the store
+    dispatch(
+      getCurrentChannel({
+        id: 0,
+        description: '',
+        name: '',
+        topic: '',
+        private: false,
+        createdAt: '',
+        updatedAt: '',
+      })
+    );
     // dispatch action to change the store
     dispatch(getCurrentWorkspaceId(id));
     // dispatch action to get current workspace channels
