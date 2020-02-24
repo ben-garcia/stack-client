@@ -1,9 +1,9 @@
-export const REQUEST_WORKSPACE_TEAMMATES = 'REQUEST_WORKSPACE_TEAMMATES';
-export const RECEIVED_WORKSPACE_TEAMMATES = 'RECEIVED_WORKSPACE_TEAMMATES';
-export const RECEIVED_WORKSPACE_TEAMMATES_ERROR =
-  'RECEIVED_WORKSPACE_TEAMMATES_ERROR';
-
-export const ADD_TEAMMATE = 'ADD_TEAMMATE';
+export enum TeammatesActions {
+  ADD_TEAMMATE = 'ADD_TEAMMATE',
+  REQUEST_WORKSPACE_TEAMMATES = 'REQUEST_WORKSPACE_TEAMMATES',
+  RECEIVED_WORKSPACE_TEAMMATES = 'RECEIVED_WORKSPACE_TEAMMATES',
+  RECEIVED_WORKSPACE_TEAMMATES_ERROR = 'RECEIVED_WORKSPACE_TEAMMATES_ERROR',
+}
 
 export interface Teammate {
   id: number;
@@ -18,21 +18,21 @@ export interface TeammatesState {
 }
 
 interface RequestWorkspaceTeammates {
-  type: typeof REQUEST_WORKSPACE_TEAMMATES;
+  type: typeof TeammatesActions.REQUEST_WORKSPACE_TEAMMATES;
 }
 
 interface ReceivedWorkspaceTeammates {
-  type: typeof RECEIVED_WORKSPACE_TEAMMATES;
+  type: typeof TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES;
   payload: Teammate[];
 }
 
 interface ReceivedWorkspaceTeammatesError {
-  type: typeof RECEIVED_WORKSPACE_TEAMMATES_ERROR;
+  type: typeof TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES_ERROR;
   payload: TeammatesError;
 }
 
 interface AddTeammate {
-  type: typeof ADD_TEAMMATE;
+  type: typeof TeammatesActions.ADD_TEAMMATE;
   payload: Teammate;
 }
 

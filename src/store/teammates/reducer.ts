@@ -1,7 +1,5 @@
 import {
-  RECEIVED_WORKSPACE_TEAMMATES,
-  RECEIVED_WORKSPACE_TEAMMATES_ERROR,
-  ADD_TEAMMATE,
+  TeammatesActions,
   TeammatesState,
   TeammatesActionTypes,
 } from './types';
@@ -15,16 +13,16 @@ const teammatesReducer = (
   action: TeammatesActionTypes
 ): TeammatesState => {
   switch (action.type) {
-    case RECEIVED_WORKSPACE_TEAMMATES:
+    case TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES:
       return {
         list: [...action.payload],
       };
-    case RECEIVED_WORKSPACE_TEAMMATES_ERROR:
+    case TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES_ERROR:
       return {
         list: [],
         error: action.payload,
       };
-    case ADD_TEAMMATE:
+    case TeammatesActions.ADD_TEAMMATE:
       return {
         list: [...state.list, action.payload],
       };

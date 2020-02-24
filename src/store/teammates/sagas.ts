@@ -10,7 +10,7 @@ import {
 // selector to get the current workspace id
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspaceId;
 
-function* getAllCurrentWorkspaceTeammates() {
+function* GetAllCurrentWorkspaceTeammates() {
   try {
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
     const {
@@ -30,4 +30,4 @@ function* getAllCurrentWorkspaceTeammates() {
   }
 }
 
-export default getAllCurrentWorkspaceTeammates;
+export default GetAllCurrentWorkspaceTeammates;

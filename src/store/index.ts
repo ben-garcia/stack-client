@@ -13,10 +13,12 @@ import {
   membersReducer,
   getAllCurrentChannelMembers,
 } from './members';
-import teammateReducer from './teammate/reducer';
-import teammatesReducer from './teammates/reducer';
-import getAllCurrentWorkspaceTeammates from './teammates/sagas';
-import { REQUEST_WORKSPACE_TEAMMATES } from './teammates/types';
+import { teammateReducer } from './teammate';
+import {
+  getAllCurrentWorkspaceTeammates,
+  TeammatesActions,
+  teammatesReducer,
+} from './teammates';
 import userReducer from './user/reducer';
 import workspaceReducer from './workspace/reducer';
 import workspacesReducer from './workspaces/reducer';
@@ -44,7 +46,7 @@ export function* rootSaga() {
     getAllCurrentChannelMembers
   );
   yield takeLatest(
-    REQUEST_WORKSPACE_TEAMMATES,
+    TeammatesActions.REQUEST_WORKSPACE_TEAMMATES,
     getAllCurrentWorkspaceTeammates
   );
   yield takeLatest(REQUEST_USER_WORKSPACES, getAllUserWorkspaces);
