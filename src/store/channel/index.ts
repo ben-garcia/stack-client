@@ -6,6 +6,7 @@ import {
   ChannelState as ChannelStateAlias,
   ChannelActionTypes as ChannelActionTypesAlias,
 } from './types';
+import ChannelReducer from './reducer';
 
 export {
   getCurrentChannel,
@@ -16,3 +17,4 @@ export { ChannelActions } from './types';
 
 export type ChannelState = ChannelStateAlias;
 export type ChannelActoinTypes = ChannelActionTypesAlias;
+export const channelReducer = ChannelReducer;

@@ -6,7 +6,7 @@ import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
-import { addChannel } from 'store/channels/actions';
+import { addChannel } from 'store/channels';
 import { Teammate } from 'store/teammates/types';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';

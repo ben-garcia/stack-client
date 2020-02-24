@@ -1,4 +1,4 @@
-import { Channel } from 'store/channels/types';
+import { Channel } from 'store/channels';
 
 export enum ChannelActions {
   GET_CURRENT_CHANNEL = 'GET_CURRENT_CHANNEL',

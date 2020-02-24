@@ -1,9 +1,9 @@
-export const REQUEST_WORKSPACE_CHANNELS = 'REQUEST_WORKSPACE_CHANNELS';
-export const RECEIVED_WORKSPACE_CHANNELS = 'RECEIVED_WORKSPACE_CHANNELS';
-export const RECEIVED_WORKSPACE_CHANNELS_ERROR =
-  'RECEIVED_WORKSPACE_CHANNELS_ERROR';
-// update channels store with the newly created channel
-export const ADD_CHANNEL = 'ADD_CHANNEL';
+export enum ChannelsActions {
+  ADD_CHANNEL = 'ADD_CHANNEL',
+  REQUEST_WORKSPACE_CHANNELS = 'REQUEST_WORKSPACE_CHANNELS',
+  RECEIVED_WORKSPACE_CHANNELS = 'RECEIVED_WORKSPACE_CHANNELS',
+  RECEIVED_WORKSPACE_CHANNELS_ERROR = 'RECEIVED_WORKSPACE_CHANNELS_ERROR',
+}
 
 export interface Channel {
   id: number;
@@ -23,21 +23,21 @@ export interface ChannelsState {
 }
 
 interface RequestWorkspaceChannels {
-  type: typeof REQUEST_WORKSPACE_CHANNELS;
+  type: typeof ChannelsActions.REQUEST_WORKSPACE_CHANNELS;
 }
 
 interface ReceivedWorkspaceChannels {
-  type: typeof RECEIVED_WORKSPACE_CHANNELS;
+  type: typeof ChannelsActions.RECEIVED_WORKSPACE_CHANNELS;
   payload: Channel[];
 }
 
 interface ReceivedWorkspaceChannelsError {
-  type: typeof RECEIVED_WORKSPACE_CHANNELS_ERROR;
+  type: typeof ChannelsActions.RECEIVED_WORKSPACE_CHANNELS_ERROR;
   payload: ChannelsError;
 }
 
 interface AddChannel {
-  type: typeof ADD_CHANNEL;
+  type: typeof ChannelsActions.ADD_CHANNEL;
   payload: Channel;
 }
 

@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, List } from 'components';
 import { AppState } from 'store';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
-import { requestWorkspaceChannels } from 'store/channels/actions';
+import { requestWorkspaceChannels } from 'store/channels';
 import getCurrentWorkspaceId from 'store/workspace/actions';
 import { WorkspaceListProps } from './types';
 import './styles.scss';

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { takeLatest } from 'redux-saga/effects';
 
-import channelReducer from './channel/reducer';
-import getAllCurrentWorkspaceChannels from './channels/sagas';
-import { REQUEST_WORKSPACE_CHANNELS } from './channels/types';
-import channelsReducer from './channels/reducer';
+import { channelReducer } from './channel';
+import {
+  ChannelsActions,
+  channelsReducer,
+  getAllWorkspaceChannels,
+} from './channels';
 import invitePeopleModalReducer from './invitePeopleModal/reducer';
 import getAllCurrentChannelMembers from './members/sagas';
 import { REQUEST_CHANNEL_MEMBERS } from './members/types';
@@ -41,7 +43,10 @@ export function* rootSaga() {
     getAllCurrentWorkspaceTeammates
   );
   yield takeLatest(REQUEST_USER_WORKSPACES, getAllUserWorkspaces);
-  yield takeLatest(REQUEST_WORKSPACE_CHANNELS, getAllCurrentWorkspaceChannels);
+  yield takeLatest(
+    ChannelsActions.REQUEST_WORKSPACE_CHANNELS,
+    getAllWorkspaceChannels
+  );
 }
 
 export type AppState = ReturnType<typeof rootReducer>;

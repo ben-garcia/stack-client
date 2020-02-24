@@ -10,8 +10,7 @@ import {
 } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
-import { Channel } from 'store/channels/types';
-import { requestWorkspaceChannels } from 'store/channels/actions';
+import { Channel, requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';

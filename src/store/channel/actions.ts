@@ -1,4 +1,4 @@
-import { Channel } from 'store/channels/types';
+import { Channel } from 'store/channels';
 
 import { ChannelActions, ChannelActionTypes } from './types';
 

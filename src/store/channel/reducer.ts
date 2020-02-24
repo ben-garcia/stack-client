@@ -7,7 +7,7 @@ const initialState: ChannelState = {
   description: '',
 };
 
-const channelReducer = (
+const ChannelReducer = (
   state: Readonly<ChannelState> = initialState,
   action: ChannelActionTypes
 ): ChannelState => {
@@ -31,4 +31,4 @@ const channelReducer = (
   }
 };
 
-export default channelReducer;
+export default ChannelReducer;
