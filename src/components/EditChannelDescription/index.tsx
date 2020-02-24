@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, Form } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
-import { updateChannelDescription } from 'store/channel/actions';
+import { updateChannelDescription } from 'store/channel';
 import { EditChannelDescriptionProps } from './types';
 import './styles.scss';
 

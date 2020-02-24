@@ -9,7 +9,7 @@ import {
   WorkspaceSidebar,
 } from 'components';
 import { AppState } from 'store';
-import { getCurrentChannel, updateChannelTopic } from 'store/channel/actions';
+import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { Channel } from 'store/channels/types';
 import { requestWorkspaceChannels } from 'store/channels/actions';
 import { requestChannelMembers } from 'store/members/actions';

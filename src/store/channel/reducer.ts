@@ -1,10 +1,4 @@
-import {
-  GET_CURRENT_CHANNEL,
-  UPDATE_CHANNEL_TOPIC,
-  UPDATE_CHANNEL_DESCRIPTION,
-  ChannelState,
-  ChannelActionTypes,
-} from './types';
+import { ChannelActions, ChannelState, ChannelActionTypes } from './types';
 
 const initialState: ChannelState = {
   id: 0,
@@ -18,16 +12,16 @@ const channelReducer = (
   action: ChannelActionTypes
 ): ChannelState => {
   switch (action.type) {
-    case GET_CURRENT_CHANNEL:
+    case ChannelActions.GET_CURRENT_CHANNEL:
       return {
         ...action.payload,
       };
-    case UPDATE_CHANNEL_TOPIC:
+    case ChannelActions.UPDATE_CHANNEL_TOPIC:
       return {
         ...state,
         topic: action.payload,
       };
-    case UPDATE_CHANNEL_DESCRIPTION:
+    case ChannelActions.UPDATE_CHANNEL_DESCRIPTION:
       return {
         ...state,
         description: action.payload,

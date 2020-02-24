@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
 import { AppState } from 'store';
-import { getCurrentChannel } from 'store/channel/actions';
+import { getCurrentChannel } from 'store/channel';
 import {
   openInvitePeopleModal,
   closeInvitePeopleModal,

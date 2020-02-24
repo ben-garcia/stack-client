@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
 import { AppState } from 'store';
-import { getCurrentChannel } from 'store/channel/actions';
+import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels/types';
 import { requestChannelMembers } from 'store/members/actions';
 import getCurrentTeammateId from 'store/teammate/actions';
