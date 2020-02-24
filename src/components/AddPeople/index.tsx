@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
-import { openInvitePeopleModal } from 'store/invitePeopleModal/actions';
+import { openInvitePeopleModal } from 'store/invitePeopleModal';
 import { addMember } from 'store/members/actions';
 import { Member } from 'store/members/types';
 import { Teammate } from 'store/teammates/types';

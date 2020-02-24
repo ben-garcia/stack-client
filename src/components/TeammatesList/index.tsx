@@ -8,7 +8,7 @@ import { getCurrentChannel } from 'store/channel';
 import {
   openInvitePeopleModal,
   closeInvitePeopleModal,
-} from 'store/invitePeopleModal/actions';
+} from 'store/invitePeopleModal';
 import getCurrentTeammateId from 'store/teammate/actions';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';

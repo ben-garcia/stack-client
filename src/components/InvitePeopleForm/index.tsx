@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
-import { closeInvitePeopleModal } from 'store/invitePeopleModal/actions';
+import { closeInvitePeopleModal } from 'store/invitePeopleModal';
 import { addTeammate } from 'store/teammates/actions';
 import { Teammate } from 'store/teammates/types';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
