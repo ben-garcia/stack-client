@@ -16,5 +16,5 @@ export {
 export { ChannelActions } from './types';
 
 export type ChannelState = ChannelStateAlias;
-export type ChannelActoinTypes = ChannelActionTypesAlias;
+export type ChannelActionTypes = ChannelActionTypesAlias;
 export const channelReducer = ChannelReducer;

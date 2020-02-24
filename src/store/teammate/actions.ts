@@ -1,8 +1,8 @@
-import { GET_CURRENT_TEAMMATE_ID, TeammateActionTypes } from './types';
+import { TeammateActions, TeammateActionTypes } from './types';
 
-const getCurrentTeammateId = (id: number): TeammateActionTypes => ({
-  type: GET_CURRENT_TEAMMATE_ID,
+const GetCurrentTeammateId = (id: number): TeammateActionTypes => ({
+  type: TeammateActions.GET_CURRENT_TEAMMATE_ID,
   payload: id,
 });
 
-export default getCurrentTeammateId;
+export default GetCurrentTeammateId;

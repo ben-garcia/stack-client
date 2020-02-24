@@ -12,7 +12,7 @@ import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { Channel, requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
-import getCurrentTeammateId from 'store/teammate/actions';
+import { getCurrentTeammateId } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates/actions';
 import userLoggedIn from 'store/user/actions';
 import getCurrentWorkspaceId from 'store/workspace/actions';

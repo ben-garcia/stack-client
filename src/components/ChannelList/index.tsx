@@ -7,7 +7,7 @@ import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
-import getCurrentTeammateId from 'store/teammate/actions';
+import { getCurrentTeammateId } from 'store/teammate';
 import { ChannelListProps } from './types';
 import './styles.scss';
 

@@ -9,7 +9,7 @@ import {
   openInvitePeopleModal,
   closeInvitePeopleModal,
 } from 'store/invitePeopleModal';
-import getCurrentTeammateId from 'store/teammate/actions';
+import { getCurrentTeammateId } from 'store/teammate';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
 import './styles.scss';
