@@ -27,4 +27,9 @@
       border-color: $background-color;
     }
   }
+
+  &__button {
+    width: 100%;
+    display: flex;
+  }
 }

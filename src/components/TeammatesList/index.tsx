@@ -77,6 +77,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
             <Button
               type="button"
               color="transparent"
+              className="teammates-list__button"
               onClick={() => saveChannelId(t.id)}
             >
               <Icon

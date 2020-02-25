@@ -62,6 +62,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
             <Button
               type="button"
               color="transparent"
+              className="channel-list__button"
               onClick={() => saveChannel(c)}
             >
               <Icon

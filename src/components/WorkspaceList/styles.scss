@@ -1,4 +1,14 @@
 .workspace-list {
   height: 100vh;
   overflow-y: scroll;
+
+  .workspaces-item {
+    padding: 0;
+  }
+
+  &__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }

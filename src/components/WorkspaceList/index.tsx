@@ -54,11 +54,17 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     <aside className={classesToAdd}>
       <List>
         {workspaces.map(w => (
-          <List.Item key={w.id} active={w.id === currentWorkspaceId}>
+          <List.Item
+            className="workspaces-item"
+            key={w.id}
+            active={w.id === currentWorkspaceId}
+          >
             <Button
               type="button"
               color="transparent"
+              className="workspace-list__button"
               onClick={() => saveWorkspaceId(w.id)}
+              title={w.name}
             >
               {w.name[0].toUpperCase()}
             </Button>
