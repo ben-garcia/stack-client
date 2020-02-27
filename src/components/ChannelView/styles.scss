@@ -1,10 +1,11 @@
 @import '../../pages/sass/variables';
 
+.channel-container {
+  position: relative;
+}
+
 .channel-view {
-  &--height {
-    min-height: 79%;
-    margin-bottom: 0 !important;
-  }
+  overflow-y: scroll;
 
   &__inner {
     margin: 0.8rem 0;
