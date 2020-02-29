@@ -1,9 +1,5 @@
 @import '../../pages/sass/variables';
 
-.channel-container {
-  position: relative;
-}
-
 .channel-view {
   overflow-y: scroll;
 
@@ -47,6 +43,10 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  &__message {
+    position: relative;
   }
 }
 // teammate
