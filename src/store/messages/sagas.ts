@@ -17,7 +17,7 @@ function* getAllChannelMessages() {
       data: { messages },
     } = yield call(sendRequest, {
       method: 'GET',
-      url: `/channels/${currentChannelId}`,
+      url: `/messages?channelId=${currentChannelId}`,
     });
 
     // dispatch action

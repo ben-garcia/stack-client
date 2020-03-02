@@ -12,8 +12,9 @@ import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { Channel, requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
+import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammateId } from 'store/teammate';
-import { requestWorkspaceTeammates } from 'store/teammates/actions';
+import { requestWorkspaceTeammates } from 'store/teammates';
 import { userLoggedIn } from 'store/user';
 import { getCurrentWorkspaceId } from 'store/workspace';
 import { requestUserWorkspaces } from 'store/workspaces';
@@ -88,6 +89,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(updateChannelTopic(channel.topic));
       // dispatch action to get the current channel's members
       dispatch(requestChannelMembers());
+      // dispatch action to get the current channel's messages
+      dispatch(requestChannelMessages());
     }
   }
 
