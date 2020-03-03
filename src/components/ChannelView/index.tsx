@@ -7,6 +7,7 @@ import {
   CreateMessage,
   EditChannelDescription,
   Icon,
+  MessageList,
   Modal,
   Text,
 } from 'components';
@@ -157,6 +158,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         </div>
       )}
+      <MessageList />
       {(currentChannel.id && !currentTeammateId) ||
       (currentTeammateId && !currentChannel.id) ? (
         <div

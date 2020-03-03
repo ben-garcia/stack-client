@@ -19,7 +19,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     setMessage(e.target.value);
   };
   const handleKeyUp = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && currentChannelId) {
       try {
         // data to send to the server in the request object
         const data: any = {
