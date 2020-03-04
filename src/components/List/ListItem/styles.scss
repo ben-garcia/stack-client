@@ -2,7 +2,9 @@
 
 .list__item {
   padding-left: 0.85rem;
+}
 
+.list__item--hoverable {
   &:hover:not(&--active) {
     cursor: pointer;
     background-color: $primary-color-hover;
