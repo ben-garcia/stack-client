@@ -1,7 +1,9 @@
 @import '../../pages/sass/variables';
 
 .channel-view {
-  overflow-y: scroll;
+  &__container {
+    min-height: 90%;
+  }
 
   &__inner {
     margin: 0.8rem 0;
@@ -46,6 +48,7 @@
   }
 
   &__message {
+    min-height: 90%;
     position: relative;
   }
 }
