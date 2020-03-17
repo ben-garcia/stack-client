@@ -7,6 +7,7 @@ import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
+import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammateId } from 'store/teammate';
 import { ChannelListProps } from './types';
 import './styles.scss';
@@ -38,6 +39,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
     localStorage.removeItem('currentTeammateId');
     // dispatch action to get all current channel's members
     dispatch(requestChannelMembers());
+    // dispatch action to get all current channel's messages
+    dispatch(requestChannelMessages());
   };
 
   return (
