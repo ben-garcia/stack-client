@@ -8,6 +8,9 @@ export enum MessagesActions {
 export interface Message {
   id: number;
   content: string;
+  createdAt: string;
+  updatedAt: string;
+  user: { username: string };
 }
 
 export type MessagesError = string;
