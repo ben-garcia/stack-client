@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Icon, List, Text } from 'components';
 import { AppState } from 'store';
 import { Message } from 'store/messages';
+import printFormatedDate from 'utils';
 import './styles.scss';
 
 const MessageList: React.FC = () => {
@@ -20,7 +21,7 @@ const MessageList: React.FC = () => {
           key={m.id}
         >
           <Text size="xm" tag="span" className="message__date-created">
-            {m.updatedAt}
+            {printFormatedDate(m.createdAt)}
           </Text>
           <div className="message__inner">
             <Icon type="user" />

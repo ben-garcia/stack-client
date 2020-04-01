@@ -10,8 +10,8 @@ import './styles.scss';
 
 const CreateMessage: React.FC<CreateMessageProps> = () => {
   const dispatch = useDispatch();
-  const { currentChannelId, userId } = useSelector((state: AppState) => ({
-    currentChannelId: state.currentChannel.id,
+  const { currentChannel, userId } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
     userId: state.user.id,
   }));
   const [message, setMessage] = useState<string>('');
@@ -19,12 +19,12 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     setMessage(e.target.value);
   };
   const handleKeyUp = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.keyCode === 13 && currentChannelId) {
+    if (e.keyCode === 13 && currentChannel.id) {
       try {
         // data to send to the server in the request object
         const data: any = {
           message: {
-            channel: currentChannelId,
+            channel: currentChannel.id,
             content: message,
             user: userId,
           },
@@ -55,6 +55,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         className="message-textarea"
         onChange={handleChange}
         onKeyUp={handleKeyUp}
+        placeholder={currentChannel.id ? `Message #${currentChannel.name}` : ''}
         value={message}
       />
     </Form>
