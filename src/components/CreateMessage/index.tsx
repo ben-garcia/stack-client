@@ -10,9 +10,9 @@ import './styles.scss';
 
 const CreateMessage: React.FC<CreateMessageProps> = () => {
   const dispatch = useDispatch();
-  const { currentChannel, userId } = useSelector((state: AppState) => ({
+  const { currentChannel, user } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
-    userId: state.user.id,
+    user: state.user,
   }));
   const [message, setMessage] = useState<string>('');
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -26,7 +26,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           message: {
             channel: currentChannel.id,
             content: message,
-            user: userId,
+            user: user.id,
           },
         };
 
@@ -40,6 +40,8 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
 
         // clear the text from textarea
         setMessage('');
+        // add user object with username of the current user id
+        newMessage.user = { username: user.username };
         // dispatch action to add newly created message to the store
         dispatch(addMessage(newMessage));
       } catch (err) {
