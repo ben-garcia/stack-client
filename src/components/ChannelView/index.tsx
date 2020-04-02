@@ -13,6 +13,7 @@ import {
 } from 'components';
 import { AppState } from 'store';
 import { Teammate } from 'store/teammates/types';
+import printFormattedDate from 'utils';
 import { ChannelViewProps } from './types';
 import './styles.scss';
 
@@ -54,7 +55,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                 You created this channel on
               </Text>
               <Text className="channel-view__created-at" tag="span" size="sm">
-                {currentChannel.createdAt}
+                {printFormattedDate(currentChannel.createdAt!)}
               </Text>
               <Text tag="span" size="sm">
                 This is the very beginning of the
