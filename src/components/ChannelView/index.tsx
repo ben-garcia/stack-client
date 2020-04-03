@@ -13,7 +13,7 @@ import {
 } from 'components';
 import { AppState } from 'store';
 import { Teammate } from 'store/teammates/types';
-import printFormattedDate from 'utils';
+import { printFormattedDate } from 'utils';
 import { ChannelViewProps } from './types';
 import './styles.scss';
 

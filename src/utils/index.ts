@@ -1,3 +1,1 @@
-import printFormattedDate from './date';
-
-export default printFormattedDate;
+export { getTime, printFormattedDate } from './dateTime';

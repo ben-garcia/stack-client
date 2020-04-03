@@ -125,7 +125,7 @@ const isMessageFromYesterday = (
 
 const getCurrentYear = (): number => new Date().getFullYear();
 
-const printFormattedDate = (ISOString: string): string => {
+export const printFormattedDate = (ISOString: string): string => {
   const dateToFormat = new Date(ISOString);
   // if the current year is equal to the ISOString year
   // then format string like so: month date, year
@@ -151,4 +151,10 @@ const printFormattedDate = (ISOString: string): string => {
   )}, ${dateToFormat.getFullYear()}`;
 };
 
-export default printFormattedDate;
+export const getTime = (ISOString: string): string => {
+  const date = new Date(ISOString).toLocaleTimeString().split(':');
+  const hour = date[0];
+  const minutes = date[1];
+  const pmOrAm = date[2].split(' ')[1];
+  return `${hour}:${minutes} ${pmOrAm}`;
+};

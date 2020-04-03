@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Icon, List, Text } from 'components';
 import { AppState } from 'store';
 import { Message } from 'store/messages';
-import printFormatedDate from 'utils';
+import { getTime, printFormattedDate } from 'utils';
 import './styles.scss';
 
 const MessageList: React.FC = () => {
@@ -21,14 +21,19 @@ const MessageList: React.FC = () => {
           key={m.id}
         >
           <Text size="xm" tag="span" className="message__date-created">
-            {printFormatedDate(m.createdAt)}
+            {printFormattedDate(m.createdAt)}
           </Text>
           <div className="message__inner">
             <Icon type="user" />
             <div className="message__inner-two">
-              <Text className="message__username" size="sm" tag="span">
-                {m.user.username}
-              </Text>
+              <div>
+                <Text className="message__username" size="sm" tag="span">
+                  {m.user.username}
+                </Text>
+                <Text className="message__timestamp" size="xm" tag="span">
+                  {getTime(m.createdAt)}
+                </Text>
+              </div>
               <Text size="sm" tag="span">
                 {m.content}
               </Text>
