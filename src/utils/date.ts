@@ -95,18 +95,26 @@ const isMessageFromYesterday = (
   const todayMonth = Number(today.split('/')[0]);
   const todayDate = Number(today.split('/')[1]);
   const todayYear = Number(today.split('/')[2]);
+  let dateToCompare;
+  let todayToCompare;
 
   // check that it isn't the 1st of the month
   if (date === 1) {
-    const todayToCompare = `${todayMonth}/${todayDate - 1}/${todayYear}`;
+    todayToCompare = `${todayMonth}/${todayDate - 1}/${todayYear}`;
     if (todayToCompare === dateInQuestion) {
       return true;
     }
     // check that month isn't January and date is 1
   } else if (date === 1 && month !== 1) {
     const newDate = monthMaxDays.get(month - 1);
-    const dateToCompare = `${month - 1}/${newDate}/${year}`;
-    const todayToCompare = `${todayMonth}/${todayDate - 1}/${todayYear}`;
+    dateToCompare = `${month - 1}/${newDate}/${year}`;
+    todayToCompare = `${todayMonth}/${todayDate - 1}/${todayYear}`;
+    if (dateToCompare === todayToCompare) {
+      return true;
+    }
+  } else {
+    dateToCompare = `${month}/${date}/${year}`;
+    todayToCompare = `${todayMonth}/${todayDate - 1}/${todayYear}`;
     if (dateToCompare === todayToCompare) {
       return true;
     }
