@@ -2,6 +2,9 @@
 
 .channel-view {
   &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 84vh;
     overflow-y: scroll;
   }

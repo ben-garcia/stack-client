@@ -8,6 +8,7 @@
   }
 
   &__icon {
+    align-self: center;
     opacity: 0.3;
     margin-right: 0.5rem;
   }
@@ -29,6 +30,7 @@
   }
 
   &__button {
+    color: rgba($background-color, 0.8);
     width: 100%;
     display: flex;
   }
