@@ -37,20 +37,15 @@
       flex-direction: column;
       margin-left: 0.3rem;
     }
+
+    .left-margin {
+      margin-left: 2.6rem;
+    }
   }
 
   &__item {
     display: flex;
     flex-direction: column;
     padding: 0 0 0.6rem 0;
-
-    &::before {
-      content: '';
-      background-color: rgba($color-dark-grey, 0.3);
-      display: block;
-      height: 0.7px;
-      position: relative;
-      top: 0.75rem;
-    }
   }
 }

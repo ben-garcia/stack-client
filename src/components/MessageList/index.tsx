@@ -14,33 +14,45 @@ const MessageList: React.FC = () => {
 
   return (
     <List className="message-list">
-      {messages.map((m: Message) => (
-        <List.Item
-          className="message message-list__item"
-          hover={false}
-          key={m.id}
-        >
-          <Text size="xm" tag="span" className="message__date-created">
-            {printFormattedDate(m.createdAt)}
-          </Text>
-          <div className="message__inner">
-            <Icon type="user" />
-            <div className="message__inner-two">
-              <div>
-                <Text className="message__username" size="sm" tag="span">
-                  {m.user.username}
-                </Text>
-                <Text className="message__timestamp" size="xm" tag="span">
-                  {getTime(m.createdAt)}
-                </Text>
+      {messages.map((m: Message, i: number) => {
+        return (
+          <List.Item
+            className="message message-list__item"
+            hover={false}
+            key={m.id}
+          >
+            {printFormattedDate(messages[i - 1]?.createdAt) !==
+            printFormattedDate(messages[i].createdAt) ? (
+              <Text size="xm" tag="span" className="message__date-created">
+                {printFormattedDate(m.createdAt)}
+              </Text>
+            ) : null}
+            {printFormattedDate(messages[i - 1]?.createdAt) !==
+            printFormattedDate(messages[i].createdAt) ? (
+              <div className="message__inner">
+                <Icon type="user" />
+                <div className="message__inner-two">
+                  <div>
+                    <Text className="message__username" size="sm" tag="span">
+                      {m.user.username}
+                    </Text>
+                    <Text className="message__timestamp" size="xm" tag="span">
+                      {getTime(m.createdAt)}
+                    </Text>
+                  </div>
+                  <Text size="sm" tag="span">
+                    {m.content}
+                  </Text>
+                </div>
               </div>
-              <Text size="sm" tag="span">
+            ) : (
+              <Text className="left-margin" size="sm" tag="span">
                 {m.content}
               </Text>
-            </div>
-          </div>
-        </List.Item>
-      ))}
+            )}
+          </List.Item>
+        );
+      })}
     </List>
   );
 };
