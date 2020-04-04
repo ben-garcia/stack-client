@@ -151,10 +151,13 @@ export const printFormattedDate = (ISOString: string): string => {
   )}, ${dateToFormat.getFullYear()}`;
 };
 
-export const getTime = (ISOString: string): string => {
+export const getTime = (ISOString: string, amOrPm: boolean = true): string => {
   const date = new Date(ISOString).toLocaleTimeString().split(':');
   const hour = date[0];
   const minutes = date[1];
   const pmOrAm = date[2].split(' ')[1];
-  return `${hour}:${minutes} ${pmOrAm}`;
+  if (amOrPm) {
+    return `${hour}:${minutes} ${pmOrAm}`;
+  }
+  return `${hour}:${minutes}`;
 };

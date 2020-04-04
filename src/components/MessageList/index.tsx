@@ -46,9 +46,14 @@ const MessageList: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <Text className="left-margin" size="sm" tag="span">
-                {m.content}
-              </Text>
+              <div className="message__inner-three">
+                <Text className="hover-timestamp" size="xm" tag="span">
+                  {getTime(m.createdAt, false)}
+                </Text>
+                <Text className="left-margin" size="sm" tag="span">
+                  {m.content}
+                </Text>
+              </div>
             )}
           </List.Item>
         );
