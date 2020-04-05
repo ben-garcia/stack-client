@@ -18,6 +18,11 @@ import {
   MessagesActions,
   getAllChannelMessages,
 } from './messages';
+import {
+  directMessagesReducer,
+  DirectMessagesActions,
+  getUserDirectMessages,
+} from './directMessages';
 import { teammateReducer } from './teammate';
 import {
   getAllCurrentWorkspaceTeammates,
@@ -37,6 +42,7 @@ export const rootReducer = combineReducers({
   currentTeammateId: teammateReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
+  directMessages: directMessagesReducer,
   invitePeopleModalIsOpen: invitePeopleModalReducer,
   members: membersReducer,
   messages: messagesReducer,
@@ -53,21 +59,30 @@ export function* rootSaga() {
     MembersActions.REQUEST_CHANNEL_MEMBERS,
     getAllCurrentChannelMembers
   );
+
+  yield takeLatest(
+    ChannelsActions.REQUEST_WORKSPACE_CHANNELS,
+    getAllWorkspaceChannels
+  );
+
   yield takeLatest(
     MessagesActions.REQUEST_CHANNEL_MESSAGES,
     getAllChannelMessages
   );
+
+  yield takeLatest(
+    DirectMessagesActions.REQUEST_USER_DIRECT_MESSAGES,
+    getUserDirectMessages
+  );
+
   yield takeLatest(
     TeammatesActions.REQUEST_WORKSPACE_TEAMMATES,
     getAllCurrentWorkspaceTeammates
   );
+
   yield takeLatest(
     WorkspacesActions.REQUEST_USER_WORKSPACES,
     getUserWorkspaces
-  );
-  yield takeLatest(
-    ChannelsActions.REQUEST_WORKSPACE_CHANNELS,
-    getAllWorkspaceChannels
   );
 }
 
