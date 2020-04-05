@@ -6,6 +6,7 @@ import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels';
+import { clearDirectMessages } from 'store/directMessages';
 import { requestChannelMembers } from 'store/members';
 import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammateId } from 'store/teammate';
@@ -41,6 +42,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
     dispatch(requestChannelMembers());
     // dispatch action to get all current channel's messages
     dispatch(requestChannelMessages());
+    // dispatch action to clear direct messages
+    dispatch(clearDirectMessages());
   };
 
   return (

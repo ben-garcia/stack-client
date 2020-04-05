@@ -12,6 +12,7 @@ import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { Channel, requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
+import { requestUserDirectMessages } from 'store/directMessages';
 import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammateId } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
@@ -65,8 +66,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
       history.replace('/');
     }
     // set up current teammate id on page reload
-    if (teammateIdFromLocalStorage) {
+    if (teammateIdFromLocalStorage && !currentChannel.id) {
       dispatch(getCurrentTeammateId(Number(teammateIdFromLocalStorage)));
+      dispatch(requestUserDirectMessages());
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -81,7 +83,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(requestWorkspaceTeammates());
     }
     // set up channelId on page reload
-    if (channelFromLocalStorage) {
+    if (channelFromLocalStorage && !currentTeammateId) {
       const channel = JSON.parse(channelFromLocalStorage);
       // dispatch action to update store
       dispatch(getCurrentChannel(channel));

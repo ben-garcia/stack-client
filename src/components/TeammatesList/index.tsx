@@ -9,6 +9,8 @@ import {
   openInvitePeopleModal,
   closeInvitePeopleModal,
 } from 'store/invitePeopleModal';
+import { requestUserDirectMessages } from 'store/directMessages';
+import { clearMessages } from 'store/messages';
 import { getCurrentTeammateId } from 'store/teammate';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
@@ -33,7 +35,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
-  const saveChannelId = (id: number) => {
+  const saveTeammateId = (id: number) => {
     // save current teammate id to be used on page reload
     localStorage.setItem('currentTeammateId', `${id}`);
     // dispatch action to change the store
@@ -50,6 +52,11 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
         updatedAt: '',
       })
     );
+    // dispatch action to clear all channel messages
+    dispatch(clearMessages());
+    // dispatch action to get the direct messages the
+    // user has with a particular teammate
+    dispatch(requestUserDirectMessages());
     // remove current channel from local storage
     localStorage.removeItem('currentChannel');
   };
@@ -64,7 +71,6 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
           className="teammates-list__add-button"
           type="button"
           color="transparent"
-          // onClick={() => setInvitePeopleFormIsOpen(true)}
           onClick={() => dispatch(openInvitePeopleModal())}
           title="Invite People"
         >
@@ -78,7 +84,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
               type="button"
               color="transparent"
               className="teammates-list__button"
-              onClick={() => saveChannelId(t.id)}
+              onClick={() => saveTeammateId(t.id)}
             >
               <Icon
                 type="circle"
