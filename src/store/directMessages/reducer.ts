@@ -15,6 +15,10 @@ const DirectMessagesReducer = (
       return {
         list: [...state.list, action.payload],
       };
+    case DirectMessagesActions.CLEAR_DIRECT_MESSAGES:
+      return {
+        list: [],
+      };
     case DirectMessagesActions.RECEIVED_USER_DIRECT_MESSAGES:
       return {
         list: [...action.payload],

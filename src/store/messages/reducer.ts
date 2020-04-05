@@ -11,6 +11,10 @@ const MessagesReducer = (
       return {
         list: [...state.list, action.payload],
       };
+    case MessagesActions.CLEAR_MESSAGES:
+      return {
+        list: [],
+      };
     case MessagesActions.RECEIVED_CHANNEL_MESSAGES:
       return {
         list: [...action.payload],

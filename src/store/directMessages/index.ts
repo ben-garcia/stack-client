@@ -12,13 +12,14 @@ import GetUserDirectMessages from './sagas';
 
 export {
   addUserDirectMessage,
+  clearDirectMessages,
   requestUserDirectMessages,
   receivedUserDirectMessages,
   receivedUserDirectMessagesError,
 } from './actions';
 export { DirectMessagesActions } from './types';
 
-export type Message = DirectMessageAlias;
+export type DirectMessage = DirectMessageAlias;
 export type MessagesState = DirectMessagesStateAlias;
 export type MessagesActionTypes = DirectMessagesActionTypesAlias;
 export const directMessagesReducer = DirectMessagesReducer;

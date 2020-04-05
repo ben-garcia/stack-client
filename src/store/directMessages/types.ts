@@ -1,5 +1,6 @@
 export enum DirectMessagesActions {
   ADD_DIRECT_MESSAGE = 'ADD_DIRECT_MESSAGE',
+  CLEAR_DIRECT_MESSAGES = 'CLEAR_DIRECT_MESSAGES',
   REQUEST_USER_DIRECT_MESSAGES = 'REQUEST_USER_DIRECT_MESSAGES',
   RECEIVED_USER_DIRECT_MESSAGES = 'RECEIVED_USER_DIRECT_MESSAGES',
   RECEIVED_USER_DIRECT_MESSAGES_ERROR = 'RECEIVED_USER_DIRECT_MESSAGES_ERROR',
@@ -25,6 +26,10 @@ interface AddDirectMessage {
   payload: DirectMessage;
 }
 
+interface ClearDirectMessages {
+  type: typeof DirectMessagesActions.CLEAR_DIRECT_MESSAGES;
+}
+
 interface RequestDirectMessages {
   type: typeof DirectMessagesActions.REQUEST_USER_DIRECT_MESSAGES;
 }
@@ -41,6 +46,7 @@ interface ReceivedUserDirectMessagesError {
 
 export type DirectMessagesActionTypes =
   | AddDirectMessage
+  | ClearDirectMessages
   | RequestDirectMessages
   | ReceivedUserDirectMessages
   | ReceivedUserDirectMessagesError;

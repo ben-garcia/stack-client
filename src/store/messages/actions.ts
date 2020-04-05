@@ -10,6 +10,10 @@ export const addMessage = (message: Message): MessagesActionTypes => ({
   payload: message,
 });
 
+export const clearMessages = (): MessagesActionTypes => ({
+  type: MessagesActions.CLEAR_MESSAGES,
+});
+
 export const receivedChannelMessages = (
   messages: Message[]
 ): MessagesActionTypes => ({

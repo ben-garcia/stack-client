@@ -12,6 +12,10 @@ export const addUserDirectMessage = (
   payload: message,
 });
 
+export const clearDirectMessages = (): DirectMessagesActionTypes => ({
+  type: DirectMessagesActions.CLEAR_DIRECT_MESSAGES,
+});
+
 export const requestUserDirectMessages = (): DirectMessagesActionTypes => ({
   type: DirectMessagesActions.REQUEST_USER_DIRECT_MESSAGES,
 });

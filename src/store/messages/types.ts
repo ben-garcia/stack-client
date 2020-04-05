@@ -1,5 +1,6 @@
 export enum MessagesActions {
   ADD_MESSAGE = 'ADD_MESSAGE',
+  CLEAR_MESSAGES = 'CLEAR_MESSAGES',
   REQUEST_CHANNEL_MESSAGES = 'REQUEST_CHANNEL_MESSAGES',
   RECEIVED_CHANNEL_MESSAGES = 'RECEIVED_CHANNEL_MESSAGES',
   RECEIVED_CHANNEL_MESSAGES_ERROR = 'RECEIVED_CHANNEL_MESSAGES_ERROR',
@@ -25,6 +26,10 @@ interface AddMessage {
   payload: Message;
 }
 
+interface ClearMessages {
+  type: typeof MessagesActions.CLEAR_MESSAGES;
+}
+
 interface ReceivedChannelMessages {
   type: typeof MessagesActions.RECEIVED_CHANNEL_MESSAGES;
   payload: Message[];
@@ -40,7 +45,8 @@ interface RequestChannelMessages {
 }
 
 export type MessagesActionTypes =
+  | AddMessage
+  | ClearMessages
   | RequestChannelMessages
   | ReceivedChannelMessages
-  | ReceivedChannelMessagesError
-  | AddMessage;
+  | ReceivedChannelMessagesError;

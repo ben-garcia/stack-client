@@ -8,20 +8,20 @@ import {
 } from './actions';
 
 // selector to get the current user id
-const getCurrentUserId = (state: AppState) => state.user.id;
+const getCurrentTeammateId = (state: AppState) => state.currentTeammateId;
 
 function* getUserDirectMessages() {
   try {
-    const currentUserId = yield select(getCurrentUserId);
+    const currentUserId = yield select(getCurrentTeammateId);
     const {
-      data: { messages },
+      data: { directMessages },
     } = yield call(sendRequest, {
       method: 'GET',
-      url: `/direct-messages?userId=${currentUserId}`,
+      url: `/direct-messages?teammateId=${currentUserId}`,
     });
 
     // dispatch action
-    yield put(receivedUserDirectMessages(messages));
+    yield put(receivedUserDirectMessages(directMessages));
   } catch (e) {
     // eslint-disable-next-line
     console.log('getUserDirectMessages saga error: ', e);

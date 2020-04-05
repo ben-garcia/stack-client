@@ -12,6 +12,7 @@ import GetAllChannelMessages from './sagas';
 
 export {
   addMessage,
+  clearMessages,
   requestChannelMessages,
   receivedChannelMessages,
   receivedChannelMessagesError,
