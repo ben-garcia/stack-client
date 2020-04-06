@@ -4,9 +4,11 @@ import { Dispatch } from 'redux';
 
 import { Button, List } from 'components';
 import { AppState } from 'store';
-import { requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentChannel } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
+import { clearDirectMessages } from 'store/directMessages';
+import { clearMessages } from 'store/messages';
+import { requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspaceId } from 'store/workspace';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
@@ -48,6 +50,9 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     dispatch(requestWorkspaceChannels());
     // dispatch action to get the current workspace teammates
     dispatch(requestWorkspaceTeammates());
+    // dispatch action to clear all messages
+    dispatch(clearDirectMessages());
+    dispatch(clearMessages());
   };
 
   return (
