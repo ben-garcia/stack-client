@@ -24,6 +24,10 @@ const MessageList: React.FC = () => {
     if (messages.length > 0 && directMessages.length === 0) {
       setMessagesToRender(messages);
     }
+    // when there no messages
+    if (directMessages.length === 0 && messages.length === 0) {
+      setMessagesToRender([]);
+    }
   }, [directMessages, messages]);
 
   return (
@@ -37,9 +41,14 @@ const MessageList: React.FC = () => {
           >
             {printFormattedDate(messagesToRender[i - 1]?.createdAt) !==
             printFormattedDate(messagesToRender[i].createdAt) ? (
-              <Text size="xm" tag="span" className="message__date-created">
-                {printFormattedDate(m.createdAt)}
-              </Text>
+              <div className="timestamp-container">
+                <hr className="horizontal-line" />
+                <div className="position-sticky">
+                  <Text size="xm" tag="span" className="message__date-created">
+                    {printFormattedDate(m.createdAt)}
+                  </Text>
+                </div>
+              </div>
             ) : null}
             {printFormattedDate(messagesToRender[i - 1]?.createdAt) !==
             printFormattedDate(messagesToRender[i].createdAt) ? (
