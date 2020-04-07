@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import io from 'socket.io-client';
 
 import sendRequest from 'api';
 import { Form } from 'components';
@@ -82,6 +83,14 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const socket = io.connect('http://localhost:8080/namespace');
+    socket.on('test', (data: any) => {
+      // eslint-disable-next-line
+      console.log(data);
+    });
+  }, []);
 
   return (
     <Form>
