@@ -24,9 +24,15 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   };
   const handleKeyUp = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.keyCode === 13) {
+      // clear the text from textarea
+      setMessage('');
+
       try {
         let data: any;
         let url: string = '';
+        // since the redux store expects messages to have an id(key prop)
+        // use a random number until page refresh
+        const randomNumber = Math.random();
         if (currentChannel.id && !currentTeammateId) {
           url = '/messages';
           // data to send to the server in the request object
@@ -41,6 +47,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           dispatch(
             addMessage({
               ...data.message,
+              id: randomNumber,
               createdAt: new Date().toISOString(),
               user: { username: user.username },
             })
@@ -57,18 +64,13 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           dispatch(
             addUserDirectMessage({
               ...data.message,
+              id: randomNumber,
               createdAt: new Date().toISOString(),
               user: { username: user.username },
             })
           );
         }
 
-        // clear the text from textarea
-        setMessage('');
-
-        // const {
-        //   data: { message: newMessage },
-        // } =
         await sendRequest({
           method: 'POST',
           url,
