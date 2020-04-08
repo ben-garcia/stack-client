@@ -13,7 +13,8 @@ import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const dispatch: Dispatch = useDispatch();
-  const { username } = useSelector((state: AppState) => ({
+  const { currentWorkspaceId, username } = useSelector((state: AppState) => ({
+    currentWorkspaceId: state.currentWorkspaceId,
     username: state.user.username,
   }));
   // variable used to map through the number of input fields
@@ -31,6 +32,9 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // close the modal
+    dispatch(closeInvitePeopleModal());
 
     let isSubmittable: boolean = false;
     const invalidIds: number[] = [];
@@ -71,7 +75,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
           data: { teammates },
         } = await sendRequest({
           method: 'PUT',
-          url: `/workspaces/1`,
+          url: `/workspaces/${currentWorkspaceId}`,
           data: members,
         });
 
@@ -81,8 +85,6 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
           // dispatch action to add new teammate
           dispatch(addTeammate(teammate));
         });
-        // close the modal
-        dispatch(closeInvitePeopleModal());
       } catch (err) {
         // eslint-disable-next-line
         console.log('InvitePeopleForm handleSubmit error: ', err);
