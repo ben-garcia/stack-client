@@ -39,7 +39,7 @@ import {
 
 export const rootReducer = combineReducers({
   currentChannel: channelReducer,
-  currentTeammateId: teammateReducer,
+  currentTeammate: teammateReducer,
   currentWorkspaceId: workspaceReducer,
   channels: channelsReducer,
   directMessages: directMessagesReducer,

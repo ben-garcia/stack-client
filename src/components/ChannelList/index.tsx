@@ -9,7 +9,7 @@ import { Channel } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { requestChannelMembers } from 'store/members';
 import { requestChannelMessages } from 'store/messages';
-import { getCurrentTeammateId } from 'store/teammate';
+import { getCurrentTeammate } from 'store/teammate';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
@@ -35,7 +35,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
     dispatch(getCurrentChannel(channel));
     // dispatch action to set current member id to 0
     // so it isn't active
-    dispatch(getCurrentTeammateId(0));
+    dispatch(getCurrentTeammate({ id: 0, username: '' }));
     // delete current teammate id from local storage too
     localStorage.removeItem('currentTeammateId');
     // dispatch action to get all current channel's members

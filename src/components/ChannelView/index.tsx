@@ -18,10 +18,10 @@ import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const { currentChannel, currentTeammateId, teammates, user } = useSelector(
+  const { currentChannel, currentTeammate, teammates, user } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
-      currentTeammateId: state.currentTeammateId,
+      currentTeammate: state.currentTeammate,
       teammates: state.teammates,
       user: state.user,
     })
@@ -35,14 +35,14 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   }
 
   // get the current teammate
-  const currentTeammate = teammates.list.find(
-    (t: Teammate) => t.id === currentTeammateId
+  const teammate = teammates.list.find(
+    (t: Teammate) => t.id === currentTeammate.id
   );
 
   return (
     <main className={classesToAdd}>
       <div className="channel-view__container">
-        {currentChannel.id !== 0 && !currentTeammate && (
+        {currentChannel.id !== 0 && !teammate && (
           <div>
             <h1 className="channel-view__inner">
               <Icon className="channel-view__hash-icon" type="hash" size="xm" />
@@ -166,8 +166,8 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
         )}
         <MessageList />
       </div>
-      {(currentChannel.id && !currentTeammateId) ||
-      (currentTeammateId && !currentChannel.id) ? (
+      {(currentChannel.id && !currentTeammate.id) ||
+      (currentTeammate.id && !currentChannel.id) ? (
         <div className="channel-view__message">
           <CreateMessage />
         </div>

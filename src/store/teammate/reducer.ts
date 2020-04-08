@@ -1,14 +1,16 @@
 import { TeammateActions, TeammateState, TeammateActionTypes } from './types';
 
-const initialState: TeammateState = 0;
+const initialState: TeammateState = { id: 0, username: '' };
 
 const TeammateReducer = (
   state: Readonly<TeammateState> = initialState,
   action: TeammateActionTypes
 ) => {
   switch (action.type) {
-    case TeammateActions.GET_CURRENT_TEAMMATE_ID:
-      return action.payload;
+    case TeammateActions.GET_CURRENT_TEAMMATE:
+      return {
+        ...action.payload,
+      };
     default:
       return state;
   }

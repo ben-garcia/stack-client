@@ -8,7 +8,7 @@ import {
 } from './actions';
 
 // selector to get the current user id
-const getCurrentTeammateId = (state: AppState) => state.currentTeammateId;
+const getCurrentTeammateId = (state: AppState) => state.currentTeammate.id;
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspaceId;
 
 function* getUserDirectMessages() {

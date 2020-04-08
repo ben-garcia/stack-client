@@ -14,7 +14,7 @@ import { Channel, requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
 import { requestUserDirectMessages } from 'store/directMessages';
 import { requestChannelMessages } from 'store/messages';
-import { getCurrentTeammateId } from 'store/teammate';
+import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { userLoggedIn } from 'store/user';
 import { getCurrentWorkspaceId } from 'store/workspace';
@@ -25,7 +25,7 @@ import './styles.scss';
 const Dashboard: React.FC<DashboardProps> = () => {
   const {
     currentChannel,
-    currentTeammateId,
+    currentTeammate,
     currentWorkspaceId,
     channels,
     teammates,
@@ -33,7 +33,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     workspaces,
   } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
-    currentTeammateId: state.currentTeammateId,
+    currentTeammate: state.currentTeammate,
     currentWorkspaceId: state.currentWorkspaceId,
     channels: state.channels,
     teammates: state.teammates,
@@ -45,9 +45,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
-    const teammateIdFromLocalStorage = localStorage.getItem(
-      'currentTeammateId'
-    );
+    const teammateFromLocalStorage = localStorage.getItem('currentTeammate');
     const workspaceIdFromLocalStorage = localStorage.getItem(
       'currentWorkspaceId'
     );
@@ -66,8 +64,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
       history.replace('/');
     }
     // set up current teammate id on page reload
-    if (teammateIdFromLocalStorage && !currentChannel.id) {
-      dispatch(getCurrentTeammateId(Number(teammateIdFromLocalStorage)));
+    if (teammateFromLocalStorage && !currentChannel.id) {
+      dispatch(getCurrentTeammate(JSON.parse(teammateFromLocalStorage)));
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -82,11 +80,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(requestWorkspaceTeammates());
     }
     // make sure the current workspace id is stored in local storage
-    if (teammateIdFromLocalStorage && workspaceIdFromLocalStorage) {
+    if (teammateFromLocalStorage && workspaceIdFromLocalStorage) {
       dispatch(requestUserDirectMessages());
     }
     // set up channelId on page reload
-    if (channelFromLocalStorage && !currentTeammateId) {
+    if (channelFromLocalStorage && !currentTeammate.id) {
       const channel = JSON.parse(channelFromLocalStorage);
       // dispatch action to update store
       dispatch(getCurrentChannel(channel));
@@ -109,7 +107,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   );
 
   // get the current teammate
-  const currentTeammate = teammates.list.find(m => m.id === currentTeammateId);
+  const teammate = teammates.list.find(m => m.id === currentTeammate.id);
 
   return (
     <div className="dashboard">
@@ -120,7 +118,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       <WorkspaceInfo
         channel={channel}
         className="dashboard__top-nav"
-        teammate={currentTeammate}
+        teammate={teammate}
         username={user.username}
         workspaceName={workspaceName}
       />

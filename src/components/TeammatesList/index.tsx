@@ -11,7 +11,7 @@ import {
 } from 'store/invitePeopleModal';
 import { requestUserDirectMessages } from 'store/directMessages';
 import { clearMessages } from 'store/messages';
-import { getCurrentTeammateId } from 'store/teammate';
+import { getCurrentTeammate } from 'store/teammate';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
 import './styles.scss';
@@ -19,12 +19,12 @@ import './styles.scss';
 const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
   const {
-    currentTeammateId,
+    currentTeammate,
     invitePeopleModalIsOpen,
     teammates,
     user,
   } = useSelector((state: AppState) => ({
-    currentTeammateId: state.currentTeammateId,
+    currentTeammate: state.currentTeammate,
     invitePeopleModalIsOpen: state.invitePeopleModalIsOpen,
     teammates: state.teammates,
     user: state.user,
@@ -35,11 +35,11 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
-  const saveTeammateId = (id: number) => {
+  const saveTeammate = (teammate: Teammate) => {
     // save current teammate id to be used on page reload
-    localStorage.setItem('currentTeammateId', `${id}`);
+    localStorage.setItem('currentTeammate', JSON.stringify(currentTeammate));
     // dispatch action to change the store
-    dispatch(getCurrentTeammateId(id));
+    dispatch(getCurrentTeammate(teammate));
     // dispatch action to remove the current channel id
     dispatch(
       getCurrentChannel({
@@ -79,12 +79,12 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
       </div>
       <List>
         {teammates.list.map((t: Teammate) => (
-          <List.Item key={t.id} active={t.id === currentTeammateId}>
+          <List.Item key={t.id} active={t.id === currentTeammate.id}>
             <Button
               type="button"
               color="transparent"
               className="teammates-list__button"
-              onClick={() => saveTeammateId(t.id)}
+              onClick={() => saveTeammate({ id: t.id, username: t.username })}
             >
               <Icon
                 type="circle"

@@ -1,12 +1,16 @@
+import { Teammate } from 'store/teammates';
+
 export enum TeammateActions {
-  GET_CURRENT_TEAMMATE_ID = 'GET_CURRENT_TEAMMATE_ID',
+  GET_CURRENT_TEAMMATE = 'GET_CURRENT_TEAMMATE',
 }
 
-export type TeammateState = number;
-
-interface GetCurrentTeammateId {
-  type: typeof TeammateActions.GET_CURRENT_TEAMMATE_ID;
-  payload: number;
+export interface TeammateState {
+  id: number;
+  username: string;
+}
+interface GetCurrentTeammate {
+  type: typeof TeammateActions.GET_CURRENT_TEAMMATE;
+  payload: Teammate;
 }
 
-export type TeammateActionTypes = GetCurrentTeammateId;
+export type TeammateActionTypes = GetCurrentTeammate;

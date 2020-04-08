@@ -14,12 +14,12 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   const dispatch = useDispatch();
   const {
     currentChannel,
-    currentTeammateId,
+    currentTeammate,
     currentWorkspaceId,
     user,
   } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
-    currentTeammateId: state.currentTeammateId,
+    currentTeammate: state.currentTeammate,
     currentWorkspaceId: state.currentWorkspaceId,
     user: state.user,
   }));
@@ -38,7 +38,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         // since the redux store expects messages to have an id(key prop)
         // use a random number until page refresh
         const randomNumber = Math.random();
-        if (currentChannel.id && !currentTeammateId && currentWorkspaceId) {
+        if (currentChannel.id && !currentTeammate.id && currentWorkspaceId) {
           url = '/messages';
           // data to send to the server in the request object
           data = {
@@ -58,7 +58,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
             })
           );
         } else if (
-          currentTeammateId &&
+          currentTeammate.id &&
           !currentChannel.id &&
           currentWorkspaceId
         ) {
@@ -66,7 +66,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           data = {
             message: {
               content: message,
-              user: currentTeammateId,
+              user: currentTeammate.id,
               workspaceId: currentWorkspaceId,
             },
           };
@@ -110,7 +110,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         placeholder={
           currentChannel.id
             ? `Message #${currentChannel.name}`
-            : `Message #${currentTeammateId}`
+            : `Message #${currentTeammate.id}`
         }
         value={message}
       />

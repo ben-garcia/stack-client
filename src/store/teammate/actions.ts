@@ -1,8 +1,9 @@
+import { Teammate } from 'store/teammates';
 import { TeammateActions, TeammateActionTypes } from './types';
 
-const GetCurrentTeammateId = (id: number): TeammateActionTypes => ({
-  type: TeammateActions.GET_CURRENT_TEAMMATE_ID,
-  payload: id,
+const GetCurrentTeammate = (teammate: Teammate): TeammateActionTypes => ({
+  type: TeammateActions.GET_CURRENT_TEAMMATE,
+  payload: teammate,
 });
 
-export default GetCurrentTeammateId;
+export default GetCurrentTeammate;
