@@ -12,13 +12,17 @@ import './styles.scss';
 
 const CreateMessage: React.FC<CreateMessageProps> = () => {
   const dispatch = useDispatch();
-  const { currentChannel, currentTeammateId, user } = useSelector(
-    (state: AppState) => ({
-      currentChannel: state.currentChannel,
-      currentTeammateId: state.currentTeammateId,
-      user: state.user,
-    })
-  );
+  const {
+    currentChannel,
+    currentTeammateId,
+    currentWorkspaceId,
+    user,
+  } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
+    currentTeammateId: state.currentTeammateId,
+    currentWorkspaceId: state.currentWorkspaceId,
+    user: state.user,
+  }));
   const [message, setMessage] = useState<string>('');
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -34,7 +38,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         // since the redux store expects messages to have an id(key prop)
         // use a random number until page refresh
         const randomNumber = Math.random();
-        if (currentChannel.id && !currentTeammateId) {
+        if (currentChannel.id && !currentTeammateId && currentWorkspaceId) {
           url = '/messages';
           // data to send to the server in the request object
           data = {
@@ -53,12 +57,17 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
               user: { username: user.username },
             })
           );
-        } else if (currentTeammateId && !currentChannel.id) {
+        } else if (
+          currentTeammateId &&
+          !currentChannel.id &&
+          currentWorkspaceId
+        ) {
           url = '/direct-messages';
           data = {
             message: {
               content: message,
               user: currentTeammateId,
+              workspaceId: currentWorkspaceId,
             },
           };
           // dispatch action to add new created direct message
@@ -98,7 +107,11 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         className="message-textarea"
         onChange={handleChange}
         onKeyUp={handleKeyUp}
-        placeholder={currentChannel.id ? `Message #${currentChannel.name}` : ''}
+        placeholder={
+          currentChannel.id
+            ? `Message #${currentChannel.name}`
+            : `Message #${currentTeammateId}`
+        }
         value={message}
       />
     </Form>

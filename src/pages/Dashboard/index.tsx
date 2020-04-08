@@ -68,7 +68,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
     // set up current teammate id on page reload
     if (teammateIdFromLocalStorage && !currentChannel.id) {
       dispatch(getCurrentTeammateId(Number(teammateIdFromLocalStorage)));
-      dispatch(requestUserDirectMessages());
     }
     // set up workspaceId on page reload
     if (workspaceIdFromLocalStorage) {
@@ -81,6 +80,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
       // ONLY when the store has been pudated with the curent workspace id
       // dispatch action to get all current workpace's teammates
       dispatch(requestWorkspaceTeammates());
+    }
+    // make sure the current workspace id is stored in local storage
+    if (teammateIdFromLocalStorage && workspaceIdFromLocalStorage) {
+      dispatch(requestUserDirectMessages());
     }
     // set up channelId on page reload
     if (channelFromLocalStorage && !currentTeammateId) {
