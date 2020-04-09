@@ -17,7 +17,7 @@ import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { userLoggedIn } from 'store/user';
-import { getCurrentWorkspaceId } from 'store/workspace';
+import { getCurrentWorkspace } from 'store/workspace';
 import { requestUserWorkspaces } from 'store/workspaces';
 import { DashboardProps } from './types';
 import './styles.scss';
@@ -26,7 +26,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const {
     currentChannel,
     currentTeammate,
-    currentWorkspaceId,
+    currentWorkspace,
     channels,
     teammates,
     user,
@@ -34,7 +34,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
-    currentWorkspaceId: state.currentWorkspaceId,
+    currentWorkspace: state.currentWorkspace,
     channels: state.channels,
     teammates: state.teammates,
     user: state.user,
@@ -46,9 +46,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
     const teammateFromLocalStorage = localStorage.getItem('currentTeammate');
-    const workspaceIdFromLocalStorage = localStorage.getItem(
-      'currentWorkspaceId'
-    );
+    const workspaceFromLocalStorage = localStorage.getItem('currentWorkspace');
     const channelFromLocalStorage = localStorage.getItem('currentChannel');
     // if a user is stored in localStorage
     if (userFromLocalStorage) {
@@ -67,11 +65,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (teammateFromLocalStorage && !currentChannel.id) {
       dispatch(getCurrentTeammate(JSON.parse(teammateFromLocalStorage)));
     }
-    // set up workspaceId on page reload
-    if (workspaceIdFromLocalStorage) {
-      const workspaceId = Number(workspaceIdFromLocalStorage);
+    // set up workspace on page reload
+    if (workspaceFromLocalStorage) {
+      const workspace = JSON.parse(workspaceFromLocalStorage);
       // dispatch action to update store
-      dispatch(getCurrentWorkspaceId(workspaceId));
+      dispatch(getCurrentWorkspace(workspace));
       // ONLY when the store has been updated with the current workspace id
       // dispatch action to get all current workspace's channels
       dispatch(requestWorkspaceChannels());
@@ -80,7 +78,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(requestWorkspaceTeammates());
     }
     // make sure the current workspace id is stored in local storage
-    if (teammateFromLocalStorage && workspaceIdFromLocalStorage) {
+    if (teammateFromLocalStorage && workspaceFromLocalStorage) {
       dispatch(requestUserDirectMessages());
     }
     // set up channelId on page reload
@@ -99,7 +97,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   // get the name of the current workspace
   let workspaceName: string | undefined = 'Loading';
-  workspaceName = workspaces.list.find(w => w.id === currentWorkspaceId)?.name;
+  workspaceName = workspaces.list.find(w => w.id === currentWorkspace.id)?.name;
 
   // get the current channel
   const channel: Channel | undefined = channels.list.find(

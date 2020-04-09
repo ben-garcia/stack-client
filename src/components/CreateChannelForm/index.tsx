@@ -15,9 +15,9 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   createChannelFormIsOpen,
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspaceId, teammates, user } = useSelector(
+  const { currentWorkspace, teammates, user } = useSelector(
     (state: AppState) => ({
-      currentWorkspaceId: state.currentWorkspaceId,
+      currentWorkspace: state.currentWorkspace,
       teammates: state.teammates.list,
       user: state.user,
     })
@@ -87,14 +87,14 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
     if (
       errors.name === '' &&
       errors.description === '' &&
-      currentWorkspaceId !== 0
+      currentWorkspace.id !== 0
     ) {
       try {
         // data to send to the server in the request object
         const data: any = {
           channel: {
             ...channel,
-            workspace: currentWorkspaceId,
+            workspace: currentWorkspace.id,
           },
           userId: user.id,
         };

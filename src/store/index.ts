@@ -40,7 +40,7 @@ import {
 export const rootReducer = combineReducers({
   currentChannel: channelReducer,
   currentTeammate: teammateReducer,
-  currentWorkspaceId: workspaceReducer,
+  currentWorkspace: workspaceReducer,
   channels: channelsReducer,
   directMessages: directMessagesReducer,
   invitePeopleModalIsOpen: invitePeopleModalReducer,

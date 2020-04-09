@@ -8,7 +8,7 @@ import {
 } from './actions';
 
 // selector to get current workspace id
-const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspaceId;
+const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
 
 function* getAllCurrentWorkspaceChannels() {
   try {

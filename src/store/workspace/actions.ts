@@ -1,8 +1,9 @@
+import { Workspace } from 'store/workspaces';
 import { WorkspaceActions, WorkspaceActionTypes } from './types';
 
-const GetCurrentWorkspaceId = (id: number): WorkspaceActionTypes => ({
-  type: WorkspaceActions.GET_CURRENT_WORKSPACE_ID,
-  payload: id,
+const GetCurrentWorkspace = (workspace: Workspace): WorkspaceActionTypes => ({
+  type: WorkspaceActions.GET_CURRENT_WORKSPACE,
+  payload: workspace,
 });
 
-export default GetCurrentWorkspaceId;
+export default GetCurrentWorkspace;

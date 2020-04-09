@@ -1,12 +1,14 @@
+import { Workspace } from 'store/workspaces';
+
 export enum WorkspaceActions {
-  GET_CURRENT_WORKSPACE_ID = 'GET_CURRENT_WORKSPACE_ID',
+  GET_CURRENT_WORKSPACE = 'GET_CURRENT_WORKSPACE',
 }
 
-export type WorkspaceState = number;
+export type WorkspaceState = Workspace;
 
-interface GetCurrentWorkspaceId {
-  type: typeof WorkspaceActions.GET_CURRENT_WORKSPACE_ID;
-  payload: number;
+interface GetCurrentWorkspace {
+  type: typeof WorkspaceActions.GET_CURRENT_WORKSPACE;
+  payload: Workspace;
 }
 
-export type WorkspaceActionTypes = GetCurrentWorkspaceId;
+export type WorkspaceActionTypes = GetCurrentWorkspace;

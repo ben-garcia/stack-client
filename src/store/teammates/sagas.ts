@@ -8,7 +8,7 @@ import {
 } from './actions';
 
 // selector to get the current workspace id
-const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspaceId;
+const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
 
 function* GetAllCurrentWorkspaceTeammates() {
   try {

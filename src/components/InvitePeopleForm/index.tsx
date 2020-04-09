@@ -13,8 +13,8 @@ import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspaceId, username } = useSelector((state: AppState) => ({
-    currentWorkspaceId: state.currentWorkspaceId,
+  const { currentWorkspace, username } = useSelector((state: AppState) => ({
+    currentWorkspace: state.currentWorkspace,
     username: state.user.username,
   }));
   // variable used to map through the number of input fields
@@ -75,7 +75,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
           data: { teammates },
         } = await sendRequest({
           method: 'PUT',
-          url: `/workspaces/${currentWorkspaceId}`,
+          url: `/workspaces/${currentWorkspace.id}`,
           data: members,
         });
 

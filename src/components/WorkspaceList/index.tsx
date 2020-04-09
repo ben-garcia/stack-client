@@ -9,7 +9,8 @@ import { requestWorkspaceChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { clearMessages } from 'store/messages';
 import { requestWorkspaceTeammates } from 'store/teammates';
-import { getCurrentWorkspaceId } from 'store/workspace';
+import { getCurrentWorkspace } from 'store/workspace';
+import { Workspace } from 'store/workspaces';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
 
@@ -18,8 +19,8 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   className,
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspaceId } = useSelector((state: AppState) => ({
-    currentWorkspaceId: state.currentWorkspaceId,
+  const { currentWorkspace } = useSelector((state: AppState) => ({
+    currentWorkspace: state.currentWorkspace,
   }));
   let classesToAdd: string = 'workspace-list';
 
@@ -27,9 +28,9 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     classesToAdd += ` ${className}`;
   }
 
-  const saveWorkspaceId = (id: number) => {
+  const saveWorkspace = (workspace: Workspace) => {
     // save current workspace id to be used on page refresh
-    localStorage.setItem('currentWorkspaceId', `${id}`);
+    localStorage.setItem('currentWorkspace', JSON.stringify(workspace));
     // remove current channel from local storage
     localStorage.removeItem('currentChannel');
     // dispatch action to remove the current channel from the store
@@ -45,7 +46,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
       })
     );
     // dispatch action to change the store
-    dispatch(getCurrentWorkspaceId(id));
+    dispatch(getCurrentWorkspace(workspace));
     // dispatch action to get current workspace channels
     dispatch(requestWorkspaceChannels());
     // dispatch action to get the current workspace teammates
@@ -62,13 +63,13 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
           <List.Item
             className="workspaces-item"
             key={w.id}
-            active={w.id === currentWorkspaceId}
+            active={w.id === currentWorkspace.id}
           >
             <Button
               type="button"
               color="transparent"
               className="workspace-list__button"
-              onClick={() => saveWorkspaceId(w.id)}
+              onClick={() => saveWorkspace(w)}
               title={w.name}
             >
               {w.name[0].toUpperCase()}

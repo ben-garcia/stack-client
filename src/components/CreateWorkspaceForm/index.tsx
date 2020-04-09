@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, Form, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
-import { getCurrentWorkspaceId } from 'store/workspace';
+import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
 import './styles.scss';
@@ -69,7 +69,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
 
         // check whether the newly created workspace should open
         if (openWorkspace) {
-          dispatch(getCurrentWorkspaceId(workspace.id));
+          dispatch(getCurrentWorkspace(workspace));
         }
       } catch (err) {
         // eslint-disable-next-line

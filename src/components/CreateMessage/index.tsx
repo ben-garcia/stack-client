@@ -15,12 +15,12 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   const {
     currentChannel,
     currentTeammate,
-    currentWorkspaceId,
+    currentWorkspace,
     user,
   } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
-    currentWorkspaceId: state.currentWorkspaceId,
+    currentWorkspace: state.currentWorkspace,
     user: state.user,
   }));
   const [message, setMessage] = useState<string>('');
@@ -38,7 +38,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         // since the redux store expects messages to have an id(key prop)
         // use a random number until page refresh
         const randomNumber = Math.random();
-        if (currentChannel.id && !currentTeammate.id && currentWorkspaceId) {
+        if (currentChannel.id && !currentTeammate.id && currentWorkspace.id) {
           url = '/messages';
           // data to send to the server in the request object
           data = {
@@ -60,14 +60,14 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         } else if (
           currentTeammate.id &&
           !currentChannel.id &&
-          currentWorkspaceId
+          currentWorkspace.id
         ) {
           url = '/direct-messages';
           data = {
             message: {
               content: message,
               user: currentTeammate.id,
-              workspaceId: currentWorkspaceId,
+              workspaceId: currentWorkspace.id,
             },
           };
           // dispatch action to add new created direct message
