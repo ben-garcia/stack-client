@@ -36,8 +36,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
     // dispatch action to set current member id to 0
     // so it isn't active
     dispatch(getCurrentTeammate({ id: 0, username: '' }));
-    // delete current teammate id from local storage too
-    localStorage.removeItem('currentTeammateId');
+    // delete current teammate from local storage too
+    localStorage.removeItem('currentTeammate');
     // dispatch action to get all current channel's members
     dispatch(requestChannelMembers());
     // dispatch action to get all current channel's messages

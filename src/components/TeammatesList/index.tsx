@@ -36,8 +36,6 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   }
 
   const saveTeammate = (teammate: Teammate) => {
-    // save current teammate id to be used on page reload
-    localStorage.setItem('currentTeammate', JSON.stringify(currentTeammate));
     // dispatch action to change the store
     dispatch(getCurrentTeammate(teammate));
     // dispatch action to remove the current channel id
@@ -59,6 +57,8 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
     dispatch(requestUserDirectMessages());
     // remove current channel from local storage
     localStorage.removeItem('currentChannel');
+    // save current teammate to be used on page reload
+    localStorage.setItem('currentTeammate', JSON.stringify(teammate));
   };
 
   return (
