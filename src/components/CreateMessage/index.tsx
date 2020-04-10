@@ -11,6 +11,7 @@ import { CreateMessageProps } from './types';
 import './styles.scss';
 
 const CreateMessage: React.FC<CreateMessageProps> = () => {
+  const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const dispatch = useDispatch();
   const {
     currentChannel,
@@ -81,6 +82,19 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           );
         }
 
+        if (socket) {
+          socket.emit(
+            'channel-message',
+            JSON.stringify({
+              id: randomNumber,
+              content: data.message.content,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              user: { username: user.username },
+            })
+          );
+        }
+
         await sendRequest({
           method: 'POST',
           url,
@@ -94,10 +108,17 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   };
 
   useEffect(() => {
-    const socket = io.connect('http://localhost:8080/namespace');
-    socket.on('test', (data: any) => {
+    const mySocket = io.connect('http://localhost:8080/namespace');
+    setSocket(mySocket);
+    mySocket.emit('new-user', user.username);
+    mySocket.on('new-user', (data: any) => {
       // eslint-disable-next-line
       console.log(data);
+    });
+    mySocket.on('channel-message', (channelMessage: any) => {
+      // eslint-disable-next-line
+      console.log(JSON.parse(channelMessage));
+      dispatch(addMessage(JSON.parse(channelMessage)));
     });
   }, []);
 
@@ -110,7 +131,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         placeholder={
           currentChannel.id
             ? `Message #${currentChannel.name}`
-            : `Message #${currentTeammate.id}`
+            : `Message #${currentTeammate.username}`
         }
         value={message}
       />
