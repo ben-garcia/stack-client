@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 
-import sendRequest from 'api';
+// import sendRequest from 'api';
 import { Form } from 'components';
 import { AppState } from 'store';
 import { addMessage } from 'store/messages';
@@ -35,12 +35,12 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
 
       try {
         let data: any;
-        let url: string = '';
+        // let url: string = '';
         // since the redux store expects messages to have an id(key prop)
         // use a random number until page refresh
         const randomNumber = Math.random();
         if (currentChannel.id && !currentTeammate.id && currentWorkspace.id) {
-          url = '/messages';
+          // url = '/messages';
           // data to send to the server in the request object
           data = {
             message: {
@@ -63,7 +63,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           !currentChannel.id &&
           currentWorkspace.id
         ) {
-          url = '/direct-messages';
+          // url = '/direct-messages';
           data = {
             message: {
               content: message,
@@ -82,24 +82,52 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           );
         }
 
+        // make sure their is an active socket open
         if (socket) {
-          socket.emit(
-            'channel-message',
-            JSON.stringify({
-              id: randomNumber,
-              content: data.message.content,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-              user: { username: user.username },
-            })
-          );
+          if (currentChannel.id && !currentTeammate.id) {
+            socket.emit(
+              'channel-message',
+              JSON.stringify({
+                id: randomNumber,
+                content: data.message.content,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                user: { username: user.username },
+                channelName: `${currentChannel.id}-${currentChannel.name}`,
+              })
+            );
+          }
+          if (currentTeammate.id && !currentChannel.id) {
+            // don't emit a message to yourself
+            if (currentTeammate.id !== user.id) {
+              // set up array with the ids of both users
+              // then sort the array to get the unique(ids are unique per user) channel name
+              const ids = [
+                { id: user.id!, username: user.username },
+                { id: currentTeammate.id!, username: currentTeammate.username },
+              ];
+              const channelName = ids.sort((a, b) => a.id - b.id);
+              socket.emit(
+                'direct-message',
+                JSON.stringify({
+                  id: randomNumber,
+                  content: data.message.content,
+                  createdAt: new Date().toISOString(),
+                  updatedAt: new Date().toISOString(),
+                  user: { username: user.username },
+                  workspaceId: currentWorkspace.id,
+                  channelName: `${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
+                })
+              );
+            }
+          }
         }
 
-        await sendRequest({
-          method: 'POST',
-          url,
-          data,
-        });
+        // await sendRequest({
+        //   method: 'POST',
+        //   url,
+        //   data,
+        // });
       } catch (err) {
         // eslint-disable-next-line
         console.log(err);
@@ -110,17 +138,41 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   useEffect(() => {
     const mySocket = io.connect('http://localhost:8080/namespace');
     setSocket(mySocket);
-    mySocket.emit('new-user', user.username);
+    if (currentChannel.id && !currentTeammate.id) {
+      mySocket.emit('new-user', {
+        username: user.username,
+        channelName: `${currentChannel.id}-${currentChannel.name}`,
+      });
+    }
+    if (currentTeammate.id && !currentChannel.id) {
+      // set up array with the ids of both users
+      // then sort the array to get the unique(ids are unique per user) channel name
+      const ids = [
+        { id: user.id!, username: user.username },
+        { id: currentTeammate.id!, username: currentTeammate.username },
+      ];
+      const channelName = ids.sort((a, b) => a.id - b.id);
+      mySocket.emit('new-user', {
+        username: user.username,
+        channelName: `${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
+      });
+    }
     mySocket.on('new-user', (data: any) => {
       // eslint-disable-next-line
-      console.log(data);
+      console.log('new-user', data);
     });
     mySocket.on('channel-message', (channelMessage: any) => {
       // eslint-disable-next-line
-      console.log(JSON.parse(channelMessage));
+      console.log('channel-message', JSON.parse(channelMessage));
       dispatch(addMessage(JSON.parse(channelMessage)));
     });
-  }, []);
+    mySocket.on('direct-message', (channelMessage: any) => {
+      // eslint-disable-next-line
+      console.log('direct-message', JSON.parse(channelMessage));
+      dispatch(addUserDirectMessage(JSON.parse(channelMessage)));
+    });
+    // eslint-disable-next-line
+  }, [currentChannel, currentTeammate]);
 
   return (
     <Form>

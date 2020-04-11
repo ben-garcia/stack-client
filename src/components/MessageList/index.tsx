@@ -57,8 +57,8 @@ const MessageList: React.FC = () => {
               printFormattedDate(messagesToRender[i].createdAt) ||
             (printFormattedDate(messagesToRender[i - 1]?.createdAt) ===
               printFormattedDate(messagesToRender[i].createdAt) &&
-              messagesToRender[i - 1]?.user.username !==
-                messagesToRender[i].user.username) ? (
+              messagesToRender[i - 1]?.user?.username !==
+                messagesToRender[i].user?.username) ? (
               <div className="message__inner">
                 <Icon className="user-icon" type="user" />
                 <div className="message__inner-two">
