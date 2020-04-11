@@ -35,6 +35,7 @@
 
     .message__inner-three {
       display: flex;
+      align-items: center;
 
       .hover-timestamp {
         color: $color-dark-grey;
@@ -60,6 +61,11 @@
     flex-direction: column;
     padding: 0 0 0.6rem 0;
   }
+}
+
+.user-icon {
+  position: relative;
+  top: 0.2rem;
 }
 
 .timestamp-container {

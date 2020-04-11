@@ -39,6 +39,7 @@ const MessageList: React.FC = () => {
             hover={false}
             key={m.id}
           >
+            {/* render timestamp if consecutive messages' dates are different */}
             {printFormattedDate(messagesToRender[i - 1]?.createdAt) !==
             printFormattedDate(messagesToRender[i].createdAt) ? (
               <div className="timestamp-container">
@@ -50,10 +51,16 @@ const MessageList: React.FC = () => {
                 </div>
               </div>
             ) : null}
+            {/* render user icon when dates dont match
+            or the user of consecutive messages don't match */}
             {printFormattedDate(messagesToRender[i - 1]?.createdAt) !==
-            printFormattedDate(messagesToRender[i].createdAt) ? (
+              printFormattedDate(messagesToRender[i].createdAt) ||
+            (printFormattedDate(messagesToRender[i - 1]?.createdAt) ===
+              printFormattedDate(messagesToRender[i].createdAt) &&
+              messagesToRender[i - 1]?.user.username !==
+                messagesToRender[i].user.username) ? (
               <div className="message__inner">
-                <Icon type="user" />
+                <Icon className="user-icon" type="user" />
                 <div className="message__inner-two">
                   <div>
                     <Text className="message__username" size="sm" tag="span">
