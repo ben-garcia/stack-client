@@ -5,8 +5,9 @@ import io from 'socket.io-client';
 import sendRequest from 'api';
 import { Form } from 'components';
 import { AppState } from 'store';
-import { addMessage } from 'store/messages';
 import { addUserDirectMessage } from 'store/directMessages';
+import { addMessage } from 'store/messages';
+// import { teammateConnected } from 'store/teammates';
 import { CreateMessageProps } from './types';
 import './styles.scss';
 
@@ -160,6 +161,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     mySocket.on('new-user', (data: any) => {
       // eslint-disable-next-line
       console.log('new-user', data);
+      // dispatch(teammateConnected(data.username));
     });
     mySocket.on('channel-message', (channelMessage: any) => {
       // eslint-disable-next-line

@@ -27,6 +27,12 @@
   &__icon {
     opacity: 0.3;
     margin-right: 0.5rem;
+
+    &--active {
+      background-color: #2bac76;
+      border-radius: 50%;
+      opacity: 1;
+    }
   }
 
   &__add-button {
@@ -47,7 +53,8 @@
 
   &__button {
     color: rgba($background-color, 0.8);
-    width: 100%;
     display: flex;
+    align-items: center;
+    width: 100%;
   }
 }

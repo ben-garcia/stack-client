@@ -85,12 +85,17 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
               color="transparent"
               className="teammates-list__button"
               onClick={() => saveTeammate({ id: t.id, username: t.username })}
+              title={t.active || t.id === user.id ? 'Active' : 'Away'}
             >
               <Icon
                 type="circle"
                 size="xm"
-                color="white"
-                className="teammates-list__icon"
+                color={t.active || user.id === t.id ? 'green' : 'white'}
+                className={
+                  t.active || user.id === t.id
+                    ? 'teammates-list__icon teammates-list__icon--active'
+                    : 'teammates-list__icon'
+                }
               />
               {t.username}
               {user.id === t.id ? ` (You)` : ''}

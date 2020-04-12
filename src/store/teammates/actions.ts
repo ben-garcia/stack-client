@@ -10,6 +10,20 @@ export const addTeammate = (teammate: Teammate): TeammatesActionTypes => ({
   payload: teammate,
 });
 
+export const teammateConnected = (
+  teammateUsername: string
+): TeammatesActionTypes => ({
+  type: TeammatesActions.TEAMMATE_CONNECTED,
+  payload: teammateUsername,
+});
+
+export const teammateDisconnected = (
+  teammateUsername: string
+): TeammatesActionTypes => ({
+  type: TeammatesActions.TEAMMATE_DISCONNECTED,
+  payload: teammateUsername,
+});
+
 export const receivedWorkspaceTeammates = (
   teammates: Teammate[]
 ): TeammatesActionTypes => ({
