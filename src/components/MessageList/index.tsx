@@ -51,8 +51,6 @@ const MessageList: React.FC = () => {
                 </div>
               </div>
             ) : null}
-            {/* render user icon when dates dont match
-            or the user of consecutive messages don't match */}
             {printFormattedDate(messagesToRender[i - 1]?.createdAt) !==
               printFormattedDate(messagesToRender[i].createdAt) ||
             (printFormattedDate(messagesToRender[i - 1]?.createdAt) ===

@@ -9,17 +9,19 @@ import {
 
 // selector to get the current user id
 const getCurrentTeammateId = (state: AppState) => state.currentTeammate.id;
+const getCurrentUserId = (state: AppState) => state.user.id;
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
 
 function* getUserDirectMessages() {
   try {
-    const currentUserId = yield select(getCurrentTeammateId);
+    const currentUserId = yield select(getCurrentUserId);
+    const currentTeammateId = yield select(getCurrentTeammateId);
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
     const {
       data: { directMessages },
     } = yield call(sendRequest, {
       method: 'GET',
-      url: `/direct-messages?teammateId=${currentUserId}&workspaceId=${currentWorkspaceId}`,
+      url: `/direct-messages?userId=${currentUserId}&teammateId=${currentTeammateId}&workspaceId=${currentWorkspaceId}`,
     });
 
     // dispatch action

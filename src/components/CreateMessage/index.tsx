@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 
-// import sendRequest from 'api';
+import sendRequest from 'api';
 import { Form } from 'components';
 import { AppState } from 'store';
 import { addMessage } from 'store/messages';
@@ -35,12 +35,12 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
 
       try {
         let data: any;
-        // let url: string = '';
+        let url: string = '';
         // since the redux store expects messages to have an id(key prop)
         // use a random number until page refresh
         const randomNumber = Math.random();
         if (currentChannel.id && !currentTeammate.id && currentWorkspace.id) {
-          // url = '/messages';
+          url = '/messages';
           // data to send to the server in the request object
           data = {
             message: {
@@ -63,7 +63,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           !currentChannel.id &&
           currentWorkspace.id
         ) {
-          // url = '/direct-messages';
+          url = '/direct-messages';
           data = {
             message: {
               content: message,
@@ -123,11 +123,11 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           }
         }
 
-        // await sendRequest({
-        //   method: 'POST',
-        //   url,
-        //   data,
-        // });
+        await sendRequest({
+          method: 'POST',
+          url,
+          data,
+        });
       } catch (err) {
         // eslint-disable-next-line
         console.log(err);
@@ -136,7 +136,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   };
 
   useEffect(() => {
-    const mySocket = io.connect('http://localhost:8080/namespace');
+    const mySocket = io.connect('http://localhost:8080');
     setSocket(mySocket);
     if (currentChannel.id && !currentTeammate.id) {
       mySocket.emit('new-user', {
