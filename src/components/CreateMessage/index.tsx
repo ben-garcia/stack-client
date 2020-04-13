@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import io from 'socket.io-client';
 
 import sendRequest from 'api';
@@ -7,7 +7,7 @@ import { Form } from 'components';
 import { AppState } from 'store';
 import { addUserDirectMessage } from 'store/directMessages';
 import { addMessage } from 'store/messages';
-// import { teammateConnected } from 'store/teammates';
+import { teammateConnected, teammateDisconnected } from 'store/teammates';
 import { CreateMessageProps } from './types';
 import './styles.scss';
 
@@ -25,6 +25,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     currentWorkspace: state.currentWorkspace,
     user: state.user,
   }));
+  const store = useStore();
   const [message, setMessage] = useState<string>('');
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
@@ -140,7 +141,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     const mySocket = io.connect('http://localhost:8080');
     setSocket(mySocket);
     if (currentChannel.id && !currentTeammate.id) {
-      mySocket.emit('new-user', {
+      mySocket.emit('user-connected', {
         username: user.username,
         channelName: `${currentChannel.id}-${currentChannel.name}`,
       });
@@ -153,25 +154,39 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         { id: currentTeammate.id!, username: currentTeammate.username },
       ];
       const channelName = ids.sort((a, b) => a.id - b.id);
-      mySocket.emit('new-user', {
+      mySocket.emit('user-connected', {
         username: user.username,
         channelName: `${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
       });
     }
-    mySocket.on('new-user', (data: any) => {
+    mySocket.on('user-connected', ({ usernames }: { usernames: string[] }) => {
       // eslint-disable-next-line
-      console.log('new-user', data);
-      // dispatch(teammateConnected(data.username));
+      console.log('user-connected', usernames);
+      const interval = setInterval(() => {
+        // getting the teammates directly from the store
+        // when using 'useSelector' hook,
+        // I get an teammates array is empty
+        const { teammates } = store.getState();
+        if (teammates.list.length > 0) {
+          for (let i = 0; i < usernames.length; i += 1) {
+            // eslint-disable-next-line no-continue
+            if (usernames[i] === user.username) continue;
+            dispatch(teammateConnected(usernames[i]));
+          }
+          clearInterval(interval);
+        }
+      }, 200);
     });
     mySocket.on('channel-message', (channelMessage: any) => {
-      // eslint-disable-next-line
-      console.log('channel-message', JSON.parse(channelMessage));
       dispatch(addMessage(JSON.parse(channelMessage)));
     });
     mySocket.on('direct-message', (channelMessage: any) => {
-      // eslint-disable-next-line
-      console.log('direct-message', JSON.parse(channelMessage));
       dispatch(addUserDirectMessage(JSON.parse(channelMessage)));
+    });
+    mySocket.on('user-disconnected', (username: string) => {
+      // eslint-disable-next-line
+      console.log('user-disconnected', username);
+      dispatch(teammateDisconnected(username));
     });
     // eslint-disable-next-line
   }, [currentChannel, currentTeammate]);

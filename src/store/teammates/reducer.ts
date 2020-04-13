@@ -20,22 +20,18 @@ const teammatesReducer = (
         list: [...state.list, action.payload],
       };
     case TeammatesActions.TEAMMATE_CONNECTED:
-      // eslint-disable-next-line
-      console.log('teammate connected: ', action.payload);
       const teammate = state.list.find(
         (t: Teammate) => t.username === action.payload
       );
-      teammate!.active = true;
+      if (teammate) teammate.active = true;
       return {
         list: [...state.list],
       };
     case TeammatesActions.TEAMMATE_DISCONNECTED:
-      // eslint-disable-next-line
-      console.log('teammate disconnected: ', action.payload);
       const teammateToChange = state.list.find(
         (t: Teammate) => t.username === action.payload
       );
-      teammateToChange!.active = false;
+      if (teammateToChange) teammateToChange.active = false;
       return {
         list: [...state.list],
       };
