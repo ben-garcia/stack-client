@@ -159,9 +159,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         channelName: `${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
       });
     }
-    mySocket.on('user-connected', ({ usernames }: { usernames: string[] }) => {
-      // eslint-disable-next-line
-      console.log('user-connected', usernames);
+    mySocket.on('user-connected', ({ usernames }: any) => {
       const interval = setInterval(() => {
         // getting the teammates directly from the store
         // when using 'useSelector' hook,
@@ -178,14 +176,15 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       }, 200);
     });
     mySocket.on('channel-message', (channelMessage: any) => {
+      // add message to the store so that it's rendered
       dispatch(addMessage(JSON.parse(channelMessage)));
     });
     mySocket.on('direct-message', (channelMessage: any) => {
+      // update the store so that the new direct message will render
       dispatch(addUserDirectMessage(JSON.parse(channelMessage)));
     });
-    mySocket.on('user-disconnected', (username: string) => {
-      // eslint-disable-next-line
-      console.log('user-disconnected', username);
+    mySocket.on('user-disconnected', (username: any) => {
+      // dispatch action to set the username to away status
       dispatch(teammateDisconnected(username));
     });
     // eslint-disable-next-line

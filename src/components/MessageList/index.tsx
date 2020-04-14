@@ -9,9 +9,10 @@ import { getTime, printFormattedDate } from 'utils';
 import './styles.scss';
 
 const MessageList: React.FC = () => {
-  const { directMessages, messages } = useSelector((state: AppState) => ({
+  const { directMessages, messages, user } = useSelector((state: AppState) => ({
     directMessages: state.directMessages.list,
     messages: state.messages.list,
+    user: state.user,
   }));
   const [messagesToRender, setMessagesToRender] = useState<
     DirectMessage[] | Message[]
@@ -58,7 +59,11 @@ const MessageList: React.FC = () => {
               messagesToRender[i - 1]?.user?.username !==
                 messagesToRender[i].user?.username) ? (
               <div className="message__inner">
-                <Icon className="user-icon" type="user" />
+                <Icon
+                  className="user-icon"
+                  type="user"
+                  color={user.username === m.user?.username ? 'green' : 'black'}
+                />
                 <div className="message__inner-two">
                   <div>
                     <Text className="message__username" size="sm" tag="span">
