@@ -133,11 +133,6 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
               <Text className="c-teammate__username" tag="span">
                 {currentTeammate.username}
               </Text>
-              <Icon
-                className="c-teammate__circle-icon"
-                type="circle"
-                size="xm"
-              />
             </div>
             <div className="c-teammate__inner channel-view__inner">
               {user.id === currentTeammate.id ? (

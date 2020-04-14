@@ -32,12 +32,20 @@ const TeammateInfo: React.FC<TeammateInfoProps> = ({
       <div>
         <Icon
           type="circle"
-          color="green"
+          color={teammate?.active ? 'green' : 'black'}
           size="xm"
-          className="teammate__circle-icon"
+          className={
+            teammate?.active || teammate?.id === user.id
+              ? 'teammate__circle-icon teammate__circle-icon--active'
+              : 'teammate__circle-icon'
+          }
         />
         <Text className="teammate__status" tag="span" size="xm">
-          active
+          {teammate?.active || teammate?.id === user.id ? (
+            <>Active</>
+          ) : (
+            <>Away</>
+          )}
         </Text>
       </div>
     </section>
