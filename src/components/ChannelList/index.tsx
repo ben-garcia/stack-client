@@ -29,6 +29,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
   }
 
   const saveChannel = (channel: Channel) => {
+    // make sure it's not calling the function with the current channel
+    if (currentChannel.id === channel.id) return;
     // save current channel id to be used on page reload
     localStorage.setItem('currentChannel', JSON.stringify(channel));
     // dispatch action to change the store

@@ -5,7 +5,7 @@
 }
 
 .list__item--hoverable {
-  &:hover:not(&--active) {
+  &:hover:not(.list__item--active) {
     cursor: pointer;
     background-color: $primary-color-hover;
   }

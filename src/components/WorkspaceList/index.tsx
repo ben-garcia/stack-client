@@ -29,6 +29,8 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   }
 
   const saveWorkspace = (workspace: Workspace) => {
+    // make sure the user hasn't clicked on the current workspace
+    if (currentWorkspace.id === workspace.id) return;
     // save current workspace id to be used on page refresh
     localStorage.setItem('currentWorkspace', JSON.stringify(workspace));
     // remove current channel from local storage

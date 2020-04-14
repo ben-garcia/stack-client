@@ -36,6 +36,9 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   }
 
   const saveTeammate = (teammate: Teammate) => {
+    // if the user clicked on the current teammate
+    // then nothing needs to be done
+    if (currentTeammate.id === teammate.id) return;
     // dispatch action to change the store
     dispatch(getCurrentTeammate(teammate));
     // dispatch action to remove the current channel id
