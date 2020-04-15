@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { ChannelInfo, TeammateInfo, Workspace } from 'components';
+import {
+  Button,
+  ChannelInfo,
+  Icon,
+  TeammateInfo,
+  Text,
+  Workspace,
+} from 'components';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
@@ -35,6 +42,16 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
           teammate={teammate}
           className="workspace-info__inner-right"
         />
+      )}
+      {channel && !teammate && (
+        <div className="container">
+          <Button className="details-button" type="button" color="transparent">
+            <Icon className="details-button__icon" type="circle" size="sm" />
+            <Text className="details-button__text" tag="span" size="sm">
+              Details
+            </Text>
+          </Button>
+        </div>
       )}
     </div>
   );

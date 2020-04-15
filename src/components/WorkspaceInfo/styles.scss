@@ -11,3 +11,21 @@
     padding: 1rem 1rem 0 1rem;
   }
 }
+
+.container {
+  align-self: center;
+  margin-right: 1.5rem;
+}
+
+.details-button {
+  display: flex;
+
+  &:hover {
+    background-color: rgba($color-dark-grey, 0.1);
+  }
+
+  &__icon,
+  &__text {
+    margin: 0 0.2rem;
+  }
+}
