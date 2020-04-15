@@ -128,14 +128,16 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
         )}
         {currentTeammate && currentChannel.id === 0 && (
           <div className="channel-view__inner">
-            <div className="c-teammate">
-              <Icon className="c-teammate__user-icon" type="user" size="lg" />
-              <Text className="c-teammate__username" tag="span">
-                {currentTeammate.username}
-              </Text>
-            </div>
+            {currentChannel.id || currentTeammate.id ? (
+              <div className="c-teammate">
+                <Icon className="c-teammate__user-icon" type="user" size="lg" />
+                <Text className="c-teammate__username" tag="span">
+                  {currentTeammate.username}
+                </Text>
+              </div>
+            ) : null}
             <div className="c-teammate__inner channel-view__inner">
-              {user.id === currentTeammate.id ? (
+              {user.id === currentTeammate.id && (
                 <Text size="sm">
                   <Text className="c-teammate__message" tag="span" size="sm">
                     This is your space.
@@ -144,7 +146,8 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                   handy. You can also talk to yourself here, but please bear in
                   mind you’ll have to supply both sides of the conversation.
                 </Text>
-              ) : (
+              )}
+              {currentTeammate.id ? (
                 <Text size="sm">
                   This is the very beginning of your direct message history with
                   <Text
@@ -155,7 +158,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                     {currentTeammate.username}
                   </Text>
                 </Text>
-              )}
+              ) : null}
             </div>
           </div>
         )}

@@ -8,6 +8,7 @@ import { getCurrentChannel } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { clearMessages } from 'store/messages';
+import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { Workspace } from 'store/workspaces';
@@ -45,6 +46,15 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
         private: false,
         createdAt: '',
         updatedAt: '',
+      })
+    );
+    // remove current teammate from local storage
+    localStorage.removeItem('currentTeammate');
+    // dispatch action to clear the current teammate
+    dispatch(
+      getCurrentTeammate({
+        id: 0,
+        username: '',
       })
     );
     // dispatch action to change the store

@@ -95,7 +95,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
                 user: { username: user.username },
-                channelName: `${currentChannel.id}-${currentChannel.name}`,
+                channelName: `${currentWorkspace.id}:${currentWorkspace.name}-${currentChannel.id}-${currentChannel.name}`,
               })
             );
           }
@@ -143,7 +143,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     if (currentChannel.id && !currentTeammate.id) {
       mySocket.emit('user-connected', {
         username: user.username,
-        channelName: `${currentChannel.id}-${currentChannel.name}`,
+        channelName: `${currentWorkspace.id}:${currentWorkspace.name}-${currentChannel.id}-${currentChannel.name}`,
       });
     }
     if (currentTeammate.id && !currentChannel.id) {
@@ -156,7 +156,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       const channelName = ids.sort((a, b) => a.id - b.id);
       mySocket.emit('user-connected', {
         username: user.username,
-        channelName: `${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
+        channelName: `${currentWorkspace.id}:{currentWorkspace.name}-${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
       });
     }
     mySocket.on('user-connected', ({ usernames }: any) => {
@@ -186,9 +186,11 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     mySocket.on('user-disconnected', (username: any) => {
       // dispatch action to set the username to away status
       dispatch(teammateDisconnected(username));
+      // eslint-disable-next-line
+      console.log('user-disconnected', username);
     });
     // eslint-disable-next-line
-  }, [currentChannel, currentTeammate]);
+  }, [currentChannel, currentTeammate, currentWorkspace]);
 
   return (
     <Form>
