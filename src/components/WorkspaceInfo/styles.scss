@@ -14,10 +14,14 @@
 
 .container {
   align-self: center;
-  margin-right: 1.5rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  height: 100%;
+  padding-right: 1.5rem;
 }
 
 .details-button {
+  align-self: center;
   display: flex;
 
   &:hover {

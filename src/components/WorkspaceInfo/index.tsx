@@ -45,7 +45,12 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
       )}
       {channel && !teammate && (
         <div className="container">
-          <Button className="details-button" type="button" color="transparent">
+          <Button
+            className="details-button"
+            type="button"
+            color="transparent"
+            title="Show channel details"
+          >
             <Icon className="details-button__icon" type="circle" size="sm" />
             <Text className="details-button__text" tag="span" size="sm">
               Details
