@@ -1,0 +1,98 @@
+@import '../../sass/variables';
+
+.channel-details {
+  width: 440px;
+
+  &__inner {
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    display: flex;
+    height: 56px;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  &__inner-two {
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+  }
+
+  &__inner-three {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__container {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  &__channel-name {
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  &__close-button {
+    align-self: center;
+    height: 30px;
+
+    &:hover {
+      background-color: rgba($color-dark-grey, 0.1);
+    }
+  }
+
+  &__add-people-button {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__user-icon {
+    align-items: center;
+    background-color: rgba($color-dark-grey, 0.1);
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+    width: 40px;
+
+    &:hover {
+      background-color: rgba($color-dark-grey, 0.2);
+    }
+  }
+
+  &__about,
+  &__members {
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__member-count {
+    font-weight: 400;
+    font-size: 0.7rem !important;
+    margin-right: 0.7rem;
+  }
+
+  &__icon-chevron-right {
+    font-size: 0.7rem !important;
+    margin-right: 0.5rem;
+  }
+}

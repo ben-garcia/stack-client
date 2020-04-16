@@ -5,6 +5,7 @@ import {
   AddPeople,
   Button,
   CreateMessage,
+  ChannelDetails,
   EditChannelDescription,
   Icon,
   MessageList,
@@ -18,13 +19,17 @@ import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const { currentChannel, currentTeammate, user } = useSelector(
-    (state: AppState) => ({
-      currentChannel: state.currentChannel,
-      currentTeammate: state.currentTeammate,
-      user: state.user,
-    })
-  );
+  const {
+    channelDetailsIsOpen,
+    currentChannel,
+    currentTeammate,
+    user,
+  } = useSelector((state: AppState) => ({
+    channelDetailsIsOpen: state.channelDetailsIsOpen,
+    currentChannel: state.currentChannel,
+    currentTeammate: state.currentTeammate,
+    user: state.user,
+  }));
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openAddPeopleModal, setOpenAddPeopleModal] = useState<boolean>(false);
   let classesToAdd: string = 'main-container';
@@ -35,8 +40,8 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
 
   return (
     <main className={classesToAdd}>
-      <WorkspaceInfo />
       <section className="channel-view">
+        <WorkspaceInfo />
         <div className="channel-view__container">
           {currentChannel.id !== 0 && !currentTeammate.id && (
             <div>
@@ -179,6 +184,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         ) : null}
       </section>
+      {channelDetailsIsOpen && <ChannelDetails />}
     </main>
   );
 };

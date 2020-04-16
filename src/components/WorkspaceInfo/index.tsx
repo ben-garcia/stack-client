@@ -1,12 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, ChannelInfo, Icon, TeammateInfo, Text } from 'components';
 import { AppState } from 'store';
+import { openChannelDetails } from 'store/channelDetails';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
+  const dispatch = useDispatch();
   const { currentChannel, currentTeammate } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
@@ -37,9 +39,10 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
         <div className="container">
           <Button
             className="details-button"
-            type="button"
             color="transparent"
+            onClick={() => dispatch(openChannelDetails())}
             title="Show channel details"
+            type="button"
           >
             <Icon className="details-button__icon" type="circle" size="sm" />
             <Text className="details-button__text" tag="span" size="sm">
