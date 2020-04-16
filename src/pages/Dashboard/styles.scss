@@ -7,7 +7,7 @@
   grid-template-columns: 60px 220px auto;
   grid-template-rows: 60px auto;
   grid-template-areas:
-    'dashboard__workspaces-list dashboard__top-nav dashboard__top-nav'
+    'dashboard__workspaces-list dashboard__sidebar dashboard__main'
     'dashboard__workspaces-list dashboard__sidebar dashboard__main';
   overflow: hidden;
 
@@ -17,16 +17,10 @@
     grid-area: dashboard__workspaces-list;
   }
 
-  &__top-nav {
-    background-color: $background-color;
-    grid-area: dashboard__top-nav;
-  }
-
   &__sidebar {
     background-color: $primary-color;
     color: $background-color;
     grid-area: dashboard__sidebar;
-    padding-top: 0.4rem;
   }
 
   &__main {

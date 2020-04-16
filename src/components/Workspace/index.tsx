@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button, CreateWorkspaceForm, Icon, Modal, Text } from 'components';
+import { AppState } from 'store';
 import { WorkspaceProps } from './types';
 import './styles.scss';
 
-const Workspace: React.FC<WorkspaceProps> = ({
-  workspaceName,
-  username,
-  className = '',
-}) => {
+const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
+  const { username, workspaceName } = useSelector((state: AppState) => ({
+    username: state.user.username,
+    workspaceName: state.currentWorkspace.name,
+  }));
   const [createWorkspaceFormIsOpen, setCreateWorkspaceFormIsOpen] = useState<
     boolean
   >(false);

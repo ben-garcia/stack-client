@@ -3,21 +3,11 @@
 .workspace-info {
   display: flex;
   flex-direction: row;
-
-  &__inner-left {
-    background-color: $primary-color;
-    color: $background-color;
-    min-width: 220px;
-    padding: 1rem 1rem 0 1rem;
-  }
 }
 
 .container {
-  align-self: center;
   border-bottom: 1px solid #ccc;
   display: flex;
-  height: 100%;
-  padding-right: 1.5rem;
 }
 
 .details-button {

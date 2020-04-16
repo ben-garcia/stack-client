@@ -1,23 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import {
-  Button,
-  ChannelInfo,
-  Icon,
-  TeammateInfo,
-  Text,
-  Workspace,
-} from 'components';
+import { Button, ChannelInfo, Icon, TeammateInfo, Text } from 'components';
+import { AppState } from 'store';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
-const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
-  channel,
-  className = '',
-  teammate,
-  username,
-  workspaceName,
-}) => {
+const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
+  const { currentChannel, currentTeammate } = useSelector(
+    (state: AppState) => ({
+      currentChannel: state.currentChannel,
+      currentTeammate: state.currentTeammate,
+    })
+  );
   let classesToAdd: string = 'workspace-info';
 
   if (className?.trim() !== '') {
@@ -26,24 +21,19 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
 
   return (
     <div className={classesToAdd}>
-      <Workspace
-        workspaceName={workspaceName}
-        username={username}
-        className="workspace-info__inner-left"
-      />
-      {channel && !teammate && (
+      {currentChannel.id && !currentTeammate.id ? (
         <ChannelInfo
-          channel={channel}
+          channel={currentChannel as any}
           className="workspace-info__inner-right"
         />
-      )}
-      {teammate && !channel && (
+      ) : null}
+      {currentTeammate.id && !currentChannel.id ? (
         <TeammateInfo
-          teammate={teammate}
+          teammate={currentTeammate as any}
           className="workspace-info__inner-right"
         />
-      )}
-      {channel && !teammate && (
+      ) : null}
+      {currentChannel.id && !currentTeammate.id ? (
         <div className="container">
           <Button
             className="details-button"
@@ -57,7 +47,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({
             </Text>
           </Button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

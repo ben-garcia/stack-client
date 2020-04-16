@@ -1,7 +1,7 @@
 @import '../../sass/variables';
 
 .teammate {
-  padding: 0.8rem 0.8rem 0 0.8rem;
+  padding-top: 0.8rem;
   width: 100%;
   border-bottom: 1px solid #ccc;
 
@@ -16,8 +16,8 @@
   }
 
   &__circle-icon {
-    // background-color: $color-green;
-    // border-radius: 50%;
+    background-color: $color-green;
+    border-radius: 50%;
 
     &--active {
       background-color: $color-green;

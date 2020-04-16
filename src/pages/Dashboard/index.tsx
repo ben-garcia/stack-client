@@ -2,15 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  ChannelView,
-  WorkspaceInfo,
-  WorkspaceList,
-  WorkspaceSidebar,
-} from 'components';
+import { ChannelView, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
-import { Channel, requestWorkspaceChannels } from 'store/channels';
+import { requestWorkspaceChannels } from 'store/channels';
 import { requestChannelMembers } from 'store/members';
 import { requestUserDirectMessages } from 'store/directMessages';
 import { requestChannelMessages } from 'store/messages';
@@ -23,23 +18,17 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const {
-    currentChannel,
-    currentTeammate,
-    currentWorkspace,
-    channels,
-    teammates,
-    user,
-    workspaces,
-  } = useSelector((state: AppState) => ({
-    currentChannel: state.currentChannel,
-    currentTeammate: state.currentTeammate,
-    currentWorkspace: state.currentWorkspace,
-    channels: state.channels,
-    teammates: state.teammates,
-    user: state.user,
-    workspaces: state.workspaces,
-  }));
+  const { currentChannel, currentTeammate, user, workspaces } = useSelector(
+    (state: AppState) => ({
+      currentChannel: state.currentChannel,
+      currentTeammate: state.currentTeammate,
+      currentWorkspace: state.currentWorkspace,
+      channels: state.channels,
+      teammates: state.teammates,
+      user: state.user,
+      workspaces: state.workspaces,
+    })
+  );
   const dispatch = useDispatch();
   const history = useHistory();
   // set up redux store via localStorage on page reload
@@ -95,30 +84,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
     }
   }
 
-  // get the name of the current workspace
-  let workspaceName: string | undefined = 'Loading';
-  workspaceName = workspaces.list.find(w => w.id === currentWorkspace.id)?.name;
-
-  // get the current channel
-  const channel: Channel | undefined = channels.list.find(
-    c => c.id === currentChannel.id
-  );
-
-  // get the current teammate
-  const teammate = teammates.list.find(m => m.id === currentTeammate.id);
-
   return (
     <div className="dashboard">
       <WorkspaceList
         workspaces={workspaces.list}
         className="dashboard__workspaces-list"
-      />
-      <WorkspaceInfo
-        channel={channel}
-        className="dashboard__top-nav"
-        teammate={teammate}
-        username={user.username}
-        workspaceName={workspaceName}
       />
       <WorkspaceSidebar className="dashboard__sidebar" />
       <ChannelView className="dashboard__main" />

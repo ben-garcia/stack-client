@@ -10,19 +10,18 @@ import {
   MessageList,
   Modal,
   Text,
+  WorkspaceInfo,
 } from 'components';
 import { AppState } from 'store';
-import { Teammate } from 'store/teammates/types';
 import { printFormattedDate } from 'utils';
 import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const { currentChannel, currentTeammate, teammates, user } = useSelector(
+  const { currentChannel, currentTeammate, user } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
       currentTeammate: state.currentTeammate,
-      teammates: state.teammates,
       user: state.user,
     })
   );
@@ -34,16 +33,12 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
-  // get the current teammate
-  const teammate = teammates.list.find(
-    (t: Teammate) => t.id === currentTeammate.id
-  );
-
   return (
     <main className={classesToAdd}>
+      <WorkspaceInfo />
       <section className="channel-view">
         <div className="channel-view__container">
-          {currentChannel.id !== 0 && !teammate && (
+          {currentChannel.id !== 0 && !currentTeammate.id && (
             <div>
               <h1 className="channel-view__inner">
                 <Icon
