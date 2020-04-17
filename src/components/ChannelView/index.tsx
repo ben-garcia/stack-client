@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -15,6 +15,7 @@ import {
   WorkspaceInfo,
 } from 'components';
 import { AppState } from 'store';
+import { closeAddPeopleModal, openAddPeopleModal } from 'store/addPeopleModal';
 import {
   closeEditChannelDescriptionModal,
   openEditChannelDescriptionModal,
@@ -26,19 +27,20 @@ import './styles.scss';
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
   const {
+    addPeopleModalIsOpen,
     channelDetailsIsOpen,
     currentChannel,
     currentTeammate,
     editChannelDescriptionModalIsOpen,
     user,
   } = useSelector((state: AppState) => ({
+    addPeopleModalIsOpen: state.addPeopleModalIsOpen,
     channelDetailsIsOpen: state.channelDetailsIsOpen,
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
     editChannelDescriptionModalIsOpen: state.editChannelDescriptionModalIsOpen,
     user: state.user,
   }));
-  const [openAddPeopleModal, setOpenAddPeopleModal] = useState<boolean>(false);
   let classesToAdd: string = 'main-container';
 
   if (className?.trim() !== '') {
@@ -122,21 +124,19 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                     className="channel-view__user-icon"
                     type="button"
                     color="transparent"
-                    onClick={() => setOpenAddPeopleModal(true)}
+                    onClick={() => dispatch(openAddPeopleModal())}
                   >
                     <Text tag="span" size="xm">
                       Add people
                     </Text>
                   </Button>
-                  {openAddPeopleModal && (
+                  {addPeopleModalIsOpen && (
                     <Modal
                       header="Add People"
                       size="md"
-                      onClose={() => setOpenAddPeopleModal(false)}
+                      onClose={() => dispatch(closeAddPeopleModal())}
                     >
-                      <AddPeople
-                        setOpenAddPeopleModal={setOpenAddPeopleModal}
-                      />
+                      <AddPeople />
                     </Modal>
                   )}
                 </div>

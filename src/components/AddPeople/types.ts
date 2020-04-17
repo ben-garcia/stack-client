@@ -1,3 +1,1 @@
-export interface AddPeopleProps {
-  setOpenAddPeopleModal: (state: boolean) => void;
-}
+export interface AddPeopleProps {}

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { takeLatest } from 'redux-saga/effects';
 
+import { addPeopleModalReducer } from './addPeopleModal';
 import { channelReducer } from './channel';
 import {
   ChannelsActions,
@@ -41,6 +42,7 @@ import {
 } from './workspaces';
 
 export const rootReducer = combineReducers({
+  addPeopleModalIsOpen: addPeopleModalReducer,
   currentChannel: channelReducer,
   currentTeammate: teammateReducer,
   currentWorkspace: workspaceReducer,

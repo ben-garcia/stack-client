@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Icon, Text } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
+import { closeAddPeopleModal } from 'store/addPeopleModal';
 import { openInvitePeopleModal } from 'store/invitePeopleModal';
 import { addMember, Member } from 'store/members';
 import { Teammate } from 'store/teammates/types';
 import { AddPeopleProps } from './types';
 import './styles.scss';
 
-const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
+const AddPeople: React.FC<AddPeopleProps> = () => {
   const dispatch = useDispatch();
   const { currentChannelId, channelName, members, teammates } = useSelector(
     (state: AppState) => ({
@@ -66,7 +67,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
     });
 
     // close the modal
-    setOpenAddPeopleModal(false);
+    dispatch(closeAddPeopleModal());
   };
 
   return (
@@ -117,7 +118,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ setOpenAddPeopleModal }) => {
           type="button"
           color="transparent"
           onClick={() => {
-            setOpenAddPeopleModal(false);
+            dispatch(closeAddPeopleModal());
             dispatch(openInvitePeopleModal());
           }}
         >
