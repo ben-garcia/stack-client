@@ -47,7 +47,7 @@ export const rootReducer = combineReducers({
   currentTeammate: teammateReducer,
   currentWorkspace: workspaceReducer,
   channels: channelsReducer,
-  channelDetailsIsOpen: channelDetailsReducer,
+  channelDetails: channelDetailsReducer,
   directMessages: directMessagesReducer,
   editChannelDescriptionModalIsOpen: editChannelDescriptionModalReducer,
   editChannelTopicModalIsOpen: editChannelTopicModalReducer,

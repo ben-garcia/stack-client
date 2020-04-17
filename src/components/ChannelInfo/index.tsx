@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, EditChannelTopic, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
+import { openChannelDetailsWithMembers } from 'store/channelDetails';
 import {
   openEditChannelTopicModal,
   closeEditChannelTopicModal,
@@ -45,15 +46,23 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
       </div>
       <div className="channel__inner">
         <div className="channel__inner-inside">
-          <Icon
-            type="user"
-            color="black"
-            size="xm"
-            className="channel__icon-user"
-          />
-          <Text tag="span" size="sm" className="channel__members-count">
-            {membersSize}
-          </Text>
+          <Button
+            className="channel__members-button"
+            color="transparent"
+            onClick={() => dispatch(openChannelDetailsWithMembers())}
+            title="View member list"
+            type="button"
+          >
+            <Icon
+              type="user"
+              color="black"
+              size="xm"
+              className="channel__icon-user"
+            />
+            <Text tag="span" size="xm" className="channel__members-count">
+              {membersSize}
+            </Text>
+          </Button>
         </div>
         <div className="channel__inner-two">
           <div className="channel__add-topic">
@@ -78,7 +87,6 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             type="button"
             color="transparent"
             className="channel__edit-topic"
-            // onClick={() => setOpenEditModal(true)}
             onClick={() => dispatch(openEditChannelTopicModal())}
           >
             Edit
@@ -89,7 +97,6 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
         <Modal
           header="Edit channel topic"
           size="md"
-          // onClose={() => setOpenEditModal(false)}
           onClose={() => dispatch(closeEditChannelTopicModal())}
         >
           <EditChannelTopic value={channel?.topic} />

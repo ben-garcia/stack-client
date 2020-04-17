@@ -3,27 +3,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Icon, List, Text } from 'components';
 import { AppState } from 'store';
+import { openAddPeopleModal } from 'store/addPeopleModal';
 import { closeChannelDetails } from 'store/channelDetails';
-import { openInvitePeopleModal } from 'store/invitePeopleModal';
+import { openEditChannelDescriptionModal } from 'store/editChannelDescriptionModal';
+import { openEditChannelTopicModal } from 'store/editChannelTopicModal';
 import { Member } from 'store/members';
 import { printFormattedDate } from 'utils';
 import './styles.scss';
 
 const ChannelDetails = () => {
   const dispatch = useDispatch();
-  const { currentChannel, members, user } = useSelector((state: AppState) => ({
-    currentChannel: state.currentChannel,
-    members: state.members.list,
-    user: state.user,
-  }));
+  const { channelDetails, currentChannel, members, user } = useSelector(
+    (state: AppState) => ({
+      currentChannel: state.currentChannel,
+      channelDetails: state.channelDetails,
+      members: state.members.list,
+      user: state.user,
+    })
+  );
   // keep track of when the user clicks the about dropdown
   const [aboutDropdownIsOpen, setAboutDropdownIsOpen] = useState<boolean>(
     false
   );
   // keep track of when the user clicks the members dropdown
-  const [membersDropdownIsOpen, setMembersDropdownIsOpen] = useState<boolean>(
-    false
-  );
+  const [membersDropdownIsOpen, setMembersDropdownIsOpen] = useState<
+    boolean | undefined
+  >(channelDetails.withMembers);
 
   return (
     <section className="channel-details">
@@ -54,7 +59,7 @@ const ChannelDetails = () => {
           <Button
             className="channel-details__add-people-button"
             color="transparent"
-            onClick={() => dispatch(openInvitePeopleModal())}
+            onClick={() => dispatch(openAddPeopleModal())}
             type="button"
             title={`Add people to #${currentChannel.name}`}
           >
@@ -108,7 +113,7 @@ const ChannelDetails = () => {
                 Topic
               </Text>
               {currentChannel.topic ? (
-                <Text className="channel-details__subtext" tag="div">
+                <Text className="channel-details__subtext" tag="div" size="xm">
                   {currentChannel.topic}
                 </Text>
               ) : (
@@ -119,6 +124,7 @@ const ChannelDetails = () => {
               <Button
                 className="channel-details__edit-button"
                 color="transparent"
+                onClick={() => dispatch(openEditChannelTopicModal())}
                 type="button"
               >
                 <Text size="xm">edit</Text>
@@ -144,6 +150,7 @@ const ChannelDetails = () => {
               <Button
                 className="channel-details__edit-button"
                 color="transparent"
+                onClick={() => dispatch(openEditChannelDescriptionModal())}
                 type="button"
               >
                 <Text size="xm">edit</Text>
@@ -197,7 +204,11 @@ const ChannelDetails = () => {
           >
             <List className="channel-details__members-info members-list">
               {members.map((m: Member) => (
-                <List.Item className="members-list__item" hover={false}>
+                <List.Item
+                  className="members-list__item"
+                  hover={false}
+                  key={m.id}
+                >
                   <Icon className="members-list__icon" size="sm" type="user" />
                   {user.username === m.username
                     ? `${m.username}(you)`

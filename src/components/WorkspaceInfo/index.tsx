@@ -9,9 +9,9 @@ import './styles.scss';
 
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
   const dispatch = useDispatch();
-  const { channelDetailsIsOpen, currentChannel, currentTeammate } = useSelector(
+  const { channelDetails, currentChannel, currentTeammate } = useSelector(
     (state: AppState) => ({
-      channelDetailsIsOpen: state.channelDetailsIsOpen,
+      channelDetails: state.channelDetails,
       currentChannel: state.currentChannel,
       currentTeammate: state.currentTeammate,
     })
@@ -36,7 +36,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
           className="workspace-info__inner-right"
         />
       ) : null}
-      {currentChannel.id && !currentTeammate.id && !channelDetailsIsOpen ? (
+      {currentChannel.id && !currentTeammate.id && !channelDetails.isOpen ? (
         <div className="container">
           <Button
             className="details-button"

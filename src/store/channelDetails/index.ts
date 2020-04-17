@@ -8,7 +8,11 @@ import {
 } from './types';
 import ChannelDetailsReducerAlias from './reducer';
 
-export { closeChannelDetails, openChannelDetails } from './actions';
+export {
+  closeChannelDetails,
+  openChannelDetails,
+  openChannelDetailsWithMembers,
+} from './actions';
 export { ChannelDetailsActions } from './types';
 
 export type ChannelDetailsState = ChannelDetailsStateAlias;

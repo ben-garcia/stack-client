@@ -28,14 +28,14 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
   const {
     addPeopleModalIsOpen,
-    channelDetailsIsOpen,
+    channelDetails,
     currentChannel,
     currentTeammate,
     editChannelDescriptionModalIsOpen,
     user,
   } = useSelector((state: AppState) => ({
     addPeopleModalIsOpen: state.addPeopleModalIsOpen,
-    channelDetailsIsOpen: state.channelDetailsIsOpen,
+    channelDetails: state.channelDetails,
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
     editChannelDescriptionModalIsOpen: state.editChannelDescriptionModalIsOpen,
@@ -194,7 +194,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           </div>
         ) : null}
       </section>
-      {channelDetailsIsOpen && <ChannelDetails />}
+      {channelDetails.isOpen && <ChannelDetails />}
     </main>
   );
 };

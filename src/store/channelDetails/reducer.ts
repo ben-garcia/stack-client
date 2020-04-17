@@ -4,7 +4,9 @@ import {
   ChannelDetailsState,
 } from './types';
 
-const initialState: ChannelDetailsState = false;
+const initialState: ChannelDetailsState = {
+  isOpen: false,
+};
 
 const ChannelDetailsReducer = (
   state: Readonly<ChannelDetailsState> = initialState,
@@ -12,9 +14,11 @@ const ChannelDetailsReducer = (
 ): ChannelDetailsState => {
   switch (action.type) {
     case ChannelDetailsActions.OPEN_CHANNEL_DETAILS:
-      return true;
+      return { isOpen: true, withMembers: false };
+    case ChannelDetailsActions.OPEN_CHANNEL_DETAILS_WITH_MEMBERS:
+      return { isOpen: true, withMembers: true };
     case ChannelDetailsActions.CLOSE_CHANNEL_DETAILS:
-      return false;
+      return { isOpen: false };
     default:
       return state;
   }
