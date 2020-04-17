@@ -3,7 +3,7 @@
 .channel {
   padding-top: 0.8rem;
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  border-bottom: $border-line;
 
   &__name {
     display: flex;
@@ -76,13 +76,19 @@
   &__members-button {
     padding: 0;
 
-    &:hover {
+    &:hover .channel__icon-user {
       color: $color-blue-active;
     }
   }
 
   &__members-count {
+    font-size: 0.8rem !important;
+    font-weight: 400;
     margin-left: 0.2rem;
+
+    &:hover {
+      color: $color-blue-active;
+    }
   }
 
   &__topic {
