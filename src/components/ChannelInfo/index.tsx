@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, EditChannelTopic, Icon, Modal, Text } from 'components';
 import { AppState } from 'store';
+import {
+  openEditChannelTopicModal,
+  closeEditChannelTopicModal,
+} from 'store/editChannelTopicModal';
 import { ChannelInfoProps } from './types';
 import './styles.scss';
 
@@ -10,11 +14,16 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
   channel,
   className = '',
 }) => {
-  const { currentChannel, membersSize } = useSelector((state: AppState) => ({
+  const dispatch = useDispatch();
+  const {
+    currentChannel,
+    editChannelTopicModalIsOpen,
+    membersSize,
+  } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
+    editChannelTopicModalIsOpen: state.editChannelTopicModalIsOpen,
     membersSize: state.members.list.length,
   }));
-  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   let classesToAdd: string = 'channel';
 
   if (className?.trim() !== '') {
@@ -69,22 +78,21 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             type="button"
             color="transparent"
             className="channel__edit-topic"
-            onClick={() => setOpenEditModal(true)}
+            // onClick={() => setOpenEditModal(true)}
+            onClick={() => dispatch(openEditChannelTopicModal())}
           >
             Edit
           </Button>
         </div>
       </div>
-      {openEditModal && (
+      {editChannelTopicModalIsOpen && (
         <Modal
           header="Edit channel topic"
           size="md"
-          onClose={() => setOpenEditModal(false)}
+          // onClose={() => setOpenEditModal(false)}
+          onClose={() => dispatch(closeEditChannelTopicModal())}
         >
-          <EditChannelTopic
-            setOpenEditModal={setOpenEditModal}
-            value={channel?.topic}
-          />
+          <EditChannelTopic value={channel?.topic} />
         </Modal>
       )}
     </section>

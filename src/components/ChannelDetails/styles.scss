@@ -1,11 +1,12 @@
 @import '../../sass/variables';
 
 .channel-details {
-  width: 440px;
+  min-width: 440px;
 
   &__inner {
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    align-items: center;
+    border-bottom: $border-line;
+    border-left: $border-line;
     display: flex;
     height: 56px;
     justify-content: space-between;
@@ -13,24 +14,24 @@
   }
 
   &__container {
-    overflow: hidden scroll;
-    align-self: center;
+    border-left: $border-line;
     display: flex;
     flex-direction: column;
+    overflow: hidden scroll;
   }
 
   &__inner-two {
-    border-bottom: 1px solid #ccc;
     align-items: center;
+    border-bottom: $border-line;
     display: flex;
     height: 100px;
     justify-content: center;
   }
 
   &__inner-three {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   &__text {

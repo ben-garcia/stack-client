@@ -8,6 +8,7 @@ import {
   getAllWorkspaceChannels,
 } from './channels';
 import { channelDetailsReducer } from './channelDetails';
+import { editChannelTopicModalReducer } from './editChannelTopicModal';
 import { invitePeopleModalReducer } from './invitePeopleModal';
 import {
   MembersActions,
@@ -45,6 +46,7 @@ export const rootReducer = combineReducers({
   channels: channelsReducer,
   channelDetailsIsOpen: channelDetailsReducer,
   directMessages: directMessagesReducer,
+  editChannelTopicModalIsOpen: editChannelTopicModalReducer,
   invitePeopleModalIsOpen: invitePeopleModalReducer,
   members: membersReducer,
   messages: messagesReducer,

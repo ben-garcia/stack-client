@@ -6,13 +6,11 @@ import { Button, Form } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import { updateChannelTopic } from 'store/channel';
+import { closeEditChannelTopicModal } from 'store/editChannelTopicModal';
 import { EditChannelTopicProps } from './types';
 import './styles.scss';
 
-const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
-  setOpenEditModal,
-  value,
-}) => {
+const EditChannelTopic: React.FC<EditChannelTopicProps> = ({ value }) => {
   const dispatch: Dispatch = useDispatch();
   const { currentChannel } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
@@ -39,7 +37,7 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
     // dispatch action to update the current channel topic
     dispatch(updateChannelTopic(topic));
     // close the modal
-    setOpenEditModal(false);
+    dispatch(closeEditChannelTopicModal());
   };
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTopic(e.target.value);
