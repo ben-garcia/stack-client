@@ -12,6 +12,13 @@
     padding: 0 1rem;
   }
 
+  &__container {
+    overflow: hidden scroll;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   &__inner-two {
     border-bottom: 1px solid #ccc;
     align-items: center;
@@ -24,12 +31,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  &__container {
-    align-self: center;
-    display: flex;
-    flex-direction: column;
   }
 
   &__text {
@@ -49,6 +50,10 @@
     &:hover {
       background-color: rgba($color-dark-grey, 0.1);
     }
+  }
+
+  &__close-icon {
+    font-size: 0.8rem !important;
   }
 
   &__add-people-button {
@@ -73,16 +78,48 @@
 
   &__about,
   &__members {
-    align-items: center;
     border-bottom: 1px solid #ccc;
-    padding: 1rem;
+    font-weight: 700;
+  }
+
+  &__about-info {
+    background-color: rgba($color-dark-grey, 0.05);
+    color: rgba($color-dark-grey, 0.5);
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+  }
+
+  &__subtext {
+    margin: 0.3rem 0;
+
+    &--dark {
+      color: rgba($color-black, 0.8);
+      font-weight: 500;
+    }
+  }
+
+  &__topic,
+  &__description,
+  &__created {
+    padding-left: 0.5rem;
+  }
+
+  &__description,
+  &__created {
+    margin-top: 1.5rem;
+  }
+
+  &__dropdown-button {
     display: flex;
     font-weight: 700;
     justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+  }
 
-    &:hover {
-      cursor: pointer;
-    }
+  &__edit-button {
+    padding: 0;
+    color: $color-blue-active;
   }
 
   &__member-count {
@@ -94,5 +131,26 @@
   &__icon-chevron-right {
     font-size: 0.7rem !important;
     margin-right: 0.5rem;
+    transform: rotate(0);
+    transition: tranform 0.4s ease-in;
+
+    &--translate-rotate {
+      transform: translateX(-3px) rotate(90deg);
+    }
+
+    &--rotate {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.members-list {
+  &__icon {
+    margin-right: 0.3rem;
+  }
+
+  &__item {
+    font-weight: 400;
+    margin: 0.3rem 0.1rem;
   }
 }
