@@ -41,6 +41,7 @@
     "react/button-has-type": 0,
     "import/extensions": 0,
     "react/jsx-props-no-spreading": 0,
-    "react/jsx-indent": 0
+    "react/jsx-indent": 0,
+    "react/jsx-curly-newline": 0
   }
 }

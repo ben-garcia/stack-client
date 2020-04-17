@@ -6,11 +6,11 @@ import { Button, Form } from 'components';
 import sendRequest from 'api';
 import { AppState } from 'store';
 import { updateChannelDescription } from 'store/channel';
+import { closeEditChannelDescriptionModal } from 'store/editChannelDescriptionModal';
 import { EditChannelDescriptionProps } from './types';
 import './styles.scss';
 
 const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
-  setOpenEditModal,
   value,
 }) => {
   const dispatch: Dispatch = useDispatch();
@@ -39,7 +39,7 @@ const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
     // dispatch action to update the current channel topic
     dispatch(updateChannelDescription(description));
     // close the modal
-    setOpenEditModal(false);
+    dispatch(closeEditChannelDescriptionModal());
   };
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);

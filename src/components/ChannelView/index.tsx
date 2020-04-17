@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import {
   AddPeople,
@@ -14,23 +15,29 @@ import {
   WorkspaceInfo,
 } from 'components';
 import { AppState } from 'store';
+import {
+  closeEditChannelDescriptionModal,
+  openEditChannelDescriptionModal,
+} from 'store/editChannelDescriptionModal';
 import { printFormattedDate } from 'utils';
 import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
+  const dispatch: Dispatch = useDispatch();
   const {
     channelDetailsIsOpen,
     currentChannel,
     currentTeammate,
+    editChannelDescriptionModalIsOpen,
     user,
   } = useSelector((state: AppState) => ({
     channelDetailsIsOpen: state.channelDetailsIsOpen,
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
+    editChannelDescriptionModalIsOpen: state.editChannelDescriptionModalIsOpen,
     user: state.user,
   }));
-  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openAddPeopleModal, setOpenAddPeopleModal] = useState<boolean>(false);
   let classesToAdd: string = 'main-container';
 
@@ -84,7 +91,9 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                         type="button"
                         color="transparent"
                         title="Edit Channel Description"
-                        onClick={() => setOpenEditModal(true)}
+                        onClick={() =>
+                          dispatch(openEditChannelDescriptionModal())
+                        }
                       >
                         <Text tag="span" size="sm">
                           edit
@@ -92,14 +101,15 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                       </Button>
                       )
                     </Text>
-                    {openEditModal && (
+                    {editChannelDescriptionModalIsOpen && (
                       <Modal
                         header="Edit channel description"
                         size="md"
-                        onClose={() => setOpenEditModal(false)}
+                        onClose={() =>
+                          dispatch(closeEditChannelDescriptionModal())
+                        }
                       >
                         <EditChannelDescription
-                          setOpenEditModal={setOpenEditModal}
                           value={currentChannel?.description}
                         />
                       </Modal>
