@@ -22,29 +22,19 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
 
   return (
     <section className={classesToAdd}>
-      <div>
-        <div className="workspace__inner">
-          <Text tag="span" size="md" className="workspace__name">
-            {workspaceName}
-          </Text>
-          <Icon
-            type="chevron-down"
-            size="xm"
-            color="white"
-            className="workspace__chevron-icon"
-          />
-        </div>
-        <div className="workspace__inner-two">
-          <Icon
-            type="circle"
-            size="xm"
-            color="green"
-            className="workspace__circle-icon"
-          />
-          <Text tag="span" className="workspace__username">
-            {username}
-          </Text>
-        </div>
+      <div className="workspace__inner">
+        <Text tag="span" size="md" className="workspace__name">
+          {workspaceName}
+        </Text>
+        <Icon
+          type="circle"
+          size="xm"
+          color="green"
+          className="workspace__circle-icon"
+        />
+        <Text tag="span" className="workspace__username">
+          {username}
+        </Text>
       </div>
       <Button
         className="workspace__add-button"

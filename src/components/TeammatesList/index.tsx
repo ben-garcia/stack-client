@@ -100,8 +100,10 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
                     : 'teammates-list__icon'
                 }
               />
-              {t.username}
-              {user.id === t.id ? ` (You)` : ''}
+              <Text className="teammates-list__username" size="sm" tag="span">
+                {t.username}
+                {user.id === t.id ? ` (You)` : ''}
+              </Text>
             </Button>
           </List.Item>
         ))}

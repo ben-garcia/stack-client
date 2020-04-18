@@ -35,6 +35,12 @@
     }
   }
 
+  &__username {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &__add-button {
     display: flex;
     justify-content: center;

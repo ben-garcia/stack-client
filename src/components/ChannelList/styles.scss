@@ -13,6 +13,12 @@
     margin-right: 0.5rem;
   }
 
+  &__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &__add-button {
     display: flex;
     justify-content: center;

@@ -68,18 +68,21 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
         {channels.list.map((c: Channel) => (
           <List.Item key={c.id} active={c.id === currentChannel.id}>
             <Button
-              type="button"
-              color="transparent"
               className="channel-list__button"
+              color="transparent"
               onClick={() => saveChannel(c)}
+              title={`${c.name}`}
+              type="button"
             >
               <Icon
+                className="channel-list__icon"
+                color="white"
                 type={c.private ? 'lock' : 'hash'}
                 size="xm"
-                color="white"
-                className="channel-list__icon"
               />
-              {c.name}
+              <Text className="channel-list__name" tag="span" size="sm">
+                {c.name}
+              </Text>
             </Button>
           </List.Item>
         ))}

@@ -12,8 +12,10 @@
 }
 
 .details-button {
+  align-items: center;
   align-self: center;
   display: flex;
+  justify-content: center;
 
   &:hover {
     background-color: rgba($color-dark-grey, 0.1);

@@ -7,7 +7,10 @@ import sendRequest from 'api';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { addChannel } from 'store/channels';
-import { Teammate } from 'store/teammates/types';
+import { clearDirectMessages } from 'store/directMessages';
+import { clearMessages } from 'store/messages';
+import { getCurrentTeammate } from 'store/teammate';
+import { Teammate } from 'store/teammates';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
@@ -15,13 +18,21 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   createChannelFormIsOpen,
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspace, teammates, user } = useSelector(
-    (state: AppState) => ({
-      currentWorkspace: state.currentWorkspace,
-      teammates: state.teammates.list,
-      user: state.user,
-    })
-  );
+  const {
+    currentTeammate,
+    currentWorkspace,
+    directMessages,
+    messages,
+    teammates,
+    user,
+  } = useSelector((state: AppState) => ({
+    currentTeammate: state.currentTeammate,
+    currentWorkspace: state.currentWorkspace,
+    directMessages: state.directMessages.list,
+    messages: state.messages.list,
+    teammates: state.teammates.list,
+    user: state.user,
+  }));
   const [channel, setChannel] = useState<Channel>({
     name: '',
     description: '',
@@ -119,6 +130,25 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
         localStorage.setItem('currentChannel', JSON.stringify(newChannel));
         // dispatch action to change the current channel in the store
         dispatch(getCurrentChannel(newChannel));
+        // dispatch action to clear all channel messages(if needed)
+        if (messages.length !== 0) {
+          dispatch(clearMessages());
+        }
+        // dispatch action to clear all direct messages(if needed)
+        if (directMessages.length !== 0) {
+          dispatch(clearDirectMessages());
+        }
+        // clear current teammate
+        if (currentTeammate.id) {
+          localStorage.removeItem('currentTeammate');
+          // clear the current teammate to
+          dispatch(
+            getCurrentTeammate({
+              id: 0,
+              username: '',
+            })
+          );
+        }
         // close the create channel modal
         createChannelFormIsOpen(false);
       } catch (err) {

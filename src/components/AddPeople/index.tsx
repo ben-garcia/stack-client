@@ -35,9 +35,9 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
     // to determine the users that are common in both
     for (let i = 0; i < teammates.length; i += 1) {
       for (let j = 0; j < members.length; j += 1) {
-        if (teammates[i].username === members[j].username) {
+        if (teammates[i]?.username === members[j]?.username) {
           setMembersToAdd(state => {
-            return state.filter(t => t.username !== membersToAdd[i].username);
+            return state.filter(t => t.username !== membersToAdd[i]?.username);
           });
         }
       }

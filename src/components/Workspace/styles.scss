@@ -3,50 +3,36 @@
 .workspace {
   display: flex;
   justify-content: space-between;
-  background-color: $primary-color;
-  color: $background-color;
-  min-width: 220px;
-  padding: 1rem 1rem 0 1rem;
-
-  &:hover {
-    background-color: $primary-color-hover;
-    cursor: pointer;
-  }
-
-  &__chevron-icon {
-    align-self: center;
-    font-size: 0.5rem;
-    margin-left: 0.3rem;
-    opacity: 0.6;
-  }
-
-  &__username {
-    opacity: 0.6;
-  }
-
-  &:hover &__chevron-icon,
-  &:hover &__username {
-    opacity: 1;
-  }
+  padding: 1rem;
 
   &__inner {
-    display: flex;
-  }
-
-  &__name {
-    font-weight: 700;
-    margin-bottom: 0.3rem;
     max-width: 140px;
-    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
+  &__inner-two {
+    display: flex;
+    align-items: center;
+  }
+
+  &__name,
+  &__username {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__name {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
   &__circle-icon {
     background-color: #2bac76;
     border-radius: 50%;
-    font-size: 0.8rem;
     margin-right: 0.5rem;
   }
 
