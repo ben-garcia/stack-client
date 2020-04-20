@@ -49,6 +49,10 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
     }, 100);
   }, [containerScrollHeight]);
 
+  const [currentY, setCurrentY] = useState<number>(0);
+  const [initialY, setInitialY] = useState<number>(0);
+  const [yOffset, setYOffset] = useState<number>(0);
+
   return (
     <div className={classesToAdd}>
       <Workspace />
@@ -76,42 +80,48 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
         }}
         ref={containerRef}
       >
-        <ChannelList />
-        <TeammatesList />
+        <div className="workspace-sidebar__inner">
+          <ChannelList />
+          <TeammatesList />
+        </div>
         <div
-          className={
-            scrollbarIsVisible
-              ? 'scrollbar scrollbar--visible'
-              : 'scrollbar scrollbar--invisible'
-          }
+          className="scrollbar-track"
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+            setInitialY(e.clientY - yOffset);
             setScrollbarIsBeingDragged(true);
-            // eslint-disable-next-line
-            console.log('mouse down: ', e);
           }}
-          onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-            if (scrollbarIsBeingDragged === true) {
-              // eslint-disable-next-line
-              console.log('mouse leave: ', e);
-              setScrollbarIsBeingDragged(false);
-            }
+          onMouseLeave={() => {
+            setScrollbarIsBeingDragged(false);
           }}
           onMouseMove={(e: React.MouseEvent<HTMLDivElement>) => {
             if (scrollbarIsBeingDragged === true) {
-              // eslint-disable-next-line
-              console.log('mouse move: ', e.clientY);
+              e.preventDefault();
+              setCurrentY(e.clientY - initialY);
+              setYOffset(currentY);
+              // scrollbar shouldn't go beyond the top of its parent element
+              if (scrollbarPosition > 0) {
+                setScrollbarPosition(currentY);
+              }
+              containerRef.current!.scrollTop = currentY;
             }
           }}
-          onMouseUp={(e: React.MouseEvent<HTMLDivElement>) => {
+          onMouseUp={() => {
+            setInitialY(currentY);
             setScrollbarIsBeingDragged(false);
-            // eslint-disable-next-line
-            console.log('mouse up: ', e);
           }}
-          style={{
-            height: `${scrollbarHeight}px`,
-            transform: `translateY(${scrollbarPosition}px)`,
-          }}
-        />
+        >
+          <div
+            className={
+              scrollbarIsVisible
+                ? 'scrollbar scrollbar--visible'
+                : 'scrollbar scrollbar--invisible'
+            }
+            style={{
+              height: `${scrollbarHeight}px`,
+              transform: `translateY(${scrollbarPosition}px)`,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

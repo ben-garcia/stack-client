@@ -1,16 +1,28 @@
-.workspace-sidebar__container {
-  display: flex;
-  flex-direction: column;
-  height: 92vh;
-  overflow: hidden scroll;
+.workspace-sidebar {
+  &__container {
+    display: flex;
+    height: 92vh;
+    overflow: hidden scroll;
+    position: relative;
+    scrollbar-width: none;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+  }
+}
+
+.scrollbar-track {
+  height: inherit;
   position: relative;
-  scrollbar-width: none;
+  width: 5%;
 }
 
 .scrollbar {
   background-color: rgba(255, 255, 255, 0.45);
   position: absolute;
-  right: 0.2rem;
   top: 0;
   transform: translateY(0);
   transition: transform linear;
