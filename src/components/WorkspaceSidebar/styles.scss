@@ -1,3 +1,26 @@
-.workspace-sidebar {
+.workspace-sidebar__container {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
   overflow: hidden scroll;
+  position: relative;
+  scrollbar-width: none;
+}
+
+.scrollbar {
+  background-color: rgba(255, 255, 255, 0.45);
+  position: absolute;
+  right: 0.2rem;
+  top: 0;
+  transform: translateY(0);
+  transition: transform linear;
+  width: 0.5rem;
+
+  &--invisible {
+    opacity: 0;
+  }
+
+  &--visible {
+    opacity: 1;
+  }
 }

@@ -1,9 +1,10 @@
 @import '../../sass/variables';
 
 .workspace {
+  border-bottom: 1px solid rgba($color-dark-grey, 0.5);
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.7rem 1rem 0.05rem 1rem;
 
   &__inner {
     max-width: 140px;
@@ -37,16 +38,18 @@
   }
 
   &__add-button {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    align-self: start;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
+    align-self: center;
     border: 1px solid rgba($background-color, 0.5);
     border-radius: 50%;
+    cursor: pointer;
+    display: flex;
     font-size: 0.6rem;
+    height: 20px;
+    justify-content: center;
+    position: relative;
+    right: 0.5rem;
+    width: 20px;
 
     &:hover {
       border-color: rgba($background-color, 1);

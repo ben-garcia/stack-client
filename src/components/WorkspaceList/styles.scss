@@ -2,7 +2,8 @@
 
 .workspace-list {
   height: 100vh;
-  overflow-y: scroll;
+  overflow: hidden scroll;
+  scrollbar-width: none;
 
   .workspaces-item {
     padding: 0;
