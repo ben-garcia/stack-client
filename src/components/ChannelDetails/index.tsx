@@ -33,7 +33,7 @@ const ChannelDetails = () => {
   return (
     <section className="channel-details">
       <div className="channel-details__inner">
-        <div className="channel-details__container">
+        <div className="channel-details__inside">
           <Text className="channel-details__text" tag="span" size="sm">
             Details
           </Text>

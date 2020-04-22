@@ -13,11 +13,17 @@
     padding: 0 1rem;
   }
 
+  &__inside,
   &__container {
-    border-left: $border-line;
     display: flex;
     flex-direction: column;
+  }
+
+  &__container {
+    border-left: $border-line;
+    height: calc(100vh - 4rem);
     overflow: hidden scroll;
+    scrollbar-width: none;
   }
 
   &__inner-two {
