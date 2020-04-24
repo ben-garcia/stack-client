@@ -9,13 +9,15 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   className = '',
 }) => {
   const [scrollbarIsVisible, setScrollbarIsVisible] = useState<boolean>(false);
-  const [scrollbarHeight, setScrollbarHeight] = useState<number>(0);
-  const [scrollbarPosition, setScrollbarPosition] = useState<number>(0);
-  const [scrollbarScrollTop, setScrollbarScrollTop] = useState<number>(
-    window.pageYOffset
-  );
-  const [containerScrollHeight, setContainerScrollHeight] = useState<number>(0);
+  const lastPageY = useRef(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollbarRef = useRef<HTMLDivElement | null>(null);
+  const [scrollbarIsBeingDragged, setScrollbarIsBeingDragged] = useState<
+    boolean
+  >(false);
+  const [containerScrollHeight, setContainerScrollHeight] = useState<
+    number | undefined
+  >(containerRef.current?.scrollHeight);
   let classesToAdd: string = 'workspace-sidebar';
 
   if (className?.trim() !== '') {
@@ -24,49 +26,67 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (containerRef.current && containerRef.current?.scrollHeight) {
+      if (
+        containerRef.current &&
+        containerScrollHeight !== containerRef.current?.scrollHeight &&
+        scrollbarRef.current
+      ) {
         // scrollHeight is the height of the container (including the hidden vertical scrollable content)
         // clientHeight is the height of the container (excluding the hidden content)
-        // setScrollbarHeight(
-        //   containerRef.current.scrollHeight - containerRef.current.offsetHeight
-        // );
-        setScrollbarHeight(
-          containerRef.current.scrollHeight * -0.25 +
-            containerRef.current.clientHeight
-        );
+        const { clientHeight, scrollHeight } = containerRef.current;
+        scrollbarRef.current.style.height = `${(clientHeight / scrollHeight) *
+          100}%`;
         setContainerScrollHeight(containerRef.current.scrollHeight);
         clearInterval(interval);
       }
     }, 200);
-  }, [containerScrollHeight]);
+    // eslint-disable-next-line
+  }, [containerRef.current?.scrollHeight, containerScrollHeight]);
+
+  const onDrag = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { pageY } = e;
+    const delta = pageY - lastPageY.current;
+    lastPageY.current = pageY;
+    const scrollRatio =
+      containerRef.current!.clientHeight / containerRef.current!.scrollHeight;
+    containerRef.current!.scrollTop += delta / scrollRatio;
+    scrollbarRef.current!.style.top = `${(containerRef.current!.scrollTop /
+      containerRef.current!.scrollHeight) *
+      100}%`;
+  };
+  const onDragEnd = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setScrollbarIsBeingDragged(false);
+
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', onDragEnd);
+  };
 
   return (
     <div className={classesToAdd}>
       <Workspace />
-      <div className="workspace-sidebar__container">
+      <div
+        className="workspace-sidebar__container"
+        onMouseEnter={() => {
+          if (!scrollbarIsVisible) {
+            setScrollbarIsVisible(true);
+          }
+        }}
+        onMouseLeave={() => {
+          if (scrollbarIsVisible) {
+            setScrollbarIsVisible(false);
+          }
+        }}
+      >
         <div
           className="workspace-sidebar__inner"
-          onMouseEnter={() => {
-            if (!scrollbarIsVisible) {
-              setScrollbarIsVisible(true);
-            }
-          }}
-          onMouseLeave={() => {
-            if (scrollbarIsVisible) {
-              setScrollbarIsVisible(false);
-            }
-          }}
           onScroll={(e: React.UIEvent<HTMLDivElement>) => {
-            const currentTargetScrollTop = e.currentTarget.scrollTop;
-
-            // scrolling down
-            if (scrollbarScrollTop < currentTargetScrollTop) {
-              setScrollbarPosition(currentTargetScrollTop * 0.85);
-            } else {
-              // scrolling up
-              setScrollbarPosition(currentTargetScrollTop);
-            }
-            setScrollbarScrollTop(currentTargetScrollTop * -0.85);
+            const { scrollHeight, scrollTop } = e.currentTarget;
+            scrollbarRef.current!.style.top = `${(scrollTop / scrollHeight) *
+              100}%`;
           }}
           ref={containerRef}
         >
@@ -76,14 +96,19 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
         <div className="scrollbar-track">
           <div
             className={
-              scrollbarIsVisible
+              scrollbarIsVisible || scrollbarIsBeingDragged
                 ? 'scrollbar scrollbar--visible'
                 : 'scrollbar scrollbar--invisible'
             }
-            style={{
-              height: `${scrollbarHeight}px`,
-              transform: `translateY(${scrollbarPosition}px)`,
+            onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+              const { pageY } = e;
+              lastPageY.current = pageY;
+              setScrollbarIsBeingDragged(true);
+
+              document.addEventListener('mousemove', onDrag);
+              document.addEventListener('mouseup', onDragEnd);
             }}
+            ref={scrollbarRef}
           />
         </div>
       </div>

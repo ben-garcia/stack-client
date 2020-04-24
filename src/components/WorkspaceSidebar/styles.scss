@@ -24,8 +24,6 @@
   background-color: rgba(255, 255, 255, 0.45);
   position: absolute;
   top: 0;
-  transform: translateY(0);
-  transition: transform linear;
   width: 100%;
 
   &--invisible {
