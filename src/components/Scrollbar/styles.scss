@@ -1,0 +1,48 @@
+.scrollbar-wrapper {
+  height: 100%;
+  width: 100%;
+
+  &__container {
+    display: flex;
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden scroll;
+    scrollbar-width: none;
+    width: 100%;
+  }
+}
+
+.scrollbar-track {
+  height: 100%;
+  position: relative;
+  width: 15px;
+}
+
+.scrollbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  &--light {
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+
+  &--dark {
+    background-color: rgba(137, 136, 137, 1);
+  }
+
+  &--invisible {
+    opacity: 0;
+  }
+
+  &--visible {
+    opacity: 1;
+  }
+}
