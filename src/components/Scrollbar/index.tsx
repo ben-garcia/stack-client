@@ -8,6 +8,8 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   className = '',
   children,
   color,
+  height = '',
+  width = '',
 }) => {
   const [scrollbarIsVisible, setScrollbarIsVisible] = useState<boolean>(false);
   const lastPageY = useRef(0);
@@ -52,6 +54,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
     lastPageY.current = pageY;
     const scrollRatio =
       containerRef.current!.clientHeight / containerRef.current!.scrollHeight;
+
     containerRef.current!.scrollTop += delta / scrollRatio;
     scrollbarRef.current!.style.top = `${(containerRef.current!.scrollTop /
       containerRef.current!.scrollHeight) *
@@ -60,14 +63,27 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   const onDragEnd = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setScrollbarIsBeingDragged(false);
 
+    setScrollbarIsBeingDragged(false);
     document.removeEventListener('mousemove', onDrag);
     document.removeEventListener('mouseup', onDragEnd);
   };
 
+  // calculate the styles to add
+  const styles = { height: '', width: '' };
+  // check for the height prop
+  // if no height is passed in then use default(100%)
+  if (height !== '') {
+    styles.height = height;
+  }
+  // check for the width
+  // if no width is passed in then use default(100%)
+  if (width !== '') {
+    styles.width = width;
+  }
+
   return (
-    <div className={classesToAdd}>
+    <div className={classesToAdd} style={styles}>
       <div
         className="scrollbar-wrapper__container"
         onMouseEnter={() => {
@@ -94,30 +110,24 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
         >
           {children}
         </div>
+        <div className="scrollbar-track">
+          <div
+            className={
+              scrollbarIsVisible || scrollbarIsBeingDragged
+                ? `scrollbar scrollbar--${color} scrollbar--visible`
+                : `scrollbar scrollbar--${color} scrollbar--invisible`
+            }
+            onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+              const { pageY } = e;
+              lastPageY.current = pageY;
+              setScrollbarIsBeingDragged(true);
 
-        {containerRef.current &&
-        containerRef?.current?.scrollHeight -
-          containerRef?.current?.clientHeight >
-          0 ? (
-          <div className="scrollbar-track">
-            <div
-              className={
-                scrollbarIsVisible || scrollbarIsBeingDragged
-                  ? `scrollbar scrollbar--${color} scrollbar--visible`
-                  : `scrollbar scrollbar--${color} scrollbar--invisible`
-              }
-              onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
-                const { pageY } = e;
-                lastPageY.current = pageY;
-                setScrollbarIsBeingDragged(true);
-
-                document.addEventListener('mousemove', onDrag);
-                document.addEventListener('mouseup', onDragEnd);
-              }}
-              ref={scrollbarRef}
-            />
-          </div>
-        ) : null}
+              document.addEventListener('mousemove', onDrag);
+              document.addEventListener('mouseup', onDragEnd);
+            }}
+            ref={scrollbarRef}
+          />
+        </div>
       </div>
     </div>
   );

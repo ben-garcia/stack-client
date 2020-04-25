@@ -20,6 +20,7 @@ import List from './List';
 import MessageList from './MessageList';
 import Modal from './Modal';
 import Navbar from './Navbar';
+import Scrollbar from './Scrollbar';
 import TeammateInfo from './TeammateInfo';
 import TeammatesList from './TeammatesList';
 import Text from './Text';
@@ -51,6 +52,7 @@ export {
   MessageList,
   Modal,
   Navbar,
+  Scrollbar,
   TeammateInfo,
   TeammatesList,
   Text,
