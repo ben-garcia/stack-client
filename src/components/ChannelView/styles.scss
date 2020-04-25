@@ -7,15 +7,6 @@
   .channel-view {
     flex: auto;
 
-    &__container {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 84vh;
-      overflow: hidden scroll;
-      scrollbar-width: none;
-    }
-
     &__inner {
       margin: 0.8rem 0;
     }

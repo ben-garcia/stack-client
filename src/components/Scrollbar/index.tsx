@@ -48,7 +48,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
 
   const onDrag = (e: MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation();
+
     const { pageY } = e;
     const delta = pageY - lastPageY.current;
     lastPageY.current = pageY;
@@ -62,7 +62,6 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   };
   const onDragEnd = (e: MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation();
 
     setScrollbarIsBeingDragged(false);
     document.removeEventListener('mousemove', onDrag);
@@ -110,24 +109,34 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
         >
           {children}
         </div>
-        <div className="scrollbar-track">
-          <div
-            className={
-              scrollbarIsVisible || scrollbarIsBeingDragged
-                ? `scrollbar scrollbar--${color} scrollbar--visible`
-                : `scrollbar scrollbar--${color} scrollbar--invisible`
-            }
-            onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
-              const { pageY } = e;
-              lastPageY.current = pageY;
-              setScrollbarIsBeingDragged(true);
+        {/* show scrollbar only when the scrollable area is greater than
+            the height of the div */}
+        {containerRef.current &&
+        containerRef.current?.scrollHeight -
+          containerRef.current?.clientHeight >
+          0 ? (
+          <div className="scrollbar-track">
+            <div
+              className={
+                scrollbarIsVisible || scrollbarIsBeingDragged
+                  ? `scrollbar scrollbar--${color} scrollbar--visible`
+                  : `scrollbar scrollbar--${color} scrollbar--invisible`
+              }
+              onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
+                // prevent text selection when dragging
+                e.preventDefault();
 
-              document.addEventListener('mousemove', onDrag);
-              document.addEventListener('mouseup', onDragEnd);
-            }}
-            ref={scrollbarRef}
-          />
-        </div>
+                const { pageY } = e;
+                lastPageY.current = pageY;
+                setScrollbarIsBeingDragged(true);
+
+                document.addEventListener('mousemove', onDrag);
+                document.addEventListener('mouseup', onDragEnd);
+              }}
+              ref={scrollbarRef}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );
