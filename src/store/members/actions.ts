@@ -10,6 +10,10 @@ export const addMember = (member: Member): MembersActionTypes => ({
   payload: member,
 });
 
+export const clearMembers = (): MembersActionTypes => ({
+  type: MembersActions.CLEAR_CHANNEL_MEMBERS,
+});
+
 export const receivedChannelMembers = (
   members: Member[]
 ): MembersActionTypes => ({

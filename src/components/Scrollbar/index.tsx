@@ -109,13 +109,14 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
         >
           {children}
         </div>
-        {/* show scrollbar only when the scrollable area is greater than
+
+        <div className="scrollbar-track">
+          {/* show scrollbar only when the scrollable area is greater than
             the height of the div */}
-        {containerRef.current &&
-        containerRef.current?.scrollHeight -
-          containerRef.current?.clientHeight >
-          0 ? (
-          <div className="scrollbar-track">
+          {containerRef.current &&
+          containerRef.current?.scrollHeight -
+            containerRef.current?.clientHeight >
+            0 ? (
             <div
               className={
                 scrollbarIsVisible || scrollbarIsBeingDragged
@@ -135,8 +136,8 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
               }}
               ref={scrollbarRef}
             />
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </div>
   );

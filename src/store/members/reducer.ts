@@ -11,6 +11,10 @@ const MembersReducer = (
       return {
         list: [...state.list, action.payload],
       };
+    case MembersActions.CLEAR_CHANNEL_MEMBERS:
+      return {
+        list: [],
+      };
     case MembersActions.RECEIVED_CHANNEL_MEMBERS:
       return {
         list: [...action.payload],

@@ -1,5 +1,6 @@
 export enum MembersActions {
   ADD_MEMBER = 'ADD_MEMBERS',
+  CLEAR_CHANNEL_MEMBERS = 'CLEAR_CHANNEL_MEMBERS',
   REQUEST_CHANNEL_MEMBERS = 'REQUEST_CHANNEL_MEMBERS',
   RECEIVED_CHANNEL_MEMBERS = 'RECEIVED_CHANNEL_MEMBERS',
   RECEIVED_CHANNEL_MEMBERS_ERROR = 'RECEIVED_CHANNEL_MEMBERS_ERROR',
@@ -17,6 +18,15 @@ export interface MembersState {
   error?: MembersError;
 }
 
+interface AddMember {
+  type: typeof MembersActions.ADD_MEMBER;
+  payload: Member;
+}
+
+interface ClearMembers {
+  type: typeof MembersActions.CLEAR_CHANNEL_MEMBERS;
+}
+
 interface RequestChannelMembers {
   type: typeof MembersActions.REQUEST_CHANNEL_MEMBERS;
 }
@@ -31,13 +41,9 @@ interface ReceivedChannelMembersError {
   payload: MembersError;
 }
 
-interface AddMember {
-  type: typeof MembersActions.ADD_MEMBER;
-  payload: Member;
-}
-
 export type MembersActionTypes =
+  | AddMember
+  | ClearMembers
   | RequestChannelMembers
   | ReceivedChannelMembers
-  | ReceivedChannelMembersError
-  | AddMember;
+  | ReceivedChannelMembersError;

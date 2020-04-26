@@ -8,6 +8,7 @@ import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { addChannel } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
+import { addMember, clearMembers } from 'store/members';
 import { clearMessages } from 'store/messages';
 import { getCurrentTeammate } from 'store/teammate';
 import { Teammate } from 'store/teammates';
@@ -124,9 +125,11 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
           data,
         });
 
+        // dispatch action to remove all current members
+        dispatch(clearMembers());
         // dispatch action to add newly created channel to the store.
         dispatch(addChannel(newChannel));
-        // store the newly createted channel in local storage
+        // store the newly created channel in local storage
         localStorage.setItem('currentChannel', JSON.stringify(newChannel));
         // dispatch action to change the current channel in the store
         dispatch(getCurrentChannel(newChannel));
@@ -148,6 +151,12 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
               username: '',
             })
           );
+        }
+        // dispatch action to add workspace teammates as channel's members
+        if (data.channel.members && data.channel.members.length > 0) {
+          data.channel.members.forEach((t: Teammate) => {
+            dispatch(addMember(t));
+          });
         }
         // close the create channel modal
         createChannelFormIsOpen(false);

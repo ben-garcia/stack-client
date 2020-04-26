@@ -12,6 +12,7 @@ import getAllChannelMembers from './sagas';
 
 export {
   addMember,
+  clearMembers,
   receivedChannelMembers,
   receivedChannelMembersError,
   requestChannelMembers,
