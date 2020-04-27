@@ -142,8 +142,9 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     setSocket(mySocket);
     if (currentChannel.id && !currentTeammate.id) {
       mySocket.emit('user-connected', {
-        username: user.username,
         channelName: `${currentWorkspace.id}:${currentWorkspace.name}-${currentChannel.id}-${currentChannel.name}`,
+        username: user.username,
+        workspaceName: `${currentWorkspace.id}:${currentWorkspace.name}`,
       });
     }
     if (currentTeammate.id && !currentChannel.id) {
@@ -155,8 +156,9 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       ];
       const channelName = ids.sort((a, b) => a.id - b.id);
       mySocket.emit('user-connected', {
+        channelName: `${currentWorkspace.id}:${currentWorkspace.name}-${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
         username: user.username,
-        channelName: `${currentWorkspace.id}:{currentWorkspace.name}-${channelName[0].id}:${channelName[0].username}-${channelName[1].id}:${channelName[1].username}`,
+        workspaceName: `${currentWorkspace.id}:${currentWorkspace.name}`,
       });
     }
     mySocket.on('user-connected', ({ usernames }: any) => {
@@ -180,6 +182,8 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       dispatch(addMessage(JSON.parse(channelMessage)));
     });
     mySocket.on('direct-message', (channelMessage: any) => {
+      // eslint-disable-next-line
+      console.log('direct-message: ', JSON.parse(channelMessage));
       // update the store so that the new direct message will render
       dispatch(addUserDirectMessage(JSON.parse(channelMessage)));
     });
@@ -189,8 +193,16 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       // eslint-disable-next-line
       console.log('user-disconnected', username);
     });
+    // run before component unmounts
+    // clean disconnect the socket
+    return () => {
+      // send message to let the server know user has disconnected
+      mySocket.emit('user-disconnected', user.username);
+      // close the connection
+      mySocket.close();
+    };
     // eslint-disable-next-line
-  }, [currentChannel, currentTeammate, currentWorkspace]);
+  }, [currentChannel, currentTeammate]);
 
   return (
     <Form>
