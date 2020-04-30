@@ -9,6 +9,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   children,
   color,
   height = '',
+  scrollbarPositionStartAtBottom = false,
   width = '',
 }) => {
   const [scrollbarIsVisible, setScrollbarIsVisible] = useState<boolean>(false);
@@ -36,9 +37,16 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
       ) {
         // scrollHeight is the height of the container (including the hidden vertical scrollable content)
         // clientHeight is the height of the container (excluding the hidden content)
-        const { clientHeight, scrollHeight } = containerRef.current;
+        const { clientHeight, scrollHeight, scrollTop } = containerRef.current;
         scrollbarRef.current.style.height = `${(clientHeight / scrollHeight) *
           100}%`;
+        if (scrollbarPositionStartAtBottom) {
+          // scroll all the way to the bottom of the content
+          containerRef.current.scrollTop = scrollHeight;
+          // scrollbar position starts at the bottom
+          scrollbarRef.current.style.top = `${(scrollTop / scrollHeight) *
+            100}%`;
+        }
         setContainerScrollHeight(containerRef.current.scrollHeight);
         clearInterval(interval);
       }

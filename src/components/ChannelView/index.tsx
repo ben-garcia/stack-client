@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -26,7 +26,6 @@ import { ChannelViewProps } from './types';
 import './styles.scss';
 
 const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
-  const channelViewContainerRef = useRef<HTMLDivElement | null>(null);
   const dispatch: Dispatch = useDispatch();
   const {
     addPeopleModalIsOpen,
@@ -34,7 +33,6 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     currentChannel,
     currentTeammate,
     editChannelDescriptionModalIsOpen,
-    messages,
     user,
   } = useSelector((state: AppState) => ({
     addPeopleModalIsOpen: state.addPeopleModalIsOpen,
@@ -42,7 +40,6 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
     editChannelDescriptionModalIsOpen: state.editChannelDescriptionModalIsOpen,
-    messages: state.messages.list,
     user: state.user,
   }));
   let classesToAdd: string = 'main-container';
@@ -51,23 +48,12 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
-  // scroll the bottom when a new message is added
-  useEffect(() => {
-    // give it time to render before scrolling to the bottom
-    setTimeout(() => {
-      if (channelViewContainerRef.current) {
-        channelViewContainerRef.current.scrollTop =
-          channelViewContainerRef?.current.scrollHeight;
-      }
-    }, 1);
-  }, [messages]);
-
   return (
     <main className={classesToAdd}>
       <section className="channel-view">
         <WorkspaceInfo />
-        <Scrollbar color="dark" height="84vh">
-          <div ref={channelViewContainerRef}>
+        <Scrollbar color="dark" height="84vh" scrollbarPositionStartAtBottom>
+          <div>
             {currentChannel.id !== 0 && !currentTeammate.id && (
               <div>
                 <h1 className="channel-view__inner">

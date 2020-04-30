@@ -3,5 +3,6 @@ export interface ScrollbarProps {
   className?: string;
   color: 'light' | 'dark';
   height?: string;
+  scrollbarPositionStartAtBottom?: boolean;
   width?: string;
 }
