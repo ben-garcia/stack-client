@@ -32,7 +32,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
       ) : null}
       {currentTeammate.id && !currentChannel.id ? (
         <TeammateInfo
-          teammate={currentTeammate as any}
+          currentTeammate={currentTeammate as any}
           className="workspace-info__inner-right"
         />
       ) : null}

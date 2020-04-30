@@ -3,20 +3,27 @@ import { useSelector } from 'react-redux';
 
 import { Icon, Text } from 'components';
 import { AppState } from 'store';
+import { Teammate } from 'store/teammates';
 import { TeammateInfoProps } from './types';
 import './styles.scss';
 
 const TeammateInfo: React.FC<TeammateInfoProps> = ({
-  teammate,
+  currentTeammate,
   className = '',
 }) => {
-  const { user } = useSelector((state: AppState) => ({
+  const { teammates, user } = useSelector((state: AppState) => ({
+    teammates: state.teammates.list,
     user: state.user,
   }));
   let classesToAdd: string = 'teammate';
 
   if (className?.trim() !== '') {
     classesToAdd += ` ${className}`;
+  }
+  let teammate: Teammate | undefined;
+  if (currentTeammate) {
+    // get the current teammate including the active state
+    teammate = teammates.find((t: Teammate) => t.id === currentTeammate.id);
   }
 
   return (
