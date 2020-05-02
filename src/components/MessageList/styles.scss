@@ -70,21 +70,15 @@
   top: 0.2rem;
 }
 
-.timestamp-container {
-  display: flex;
-  flex-direction: column;
-  margin: 0.3rem 0;
+.horizontal-line {
+  background-color: $color-dark-grey;
+  position: relative;
+  opacity: 0.2;
+  top: 0.8rem;
+}
 
-  .horizontal-line {
-    background-color: $color-dark-grey;
-    position: relative;
-    opacity: 0.2;
-    top: 0.8rem;
-  }
-
-  .position-sticky {
-    position: sticky;
-    text-align: center;
-    top: 0;
-  }
+.position-sticky {
+  position: sticky;
+  text-align: center;
+  top: 5px;
 }

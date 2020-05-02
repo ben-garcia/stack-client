@@ -69,13 +69,11 @@ const MessageList: React.FC = () => {
           key={`${Math.random()}:${messages[0].id}`}
         >
           <>
-            <div className="timestamp-container">
-              <hr className="horizontal-line" />
-              <div className="position-sticky">
-                <Text size="xm" tag="span" className="message__date-created">
-                  {printFormattedDate(messages[0].createdAt)}
-                </Text>
-              </div>
+            <hr className="horizontal-line" />
+            <div className="position-sticky">
+              <Text size="xm" tag="span" className="message__date-created">
+                {printFormattedDate(messages[0].createdAt)}
+              </Text>
             </div>
             {messages.map((message: Message | DirectMessage, i: number) => (
               <div className="message__wrapper" key={message.id}>
