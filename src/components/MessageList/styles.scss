@@ -28,6 +28,10 @@
       display: flex;
     }
 
+    &__wrapper {
+      margin: 0.4rem 0;
+    }
+
     &__inner-two {
       flex-direction: column;
       margin-left: 0.3rem;
