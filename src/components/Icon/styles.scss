@@ -29,16 +29,64 @@
 }
 
 /* colors */
-.icon--white {
-  color: $background-color;
+.icon--aquamarine {
+  color: #7fffd4;
 }
 
 .icon--black {
   color: $color-black;
 }
 
+.icon--blue {
+  color: #3f00ff;
+}
+
+.icon--dim-grey {
+  color: #696969;
+}
+
+.icon--golden {
+  color: #daa520;
+}
+
 .icon--green {
   color: $color-green;
+}
+
+.icon--green-yellow {
+  color: #adff2f;
+}
+
+.icon--lawn-green {
+  color: #7cfc00;
+}
+
+.icon--orange {
+  color: #b8492e;
+}
+
+.icon--orange-red {
+  color: #ff4500;
+}
+
+.icon--purple {
+  color: #800080;
+}
+
+.icon--red {
+  color: #ff0000;
+}
+
+.icon--teal {
+  color: #065535;
+}
+
+.icon--white {
+  color: $background-color;
+}
+
+.icon--yellow {
+  color: #ffc100;
 }
 
 /* icons */

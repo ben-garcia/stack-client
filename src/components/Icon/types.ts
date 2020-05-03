@@ -1,4 +1,4 @@
-type IconType =
+type IconTypes =
   | 'checkmark'
   | 'chevron-down'
   | 'chevron-left'
@@ -12,9 +12,26 @@ type IconType =
   | 'times'
   | 'user';
 
+export type colorTypes =
+  | 'aquamarine'
+  | 'black'
+  | 'blue'
+  | 'dim-grey'
+  | 'golden'
+  | 'green'
+  | 'green-yellow'
+  | 'lawn-green'
+  | 'orange'
+  | 'orange-red'
+  | 'purple'
+  | 'red'
+  | 'teal'
+  | 'white'
+  | 'yellow';
+
 export interface IconProps {
-  type: IconType;
+  type: IconTypes;
   size?: 'xm' | 'sm' | 'md' | 'lg' | 'xlg' | 'xxl';
-  color?: 'white' | 'black' | 'green';
+  color?: colorTypes;
   className?: string;
 }
