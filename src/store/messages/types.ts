@@ -11,7 +11,7 @@ export interface Message {
   content: string;
   createdAt: string;
   updatedAt: string;
-  user: { username: string };
+  user: { color: string; username: string };
 }
 
 export type MessagesError = string;

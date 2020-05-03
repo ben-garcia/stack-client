@@ -1,7 +1,8 @@
 import { call, put, select } from 'redux-saga/effects';
 
-import sendRequest from 'api';
+import { sendRequest, userColors } from 'api';
 import { AppState } from 'store';
+import { Teammate } from 'store/teammates';
 import {
   receivedWorkspaceTeammates,
   receivedWorkspaceTeammatesError,
@@ -9,10 +10,12 @@ import {
 
 // selector to get the current workspace id
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
+const getCurrentUserId = (state: AppState) => state.user.id;
 
 function* GetAllCurrentWorkspaceTeammates() {
   try {
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
+    const currentUserId = yield select(getCurrentUserId);
     const {
       data: { teammates },
     } = yield call(sendRequest, {
@@ -20,6 +23,18 @@ function* GetAllCurrentWorkspaceTeammates() {
       url: `/workspaces/${currentWorkspaceId}`,
     });
 
+    if (teammates.length < 13) {
+      teammates.forEach((t: Teammate, i: number) => {
+        if (currentUserId === t.id) {
+          // the user will have purple
+          // eslint-disable-next-line
+          t.color = 'purple';
+        } else {
+          // eslint-disable-next-line
+          t.color = userColors[i];
+        }
+      });
+    }
     // dispatch the action
     yield put(receivedWorkspaceTeammates(teammates));
   } catch (e) {

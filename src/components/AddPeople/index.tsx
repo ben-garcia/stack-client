@@ -2,7 +2,7 @@ import React, { useEffect, useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { closeAddPeopleModal } from 'store/addPeopleModal';
 import { openInvitePeopleModal } from 'store/invitePeopleModal';

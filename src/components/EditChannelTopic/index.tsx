@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form } from 'components';
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { updateChannelTopic } from 'store/channel';
 import { closeEditChannelTopicModal } from 'store/editChannelTopicModal';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import { ChannelView, WorkspaceList, WorkspaceSidebar } from 'components';
 import { AppState } from 'store';
@@ -18,13 +18,13 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const store = useStore();
   const { currentChannel, currentTeammate, user, workspaces } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
       currentTeammate: state.currentTeammate,
       currentWorkspace: state.currentWorkspace,
       channels: state.channels,
-      teammates: state.teammates,
       user: state.user,
       workspaces: state.workspaces,
     })
@@ -68,7 +68,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
     }
     // make sure the current workspace id is stored in local storage
     if (teammateFromLocalStorage && workspaceFromLocalStorage) {
-      dispatch(requestUserDirectMessages());
+      const interval = setInterval(() => {
+        const { directMessages } = store.getState();
+        if (directMessages.length > 0) {
+          dispatch(requestUserDirectMessages());
+          clearInterval(interval);
+        }
+      }, 100);
     }
     // set up channelId on page reload
     if (channelFromLocalStorage && !currentTeammate.id) {
@@ -77,10 +83,17 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(getCurrentChannel(channel));
       // dispatch action to update the current channel's topic
       dispatch(updateChannelTopic(channel.topic));
-      // dispatch action to get the current channel's members
-      dispatch(requestChannelMembers());
-      // dispatch action to get the current channel's messages
-      dispatch(requestChannelMessages());
+      // make sure that workspace teammates have been received
+      const interval = setInterval(() => {
+        const { teammates } = store.getState();
+        if (teammates.list.length > 0) {
+          // dispatch action to get the current channel's members
+          dispatch(requestChannelMembers());
+          // dispatch action to get the current channel's messages
+          dispatch(requestChannelMessages());
+          clearInterval(interval);
+        }
+      }, 100);
     }
   }
 

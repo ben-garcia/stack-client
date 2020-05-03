@@ -9,6 +9,7 @@ export enum MembersActions {
 export interface Member {
   id: number;
   username: string;
+  color?: string;
 }
 
 export type MembersError = string;

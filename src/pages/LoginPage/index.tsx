@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { Button, Form } from 'components';
 import { userLoggedIn } from 'store/user';
 import { requestUserWorkspaces } from 'store/workspaces';

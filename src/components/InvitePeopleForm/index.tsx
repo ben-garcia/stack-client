@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form, Icon, Text } from 'components';
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { closeInvitePeopleModal } from 'store/invitePeopleModal';
 import { addTeammate } from 'store/teammates/actions';

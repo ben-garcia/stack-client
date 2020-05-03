@@ -209,7 +209,12 @@ const ChannelDetails = () => {
                   hover={false}
                   key={m.id}
                 >
-                  <Icon className="members-list__icon" size="sm" type="user" />
+                  <Icon
+                    className="members-list__icon"
+                    color={m.color as any}
+                    size="sm"
+                    type="user"
+                  />
                   {user.username === m.username
                     ? `${m.username}(you)`
                     : m.username}

@@ -89,8 +89,8 @@ const MessageList: React.FC = () => {
                       type="user"
                       color={
                         user.username === message.user?.username
-                          ? 'green'
-                          : 'black'
+                          ? 'purple'
+                          : (message.user.color as any)
                       }
                     />
                     <div className="message__inner-two">

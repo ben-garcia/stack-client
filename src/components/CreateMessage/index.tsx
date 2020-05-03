@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import io from 'socket.io-client';
 
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { Form } from 'components';
 import { AppState } from 'store';
 import { addUserDirectMessage } from 'store/directMessages';

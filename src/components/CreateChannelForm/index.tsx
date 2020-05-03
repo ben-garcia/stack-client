@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form, Text } from 'components';
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { addChannel } from 'store/channels';

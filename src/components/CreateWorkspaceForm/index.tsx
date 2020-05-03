@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Form, Text } from 'components';
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';

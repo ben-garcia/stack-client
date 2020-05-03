@@ -11,7 +11,7 @@ export interface DirectMessage {
   content: string;
   createdAt: string;
   updatedAt: string;
-  user: { username: string };
+  user: { color: string; username: string };
 }
 
 export type DirectMessagesError = string;

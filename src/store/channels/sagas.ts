@@ -1,6 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 
-import sendRequest from 'api';
+import { sendRequest } from 'api';
 import { AppState } from 'store';
 import {
   receivedWorkspaceChannels,
