@@ -6,6 +6,7 @@ type IconTypes =
   | 'chevron-up'
   | 'circle'
   | 'hash'
+  | 'info'
   | 'lock'
   | 'pencil'
   | 'plus'

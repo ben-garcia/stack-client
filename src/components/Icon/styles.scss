@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Stack';
-  src: url('../../assets/fonts/icons/Stack.ttf?puer0p') format('truetype');
+  src: url('../../assets/fonts/icons/Stack.ttf?9zxqsq') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -136,6 +136,10 @@
 
 .icon--checkmark::before {
   content: '\e911';
+}
+
+.icon--info::before {
+  content: '\e912';
 }
 
 /* sizes */

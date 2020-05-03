@@ -45,7 +45,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
             title="Show channel details"
             type="button"
           >
-            <Icon className="details-button__icon" type="circle" size="sm" />
+            <Icon className="details-button__icon" type="info" size="sm" />
             <Text className="details-button__text" tag="span" size="sm">
               Details
             </Text>

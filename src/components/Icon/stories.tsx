@@ -82,7 +82,17 @@ storiesOf('Icon', module).add('all', () => (
       <Icon size="xxl" type="hash" />
       <span style={{ alignSelf: 'center' }}>hash</span>
     </div>
-    k
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
+      <Icon size="xm" type="info" />
+      <Icon size="sm" type="info" />
+      <Icon size="md" type="info" />
+      <Icon size="lg" type="info" />
+      <Icon size="xlg" type="info" />
+      <Icon size="xxl" type="info" />
+      <span style={{ alignSelf: 'center' }}>info</span>
+    </div>
     <div
       style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
     >
