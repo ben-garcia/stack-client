@@ -16,7 +16,7 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   return (
     <div className={classesToAdd}>
       <Workspace />
-      <Scrollbar color="light" height="92vh">
+      <Scrollbar color="light" containerHeight="92vh">
         <ChannelList />
         <TeammatesList />
       </Scrollbar>

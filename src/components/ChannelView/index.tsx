@@ -52,7 +52,11 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     <main className={classesToAdd}>
       <section className="channel-view">
         <WorkspaceInfo />
-        <Scrollbar color="dark" height="84vh" scrollbarPositionStartAtBottom>
+        <Scrollbar
+          color="dark"
+          containerHeight="84vh"
+          scrollbarPositionStartAtBottom
+        >
           <div>
             {currentChannel.id !== 0 && !currentTeammate.id && (
               <div>

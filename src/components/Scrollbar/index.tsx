@@ -8,9 +8,10 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
   className = '',
   children,
   color,
-  height = '',
+  containerHeight = '',
+  containerWidth = '',
   scrollbarPositionStartAtBottom = false,
-  width = '',
+  scrollbarWidth = '8px',
 }) => {
   const [scrollbarIsVisible, setScrollbarIsVisible] = useState<boolean>(false);
   const lastPageY = useRef(0);
@@ -76,21 +77,29 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
     document.removeEventListener('mouseup', onDragEnd);
   };
 
-  // calculate the styles to add
-  const styles = { height: '', width: '' };
+  // calculate the styles to add to the container div
+  const containerStyles = { height: '', width: '' };
   // check for the height prop
   // if no height is passed in then use default(100%)
-  if (height !== '') {
-    styles.height = height;
+  if (containerHeight !== '') {
+    containerStyles.height = containerHeight;
   }
   // check for the width
   // if no width is passed in then use default(100%)
-  if (width !== '') {
-    styles.width = width;
+  if (containerWidth !== '') {
+    containerStyles.width = containerWidth;
+  }
+
+  // calculate the styles for the scrollbar track / scrollbar
+  const scrollbarStyles = { width: '' };
+  // make sure the prop passed in isn't equall to the default value and
+  // that is isn't an empty string
+  if (scrollbarWidth !== '8px' || scrollbarWidth.trim() !== '') {
+    scrollbarStyles.width = scrollbarWidth;
   }
 
   return (
-    <div className={classesToAdd} style={styles}>
+    <div className={classesToAdd} style={containerStyles}>
       <div
         className="scrollbar-wrapper__container"
         onMouseEnter={() => {
@@ -118,7 +127,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
           {children}
         </div>
 
-        <div className="scrollbar-track">
+        <div className="scrollbar-track" style={scrollbarStyles}>
           {/* show scrollbar only when the scrollable area is greater than
             the height of the div */}
           {containerRef.current &&
