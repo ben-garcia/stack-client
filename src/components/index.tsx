@@ -19,6 +19,7 @@ import InvitePeopleForm from './InvitePeopleForm';
 import List from './List';
 import MessageList from './MessageList';
 import Modal from './Modal';
+import Placeholder from './Placeholder';
 import Navbar from './Navbar';
 import Scrollbar from './Scrollbar';
 import TeammateInfo from './TeammateInfo';
@@ -52,6 +53,7 @@ export {
   MessageList,
   Modal,
   Navbar,
+  Placeholder,
   Scrollbar,
   TeammateInfo,
   TeammatesList,

@@ -1,0 +1,135 @@
+%animate-this {
+  animation-name: animate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  // animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%inherit-height-width {
+  height: 100%;
+  width: 100%;
+}
+
+.placeholder {
+  @extend %inherit-height-width;
+
+  height: 100%;
+  width: 100%;
+
+  &__info {
+    @extend %animate-this;
+    @extend %flex-column;
+    @extend %inherit-height-width;
+  }
+
+  &__list {
+    @extend %animate-this;
+    @extend %inherit-height-width;
+  }
+
+  &__message {
+    @extend %animate-this;
+  }
+}
+
+/* start placeholder list  */
+.p-wrapper {
+  @extend %inherit-height-width;
+  @extend %flex-column;
+}
+
+.horizontal-bar {
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 5%;
+  margin: 0.5rem 0;
+  width: 30%;
+
+  &--indented {
+    margin-left: 2rem;
+  }
+
+  &--extended {
+    width: 100%;
+  }
+}
+
+/* end placeholder list */
+
+/* start placeholder message */
+.p-message {
+  @extend %flex-column;
+
+  &__date {
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    height: 20px;
+    width: 100px;
+  }
+
+  &__inner {
+    display: flex;
+  }
+
+  &__inner-two {
+    @extend %inherit-height-width;
+  }
+
+  &__horizontal-bar {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 15px;
+    margin: 0.2rem 0;
+    width: 50px;
+
+    &--extended {
+      width: 100%;
+    }
+  }
+}
+
+/* end placeholder message */
+
+.p-wrapper-two {
+  @extend %inherit-height-width;
+}
+
+.p-circle {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+
+  &--sm {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@keyframes animate {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  75% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}
