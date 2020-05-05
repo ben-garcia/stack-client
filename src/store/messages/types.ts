@@ -17,8 +17,9 @@ export interface Message {
 export type MessagesError = string;
 
 export interface MessagesState {
-  list: Message[];
+  isLoading: boolean;
   error?: MessagesError;
+  list: Message[];
 }
 
 interface AddMessage {
