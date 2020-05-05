@@ -66,6 +66,8 @@
 .p-message {
   @extend %flex-column;
 
+	margin: 1rem 0;
+
   &__date {
     align-self: center;
     background-color: rgba(0, 0, 0, 0.2);
@@ -89,7 +91,7 @@
     width: 50px;
 
     &--extended {
-      width: 100%;
+      width: 40%;
     }
   }
 }
