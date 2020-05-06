@@ -30,40 +30,60 @@ const Placeholder: React.FC<PlaceholderProps> = ({
   }
 
   if (type === 'message') {
-    jsxToRender = arr.map(() => (
-      <div className="placeholder__message p-message">
-        <div className="p-message__date" />
-        <div className="p-message__inner">
-          <div className="p-circle" />
-          <div className="p-message__inner-two">
-            <div className="p-message__horizontal-bar" />
-            <div className="p-message__horizontal-bar" />
-            <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
-            <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
+    jsxToRender = (
+      <div className="placeholder__message p-message" key={Math.random()}>
+        {arr.map(() => (
+          <div
+            className="p-message__wrapper"
+            style={{ height: `${(1 / numberOfTags) * 100}%` }}
+          >
+            <div className="p-message__date" />
+            <div className="p-message__inner">
+              <div className="p-circle" />
+              <div className="p-message__inner-two">
+                <div className="p-message__horizontal-bar" />
+                <div className="p-message__horizontal-bar" />
+                <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
+                <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
+        ;
       </div>
-    ));
+    );
   } else if (type === 'list') {
-    jsxToRender = arr.map(() => (
-      <div className="placeholder__list">
-        <div className="p-wrapper">
-          <div className="horizontal-bar" />
-          <div className="horizontal-bar horizontal-bar--indented" />
-          <div className="horizontal-bar horizontal-bar--indented" />
-          <div className="horizontal-bar horizontal-bar--indented" />
-          <div className="horizontal-bar horizontal-bar--indented" />
-          <div className="horizontal-bar horizontal-bar--indented" />
-        </div>
+    jsxToRender = (
+      <div className="placeholder__list p-list" key={Math.random()}>
+        {arr.map(() => (
+          <div
+            className="p-list__wrapper"
+            style={{ height: `${(1 / numberOfTags) * 100}%` }}
+          >
+            <div className="horizontal-bar" />
+            <div className="horizontal-bar horizontal-bar--indented" />
+            <div className="horizontal-bar horizontal-bar--indented" />
+            <div className="horizontal-bar horizontal-bar--indented" />
+            <div className="horizontal-bar horizontal-bar--indented" />
+            <div className="horizontal-bar horizontal-bar--indented" />
+          </div>
+        ))}
       </div>
-    ));
+    );
   } else {
-    jsxToRender = arr.map(() => (
-      <div className="placeholder__info p-info">
-        <div className="horizontal-bar horizontal-bar--extended" />
-        <div className="horizontal-bar horizontal-bar--extended" />
+    jsxToRender = (
+      <div className="placeholder__info p-info" key={Math.random()}>
+        {arr.map(() => (
+          <div
+            className="p-info__wrapper"
+            style={{ height: `${(1 / numberOfTags) * 100}%` }}
+          >
+            <div className="horizontal-bar horizontal-bar--extended" />
+            <div className="horizontal-bar horizontal-bar--extended" />
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 
   return (

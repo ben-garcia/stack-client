@@ -41,7 +41,6 @@
 
 /* start placeholder list  */
 .p-wrapper {
-  @extend %inherit-height-width;
   @extend %flex-column;
 }
 
@@ -66,7 +65,7 @@
 .p-message {
   @extend %flex-column;
 
-	margin: 1rem 0;
+  margin: 1rem 0;
 
   &__date {
     align-self: center;
