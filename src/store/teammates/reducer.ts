@@ -7,6 +7,7 @@ import {
 } from './types';
 
 const initialState: TeammatesState = {
+  isLoading: false,
   list: [],
 };
 
@@ -17,6 +18,7 @@ const teammatesReducer = (
   switch (action.type) {
     case TeammatesActions.ADD_TEAMMATE:
       return {
+        ...state,
         list: [...state.list, action.payload],
       };
     case TeammatesActions.TEAMMATE_CONNECTED:
@@ -25,6 +27,7 @@ const teammatesReducer = (
       );
       if (teammate) teammate.active = true;
       return {
+        ...state,
         list: [...state.list],
       };
     case TeammatesActions.TEAMMATE_DISCONNECTED:
@@ -33,15 +36,24 @@ const teammatesReducer = (
       );
       if (teammateToChange) teammateToChange.active = false;
       return {
+        ...state,
         list: [...state.list],
+      };
+    case TeammatesActions.REQUEST_WORKSPACE_TEAMMATES:
+      return {
+        ...state,
+        isLoading: true,
       };
     case TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES:
       return {
+        ...state,
+        isLoading: false,
         list: [...action.payload],
       };
     case TeammatesActions.RECEIVED_WORKSPACE_TEAMMATES_ERROR:
       return {
         list: [],
+        isLoading: false,
         error: action.payload,
       };
 

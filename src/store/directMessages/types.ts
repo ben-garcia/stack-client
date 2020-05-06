@@ -17,8 +17,9 @@ export interface DirectMessage {
 export type DirectMessagesError = string;
 
 export interface DirectMessagesState {
-  list: DirectMessage[];
   error?: DirectMessagesError;
+  isLoading: boolean;
+  list: DirectMessage[];
 }
 
 interface AddDirectMessage {

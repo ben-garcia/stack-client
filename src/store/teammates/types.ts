@@ -17,8 +17,9 @@ export interface Teammate {
 export type TeammatesError = string;
 
 export interface TeammatesState {
-  list: Teammate[];
   error?: TeammatesError;
+  isLoading: boolean;
+  list: Teammate[];
 }
 
 interface AddTeammate {
