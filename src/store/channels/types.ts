@@ -18,8 +18,9 @@ export interface Channel {
 export type ChannelsError = string;
 
 export interface ChannelsState {
-  list: Channel[];
   error?: ChannelsError;
+  isLoading: boolean;
+  list: Channel[];
 }
 
 interface RequestWorkspaceChannels {
