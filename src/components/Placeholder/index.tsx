@@ -5,6 +5,7 @@ import './styles.scss';
 
 const Placeholder: React.FC<PlaceholderProps> = ({
   className = '',
+  color,
   height = '',
   numberOfTags = 1,
   type,
@@ -37,14 +38,22 @@ const Placeholder: React.FC<PlaceholderProps> = ({
             className="p-message__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
           >
-            <div className="p-message__date" />
+            <div className={`p-message__date placeholder--${color}`} />
             <div className="p-message__inner">
-              <div className="p-circle" />
+              <div className={`p-circle placeholder--${color}`} />
               <div className="p-message__inner-two">
-                <div className="p-message__horizontal-bar" />
-                <div className="p-message__horizontal-bar" />
-                <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
-                <div className="p-message__horizontal-bar p-message__horizontal-bar--extended" />
+                <div
+                  className={`p-message__horizontal-bar placeholder--${color}`}
+                />
+                <div
+                  className={`p-message__horizontal-bar placeholder--${color}`}
+                />
+                <div
+                  className={`p-message__horizontal-bar p-message__horizontal-bar--extended placeholder--${color}`}
+                />
+                <div
+                  className={`p-message__horizontal-bar p-message__horizontal-bar--extended placeholder--${color}`}
+                />
               </div>
             </div>
           </div>
@@ -60,12 +69,22 @@ const Placeholder: React.FC<PlaceholderProps> = ({
             className="p-list__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
           >
-            <div className="horizontal-bar" />
-            <div className="horizontal-bar horizontal-bar--indented" />
-            <div className="horizontal-bar horizontal-bar--indented" />
-            <div className="horizontal-bar horizontal-bar--indented" />
-            <div className="horizontal-bar horizontal-bar--indented" />
-            <div className="horizontal-bar horizontal-bar--indented" />
+            <div className={`horizontal-bar placeholder--${color}`} />
+            <div
+              className={`horizontal-bar horizontal-bar--indented placeholder--${color}`}
+            />
+            <div
+              className={`horizontal-bar horizontal-bar--indented placeholder--${color}`}
+            />
+            <div
+              className={`horizontal-bar horizontal-bar--indented placeholder--${color}`}
+            />
+            <div
+              className={`horizontal-bar horizontal-bar--indented placeholder--${color}`}
+            />
+            <div
+              className={`horizontal-bar horizontal-bar--indented placeholder--${color}`}
+            />
           </div>
         ))}
       </div>
@@ -78,8 +97,9 @@ const Placeholder: React.FC<PlaceholderProps> = ({
             className="p-info__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
           >
-            <div className="horizontal-bar horizontal-bar--extended" />
-            <div className="horizontal-bar horizontal-bar--extended" />
+            <div
+              className={`horizontal-bar horizontal-bar--extended horizontal-bar--block placeholder--${color}`}
+            />
           </div>
         ))}
       </div>

@@ -6,16 +6,16 @@ import Placeholder from '.';
 storiesOf('Placeholder', module)
   .add('with messages', () => (
     <div style={{ height: '50vh', width: '50vw' }}>
-      <Placeholder type="message" />
+      <Placeholder color="dark" type="message" />
     </div>
   ))
   .add('with list', () => (
     <div style={{ height: '50vh', width: '50vw' }}>
-      <Placeholder type="list" />
+      <Placeholder color="dark" type="list" />
     </div>
   ))
   .add('info', () => (
     <div style={{ height: '50vh', width: '50vw' }}>
-      <Placeholder type="info" />
+      <Placeholder color="dark" type="info" />
     </div>
   ));
