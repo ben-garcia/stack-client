@@ -2,7 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
-import { ChannelView, WorkspaceList, WorkspaceSidebar } from 'components';
+import {
+  ChannelView,
+  Placeholder,
+  WorkspaceList,
+  WorkspaceSidebar,
+} from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
@@ -99,10 +104,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   return (
     <div className="dashboard">
-      <WorkspaceList
-        workspaces={workspaces.list}
-        className="dashboard__workspaces-list"
-      />
+      {workspaces.list.length > 0 && !workspaces.isLoading ? (
+        <WorkspaceList
+          workspaces={workspaces.list}
+          className="dashboard__workspaces-list"
+        />
+      ) : (
+        <div className="dashboard__workspaces-list">
+          <Placeholder color="light" numberOfTags={5} type="info" />
+        </div>
+      )}
       <WorkspaceSidebar className="dashboard__sidebar" />
       <ChannelView className="dashboard__main" />
     </div>

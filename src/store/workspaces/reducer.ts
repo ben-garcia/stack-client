@@ -5,6 +5,7 @@ import {
 } from './types';
 
 const initialState: WorkspacesState = {
+  isLoading: false,
   list: [],
 };
 
@@ -13,18 +14,26 @@ const WorkspacesReducer = (
   action: WorkspacesActionTypes
 ): WorkspacesState => {
   switch (action.type) {
+    case WorkspacesActions.ADD_WORKSPACE:
+      return {
+        ...state,
+        list: [...state.list, action.payload],
+      };
+    case WorkspacesActions.REQUEST_USER_WORKSPACES:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case WorkspacesActions.RECEIVED_USER_WORKSPACES:
       return {
+        isLoading: false,
         list: [...action.payload],
       };
     case WorkspacesActions.RECEIVED_USER_WORKSPACES_ERROR:
       return {
-        list: [],
         error: action.payload,
-      };
-    case WorkspacesActions.ADD_WORKSPACE:
-      return {
-        list: [...state.list, action.payload],
+        isLoading: false,
+        list: [],
       };
     default:
       return state;

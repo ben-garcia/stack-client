@@ -15,8 +15,9 @@ export interface Workspace {
 }
 
 export interface WorkspacesState {
-  list: Workspace[];
   error?: WorkspacesError;
+  isLoading: boolean;
+  list: Workspace[];
 }
 
 export type WorkspacesError = string;

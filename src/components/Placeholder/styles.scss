@@ -34,20 +34,20 @@
     @extend %animate-this;
   }
 
-	&--dark {
-		background-color: rgba(0, 0, 0, 0.2);
-	}
+  &--dark {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
 
-	&--light {
-		background-color: rgba(122, 122, 122, 0.2);
-	}
+  &--light {
+    background-color: rgba(122, 122, 122, 0.2);
+  }
 }
 
 /* start paceholder info */
 .p-info {
-	&__wrapper {
-		height: auto !important;
-	}
+  &__wrapper {
+    height: auto !important;
+  }
 }
 
 
@@ -71,9 +71,9 @@
     width: 100%;
   }
 
-	&--block {
-		height: 3rem;
-	}
+  &--block {
+    height: 3rem;
+  }
 }
 
 /* end placeholder list */

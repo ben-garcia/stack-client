@@ -11,6 +11,7 @@ import {
 } from 'components';
 import { AppState } from 'store';
 import { WorkspaceSidebarProps } from './types';
+import './styles.scss';
 
 const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   className = '',
@@ -38,7 +39,12 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
           </Scrollbar>
         </>
       ) : (
-        <Placeholder numberOfTags={2} type="list" />
+        <Placeholder
+          className="workspace-left-margin"
+          color="light"
+          numberOfTags={2}
+          type="list"
+        />
       )}
     </div>
   );
