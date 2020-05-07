@@ -53,9 +53,6 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
-  // eslint-disable-next-line
-  console.log('messages.isLoading: ', messages.isLoading);
-
   return (
     <main className={classesToAdd}>
       <section className="channel-view">
