@@ -84,6 +84,10 @@
 
   margin: 1rem 0;
 
+	&__wrapper {
+		@extend %flex-column;
+	}
+
   &__date {
     align-self: center;
     border-radius: 10px;

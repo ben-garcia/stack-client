@@ -32,11 +32,12 @@ const Placeholder: React.FC<PlaceholderProps> = ({
 
   if (type === 'message') {
     jsxToRender = (
-      <div className="placeholder__message p-message" key={Math.random()}>
+      <div className="placeholder__message p-message">
         {arr.map(() => (
           <div
             className="p-message__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
+            key={Math.random()}
           >
             <div className={`p-message__date placeholder--${color}`} />
             <div className="p-message__inner">
@@ -58,16 +59,16 @@ const Placeholder: React.FC<PlaceholderProps> = ({
             </div>
           </div>
         ))}
-        ;
       </div>
     );
   } else if (type === 'list') {
     jsxToRender = (
-      <div className="placeholder__list p-list" key={Math.random()}>
+      <div className="placeholder__list p-list">
         {arr.map(() => (
           <div
             className="p-list__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
+            key={Math.random()}
           >
             <div className={`horizontal-bar placeholder--${color}`} />
             <div
@@ -91,11 +92,12 @@ const Placeholder: React.FC<PlaceholderProps> = ({
     );
   } else {
     jsxToRender = (
-      <div className="placeholder__info p-info" key={Math.random()}>
+      <div className="placeholder__info p-info">
         {arr.map(() => (
           <div
             className="p-info__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
+            key={Math.random()}
           >
             <div
               className={`horizontal-bar horizontal-bar--extended horizontal-bar--block placeholder--${color}`}
