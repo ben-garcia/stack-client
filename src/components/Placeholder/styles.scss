@@ -84,9 +84,9 @@
 
   margin: 1rem 0;
 
-	&__wrapper {
-		@extend %flex-column;
-	}
+  &__wrapper {
+    @extend %flex-column;
+  }
 
   &__date {
     align-self: center;
