@@ -34,6 +34,7 @@ import {
   teammatesReducer,
 } from './teammates';
 import { userReducer } from './user';
+import { viewportReducer } from './viewport';
 import { workspaceReducer } from './workspace';
 import {
   getUserWorkspaces,
@@ -56,6 +57,7 @@ export const rootReducer = combineReducers({
   messages: messagesReducer,
   teammates: teammatesReducer,
   user: userReducer,
+  viewport: viewportReducer,
   workspaces: workspacesReducer,
 });
 
