@@ -1,8 +1,18 @@
 @import '../../sass/variables';
+@import '../../sass/mixins';
 
 .workspace-info {
   display: flex;
   flex-direction: row;
+}
+
+.hamburger-button {
+  padding: 0;
+  width: 3rem;
+}
+
+.hamburger-icon {
+  color: rgb(122, 122, 255);
 }
 
 .container {
@@ -16,6 +26,12 @@
   align-self: center;
   display: flex;
   justify-content: center;
+
+  @include media-query($breakpoint-sm) {
+    &__text {
+      display: none;
+    }
+  }
 
   &:hover {
     background-color: rgba($color-dark-grey, 0.1);

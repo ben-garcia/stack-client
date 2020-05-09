@@ -24,6 +24,17 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
 
   return (
     <div className={classesToAdd}>
+      <Button
+        className="hamburger-button"
+        color="transparent"
+        onClick={() => {
+          // eslint-disable-next-line
+          console.log('button clicked');
+        }}
+        type="button"
+      >
+        <Icon className="hamburger-icon" type="circle" />
+      </Button>
       {currentChannel.id && !currentTeammate.id ? (
         <ChannelInfo
           channel={currentChannel as any}

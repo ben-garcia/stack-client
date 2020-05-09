@@ -9,9 +9,10 @@ import { openEditChannelDescriptionModal } from 'store/editChannelDescriptionMod
 import { openEditChannelTopicModal } from 'store/editChannelTopicModal';
 import { Member } from 'store/members';
 import { printFormattedDate } from 'utils';
+import { ChannelDetailsProps } from './types';
 import './styles.scss';
 
-const ChannelDetails = () => {
+const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
   const dispatch = useDispatch();
   const { channelDetails, currentChannel, members, user } = useSelector(
     (state: AppState) => ({
@@ -29,9 +30,14 @@ const ChannelDetails = () => {
   const [membersDropdownIsOpen, setMembersDropdownIsOpen] = useState<
     boolean | undefined
   >(channelDetails.withMembers);
+  let classesToAdd: string = 'channel-details';
+
+  if (className.trim() !== '') {
+    classesToAdd += ` ${className}`;
+  }
 
   return (
-    <section className="channel-details">
+    <section className={classesToAdd}>
       <div className="channel-details__inner">
         <div className="channel-details__inside">
           <Text className="channel-details__text" tag="span" size="sm">

@@ -1,8 +1,38 @@
 @import '../../sass/variables';
+@import '../../sass/mixins';
 
 .main-container {
   display: flex;
   padding-left: 0.8rem;
+  width: 100%;
+
+  // desktop
+  @media screen and (min-width: $breakpoint-md) {
+    .channel-view__details {
+      width: 440px;
+    }
+  }
+
+  // tablet size
+  @media screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-lg) {
+    .channel-view {
+      width: 50%;
+    }
+    .channel-view__details {
+      width: 50%;
+    }
+  }
+
+  // phone
+  @media screen and (min-width: 0) and (max-width: $breakpoint-sm) {
+    .channel-view__details {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  }
 
   .channel-view {
     flex: auto;
@@ -55,6 +85,10 @@
 
     &__placeholder {
       margin-right: 0.8rem;
+    }
+
+    &__details {
+      background-color: $background-color;
     }
   }
 }

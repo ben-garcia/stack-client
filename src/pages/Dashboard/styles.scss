@@ -1,25 +1,50 @@
 @import '../../sass/variables';
+@import '../../sass/mixins';
 
 .dashboard {
   width: 100vw;
   height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 60px 220px auto;
+  grid-template-rows: 60px auto;
+  grid-template-areas:
+    'dashboard__workspaces-list dashboard__sidebar dashboard__main'
+    'dashboard__workspaces-list dashboard__sidebar dashboard__main';
   overflow: hidden;
+
+  @include media-query($breakpoint-md) {
+    & {
+      grid-template-areas:
+        'dashboard__main dashboard__main dashboard__main'
+        'dashboard__main dashboard__main dashboard__main';
+    }
+
+    &__main {
+      width: 100vw;
+    }
+
+    &__workspaces-list,
+    &__sidebar {
+      position: absolute;
+      transform: translateX(-100%);
+    }
+  }
 
   &__workspaces-list {
     background-color: $primary-color;
     min-width: 60px;
-    max-width: 60px;
+    grid-area: dashboard__workspaces-list;
   }
 
   &__sidebar {
     background-color: $primary-color;
     color: $background-color;
-    min-width: 220px;
-    max-width: 220px;
+    grid-area: dashboard__sidebar;
   }
 
   &__main {
     background-color: $background-color;
+    grid-area: dashboard__main;
   }
 }
+

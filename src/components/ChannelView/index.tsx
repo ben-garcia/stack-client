@@ -221,7 +221,9 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           ) : null}
         </div>
       </section>
-      {channelDetails.isOpen && <ChannelDetails />}
+      {channelDetails.isOpen && (
+        <ChannelDetails className="channel-view__details" />
+      )}
     </main>
   );
 };
