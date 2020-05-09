@@ -9,13 +9,17 @@ import './styles.scss';
 
 const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
   const dispatch = useDispatch();
-  const { channelDetails, currentChannel, currentTeammate } = useSelector(
-    (state: AppState) => ({
-      channelDetails: state.channelDetails,
-      currentChannel: state.currentChannel,
-      currentTeammate: state.currentTeammate,
-    })
-  );
+  const {
+    channelDetails,
+    currentChannel,
+    currentTeammate,
+    viewport,
+  } = useSelector((state: AppState) => ({
+    channelDetails: state.channelDetails,
+    currentChannel: state.currentChannel,
+    currentTeammate: state.currentTeammate,
+    viewport: state.viewport,
+  }));
   let classesToAdd: string = 'workspace-info';
 
   if (className?.trim() !== '') {
@@ -24,17 +28,19 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
 
   return (
     <div className={classesToAdd}>
-      <Button
-        className="hamburger-button"
-        color="transparent"
-        onClick={() => {
-          // eslint-disable-next-line
-          console.log('button clicked');
-        }}
-        type="button"
-      >
-        <Icon className="hamburger-icon" type="circle" />
-      </Button>
+      {(viewport.isPhone || viewport.isTablet) && (
+        <Button
+          className="hamburger-button"
+          color="transparent"
+          onClick={() => {
+            // eslint-disable-next-line
+            console.log('button clicked');
+          }}
+          type="button"
+        >
+          <Icon className="hamburger-icon" type="circle" />
+        </Button>
+      )}
       {currentChannel.id && !currentTeammate.id ? (
         <ChannelInfo
           channel={currentChannel as any}

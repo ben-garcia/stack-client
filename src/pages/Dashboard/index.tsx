@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
@@ -8,6 +8,7 @@ import {
   WorkspaceList,
   WorkspaceSidebar,
 } from 'components';
+import useMediaQuery from 'hooks';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
@@ -17,6 +18,11 @@ import { requestChannelMessages } from 'store/messages';
 import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { userLoggedIn } from 'store/user';
+import {
+  viewportIsPhone,
+  viewportIsTablet,
+  viewportIsDesktop,
+} from 'store/viewport';
 import { getCurrentWorkspace } from 'store/workspace';
 import { requestUserWorkspaces } from 'store/workspaces';
 import { DashboardProps } from './types';
@@ -24,6 +30,9 @@ import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const store = useStore();
+  const isPhone = useMediaQuery('(min-width: 0) and (max-width: 576px)');
+  const isTablet = useMediaQuery('(min-width: 576px) and (max-width: 998px)');
+  const isDesktop = useMediaQuery('(min-width: 998px)');
   const { currentChannel, currentTeammate, user, workspaces } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
@@ -36,6 +45,20 @@ const Dashboard: React.FC<DashboardProps> = () => {
   );
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    if (isPhone) {
+      dispatch(viewportIsPhone());
+    }
+    if (isTablet) {
+      dispatch(viewportIsTablet());
+    }
+    if (isDesktop) {
+      dispatch(viewportIsDesktop());
+    }
+    // eslint-disable-next-line
+  }, [isPhone, isTablet, isDesktop]);
+
   // set up redux store via localStorage on page reload
   if (!user.isLoggedIn) {
     const userFromLocalStorage = localStorage.getItem('user');
