@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, ChannelInfo, Icon, TeammateInfo, Text } from 'components';
 import { AppState } from 'store';
 import { openChannelDetails } from 'store/channelDetails';
+import { openMobileSidebar } from 'store/mobileSidebar';
 import { WorkspaceInfoProps } from './types';
 import './styles.scss';
 
@@ -32,10 +33,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
         <Button
           className="hamburger-button"
           color="transparent"
-          onClick={() => {
-            // eslint-disable-next-line
-            console.log('button clicked');
-          }}
+          onClick={() => dispatch(openMobileSidebar())}
           type="button"
         >
           <Icon className="hamburger-icon" type="circle" />

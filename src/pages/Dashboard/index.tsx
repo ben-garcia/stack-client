@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import {
+  Button,
   ChannelView,
+  Icon,
   Placeholder,
   WorkspaceList,
   WorkspaceSidebar,
@@ -12,9 +14,10 @@ import useMediaQuery from 'hooks';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
-import { requestChannelMembers } from 'store/members';
 import { requestUserDirectMessages } from 'store/directMessages';
+import { requestChannelMembers } from 'store/members';
 import { requestChannelMessages } from 'store/messages';
+import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { userLoggedIn } from 'store/user';
@@ -33,28 +36,32 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const isPhone = useMediaQuery('(min-width: 0) and (max-width: 576px)');
   const isTablet = useMediaQuery('(min-width: 576px) and (max-width: 998px)');
   const isDesktop = useMediaQuery('(min-width: 998px)');
-  const { currentChannel, currentTeammate, user, workspaces } = useSelector(
-    (state: AppState) => ({
-      currentChannel: state.currentChannel,
-      currentTeammate: state.currentTeammate,
-      currentWorkspace: state.currentWorkspace,
-      channels: state.channels,
-      user: state.user,
-      workspaces: state.workspaces,
-    })
-  );
+  const {
+    currentChannel,
+    currentTeammate,
+    mobileSidebarIsOpen,
+    user,
+    workspaces,
+  } = useSelector((state: AppState) => ({
+    currentChannel: state.currentChannel,
+    currentTeammate: state.currentTeammate,
+    currentWorkspace: state.currentWorkspace,
+    channels: state.channels,
+    mobileSidebarIsOpen: state.mobileSidebarIsOpen,
+    user: state.user,
+    workspaces: state.workspaces,
+  }));
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     if (isPhone) {
       dispatch(viewportIsPhone());
-    }
-    if (isTablet) {
+    } else if (isTablet) {
       dispatch(viewportIsTablet());
-    }
-    if (isDesktop) {
+    } else if (isDesktop) {
       dispatch(viewportIsDesktop());
+      dispatch(closeMobileSidebar());
     }
     // eslint-disable-next-line
   }, [isPhone, isTablet, isDesktop]);
@@ -127,17 +134,35 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   return (
     <div className="dashboard">
-      {workspaces.list.length > 0 && !workspaces.isLoading ? (
-        <WorkspaceList
-          workspaces={workspaces.list}
-          className="dashboard__workspaces-list"
-        />
-      ) : (
-        <div className="dashboard__workspaces-list">
-          <Placeholder color="light" numberOfTags={5} type="info" />
-        </div>
-      )}
-      <WorkspaceSidebar className="dashboard__sidebar" />
+      <div
+        className={
+          mobileSidebarIsOpen
+            ? 'dashboard__inner dashboard__inner--mobile'
+            : 'dashboard__inner'
+        }
+      >
+        {workspaces.list.length > 0 && !workspaces.isLoading ? (
+          <WorkspaceList
+            className="dashboard__workspace-list"
+            workspaces={workspaces.list}
+          />
+        ) : (
+          <div>
+            <Placeholder color="light" numberOfTags={5} type="info" />
+          </div>
+        )}
+        <WorkspaceSidebar className="dashboard__sidebar" />
+        {isPhone || isTablet ? (
+          <Button
+            className="mobile-close-button"
+            color="transparent"
+            onClick={() => dispatch(closeMobileSidebar())}
+            type="button"
+          >
+            <Icon color="white" size="sm" type="times" />
+          </Button>
+        ) : null}
+      </div>
       <ChannelView className="dashboard__main" />
     </div>
   );

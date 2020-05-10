@@ -5,41 +5,65 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 60px 220px auto;
+  grid-template-columns: 280px auto;
   grid-template-rows: 60px auto;
   grid-template-areas:
-    'dashboard__workspaces-list dashboard__sidebar dashboard__main'
-    'dashboard__workspaces-list dashboard__sidebar dashboard__main';
+    'dashboard__inner dashboard__main'
+    'dashboard__inner dashboard__main';
   overflow: hidden;
 
-  @include media-query($breakpoint-md) {
+  @include media-query(998px) {
     & {
       grid-template-areas:
-        'dashboard__main dashboard__main dashboard__main'
-        'dashboard__main dashboard__main dashboard__main';
+        'dashboard__main dashboard__main'
+        'dashboard__main dashboard__main';
+    }
+
+    &__workspace-list {
+      flex-shrink: 2;
+      width: 5%;
+    }
+
+    &__sidebar {
+      width: 90%;
     }
 
     &__main {
       width: 100vw;
     }
+  }
 
-    &__workspaces-list,
-    &__sidebar {
+  &__inner {
+    background-color: $primary-color;
+    color: $background-color;
+    display: flex;
+    grid-area: dashboard__inner;
+
+    &--mobile {
       position: absolute;
-      transform: translateX(-100%);
+      width: 100vw;
+      z-index: 100;
+    }
+
+    .mobile-close-button {
+      align-self: flex-start;
+      margin-top: 1rem;
+
+      &:hover {
+        background-color: rgba(207, 195, 207, 0.2);
+      }
     }
   }
 
-  &__workspaces-list {
-    background-color: $primary-color;
-    min-width: 60px;
-    grid-area: dashboard__workspaces-list;
+  &__workspace-list {
+    min-width: 30px;
+    width: 60px;
   }
 
   &__sidebar {
-    background-color: $primary-color;
-    color: $background-color;
-    grid-area: dashboard__sidebar;
+    flex: 1 1;
+    min-width: 150px;
+    width: 200px;
   }
 
   &__main {
