@@ -9,6 +9,12 @@ import {
   getAllWorkspaceChannels,
 } from './channels';
 import { channelDetailsReducer } from './channelDetails';
+import {
+  directMessagesReducer,
+  DirectMessagesActions,
+  getUserDirectMessages,
+} from './directMessages';
+
 import { editChannelDescriptionModalReducer } from './editChannelDescriptionModal';
 import { editChannelTopicModalReducer } from './editChannelTopicModal';
 import { invitePeopleModalReducer } from './invitePeopleModal';
@@ -22,11 +28,7 @@ import {
   MessagesActions,
   getAllChannelMessages,
 } from './messages';
-import {
-  directMessagesReducer,
-  DirectMessagesActions,
-  getUserDirectMessages,
-} from './directMessages';
+import { mobileSidebarReducer } from './mobileSidebar';
 import { teammateReducer } from './teammate';
 import {
   getAllCurrentWorkspaceTeammates,
@@ -55,6 +57,7 @@ export const rootReducer = combineReducers({
   invitePeopleModalIsOpen: invitePeopleModalReducer,
   members: membersReducer,
   messages: messagesReducer,
+  mobileSidebarIsOpen: mobileSidebarReducer,
   teammates: teammatesReducer,
   user: userReducer,
   viewport: viewportReducer,
