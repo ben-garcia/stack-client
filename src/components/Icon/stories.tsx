@@ -74,6 +74,18 @@ storiesOf('Icon', module).add('all', () => (
     <div
       style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
     >
+      <Icon size="xm" type="hamburger-menu" />
+      <Icon size="sm" type="hamburger-menu" />
+      <Icon size="md" type="hamburger-menu" />
+      <Icon size="lg" type="hamburger-menu" />
+      <Icon size="xlg" type="hamburger-menu" />
+      <Icon size="xxl" type="hamburger-menu" />
+      <span style={{ alignSelf: 'center' }}>hamburger-menu</span>
+    </div>
+
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
       <Icon size="xm" type="hash" />
       <Icon size="sm" type="hash" />
       <Icon size="md" type="hash" />

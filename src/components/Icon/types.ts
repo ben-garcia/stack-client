@@ -5,6 +5,7 @@ type IconTypes =
   | 'chevron-right'
   | 'chevron-up'
   | 'circle'
+  | 'hamburger-menu'
   | 'hash'
   | 'info'
   | 'lock'

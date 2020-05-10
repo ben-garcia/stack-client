@@ -36,7 +36,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
           onClick={() => dispatch(openMobileSidebar())}
           type="button"
         >
-          <Icon className="hamburger-icon" type="circle" />
+          <Icon color="black" size="sm" type="hamburger-menu" />
         </Button>
       )}
       {currentChannel.id && !currentTeammate.id ? (

@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Stack';
-  src: url('../../assets/fonts/icons/Stack.ttf?9zxqsq') format('truetype');
+  src: url('../../assets/fonts/icons/Stack.ttf?jdjuv3') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -140,6 +140,10 @@
 
 .icon--info::before {
   content: '\e912';
+}
+
+.icon--hamburger-menu::before {
+  content: '\e913';
 }
 
 /* sizes */
