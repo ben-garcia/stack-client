@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Button, CreateWorkspaceForm, Icon, Modal, Text } from 'components';
+import {
+  Button,
+  CreateWorkspaceForm,
+  Icon,
+  Modal,
+  MenuDrawer,
+  Text,
+} from 'components';
 import { AppState } from 'store';
 import { WorkspaceProps } from './types';
 import './styles.scss';
@@ -14,6 +21,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
   const [createWorkspaceFormIsOpen, setCreateWorkspaceFormIsOpen] = useState<
     boolean
   >(false);
+  const [logoutModalIsOpen, setLogoutModalIsOpen] = useState<boolean>(false);
   let classesToAdd: string = 'workspace';
 
   if (className?.trim() !== '') {
@@ -22,10 +30,23 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
 
   return (
     <section className={classesToAdd}>
-      <div className="workspace__inner">
-        <Text tag="span" size="md" className="workspace__name">
-          {workspaceName}
-        </Text>
+      <Button
+        className="workspace__inner"
+        color="transparent"
+        onClick={() => setLogoutModalIsOpen(!logoutModalIsOpen)}
+        type="button"
+      >
+        <div className="workspace__inner-two">
+          <Text tag="span" size="md" className="workspace__name">
+            {workspaceName}
+          </Text>
+          <Icon
+            className="workspace__chevron-down-icon"
+            color="white"
+            size="xm"
+            type="chevron-down"
+          />
+        </div>
         <Icon
           type="circle"
           size="xm"
@@ -35,7 +56,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
         <Text tag="span" className="workspace__username">
           {username}
         </Text>
-      </div>
+      </Button>
       <Button
         className="workspace__add-button"
         type="button"
@@ -54,6 +75,15 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
           <CreateWorkspaceForm
             createWorkspaceFormIsOpen={setCreateWorkspaceFormIsOpen}
           />
+        </Modal>
+      )}
+      {logoutModalIsOpen && (
+        <Modal
+          background={false}
+          className="workspace__drawer"
+          onClose={() => setLogoutModalIsOpen(false)}
+        >
+          <MenuDrawer />
         </Modal>
       )}
     </section>
