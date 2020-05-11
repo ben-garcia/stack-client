@@ -17,6 +17,7 @@ import Icon from './Icon';
 import Image from './Image';
 import InvitePeopleForm from './InvitePeopleForm';
 import List from './List';
+import MenuDrawer from './MenuDrawer';
 import MessageList from './MessageList';
 import Modal from './Modal';
 import Placeholder from './Placeholder';
@@ -50,6 +51,7 @@ export {
   Image,
   InvitePeopleForm,
   List,
+  MenuDrawer,
   MessageList,
   Modal,
   Navbar,

@@ -1,0 +1,17 @@
+@import '../../sass/variables';
+
+.menu-drawer {
+  width: 100%;
+  height: 100%;
+
+  &__button {
+    height: 100%;
+    padding: 0.5rem;
+    text-align: left;
+    width: 100%;
+
+    &:hover {
+      color: $background-color;
+    }
+  }
+}
