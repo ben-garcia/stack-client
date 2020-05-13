@@ -2,12 +2,13 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 import { colorTypes } from 'components/Icon/types';
 
-const baseURL: string = process.env.SERVER_URL || 'http://localhost:8080';
+const baseURL: string = process.env.SERVER_URL || 'http://localhost:8080/api';
 
 export const sendRequest = async (options: AxiosRequestConfig) => {
   return axios({
     baseURL,
     ...options,
+    withCredentials: true, // send 'stackSessionId' cookie
   });
 };
 
