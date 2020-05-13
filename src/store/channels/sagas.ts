@@ -9,17 +9,15 @@ import {
 
 // selector to get current workspace id
 const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
-const getCurrentUserId = (state: AppState) => state.user.id;
 
 function* getAllCurrentWorkspaceChannels() {
   try {
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
-    const currentUserId = yield select(getCurrentUserId);
     const {
       data: { channels },
     } = yield call(sendRequest, {
       method: 'GET',
-      url: `/channels?userId=${currentUserId}&workspaceId=${currentWorkspaceId}`,
+      url: `/channels?workspaceId=${currentWorkspaceId}`,
     });
 
     // dispatch the action
