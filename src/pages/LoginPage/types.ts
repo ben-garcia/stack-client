@@ -8,4 +8,5 @@ export interface User {
 export interface UserErrors {
   email: string[];
   password: string[];
+  response: string[];
 }

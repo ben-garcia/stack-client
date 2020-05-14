@@ -19,6 +19,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   const [errors, setErrors] = useState<UserErrors>({
     email: [],
     password: [],
+    response: [],
   });
   const history = useHistory();
 
@@ -29,42 +30,83 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     });
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // prevent page reload
     e.preventDefault();
 
-    try {
-      const response = await sendRequest({
-        method: 'POST',
-        url: '/auth/login',
-        data: {
-          ...user,
-        },
-      });
+    if (user.email.length < 6) {
+      // set the email error
+      setErrors(previousState => ({
+        ...previousState,
+        email: ['Email must be at least 6 characters long'],
+      }));
+    }
 
-      // save user to localStorage
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+    if (user.password.length < 6) {
+      // set the password error
+      setErrors(previousState => ({
+        ...previousState,
+        password: ['Password must be at least 6 characters long'],
+      }));
+    }
 
-      // dispatch the action to update the user.isLoggedIn
-      dispatch(userLoggedIn(response.data.user));
-
-      // dispatch the action to get user's workspaces
-      dispatch(requestUserWorkspaces());
-
-      // when a successfull response from the server
-      // redirect to dashboard
-      history.replace('/dashboard');
-    } catch (err) {
-      // eslint-disable-next-line
-      console.log('handleSubmit error: ', err);
-
+    if (errors.email.length > 0 && user.email.length >= 6) {
+      // reset email error message
       setErrors({
-        email: err.response?.data.error,
-        password: err.response?.data.error,
+        ...errors,
+        email: [],
       });
+    }
+
+    if (errors.password.length > 0 && user.password.length >= 6) {
+      // reset password error message
+      setErrors({
+        ...errors,
+        password: [],
+      });
+    }
+
+    // send the request when length requirements have been met
+    if (user.email.length >= 6 && user.password.length >= 6) {
+      try {
+        const response = await sendRequest({
+          method: 'POST',
+          url: '/auth/login',
+          data: {
+            ...user,
+          },
+        });
+
+        // save user to localStorage
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+
+        // dispatch the action to update the user.isLoggedIn
+        dispatch(userLoggedIn(response.data.user));
+
+        // dispatch the action to get user's workspaces
+        dispatch(requestUserWorkspaces());
+
+        // when a successfull response from the server
+        // redirect to dashboard
+        history.replace('/dashboard');
+      } catch (err) {
+        // eslint-disable-next-line
+        console.log('handleSubmit error: ', err);
+        setErrors({
+          email: [],
+          password: [],
+          response: [
+            'There is no user with that username/password combination',
+          ],
+        });
+      }
     }
   };
 
   return (
     <div className="login-page">
+      {errors.response.length > 0 && (
+        <span className="login-page__error">{errors.response[0]}</span>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
