@@ -1,8 +1,10 @@
 import { UserActionTypes, User, UserActions } from './types';
 
-const UserLoggedIn = (user: User): UserActionTypes => ({
+export const UserLoggedIn = (user: User): UserActionTypes => ({
   type: UserActions.USER_LOGGED_IN,
   payload: user,
 });
 
-export default UserLoggedIn;
+export const UserLoggedOut = (): UserActionTypes => ({
+  type: UserActions.USER_LOGGED_OUT,
+});

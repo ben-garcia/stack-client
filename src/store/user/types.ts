@@ -1,5 +1,6 @@
 export enum UserActions {
   USER_LOGGED_IN = 'USER_LOGGED_IN',
+  USER_LOGGED_OUT = 'USER_LOGGED_OUT',
 }
 
 export interface User {
@@ -24,4 +25,8 @@ interface UserLoggedIn {
   payload: User;
 }
 
-export type UserActionTypes = UserLoggedIn;
+interface UserLoggedOut {
+  type: typeof UserActions.USER_LOGGED_OUT;
+}
+
+export type UserActionTypes = UserLoggedIn | UserLoggedOut;

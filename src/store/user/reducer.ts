@@ -14,6 +14,10 @@ const UserReducer = (
         isLoggedIn: true,
         ...action.payload,
       };
+    case UserActions.USER_LOGGED_OUT:
+      return {
+        isLoggedIn: false,
+      };
     default:
       return state;
   }

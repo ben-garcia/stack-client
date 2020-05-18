@@ -47,7 +47,8 @@
 
     .mobile-close-button {
       align-self: flex-start;
-      margin-top: 1rem;
+      margin: 1rem 1rem 0 0;
+      z-index: 100;
 
       &:hover {
         background-color: rgba(207, 195, 207, 0.2);

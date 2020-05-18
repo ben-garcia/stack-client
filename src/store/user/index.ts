@@ -3,7 +3,7 @@
 // '--isolatedModules' flag is provided"
 // erorr
 import UserReducer from './reducer';
-import UserLoggedIn from './actions';
+import { UserLoggedIn, UserLoggedOut } from './actions';
 import {
   UserState as UserStateAlias,
   UserActionTypes as UserActionTypesAlias,
@@ -14,3 +14,4 @@ export type UserState = UserStateAlias;
 export type UserActionTypes = UserActionTypesAlias;
 export const userReducer = UserReducer;
 export const userLoggedIn = UserLoggedIn;
+export const userLoggedOut = UserLoggedOut;
