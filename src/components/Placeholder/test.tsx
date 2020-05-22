@@ -5,7 +5,9 @@ import Placeholder from '.';
 
 describe('<Placeholder />', () => {
   it('should render', () => {
-    const { container }: RenderResult = render(<Placeholder type="message" />);
+    const { container }: RenderResult = render(
+      <Placeholder color="dark" type="message" />
+    );
 
     expect(container).toBeInTheDocument();
     cleanup();

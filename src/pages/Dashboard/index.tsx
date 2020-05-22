@@ -45,7 +45,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
   } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
-    currentWorkspace: state.currentWorkspace,
     channels: state.channels,
     mobileSidebarIsOpen: state.mobileSidebarIsOpen,
     user: state.user,
