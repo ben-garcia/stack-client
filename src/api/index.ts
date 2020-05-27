@@ -2,7 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 import { colorTypes } from 'components/Icon/types';
 
-const baseURL: string = process.env.SERVER_URL || 'http://localhost:8080/api';
+const baseURL: string =
+  process.env.REACT_APP_SERVER_URL || 'http://localhost:8080/api';
 
 export const sendRequest = async (options: AxiosRequestConfig) => {
   return axios({
