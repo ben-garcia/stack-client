@@ -58,7 +58,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             heading="What is Stack"
           >
             <Text>
-              Stack a clone of the popular messaging platform
+              Stack a miniature clone of the popular messaging platform
               <a
                 className="description-header__link"
                 href="https://slack.com/"
@@ -72,7 +72,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         </section>
       </main>
       <Footer>
-        <Text>Ben Garcia 2019</Text>
+        <Text>Ben Garcia 2020</Text>
       </Footer>
       {registerModalIsOpen && (
         <Modal

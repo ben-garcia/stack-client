@@ -38,7 +38,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
       >
         <div className="workspace__inner-two">
           <Text tag="span" size="md" className="workspace__name">
-            {workspaceName}
+            {workspaceName || 'no Workspace Yet'}
           </Text>
           <Icon
             className="workspace__chevron-down-icon"

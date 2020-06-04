@@ -185,20 +185,22 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       // eslint-disable-next-line
       console.log('handleSubmit error: ', err);
 
-      // if there was a problem with the email address
-      // add the message to errors.email
-      if (/(email)/.test(err.response.data.error)) {
-        setErrors({
-          ...errors,
-          email: err.response.data.error.split('=')[1],
-        });
-      }
+      if (err.response) {
+        // if there was a problem with the email address
+        // add the message to errors.email
+        if (/(email)/.test(err.response.data.error)) {
+          setErrors({
+            ...errors,
+            email: err.response.data.error.split('=')[1],
+          });
+        }
 
-      if (/(username)/.test(err.response.data.error)) {
-        setErrors({
-          ...errors,
-          username: err.response.data.error.split('=')[1],
-        });
+        if (/(username)/.test(err.response.data.error)) {
+          setErrors({
+            ...errors,
+            username: err.response.data.error.split('=')[1],
+          });
+        }
       }
     }
   };

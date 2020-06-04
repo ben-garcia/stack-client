@@ -94,9 +94,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         setErrors({
           email: [],
           password: [],
-          response: [
-            'There is no user with that username/password combination',
-          ],
+          response: ['There is no user with that email/password combination'],
         });
       }
     }

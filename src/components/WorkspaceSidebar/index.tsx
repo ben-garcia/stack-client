@@ -16,11 +16,13 @@ import './styles.scss';
 const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   className = '',
 }) => {
-  const { channels, teammates } = useSelector((state: AppState) => ({
-    channels: state.channels,
-    currentWorkspace: state.currentWorkspace,
-    teammates: state.teammates,
-  }));
+  const { channels, currentWorkspace, teammates } = useSelector(
+    (state: AppState) => ({
+      channels: state.channels,
+      currentWorkspace: state.currentWorkspace,
+      teammates: state.teammates,
+    })
+  );
   let classesToAdd: string = 'workspace-sidebar';
 
   if (className?.trim() !== '') {
@@ -29,14 +31,15 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
 
   return (
     <div className={classesToAdd}>
-      {(channels.list.length > 0 && !channels.isLoading) ||
-      (teammates.list.length > 0 && !teammates.isLoading) ? (
+      {!channels.isLoading || !teammates.isLoading ? (
         <>
           <Workspace />
-          <Scrollbar color="light" containerHeight="92vh">
-            <ChannelList />
-            <TeammatesList />
-          </Scrollbar>
+          {currentWorkspace.id ? (
+            <Scrollbar color="light" containerHeight="92vh">
+              <ChannelList />
+              <TeammatesList />
+            </Scrollbar>
+          ) : null}
         </>
       ) : (
         <Placeholder
