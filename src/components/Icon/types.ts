@@ -11,6 +11,7 @@ type IconTypes =
   | 'lock'
   | 'pencil'
   | 'plus'
+  | 'spinner'
   | 'times'
   | 'user';
 
@@ -32,8 +33,9 @@ export type colorTypes =
   | 'yellow';
 
 export interface IconProps {
-  type: IconTypes;
-  size?: 'xm' | 'sm' | 'md' | 'lg' | 'xlg' | 'xxl';
   color?: colorTypes;
   className?: string;
+  isLoading?: boolean;
+  size?: 'xm' | 'sm' | 'md' | 'lg' | 'xlg' | 'xxl';
+  type: IconTypes;
 }

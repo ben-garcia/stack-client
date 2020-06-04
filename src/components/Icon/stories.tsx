@@ -141,6 +141,17 @@ storiesOf('Icon', module).add('all', () => (
     <div
       style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
     >
+      <Icon size="xm" type="spinner" />
+      <Icon size="sm" type="spinner" />
+      <Icon size="md" type="spinner" />
+      <Icon size="lg" type="spinner" />
+      <Icon size="xlg" type="spinner" />
+      <Icon size="xxl" type="spinner" />
+      <span style={{ alignSelf: 'center' }}>spinner</span>
+    </div>
+    <div
+      style={{ display: 'flex', flexDirection: 'column', margin: '0 0.5rem' }}
+    >
       <Icon size="xm" type="times" />
       <Icon size="sm" type="times" />
       <Icon size="md" type="times" />

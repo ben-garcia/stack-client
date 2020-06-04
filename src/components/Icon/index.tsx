@@ -4,10 +4,11 @@ import { IconProps } from './types';
 import './styles.scss';
 
 const Icon: React.FC<IconProps> = ({
-  type,
-  size = 'md',
   color = 'black',
   className = '',
+  isLoading = false,
+  size = 'md',
+  type,
 }) => {
   let classesToAdd: string = `icon icon--${type}`;
 
@@ -23,6 +24,11 @@ const Icon: React.FC<IconProps> = ({
     classesToAdd += ` icon--${size}`;
   } else {
     classesToAdd += ' icon--md';
+  }
+
+  // Icon should animate
+  if (isLoading) {
+    classesToAdd += ' icon--loading';
   }
 
   // add className passed in if any

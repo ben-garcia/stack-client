@@ -146,6 +146,10 @@
   content: '\e913';
 }
 
+.icon--spinner::before {
+  content: '\e914';
+}
+
 /* sizes */
 .icon--xm {
   font-size: 0.6em;
@@ -169,4 +173,17 @@
 
 .icon--xxl {
   font-size: 5rem;
+}
+
+.icon--loading {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
