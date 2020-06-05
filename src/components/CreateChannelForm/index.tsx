@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Text } from 'components';
+import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
@@ -44,6 +44,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
     description: '',
   });
   const [disableButton, setDisableButton] = useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
@@ -93,6 +94,8 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsSubmitting(true);
 
     //  make sure there are no errors and that current workspace id is
     // set before sending the request.
@@ -163,6 +166,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
       } catch (err) {
         // eslint-disable-next-line
         console.log('handleSubmit error: ', err);
+        setIsSubmitting(false);
       }
     }
   };
@@ -208,8 +212,12 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
           When a channel is set to public, ALL teammates will be added as
           members of the channel.
         </Text>
-        <Button type="submit" disabled={disableButton}>
-          Create
+        <Button type="submit" disabled={disableButton && !isSubmitting}>
+          {isSubmitting ? (
+            <Icon color="white" isLoading size="sm" type="spinner" />
+          ) : (
+            <Text tag="span">Create</Text>
+          )}
         </Button>
       </Form>
     </div>

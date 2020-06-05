@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Text } from 'components';
+import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { getCurrentWorkspace } from 'store/workspace';
@@ -23,6 +23,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
   const [submitButtonIsDisabled, setSubmitButtonIsDisabled] = useState<boolean>(
     true
   );
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
@@ -47,6 +48,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsSubmitting(true);
 
     if (workspaceName.length > 0 && !workspaceNameError) {
       try {
@@ -73,7 +76,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
         }
       } catch (err) {
         // eslint-disable-next-line
-        console.log('CreateWorkspaceForm submit Error: ', err);
+        console.log('CreateWorkspaceForm submit Error: ', { err });
+        setIsSubmitting(false);
       }
     }
   };
@@ -105,8 +109,15 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             This option will (if checked) open the newly created workspace upon
             creation. To keep the you current workspace, leave unchecked.
           </Text>
-          <Button type="submit" disabled={submitButtonIsDisabled}>
-            Create
+          <Button
+            type="submit"
+            disabled={submitButtonIsDisabled && !isSubmitting}
+          >
+            {isSubmitting ? (
+              <Icon color="white" isLoading size="sm" type="spinner" />
+            ) : (
+              <Text tag="span">Create</Text>
+            )}
           </Button>
         </Form.Group>
       </Form>

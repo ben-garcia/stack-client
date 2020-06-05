@@ -29,9 +29,12 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const [values, setValues] = useState<UsernameValues>({
     'username-1': '',
   });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setIsSubmitting(true);
 
     // close the modal
     dispatch(closeInvitePeopleModal());
@@ -87,7 +90,8 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
         });
       } catch (err) {
         // eslint-disable-next-line
-        console.log('InvitePeopleForm handleSubmit error: ', err);
+        console.log('InvitePeopleForm handleSubmit error: ', { err });
+        setIsSubmitting(false);
       }
     }
   };
@@ -186,7 +190,13 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
         <Text className="invite-people-form__message">
           New members will automatically join #general, and #random channels.
         </Text>
-        <Button type="submit">Send Invitations</Button>
+        <Button type="submit">
+          {isSubmitting ? (
+            <Icon color="white" isLoading size="sm" type="spinner" />
+          ) : (
+            <Text tag="span">Send Invitation/s</Text>
+          )}
+        </Button>
       </Form>
     </div>
   );
