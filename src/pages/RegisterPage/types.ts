@@ -13,4 +13,5 @@ export interface UserErrors {
   email: string[];
   username: string[];
   password: string[];
+  response: string[];
 }

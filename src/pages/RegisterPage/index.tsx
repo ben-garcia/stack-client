@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, Form } from 'components';
+import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { RegisterPageProps, User, UserErrors } from './types';
 import { emailSchema, usernameSchema, passwordSchema } from './utils';
@@ -19,8 +19,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
     email: [],
     username: [],
     password: [],
+    response: [],
   });
   const [buttonIsDisabled, setButtonIsDisabled] = useState<boolean>(true);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   /**
    *
@@ -54,6 +56,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
           password: [...err.errors],
         });
       }
+      setIsSubmitting(false);
     }
   };
 
@@ -104,6 +107,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
         email: [],
         username: [],
         password: [],
+        response: [],
       });
       setButtonIsDisabled(false);
     }
@@ -160,9 +164,20 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (errors.response.length > 0) {
+      setErrors({
+        email: [],
+        username: [],
+        password: [],
+        response: [],
+      });
+    }
+
     try {
       // disable the button
       setButtonIsDisabled(true);
+      // show loading spinner icon
+      setIsSubmitting(true);
 
       await validateField(user.email);
       await validateField(user.username);
@@ -183,30 +198,36 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       }
     } catch (err) {
       // eslint-disable-next-line
-      console.log('handleSubmit error: ', err);
+      console.log('handleSubmit error: ', { err });
 
       if (err.response) {
-        // if there was a problem with the email address
-        // add the message to errors.email
-        if (/(email)/.test(err.response.data.error)) {
-          setErrors({
-            ...errors,
-            email: err.response.data.error.split('=')[1],
-          });
-        }
-
-        if (/(username)/.test(err.response.data.error)) {
-          setErrors({
-            ...errors,
-            username: err.response.data.error.split('=')[1],
-          });
-        }
+        setErrors({
+          email: [],
+          username: [],
+          password: [],
+          response: [...err.response.data.error],
+        });
+      } else {
+        setErrors({
+          email: [],
+          username: [],
+          password: [],
+          response: [err.message],
+        });
       }
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="register-page">
+      {errors.response.length > 0 && (
+        <div className="register-page__error">
+          {errors.response.map((err: string) => (
+            <Text>{err}</Text>
+          ))}
+        </div>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
@@ -240,8 +261,12 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
             error={errors.password}
           />
         </Form.Group>
-        <Button type="submit" disabled={buttonIsDisabled}>
-          Register
+        <Button type="submit" disabled={buttonIsDisabled && !isSubmitting}>
+          {isSubmitting ? (
+            <Icon color="white" isLoading size="sm" type="spinner" />
+          ) : (
+            <Text tag="span">Register</Text>
+          )}
         </Button>
       </Form>
     </div>

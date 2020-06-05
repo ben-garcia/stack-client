@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { sendRequest } from 'api';
-import { Button, Form } from 'components';
+import { Button, Form, Icon, Text } from 'components';
 import { userLoggedIn } from 'store/user';
 import { requestUserWorkspaces } from 'store/workspaces';
 import { LoginPageProps, User, UserErrors } from './types';
@@ -21,6 +21,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     password: [],
     response: [],
   });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +69,8 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     // send the request when length requirements have been met
     if (user.email.length >= 6 && user.password.length >= 6) {
       try {
+        setIsSubmitting(true);
+
         const response = await sendRequest({
           method: 'POST',
           url: '/auth/login',
@@ -90,12 +93,21 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         history.replace('/dashboard');
       } catch (err) {
         // eslint-disable-next-line
-        console.log('handleSubmit error: ', err);
-        setErrors({
-          email: [],
-          password: [],
-          response: ['There is no user with that email/password combination'],
-        });
+        console.log('handleSubmit error: ', { err });
+        if (err.response) {
+          setErrors({
+            email: [],
+            password: [],
+            response: [err.response.data.error],
+          });
+        } else {
+          setErrors({
+            email: [],
+            password: [],
+            response: [err.message],
+          });
+        }
+        setIsSubmitting(false);
       }
     }
   };
@@ -103,7 +115,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
   return (
     <div className="login-page">
       {errors.response.length > 0 && (
-        <span className="login-page__error">{errors.response[0]}</span>
+        <div className="login-page__error">{errors.response[0]}</div>
       )}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="form-group" flexDirection="column">
@@ -126,7 +138,13 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             error={errors.password}
           />
         </Form.Group>
-        <Button type="submit">Log In</Button>
+        <Button type="submit">
+          {isSubmitting ? (
+            <Icon color="white" isLoading size="sm" type="spinner" />
+          ) : (
+            <Text>Log In</Text>
+          )}
+        </Button>
       </Form>
     </div>
   );

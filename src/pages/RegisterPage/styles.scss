@@ -4,6 +4,10 @@
 .register-page {
   width: 100%;
 
+  &__error {
+    color: red;
+  }
+
   .form-group {
     @include media-query($breakpoint-sm) {
       width: 100%;

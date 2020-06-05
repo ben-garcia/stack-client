@@ -26,14 +26,14 @@ const Icon: React.FC<IconProps> = ({
     classesToAdd += ' icon--md';
   }
 
-  // Icon should animate
-  if (isLoading) {
-    classesToAdd += ' icon--loading';
-  }
-
   // add className passed in if any
   if (className?.trim() !== '') {
     classesToAdd += ` ${className}`;
+  }
+
+  // Icon should animate
+  if (isLoading) {
+    classesToAdd += ' icon--loading';
   }
 
   return <i className={classesToAdd} />;

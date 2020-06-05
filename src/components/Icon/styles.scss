@@ -26,6 +26,7 @@
 
 .icon {
   line-height: 1;
+  display: inline-block;
 }
 
 /* colors */
@@ -176,7 +177,8 @@
 }
 
 .icon--loading {
-  animation: rotate 2s linear infinite;
+  animation: rotate 2s linear infinite !important;
+  margin: 0 1rem;
 }
 
 @keyframes rotate {
