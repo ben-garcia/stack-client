@@ -47,7 +47,9 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             headerPosition="left"
           >
             <Text>Organize your projects</Text>
-            <Button type="button">Get Started</Button>
+            <Button onClick={() => setLoginModalIsOpen(true)} type="button">
+              Try it out
+            </Button>
           </Header>
         </div>
         <section className="landing-page__description">

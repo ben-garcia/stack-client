@@ -261,6 +261,17 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
             error={errors.password}
           />
         </Form.Group>
+        <Button
+          color="transparent"
+          className="register-page__test-account-button"
+          onClick={() => {
+            setRegisterModalIsOpen(false);
+            setLoginModalIsOpen(true);
+          }}
+          type="button"
+        >
+          Login using a test account.
+        </Button>
         <Button type="submit" disabled={buttonIsDisabled && !isSubmitting}>
           {isSubmitting ? (
             <Icon color="white" isLoading size="sm" type="spinner" />

@@ -20,4 +20,14 @@
       }
     }
   }
+
+  &__test-account-button {
+    align-self: flex-start;
+    color: $primary-color;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

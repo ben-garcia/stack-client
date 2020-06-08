@@ -138,6 +138,18 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             error={errors.password}
           />
         </Form.Group>
+        <div className="login-page__testing-accounts">
+          <div className="stackguest">
+            <Text>Test Account 1</Text>
+            <Text size="sm">email: stackguest@stack.com</Text>
+            <Text size="sm">password: stackguest</Text>
+          </div>
+          <div className="stacktestuser">
+            <Text>Test Account 2</Text>
+            <Text size="sm">email: stacktestuser@stack.com</Text>
+            <Text size="sm">password: stacktestuser</Text>
+          </div>
+        </div>
         <Button type="submit">
           {isSubmitting ? (
             <Icon color="white" isLoading size="sm" type="spinner" />
