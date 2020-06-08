@@ -10,19 +10,18 @@ import App from 'App';
 import 'index.scss';
 
 const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(sagaMiddleware),
-    // redux dev tools
-    // NOTE: remove when building static files for production
-    // eslint-disable-next-line
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      // eslint-disable-next-line
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+// redux dev tools in development
+const middleware =
+  process.env.NODE_ENV === 'production'
+    ? compose(applyMiddleware(sagaMiddleware))
+    : compose(
+        applyMiddleware(sagaMiddleware),
+        // eslint-disable-next-line
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+          // eslint-disable-next-line
+          (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      );
+const store = createStore(rootReducer, middleware);
 
 sagaMiddleware.run(rootSaga);
 
