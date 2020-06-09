@@ -13,9 +13,9 @@ import './styles.scss';
 
 const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
   const dispatch: Dispatch = useDispatch();
-  const { currentWorkspace, username } = useSelector((state: AppState) => ({
+  const { currentWorkspace, user } = useSelector((state: AppState) => ({
     currentWorkspace: state.currentWorkspace,
-    username: state.user.username,
+    user: state.user,
   }));
   // variable used to map through the number of input fields
   const [usernames, setUsernames] = useState<Username[]>([
@@ -51,7 +51,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     // or the username entered is equal to the owner of the workspace
     // to the invalidIds array.
     Object.entries(values).forEach(([key, value]) => {
-      if (value.length < 6 || value === username) {
+      if (value.length < 6 || value === user.username) {
         invalidIds.push(Number(key[key.length - 1]));
       }
     });
@@ -74,20 +74,35 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
 
     if (isSubmittable) {
       try {
-        const {
-          data: { teammates },
-        } = await sendRequest({
-          method: 'PUT',
-          url: `/workspaces/${currentWorkspace.id}`,
-          data: members,
-        });
+        if (
+          user.username === 'stackguest' ||
+          user.username === 'stacktestuser'
+        ) {
+          // loop through the usernames
+          Object.values(values).forEach((username: string) => {
+            const teammate = {
+              id: Math.random(),
+              username,
+            };
+            // add to the store
+            dispatch(addTeammate(teammate));
+          });
+        } else {
+          const {
+            data: { teammates },
+          } = await sendRequest({
+            method: 'PUT',
+            url: `/workspaces/${currentWorkspace.id}`,
+            data: members,
+          });
 
-        // loop through each teamate returned from the server
-        // which are the teammates added.
-        teammates.forEach((teammate: Teammate) => {
-          // dispatch action to add new teammate
-          dispatch(addTeammate(teammate));
-        });
+          // loop through each teamate returned from the server
+          // which are the teammates added.
+          teammates.forEach((teammate: Teammate) => {
+            // dispatch action to add new teammate
+            dispatch(addTeammate(teammate));
+          });
+        }
       } catch (err) {
         // eslint-disable-next-line
         console.log('InvitePeopleForm handleSubmit error: ', { err });
