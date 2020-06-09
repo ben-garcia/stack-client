@@ -12,6 +12,7 @@ import getAllCurrentWorkspaceChannels from './sagas';
 
 export {
   addChannel,
+  clearChannels,
   requestWorkspaceChannels,
   receivedWorkspaceChannels,
   receivedWorkspaceChannelsError,

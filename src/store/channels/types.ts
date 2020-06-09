@@ -1,5 +1,6 @@
 export enum ChannelsActions {
   ADD_CHANNEL = 'ADD_CHANNEL',
+  CLEAR_CHANNELS = 'CLEAR_CHANNELS',
   REQUEST_WORKSPACE_CHANNELS = 'REQUEST_WORKSPACE_CHANNELS',
   RECEIVED_WORKSPACE_CHANNELS = 'RECEIVED_WORKSPACE_CHANNELS',
   RECEIVED_WORKSPACE_CHANNELS_ERROR = 'RECEIVED_WORKSPACE_CHANNELS_ERROR',
@@ -23,6 +24,15 @@ export interface ChannelsState {
   list: Channel[];
 }
 
+interface AddChannel {
+  type: typeof ChannelsActions.ADD_CHANNEL;
+  payload: Channel;
+}
+
+interface ClearChannels {
+  type: typeof ChannelsActions.CLEAR_CHANNELS;
+}
+
 interface RequestWorkspaceChannels {
   type: typeof ChannelsActions.REQUEST_WORKSPACE_CHANNELS;
 }
@@ -37,13 +47,9 @@ interface ReceivedWorkspaceChannelsError {
   payload: ChannelsError;
 }
 
-interface AddChannel {
-  type: typeof ChannelsActions.ADD_CHANNEL;
-  payload: Channel;
-}
-
 export type ChannelsActionTypes =
+  | AddChannel
+  | ClearChannels
   | RequestWorkspaceChannels
   | ReceivedWorkspaceChannels
-  | ReceivedWorkspaceChannelsError
-  | AddChannel;
+  | ReceivedWorkspaceChannelsError;

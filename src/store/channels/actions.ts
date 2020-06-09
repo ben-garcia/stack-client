@@ -5,6 +5,15 @@ import {
   ChannelsActionTypes,
 } from './types';
 
+export const addChannel = (channel: Channel): ChannelsActionTypes => ({
+  type: ChannelsActions.ADD_CHANNEL,
+  payload: channel,
+});
+
+export const clearChannels = (): ChannelsActionTypes => ({
+  type: ChannelsActions.CLEAR_CHANNELS,
+});
+
 export const requestWorkspaceChannels = (): ChannelsActionTypes => ({
   type: ChannelsActions.REQUEST_WORKSPACE_CHANNELS,
 });
@@ -21,9 +30,4 @@ export const receivedWorkspaceChannelsError = (
 ): ChannelsActionTypes => ({
   type: ChannelsActions.RECEIVED_WORKSPACE_CHANNELS_ERROR,
   payload: error,
-});
-
-export const addChannel = (channel: Channel): ChannelsActionTypes => ({
-  type: ChannelsActions.ADD_CHANNEL,
-  payload: channel,
 });

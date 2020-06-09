@@ -15,6 +15,11 @@ const ChannelsReducer = (
         ...state,
         list: [...state.list, action.payload],
       };
+    case ChannelsActions.CLEAR_CHANNELS:
+      return {
+        ...state,
+        list: [],
+      };
     case ChannelsActions.REQUEST_WORKSPACE_CHANNELS:
       return {
         ...state,

@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
+import { clearChannels } from 'store/channels';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
@@ -14,8 +15,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
   createWorkspaceFormIsOpen,
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const { userId } = useSelector((state: AppState) => ({
-    userId: state.user.id,
+  const { user } = useSelector((state: AppState) => ({
+    user: state.user,
   }));
   const [workspaceName, setWorkspaceName] = useState<string>('');
   const [openWorkspace, setOpenWorkspace] = useState<boolean>(false);
@@ -53,26 +54,52 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
 
     if (workspaceName.length > 0 && !workspaceNameError) {
       try {
-        // submit request
-        const {
-          data: { workspace },
-        } = await sendRequest({
-          method: 'POST',
-          url: '/workspaces',
-          data: {
+        if (
+          user.username === 'stackguest' ||
+          user.username === 'stacktestuser'
+        ) {
+          const workspace = {
+            id: Math.random(),
             name: workspaceName,
-            owner: userId,
-          },
-        });
+            ownerId: user.id as number,
+            createdAt: Date.now().toString(),
+            updatedAt: Date.now().toString(),
+          };
+          // dispatch to the store
+          dispatch(addWorkspace(workspace));
+          // close the modal
+          createWorkspaceFormIsOpen(false);
 
-        // dispatch action to add it to the store
-        dispatch(addWorkspace(workspace));
-        // close the modal
-        createWorkspaceFormIsOpen(false);
+          // check whether the newly created workspace should open
+          if (openWorkspace) {
+            dispatch(getCurrentWorkspace(workspace));
+            // remove the list of channels from the previous workspace
+            dispatch(clearChannels());
+          }
+        } else {
+          // submit request
+          const {
+            data: { workspace },
+          } = await sendRequest({
+            method: 'POST',
+            url: '/workspaces',
+            data: {
+              name: workspaceName,
+              owner: user.id,
+            },
+          });
 
-        // check whether the newly created workspace should open
-        if (openWorkspace) {
-          dispatch(getCurrentWorkspace(workspace));
+          // dispatch action to add it to the store
+          dispatch(addWorkspace(workspace));
+          // close the modal
+          createWorkspaceFormIsOpen(false);
+
+          // check whether the newly created workspace should open
+          if (openWorkspace) {
+            dispatch(getCurrentWorkspace(workspace));
+            // remove the list of channels from the previous workspace
+            dispatch(clearChannels());
+          }
         }
       } catch (err) {
         // eslint-disable-next-line
