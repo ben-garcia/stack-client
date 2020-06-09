@@ -118,11 +118,16 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           }
         }
 
-        await sendRequest({
-          method: 'POST',
-          url,
-          data,
-        });
+        if (
+          user.username !== 'stackguest' &&
+          user.username !== 'stacktestuser'
+        ) {
+          await sendRequest({
+            method: 'POST',
+            url,
+            data,
+          });
+        }
       } catch (err) {
         // eslint-disable-next-line
         console.log('error in CreateMessage handleKeyUp: ', err);
