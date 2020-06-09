@@ -13,14 +13,19 @@ import './styles.scss';
 
 const AddPeople: React.FC<AddPeopleProps> = () => {
   const dispatch = useDispatch();
-  const { currentChannelId, channelName, members, teammates } = useSelector(
-    (state: AppState) => ({
-      currentChannelId: state.currentChannel.id,
-      channelName: state.currentChannel.name,
-      members: state.members.list,
-      teammates: state.teammates.list,
-    })
-  );
+  const {
+    currentChannelId,
+    channelName,
+    members,
+    teammates,
+    user,
+  } = useSelector((state: AppState) => ({
+    currentChannelId: state.currentChannel.id,
+    channelName: state.currentChannel.name,
+    members: state.members.list,
+    teammates: state.teammates.list,
+    user: state.user,
+  }));
   // usernames that the user has selected
   // to be added to the channel member's list
   const [usernames, setUsernames] = useState<string[]>([]);
@@ -49,25 +54,32 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // send request to the server
-    await sendRequest({
-      method: 'PUT',
-      url: `/channels/${currentChannelId}`,
-      data: { members: usernames },
-    });
-
-    // loop through the usernames and members to add
-    usernames.forEach((s: string) => {
-      membersToAdd.forEach((m: Member) => {
-        if (s === m.username) {
-          // dispatch action to add new member
-          dispatch(addMember({ id: m.id, username: s }));
-        }
+    try {
+      if (user.username === 'stackguest' || user.username === 'stacktestuser') {
+        // when the user is a test account
+      } else {
+        // send request to the server
+        await sendRequest({
+          method: 'PUT',
+          url: `/channels/${currentChannelId}`,
+          data: { members: usernames },
+        });
+      }
+      // loop through the usernames and members to add
+      usernames.forEach((s: string) => {
+        membersToAdd.forEach((m: Member) => {
+          if (s === m.username) {
+            // dispatch action to add new member
+            dispatch(addMember({ id: m.id, username: s }));
+          }
+        });
       });
-    });
-
-    // close the modal
-    dispatch(closeAddPeopleModal());
+      // close the modal
+      dispatch(closeAddPeopleModal());
+    } catch (err) {
+      // eslint-disable-next-line
+      console.log('AddPeople onSubmit error: ', { err });
+    }
   };
 
   return (

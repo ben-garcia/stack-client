@@ -120,49 +120,72 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
           data.channel.members = teammates.map((t: Teammate) => t.username);
         }
 
-        const {
-          data: { channel: newChannel },
-        } = await sendRequest({
-          method: 'POST',
-          url: '/channels',
-          data,
-        });
-
-        // dispatch action to remove all current members
-        dispatch(clearMembers());
-        // dispatch action to add newly created channel to the store.
-        dispatch(addChannel(newChannel));
-        // store the newly created channel in local storage
-        localStorage.setItem('currentChannel', JSON.stringify(newChannel));
-        // dispatch action to change the current channel in the store
-        dispatch(getCurrentChannel(newChannel));
-        // dispatch action to clear all channel messages(if needed)
-        if (messages.length !== 0) {
+        if (
+          user.username === 'stackguest' ||
+          user.username === 'stacktestuser'
+        ) {
+          const newChannel = {
+            ...channel,
+            id: Math.random(),
+            topic: '',
+            createdAt: Date.now().toString(),
+            updatedAt: Date.now().toString(),
+          };
+          // dispatch action to remove all current members
+          dispatch(clearMembers());
+          // dispatch action to remove all messages
           dispatch(clearMessages());
-        }
-        // dispatch action to clear all direct messages(if needed)
-        if (directMessages.length !== 0) {
-          dispatch(clearDirectMessages());
-        }
-        // clear current teammate
-        if (currentTeammate.id) {
-          localStorage.removeItem('currentTeammate');
-          // clear the current teammate to
-          dispatch(
-            getCurrentTeammate({
-              id: 0,
-              username: '',
-            })
-          );
-        }
-        // dispatch action to add workspace teammates as channel's members
-        if (data.channel.members && data.channel.members.length > 0) {
-          data.channel.members.forEach((t: Teammate) => {
-            dispatch(addMember(t));
+          // dispatch action to add newly created channel to the store.
+          dispatch(addChannel(newChannel));
+          // dispatch action to change the current channel in the store
+          dispatch(getCurrentChannel(newChannel));
+          // close the create channel modal
+          createChannelFormIsOpen(false);
+        } else {
+          const {
+            data: { channel: newChannel },
+          } = await sendRequest({
+            method: 'POST',
+            url: '/channels',
+            data,
           });
+
+          // dispatch action to remove all current members
+          dispatch(clearMembers());
+          // dispatch action to add newly created channel to the store.
+          dispatch(addChannel(newChannel));
+          // store the newly created channel in local storage
+          localStorage.setItem('currentChannel', JSON.stringify(newChannel));
+          // dispatch action to change the current channel in the store
+          dispatch(getCurrentChannel(newChannel));
+          // dispatch action to clear all channel messages(if needed)
+          if (messages.length !== 0) {
+            dispatch(clearMessages());
+          }
+          // dispatch action to clear all direct messages(if needed)
+          if (directMessages.length !== 0) {
+            dispatch(clearDirectMessages());
+          }
+          // clear current teammate
+          if (currentTeammate.id) {
+            localStorage.removeItem('currentTeammate');
+            // clear the current teammate to
+            dispatch(
+              getCurrentTeammate({
+                id: 0,
+                username: '',
+              })
+            );
+          }
+          // dispatch action to add workspace teammates as channel's members
+          if (data.channel.members && data.channel.members.length > 0) {
+            data.channel.members.forEach((t: Teammate) => {
+              dispatch(addMember(t));
+            });
+          }
+          // close the create channel modal
+          createChannelFormIsOpen(false);
         }
-        // close the create channel modal
-        createChannelFormIsOpen(false);
       } catch (err) {
         // eslint-disable-next-line
         console.log('handleSubmit error: ', err);

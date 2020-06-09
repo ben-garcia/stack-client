@@ -12,32 +12,46 @@ import './styles.scss';
 
 const EditChannelTopic: React.FC<EditChannelTopicProps> = ({ value }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentChannel } = useSelector((state: AppState) => ({
+  const { currentChannel, user } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
+    user: state.user,
   }));
   const [topic, setTopic] = useState<string>(value || '');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await sendRequest({
-      method: 'PUT',
-      url: `/channels/${currentChannel.id}`,
-      data: { topic },
-    });
+    try {
+      // check for testing accounts
+      if (user.username === 'stackguest' || user.username === 'stacktestuser') {
+        // dispatch action to update the current channel topic
+        dispatch(updateChannelTopic(topic));
+        // close the modal
+        dispatch(closeEditChannelTopicModal());
+      } else {
+        await sendRequest({
+          method: 'PUT',
+          url: `/channels/${currentChannel.id}`,
+          data: { topic },
+        });
 
-    // get the current channel from local storage and update topic
-    const channelFromLocalStorage = localStorage.getItem('currentChannel');
-    const parsedChannel = JSON.parse(channelFromLocalStorage!);
-    parsedChannel.topic = topic;
+        // get the current channel from local storage and update topic
+        const channelFromLocalStorage = localStorage.getItem('currentChannel');
+        const parsedChannel = JSON.parse(channelFromLocalStorage!);
+        parsedChannel.topic = topic;
 
-    // save the current channel with the updated topic to local storage
-    localStorage.setItem('currentChannel', JSON.stringify(parsedChannel));
+        // save the current channel with the updated topic to local storage
+        localStorage.setItem('currentChannel', JSON.stringify(parsedChannel));
 
-    // dispatch action to update the current channel topic
-    dispatch(updateChannelTopic(topic));
-    // close the modal
-    dispatch(closeEditChannelTopicModal());
+        // dispatch action to update the current channel topic
+        dispatch(updateChannelTopic(topic));
+        // close the modal
+        dispatch(closeEditChannelTopicModal());
+      }
+    } catch (err) {
+      // eslint-disable-next-line
+      console.log('EditChannelTopic error: ', { err });
+    }
   };
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTopic(e.target.value);
