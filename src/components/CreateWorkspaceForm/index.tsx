@@ -137,8 +137,9 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             creation. To keep the you current workspace, leave unchecked.
           </Text>
           <Button
-            type="submit"
+            className="create-workspace__submit-button"
             disabled={submitButtonIsDisabled && !isSubmitting}
+            type="submit"
           >
             {isSubmitting ? (
               <Icon color="white" isLoading size="sm" type="spinner" />
