@@ -1,8 +1,9 @@
 .button {
   border-radius: 5px;
   border: none;
-  text-shadow: none;
+  outline-style: none; // remove white outline in chrome
   padding: 0.3rem;
+  text-shadow: none;
 
   &:hover:not(:disabled) {
     cursor: pointer;
