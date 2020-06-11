@@ -21,6 +21,11 @@ const teammatesReducer = (
         ...state,
         list: [...state.list, action.payload],
       };
+    case TeammatesActions.CLEAR_TEAMMATES:
+      return {
+        ...state,
+        list: [],
+      };
     case TeammatesActions.TEAMMATE_CONNECTED:
       const teammate = state.list.find(
         (t: Teammate) => t.username === action.payload

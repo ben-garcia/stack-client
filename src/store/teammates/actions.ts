@@ -10,6 +10,10 @@ export const addTeammate = (teammate: Teammate): TeammatesActionTypes => ({
   payload: teammate,
 });
 
+export const clearTeammates = () => ({
+  type: TeammatesActions.CLEAR_TEAMMATES,
+});
+
 export const teammateConnected = (
   teammateUsername: string
 ): TeammatesActionTypes => ({

@@ -6,6 +6,7 @@ import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { clearChannels } from 'store/channels';
+import { clearTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
@@ -75,6 +76,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             dispatch(getCurrentWorkspace(workspace));
             // remove the list of channels from the previous workspace
             dispatch(clearChannels());
+            // remove the list of teammates from the previous workspace
+            dispatch(clearTeammates());
           }
         } else {
           // submit request
@@ -99,6 +102,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             dispatch(getCurrentWorkspace(workspace));
             // remove the list of channels from the previous workspace
             dispatch(clearChannels());
+            // remove the list of teammates from the previous workspace
+            dispatch(clearTeammates());
           }
         }
       } catch (err) {

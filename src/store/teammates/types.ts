@@ -1,5 +1,6 @@
 export enum TeammatesActions {
   ADD_TEAMMATE = 'ADD_TEAMMATE',
+  CLEAR_TEAMMATES = 'CLEAR_TEAMMATES',
   TEAMMATE_CONNECTED = 'TEAMMATE_CONNECTED',
   TEAMMATE_DISCONNECTED = 'TEAMMATE_DISCONNECTED',
   REQUEST_WORKSPACE_TEAMMATES = 'REQUEST_WORKSPACE_TEAMMATES',
@@ -25,6 +26,10 @@ export interface TeammatesState {
 interface AddTeammate {
   type: typeof TeammatesActions.ADD_TEAMMATE;
   payload: Teammate;
+}
+
+interface ClearTeammates {
+  type: typeof TeammatesActions.CLEAR_TEAMMATES;
 }
 
 interface TeammateConnected {
@@ -53,6 +58,7 @@ interface ReceivedWorkspaceTeammatesError {
 
 export type TeammatesActionTypes =
   | AddTeammate
+  | ClearTeammates
   | TeammateConnected
   | TeammateDisconnected
   | RequestWorkspaceTeammates

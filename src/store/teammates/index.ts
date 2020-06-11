@@ -12,6 +12,7 @@ import GetAllCurrentWorkspaceTeammates from './sagas';
 
 export {
   addTeammate,
+  clearTeammates,
   teammateConnected,
   teammateDisconnected,
   receivedWorkspaceTeammates,
