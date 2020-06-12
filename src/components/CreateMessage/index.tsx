@@ -139,7 +139,9 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     if (socket) {
       socket.close();
     }
-    const mySocket = io.connect('http://localhost:8080');
+    const mySocket = io.connect(
+      process.env.REACT_APP_SERVER_URL || 'http://localhost:8080'
+    );
     setSocket(mySocket);
     if (currentChannel.id && !currentTeammate.id) {
       mySocket.emit('user-connected', {

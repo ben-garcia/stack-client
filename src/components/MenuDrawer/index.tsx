@@ -12,12 +12,10 @@ const MenuDrawer: React.FC = () => {
   const dispatch = useDispatch();
   const logout = async () => {
     // send request to delete session on the server
-    const response = await sendRequest({
+    await sendRequest({
       url: '/auth/logout',
       method: 'POST',
     });
-    // eslint-disable-next-line
-    console.log(response);
     // delete everything from local storage
     localStorage.clear();
     // redirect to the landing page
