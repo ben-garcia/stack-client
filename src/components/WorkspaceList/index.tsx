@@ -70,10 +70,10 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
 
   return (
     <aside className={classesToAdd}>
-      <List>
+      <List className="workspace-list__list">
         {workspaces.map(w => (
           <List.Item
-            className="workspaces-item"
+            className="workspace-list__item"
             key={w.id}
             active={w.id === currentWorkspace.id}
           >

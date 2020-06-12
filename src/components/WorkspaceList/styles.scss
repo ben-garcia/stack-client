@@ -5,13 +5,26 @@
   overflow: hidden scroll;
   scrollbar-width: none;
 
-  .workspaces-item {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__item {
+    align-items: center;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    height: 40px;
     padding: 0;
+    width: 40px;
   }
 
   &__button {
     color: rgba($background-color, 0.8);
     display: flex;
+    font-weight: 700;
     justify-content: center;
     width: 100%;
   }
