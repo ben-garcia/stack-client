@@ -9,10 +9,11 @@ import { getTime, printFormattedDate } from 'utils';
 import './styles.scss';
 
 const MessageList: React.FC = () => {
-  const { channelMessages, directMessages, user } = useSelector(
+  const { channelMessages, directMessages, user, members } = useSelector(
     (state: AppState) => ({
       channelMessages: state.messages.list,
       directMessages: state.directMessages.list,
+      members: state.members.list,
       user: state.user,
     })
   );
@@ -57,6 +58,23 @@ const MessageList: React.FC = () => {
         }
       }
       listItems.push(messagesWithSameDates);
+    }
+  }
+
+  // make sure that message.user has a color property
+  // so that each user icon has a color
+  for (let i = 0; i < listItems.length; i += 1) {
+    for (let j = 0; j < listItems[i].length; j += 1) {
+      // when message.user's color property is undefined
+      if (!listItems[i][j].user.color) {
+        // loop through the members array
+        // which will contain the correct color for that member
+        for (let k = 0; k < members.length; k += 1) {
+          // match the usernames
+          if (members[k].username === listItems[i][j].user.username)
+            listItems[i][j].user.color = members[k].color!;
+        }
+      }
     }
   }
 
