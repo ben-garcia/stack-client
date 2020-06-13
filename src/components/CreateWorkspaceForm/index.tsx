@@ -6,6 +6,8 @@ import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { clearChannels } from 'store/channels';
+import { clearDirectMessages } from 'store/directMessages';
+import { clearMessages } from 'store/messages';
 import { clearTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
@@ -78,6 +80,10 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             dispatch(clearChannels());
             // remove the list of teammates from the previous workspace
             dispatch(clearTeammates());
+            // remove the current messages(if any) from the previous workspace
+            dispatch(clearMessages());
+            // remove the current direct messages(if any) from the previous workspace
+            dispatch(clearDirectMessages());
           }
         } else {
           // submit request
