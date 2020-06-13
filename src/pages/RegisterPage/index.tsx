@@ -270,7 +270,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
           }}
           type="button"
         >
-          Login using a test account.
+          Login using a test account!
         </Button>
         <Button type="submit" disabled={buttonIsDisabled && !isSubmitting}>
           {isSubmitting ? (

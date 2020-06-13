@@ -1,4 +1,7 @@
-export interface LoginPageProps {}
+export interface LoginPageProps {
+  setRegisterModalIsOpen: (value: React.SetStateAction<boolean>) => void;
+  setLoginModalIsOpen: (value: React.SetStateAction<boolean>) => void;
+}
 
 export interface User {
   email: string;

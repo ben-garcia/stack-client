@@ -96,7 +96,10 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           header="Log In"
           onClose={() => setLoginModalIsOpen(false)}
         >
-          <LoginPage />
+          <LoginPage
+            setRegisterModalIsOpen={setRegisterModalIsOpen}
+            setLoginModalIsOpen={setLoginModalIsOpen}
+          />
         </Modal>
       )}
     </div>

@@ -10,7 +10,10 @@ import { requestUserWorkspaces } from 'store/workspaces';
 import { LoginPageProps, User, UserErrors } from './types';
 import './styles.scss';
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+const LoginPage: React.FC<LoginPageProps> = ({
+  setRegisterModalIsOpen,
+  setLoginModalIsOpen,
+}) => {
   const dispatch: Dispatch = useDispatch();
   const [user, setUser] = useState<User>({
     email: '',
@@ -138,6 +141,17 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             error={errors.password}
           />
         </Form.Group>
+        <Button
+          color="transparent"
+          className="login-page__need-account-button"
+          onClick={() => {
+            setLoginModalIsOpen(false);
+            setRegisterModalIsOpen(true);
+          }}
+          type="button"
+        >
+          Dont have an account yet?
+        </Button>
         <div className="login-page__testing-accounts">
           <div className="stackguest">
             <Text>Test Account 1</Text>

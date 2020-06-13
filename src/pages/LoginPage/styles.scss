@@ -21,6 +21,17 @@
     }
   }
 
+  &__need-account-button {
+    align-self: flex-start;
+    color: $primary-color;
+    margin-bottom: 0.3rem;
+    padding: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &__testing-accounts {
     align-self: flex-start;
     display: flex;
