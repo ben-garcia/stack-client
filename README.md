@@ -3,6 +3,7 @@
 This repo will hold the front-end code for stack which is a minuature slack clone using React/Redux in Typescript.
 
 - Checkout the [TODO](TODO.md) for more information.
+- server code is [here](https://github.com/ben-garcia/stack-server)
 
 > React/Redux on the client and Node/Express/PostgreSQL API on the server.
 

@@ -24,11 +24,16 @@ jest.mock('react-router-dom', () => ({
 
 describe('LoginPage Integration', () => {
   let result: RenderResult;
+  const mockSetLoginModalIsOpen = jest.fn();
+  const mockSetRegisterModalIsOpen = jest.fn();
 
   beforeEach(() => {
     result = render(
       <Provider store={store}>
-        <LoginPage />
+        <LoginPage
+          setLoginModalIsOpen={mockSetLoginModalIsOpen}
+          setRegisterModalIsOpen={mockSetRegisterModalIsOpen}
+        />
       </Provider>
     );
   });

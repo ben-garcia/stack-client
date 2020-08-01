@@ -92,7 +92,7 @@
 
     - wrapper for either p, span, or div tag with styles
 
-  - [ ] Placeholder
+  - [x] Placeholder
 
     - will be rendered in place for loading data
 
