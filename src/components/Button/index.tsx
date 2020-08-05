@@ -48,6 +48,12 @@ const Button: React.FC<ButtonProps> = ({
     title,
   };
 
+  // make sure the onClick function is not called when
+  // the button is disabled
+  if (disabled) {
+    delete props.onClick;
+  }
+
   // customAttribute should be an empty object.
   if (customAttribute !== {}) {
     const [key] = Object.keys(customAttribute);

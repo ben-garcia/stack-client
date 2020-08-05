@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import '@testing-library/jest-dom/extend-expect';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+/*
 // https://github.com/testing-library/react-testing-library/issues/281#issuecomment-480349256
 // this is just a little hack to silence a warning that we'll get until react
 // fixes this: https://github.com/facebook/react/pull/14853
@@ -28,3 +28,4 @@ beforeAll(() => {
 afterAll(() => {
   console.error = originalError;
 });
+*/
