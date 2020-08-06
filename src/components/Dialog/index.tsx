@@ -47,12 +47,12 @@ const Dialog: React.FC<DialogProps> = ({
   }
 
   return (
-    <section className={classesToAdd}>
+    <div className={classesToAdd}>
       {header.trim() !== '' && (
         <Header as="h2" heading={header} className="dialog__header" />
       )}
       {contentToRender}
-    </section>
+    </div>
   );
 };
 
