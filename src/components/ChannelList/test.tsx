@@ -1,0 +1,181 @@
+import { mount, ReactWrapper } from 'enzyme';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import { channelsReducer } from 'store/channels';
+
+import ChannelList from '.';
+
+describe('<ChannelList />', () => {
+  const mockState = {
+    currentChannel: { id: 1 },
+    channels: {
+      list: [{}],
+    },
+  };
+  const store = createStore(channelsReducer, mockState as any);
+  const mountComponent = (mockStore = store): ReactWrapper =>
+    mount(
+      <Provider store={mockStore}>
+        <ChannelList />
+      </Provider>
+    );
+
+  it('should be defined', () => {
+    const wrapper = mountComponent();
+    expect(wrapper).toBeDefined();
+  });
+
+  it('should render as a <section>', () => {
+    const wrapper = mountComponent();
+    const channelListWrapper: ReactWrapper = wrapper.find('ChannelList');
+
+    expect(channelListWrapper.childAt(0).name()).toBe('section');
+  });
+
+  it('should render empty <ul> tag when there are no channels', () => {
+    const wrapper = mountComponent();
+    const ulWrapper: ReactWrapper = wrapper.find('ul');
+
+    expect(ulWrapper.text()).toBe('');
+  });
+
+  it('should render 3 <li> tags when there are 3 channels', () => {
+    const stateWithThreeChannels = {
+      ...mockState,
+      channels: { list: [{ id: 1 }, { id: 2 }, { id: 3 }] },
+    };
+    const wrapper = mountComponent(
+      createStore(channelsReducer, stateWithThreeChannels as any)
+    );
+    const liWrapper: ReactWrapper = wrapper.find('ListItem').find('li');
+
+    expect(liWrapper.length).toBe(3);
+  });
+
+  it('should call dispatch a total of 5 times when channel button is clicked(currentChannel.id !== channel.id)', () => {
+    const channel = {
+      id: 3,
+      name: 'channel name',
+      description: 'channel description',
+      private: false,
+      topic: 'channel topic',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    const stateWithThreeChannels = {
+      ...mockState,
+      channels: { list: [channel] },
+    };
+    const storeWithSpy = createStore(
+      channelsReducer,
+      stateWithThreeChannels as any
+    );
+    storeWithSpy.dispatch = jest.fn();
+    const wrapper = mountComponent(storeWithSpy);
+    const expectedGetCurrentChannel = {
+      payload: channel,
+      type: 'GET_CURRENT_CHANNEL',
+    };
+    const expectedGetCurrentTeammate = {
+      payload: { id: 0, username: '' },
+      type: 'GET_CURRENT_TEAMMATE',
+    };
+    const expectedRequestChannelMembers = {
+      type: 'REQUEST_CHANNEL_MEMBERS',
+    };
+    const expectedRequestChannelMessages = {
+      type: 'REQUEST_CHANNEL_MESSAGES',
+    };
+    const expectedClearDirectMessages = {
+      type: 'CLEAR_DIRECT_MESSAGES',
+    };
+
+    expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
+
+    wrapper
+      .find('li')
+      .find('Button')
+      .simulate('click');
+
+    expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(5);
+    expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
+      1,
+      expectedGetCurrentChannel
+    );
+    expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
+      2,
+      expectedGetCurrentTeammate
+    );
+    expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
+      3,
+      expectedRequestChannelMembers
+    );
+    expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
+      4,
+      expectedRequestChannelMessages
+    );
+    expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
+      5,
+      expectedClearDirectMessages
+    );
+  });
+
+  it('should call dispatch a total of 0 times when channel button is clicked(currentChannel.id === channel.id)', () => {
+    const channel = {
+      id: 1,
+    };
+    const stateWithThreeChannels = {
+      ...mockState,
+      channels: { list: [channel] },
+    };
+    const storeWithSpy = createStore(
+      channelsReducer,
+      stateWithThreeChannels as any
+    );
+    storeWithSpy.dispatch = jest.fn();
+    const wrapper = mountComponent(storeWithSpy);
+
+    expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
+
+    wrapper
+      .find('li')
+      .find('Button')
+      .simulate('click');
+
+    expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
+  });
+
+  it('should render a <Modal> with a <CreateChannelForm> when the create channel button is clicked', () => {
+    const newState = {
+      currentChannel: { id: 1 },
+      channels: {
+        list: [{ id: 10 }],
+      },
+      directMessages: { list: [] },
+      messages: { list: [] },
+      teammates: { list: [] },
+    };
+    // add the div for the modal
+    const modalRoot = (global as any).document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    const body = (global as any).document.querySelector('body');
+    body.appendChild(modalRoot);
+
+    const anotherStore = createStore(channelsReducer, newState as any);
+    const wrapper = mountComponent(anotherStore);
+    const createNewChannelButton = wrapper.find('div');
+
+    expect(wrapper.find('Modal').length).toBe(0);
+    expect(wrapper.find('Modal').find('CreateChannelForm').length).toBe(0);
+
+    createNewChannelButton
+      .find('Button')
+      .at(0)
+      .simulate('click');
+
+    expect(wrapper.find('Modal').length).toBe(1);
+    expect(wrapper.find('Modal').find('CreateChannelForm').length).toBe(1);
+  });
+});
