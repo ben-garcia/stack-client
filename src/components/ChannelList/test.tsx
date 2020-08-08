@@ -21,30 +21,27 @@ describe('<ChannelList />', () => {
         <ChannelList />
       </Provider>
     );
+  let wrapper: ReactWrapper;
+
+  beforeEach(() => {
+    wrapper = mountComponent();
+  });
 
   it('should be defined', () => {
-    const wrapper = mountComponent();
-
     expect(wrapper).toBeDefined();
   });
 
   it('should render as a <section>', () => {
-    const wrapper = mountComponent();
     const channelListWrapper: ReactWrapper = wrapper.find('ChannelList');
-
     expect(channelListWrapper.childAt(0).name()).toBe('section');
   });
 
   it('should render "Channels" inside a <Text>', () => {
-    const wrapper = mountComponent();
-
     expect(wrapper.find('Text').text()).toBe('Channels');
   });
 
   it('should render empty <ul> tag when there are no channels', () => {
-    const wrapper = mountComponent();
     const ulWrapper: ReactWrapper = wrapper.find('ul');
-
     expect(ulWrapper.text()).toBe('');
   });
 
@@ -53,10 +50,10 @@ describe('<ChannelList />', () => {
       ...mockState,
       channels: { list: [{ id: 1 }, { id: 2 }, { id: 3 }] },
     };
-    const wrapper = mountComponent(
+    const newWrapper = mountComponent(
       createStore(channelsReducer, stateWithThreeChannels as any)
     );
-    const liWrapper: ReactWrapper = wrapper.find('ListItem').find('li');
+    const liWrapper: ReactWrapper = newWrapper.find('ListItem').find('li');
 
     expect(liWrapper.length).toBe(3);
   });
@@ -66,10 +63,10 @@ describe('<ChannelList />', () => {
       ...mockState,
       channels: { list: [{ id: 1, name: 'channelName' }] },
     };
-    const wrapper = mountComponent(
+    const newWrapper = mountComponent(
       createStore(channelsReducer, stateWithThreeChannels as any)
     );
-    const textWrapper: ReactWrapper = wrapper.find('ListItem').find('Text');
+    const textWrapper: ReactWrapper = newWrapper.find('ListItem').find('Text');
 
     expect(textWrapper.text()).toBe('channelName');
   });
@@ -93,7 +90,7 @@ describe('<ChannelList />', () => {
       stateWithThreeChannels as any
     );
     storeWithSpy.dispatch = jest.fn();
-    const wrapper = mountComponent(storeWithSpy);
+    const newWrapper = mountComponent(storeWithSpy);
     const expectedGetCurrentChannel = {
       payload: channel,
       type: 'GET_CURRENT_CHANNEL',
@@ -114,7 +111,7 @@ describe('<ChannelList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    wrapper
+    newWrapper
       .find('li')
       .find('Button')
       .simulate('click');
@@ -155,11 +152,11 @@ describe('<ChannelList />', () => {
       stateWithThreeChannels as any
     );
     storeWithSpy.dispatch = jest.fn();
-    const wrapper = mountComponent(storeWithSpy);
+    const newWrapper = mountComponent(storeWithSpy);
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    wrapper
+    newWrapper
       .find('li')
       .find('Button')
       .simulate('click');
@@ -184,18 +181,18 @@ describe('<ChannelList />', () => {
     body.appendChild(modalRoot);
 
     const anotherStore = createStore(channelsReducer, newState as any);
-    const wrapper = mountComponent(anotherStore);
-    const createNewChannelButton = wrapper.find('div');
+    const newWrapper = mountComponent(anotherStore);
+    const createNewChannelButton = newWrapper.find('div');
 
-    expect(wrapper.find('Modal').length).toBe(0);
-    expect(wrapper.find('Modal').find('CreateChannelForm').length).toBe(0);
+    expect(newWrapper.find('Modal').length).toBe(0);
+    expect(newWrapper.find('Modal').find('CreateChannelForm').length).toBe(0);
 
     createNewChannelButton
       .find('Button')
       .at(0)
       .simulate('click');
 
-    expect(wrapper.find('Modal').length).toBe(1);
-    expect(wrapper.find('Modal').find('CreateChannelForm').length).toBe(1);
+    expect(newWrapper.find('Modal').length).toBe(1);
+    expect(newWrapper.find('Modal').find('CreateChannelForm').length).toBe(1);
   });
 });
