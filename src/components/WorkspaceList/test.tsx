@@ -44,9 +44,9 @@ describe('<WorkspaceList />', () => {
   it('should render as an <aside>', () => {
     const wrapper = mountComponent();
 
-    const channelListWrapper: ReactWrapper = wrapper.find('WorkspaceList');
+    const workspaceListWrapper: ReactWrapper = wrapper.find('WorkspaceList');
 
-    expect(channelListWrapper.childAt(0).name()).toBe('aside');
+    expect(workspaceListWrapper.childAt(0).name()).toBe('aside');
   });
 
   it('should render empty <ul> tag when there are no workspaces', () => {

@@ -35,10 +35,13 @@ const MessageList: React.FC = () => {
   }, [directMessages, channelMessages]);
 
   const listItems: Message[][] | DirectMessage[][] = [];
+
   if (messagesToRender && messagesToRender.length) {
     for (let i = 0; i < messagesToRender.length; i += 1) {
       const messagesWithSameDates: Message[] | DirectMessage[] = [];
+
       messagesWithSameDates.push(messagesToRender[i]);
+
       for (let j = i + 1; j < messagesToRender.length; j += 1) {
         if (
           printFormattedDate(messagesToRender[i].createdAt) ===
@@ -128,7 +131,7 @@ const MessageList: React.FC = () => {
                           {getTime(message.createdAt)}
                         </Text>
                       </div>
-                      <Text size="sm" tag="span">
+                      <Text className="message__content" size="sm" tag="span">
                         {message.content}
                       </Text>
                     </div>
@@ -138,7 +141,11 @@ const MessageList: React.FC = () => {
                     <Text className="hover-timestamp" size="xm" tag="span">
                       {getTime(message.createdAt, false)}
                     </Text>
-                    <Text className="left-margin" size="sm" tag="span">
+                    <Text
+                      className="message__content left-margin"
+                      size="sm"
+                      tag="span"
+                    >
                       {message.content}
                     </Text>
                   </div>
