@@ -11,7 +11,7 @@ describe('<ChannelList />', () => {
   const mockState = {
     currentChannel: { id: 1 },
     channels: {
-      list: [{}],
+      list: [],
     },
   };
   const store = createStore(channelsReducer, mockState as any);
@@ -24,6 +24,7 @@ describe('<ChannelList />', () => {
 
   it('should be defined', () => {
     const wrapper = mountComponent();
+
     expect(wrapper).toBeDefined();
   });
 
@@ -32,6 +33,12 @@ describe('<ChannelList />', () => {
     const channelListWrapper: ReactWrapper = wrapper.find('ChannelList');
 
     expect(channelListWrapper.childAt(0).name()).toBe('section');
+  });
+
+  it('should render "Channels" inside a <Text>', () => {
+    const wrapper = mountComponent();
+
+    expect(wrapper.find('Text').text()).toBe('Channels');
   });
 
   it('should render empty <ul> tag when there are no channels', () => {
@@ -52,6 +59,19 @@ describe('<ChannelList />', () => {
     const liWrapper: ReactWrapper = wrapper.find('ListItem').find('li');
 
     expect(liWrapper.length).toBe(3);
+  });
+
+  it('should render the name of the channel in a <Text>', () => {
+    const stateWithThreeChannels = {
+      ...mockState,
+      channels: { list: [{ id: 1, name: 'channelName' }] },
+    };
+    const wrapper = mountComponent(
+      createStore(channelsReducer, stateWithThreeChannels as any)
+    );
+    const textWrapper: ReactWrapper = wrapper.find('ListItem').find('Text');
+
+    expect(textWrapper.text()).toBe('channelName');
   });
 
   it('should call dispatch a total of 5 times when channel button is clicked(currentChannel.id !== channel.id)', () => {
@@ -157,7 +177,7 @@ describe('<ChannelList />', () => {
       messages: { list: [] },
       teammates: { list: [] },
     };
-    // add the div for the modal
+    // add the div node for the modal
     const modalRoot = (global as any).document.createElement('div');
     modalRoot.setAttribute('id', 'modal-root');
     const body = (global as any).document.querySelector('body');
