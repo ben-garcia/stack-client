@@ -34,43 +34,38 @@ describe('<WorkspaceList />', () => {
         <WorkspaceList workspaces={workspaces} />
       </Provider>
     );
+  let wrapper: ReactWrapper;
+
+  beforeEach(() => {
+    wrapper = mountComponent();
+  });
 
   it('should be defined', () => {
-    const wrapper = mountComponent();
-
     expect(wrapper).toBeDefined();
   });
 
   it('should render as an <aside>', () => {
-    const wrapper = mountComponent();
-
     const workspaceListWrapper: ReactWrapper = wrapper.find('WorkspaceList');
-
     expect(workspaceListWrapper.childAt(0).name()).toBe('aside');
   });
 
   it('should render empty <ul> tag when there are no workspaces', () => {
-    const wrapper = mount(
+    const newWrapper = mount(
       <Provider store={store}>
         <WorkspaceList workspaces={[]} />
       </Provider>
     );
-    const ulWrapper: ReactWrapper = wrapper.find('ul');
-
+    const ulWrapper: ReactWrapper = newWrapper.find('ul');
     expect(ulWrapper.text()).toBe('');
   });
 
   it('should render 2 <li> tags when there are 2 workspaces', () => {
-    const wrapper = mountComponent();
     const liWrapper: ReactWrapper = wrapper.find('ListItem').find('li');
-
     expect(liWrapper.length).toBe(2);
   });
 
   it('should render the first letter(as uppercase) of the workspace in a <Button>', () => {
-    const wrapper = mountComponent();
     const textWrapper: ReactWrapper = wrapper.find('ListItem').find('Button');
-
     expect(textWrapper.at(0).text()).toBe(workspaces[0].name[0].toUpperCase());
     expect(textWrapper.at(1).text()).toBe(workspaces[1].name[0].toUpperCase());
   });
@@ -80,7 +75,7 @@ describe('<WorkspaceList />', () => {
 
     storeWithSpy.dispatch = jest.fn();
 
-    const wrapper = mountComponent(storeWithSpy);
+    const newWrapper = mountComponent(storeWithSpy);
     const expectedGetCurrentChannel = {
       payload: {
         id: 0,
@@ -116,7 +111,7 @@ describe('<WorkspaceList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    wrapper
+    newWrapper
       .find('li')
       .find('Button')
       .at(0)
@@ -155,8 +150,10 @@ describe('<WorkspaceList />', () => {
 
   it('should call dispatch a total of 0 times when workspace button is clicked(currentWorkspace.id === workspace.id)', () => {
     const storeWithSpy = createStore(workspacesReducer, mockState as any);
+
     storeWithSpy.dispatch = jest.fn();
-    const wrapper = mount(
+
+    const newWrapper = mount(
       <Provider store={storeWithSpy}>
         <WorkspaceList workspaces={[{ ...workspaces[0], id: 1 }]} />
       </Provider>
@@ -164,7 +161,7 @@ describe('<WorkspaceList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    wrapper
+    newWrapper
       .find('li')
       .find('Button')
       .simulate('click');
