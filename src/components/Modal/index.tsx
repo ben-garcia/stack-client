@@ -53,7 +53,7 @@ const Modal: React.FC<ModalProps> = ({
       }}
       onKeyUp={e => {
         // close modal when escape key is pressed
-        if (e.keyCode === 27) {
+        if (background && e.keyCode === 27) {
           onClose();
         }
       }}
