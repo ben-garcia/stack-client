@@ -13,7 +13,7 @@ describe('<MessageList />', () => {
       list: [
         {
           content: 'message content',
-          createdAt: '2020-08-08T15:50:57.186Z',
+          createdAt: new Date().toISOString(),
           id: 1,
           user: { color: 'red', username: 'user123' },
         },
@@ -65,12 +65,13 @@ describe('<MessageList />', () => {
     const receivedMessageUsername = wrapper.find('span.message__username');
     const receivedMessageTimestamp = wrapper.find('span.message__timestamp');
     const receivedMessageContent = wrapper.find('span.message__content');
+    const expectedTimestamp = /((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/;
 
     expect(receivedDateCreated.text()).toBe('Today');
     expect(receivedMessageUsername.text()).toBe(
       mockState.messages.list[0].user.username
     );
-    expect(receivedMessageTimestamp.text()).toBe('8:50 AM');
+    expect(receivedMessageTimestamp.text()).toMatch(expectedTimestamp);
     expect(receivedMessageContent.text()).toBe(
       mockState.messages.list[0].content
     );
@@ -89,12 +90,13 @@ describe('<MessageList />', () => {
     const receivedMessageUsername = newWrapper.find('span.message__username');
     const receivedMessageTimestamp = newWrapper.find('span.message__timestamp');
     const receivedMessageContent = newWrapper.find('span.message__content');
+    const expectedTimestamp = /((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/;
 
     expect(receivedDateCreated.text()).toBe('Today');
     expect(receivedMessageUsername.text()).toBe(
       mockState.messages.list[0].user.username
     );
-    expect(receivedMessageTimestamp.text()).toBe('8:50 AM');
+    expect(receivedMessageTimestamp.text()).toMatch(expectedTimestamp);
     expect(receivedMessageContent.text()).toBe(
       mockState.messages.list[0].content
     );
