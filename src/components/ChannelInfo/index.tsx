@@ -77,7 +77,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
                   size="xm"
                   className="channel__icon-pencil"
                 />
-                <Text tag="span" size="sm">
+                <Text className="channel__topic" tag="span" size="sm">
                   Add a topic
                 </Text>
               </div>
