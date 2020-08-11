@@ -33,7 +33,7 @@ const FormInput: React.FC<FormInputProps> = ({
         ) : (
           <Text tag="span" size="xm" className="field-label__message">
             {' '}
-            (Optional
+            (Optional)
           </Text>
         )}
       </label>
