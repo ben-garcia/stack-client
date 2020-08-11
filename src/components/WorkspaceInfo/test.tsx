@@ -71,7 +71,7 @@ describe('<WorkspaceInfo />', () => {
     expect(channelDetailsButtonWrapper.text()).toBe('Details');
   });
 
-  it('should render <TeammateInfo> when there is a currentTeammate and no currentChannel', () => {
+  describe('when theere is a currentTeammate and NO currentChannel', () => {
     const newMockState = {
       ...mockState,
       currentChannel: { id: 0 },
@@ -81,31 +81,23 @@ describe('<WorkspaceInfo />', () => {
     };
     const newMockStore = createStore(rootReducer, newMockState as any);
     const newWrapper = mountComponent(newMockStore);
-    const channelInfoWrapper: ReactWrapper = newWrapper.find('ChannelInfo');
-    const teammateInfoWrapper: ReactWrapper = newWrapper.find('TeammateInfo');
 
-    expect(channelInfoWrapper.exists()).toBe(false);
-    expect(teammateInfoWrapper.exists()).toBe(true);
+    it('should render <TeammateInfo>', () => {
+      const channelInfoWrapper: ReactWrapper = newWrapper.find('ChannelInfo');
+      const teammateInfoWrapper: ReactWrapper = newWrapper.find('TeammateInfo');
+      expect(channelInfoWrapper.exists()).toBe(false);
+      expect(teammateInfoWrapper.exists()).toBe(true);
+    });
+
+    it('should NOT render "Details" button', () => {
+      const channelDetailsButtonWrapper: ReactWrapper = newWrapper.find(
+        'Text.details-buton__text'
+      );
+      expect(channelDetailsButtonWrapper.exists()).toBe(false);
+    });
   });
 
-  it('should NOT render "Details" button when there is a currentTeammate and no currentChannel', () => {
-    const newMockState = {
-      ...mockState,
-      currentChannel: { id: 0 },
-      currentTeammate: { id: 1, username: 'user123' },
-      teammates: { list: [{ active: true, id: 2, username: 'anotherUser' }] },
-      user: { id: 2, username: 'anotherUser' },
-    };
-    const newMockStore = createStore(rootReducer, newMockState as any);
-    const newWrapper = mountComponent(newMockStore);
-    const channelDetailsButtonWrapper: ReactWrapper = newWrapper.find(
-      'Text.details-buton__text'
-    );
-
-    expect(channelDetailsButtonWrapper.exists()).toBe(false);
-  });
-
-  it('should render hamburger button when viewport.isPhone === true', () => {
+  describe('viewport', () => {
     const newMockState = {
       ...mockState,
       viewport: { isDesktop: false, isPhone: true, isTablet: false },
@@ -116,99 +108,86 @@ describe('<WorkspaceInfo />', () => {
     };
     const newMockStore = createStore(rootReducer, newMockState as any);
     const newWrapper = mountComponent(newMockStore);
-    const hamburgerButtonWrapper: ReactWrapper = newWrapper.find(
-      'Button.hamburger-button'
-    );
 
-    expect(hamburgerButtonWrapper.exists()).toBe(true);
-  });
+    it('should render hamburger button when viewport.isPhone === true', () => {
+      const hamburgerButtonWrapper: ReactWrapper = newWrapper.find(
+        'Button.hamburger-button'
+      );
 
-  it('should call dispatch 1 time when "hanburger-button" button is clicked(viewport.isPhone === true)', () => {
-    const newMockState = {
-      ...mockState,
-      viewport: { isDesktop: false, isPhone: true, isTablet: false },
-      currentChannel: { id: 0 },
-      currentTeammate: { id: 1, username: 'user123' },
-      teammates: { list: [{ active: true, id: 2, username: 'anotherUser' }] },
-      user: { id: 2, username: 'anotherUser' },
-    };
-    const newMockStore = createStore(rootReducer, newMockState as any);
+      expect(hamburgerButtonWrapper.exists()).toBe(true);
+    });
 
-    newMockStore.dispatch = jest.fn();
+    it('should call dispatch 1 time when "hamburger-button" button is clicked(viewport.isPhone === true)', () => {
+      const newState = {
+        ...newMockState,
+        viewport: { isDesktop: false, isPhone: true, isTablet: false },
+      };
+      const storeMock = createStore(rootReducer, newState as any);
 
-    const newWrapper = mountComponent(newMockStore);
-    const expectedOpenMobileSidebar = {
-      type: 'OPEN_MOBILE_SIDEBAR',
-    };
+      storeMock.dispatch = jest.fn();
 
-    newWrapper.find('Button.hamburger-button').simulate('click');
+      const wrapperNew = mountComponent(storeMock);
+      const expectedOpenMobileSidebar = {
+        type: 'OPEN_MOBILE_SIDEBAR',
+      };
 
-    expect(newMockStore.dispatch).toHaveBeenCalledTimes(1);
-    expect(newMockStore.dispatch).toHaveBeenCalledWith(
-      expectedOpenMobileSidebar
-    );
-  });
+      wrapperNew.find('Button.hamburger-button').simulate('click');
 
-  it('should render hamburger button when viewport.isTablet === true', () => {
-    const newMockState = {
-      ...mockState,
-      viewport: { isDesktop: false, isPhone: false, isTablet: true },
-      currentChannel: { id: 0 },
-      currentTeammate: { id: 1, username: 'user123' },
-      teammates: { list: [{ active: true, id: 2, username: 'anotherUser' }] },
-      user: { id: 2, username: 'anotherUser' },
-    };
-    const newMockStore = createStore(rootReducer, newMockState as any);
-    const newWrapper = mountComponent(newMockStore);
-    const hamburgerButtonWrapper: ReactWrapper = newWrapper.find(
-      'Button.hamburger-button'
-    );
+      expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+      expect(storeMock.dispatch).toHaveBeenCalledWith(
+        expectedOpenMobileSidebar
+      );
+    });
 
-    expect(hamburgerButtonWrapper.exists()).toBe(true);
-  });
+    it('should render hamburger button when viewport.isTablet === true', () => {
+      const newState = {
+        ...mockState,
+        viewport: { isDesktop: false, isPhone: false, isTablet: true },
+      };
+      const storeMock = createStore(rootReducer, newState as any);
+      const wrapperNew = mountComponent(storeMock);
+      const hamburgerButtonWrapper: ReactWrapper = wrapperNew.find(
+        'Button.hamburger-button'
+      );
 
-  it('should call dispatch 1 time when "hanburger-button" button is clicked(viewport.isTablet === true)', () => {
-    const newMockState = {
-      ...mockState,
-      viewport: { isDesktop: false, isPhone: false, isTablet: true },
-      currentChannel: { id: 0 },
-      currentTeammate: { id: 1, username: 'user123' },
-      teammates: { list: [{ active: true, id: 2, username: 'anotherUser' }] },
-      user: { id: 2, username: 'anotherUser' },
-    };
-    const newMockStore = createStore(rootReducer, newMockState as any);
+      expect(hamburgerButtonWrapper.exists()).toBe(true);
+    });
 
-    newMockStore.dispatch = jest.fn();
+    it('should call dispatch 1 time when "hanburger-button" button is clicked(viewport.isTablet === true)', () => {
+      const newState = {
+        ...mockState,
+        viewport: { isDesktop: false, isPhone: false, isTablet: true },
+      };
+      const storeMock = createStore(rootReducer, newState as any);
 
-    const newWrapper = mountComponent(newMockStore);
-    const expectedOpenMobileSidebar = {
-      type: 'OPEN_MOBILE_SIDEBAR',
-    };
+      storeMock.dispatch = jest.fn();
 
-    newWrapper.find('Button.hamburger-button').simulate('click');
+      const wrapperNew = mountComponent(storeMock);
+      const expectedOpenMobileSidebar = {
+        type: 'OPEN_MOBILE_SIDEBAR',
+      };
 
-    expect(newMockStore.dispatch).toHaveBeenCalledTimes(1);
-    expect(newMockStore.dispatch).toHaveBeenCalledWith(
-      expectedOpenMobileSidebar
-    );
-  });
+      wrapperNew.find('Button.hamburger-button').simulate('click');
 
-  it('should NOT render hamburger button when viewport.isDesktop === true', () => {
-    const newMockState = {
-      ...mockState,
-      viewport: { isDesktop: true, isPhone: false, isTablet: false },
-      currentChannel: { id: 0 },
-      currentTeammate: { id: 1, username: 'user123' },
-      teammates: { list: [{ active: true, id: 2, username: 'anotherUser' }] },
-      user: { id: 2, username: 'anotherUser' },
-    };
-    const newMockStore = createStore(rootReducer, newMockState as any);
-    const newWrapper = mountComponent(newMockStore);
-    const hamburgerButtonWrapper: ReactWrapper = newWrapper.find(
-      'Button.hamburger-button'
-    );
+      expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
+      expect(storeMock.dispatch).toHaveBeenCalledWith(
+        expectedOpenMobileSidebar
+      );
+    });
 
-    expect(hamburgerButtonWrapper.exists()).toBe(false);
+    it('should NOT render hamburger button when viewport.isDesktop === true', () => {
+      const newState = {
+        ...mockState,
+        viewport: { isDesktop: true, isPhone: false, isTablet: false },
+      };
+      const storeMock = createStore(rootReducer, newState as any);
+      const wrapperNew = mountComponent(storeMock);
+      const hamburgerButtonWrapper: ReactWrapper = wrapperNew.find(
+        'Button.hamburger-button'
+      );
+
+      expect(hamburgerButtonWrapper.exists()).toBe(false);
+    });
   });
 
   it('should call dispatch 1 time when "Details" button is clicked', () => {
