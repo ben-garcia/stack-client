@@ -46,6 +46,8 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  // TODO: move 'handle' functions to a seperate file so that it's easier to
+  // // mock then during testing
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
       setErrors({
