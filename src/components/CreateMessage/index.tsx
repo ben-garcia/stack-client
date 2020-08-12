@@ -30,6 +30,8 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
+
+  // TODO: move to a separate file so that it can be easily tested
   const handleKeyUp = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.keyCode === 13) {
       // make sure the message isn't empty
