@@ -203,7 +203,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
           </Text>
         </Button>
         <Text className="invite-people-form__message">
-          New members will automatically join #general, and #random channels.
+          New members will automatically join public channels.
         </Text>
         <Button type="submit">
           {isSubmitting ? (
