@@ -47,7 +47,7 @@ describe('<CreateMessage />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <div>', () => {
+  it('should render as a <Form>', () => {
     const createChannelFormWrapper: ReactWrapper = wrapper.find(
       'CreateMessage'
     );
