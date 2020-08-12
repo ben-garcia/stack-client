@@ -86,7 +86,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           );
         }
 
-        // make sure their is an active socket open
+        // make sure there is an active socket open
         if (socket) {
           if (currentChannel.id && !currentTeammate.id) {
             socket.emit(
@@ -139,10 +139,13 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
     if (socket) {
       socket.close();
     }
+
     const mySocket = io.connect(
       process.env.REACT_APP_SERVER_URL || 'http://localhost:8080'
     );
+
     setSocket(mySocket);
+
     if (currentChannel.id && !currentTeammate.id) {
       mySocket.emit('user-connected', {
         channelName: `${currentWorkspace.id}:${currentWorkspace.name}-${currentChannel.id}-${currentChannel.name}`,
@@ -163,6 +166,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         workspaceName: `${currentWorkspace.id}:${currentWorkspace.name}`,
       });
     }
+
     mySocket.on('user-connected', ({ usernames }: UserConnected) => {
       const interval = setInterval(() => {
         // getting the teammates directly from the store
@@ -179,6 +183,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         }
       }, 200);
     });
+
     mySocket.on('channel-message', (channelMessage: string) => {
       const parsedMessage = JSON.parse(channelMessage);
       // do nothing when the user emits the event
@@ -193,6 +198,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       // update the store so that the new direct message will render
       dispatch(addUserDirectMessage(parsedMessage));
     });
+
     mySocket.on('user-disconnected', (username: string) => {
       // dispatch action to set the username to away status
       dispatch(teammateDisconnected(username));

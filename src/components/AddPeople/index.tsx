@@ -123,8 +123,8 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
           );
         })}
       </div>
-      <Text className="form__message" tag="span" size="xm">
-        To add a teammate who’s not on Stack, you’ll need to
+      <Text className="form__message" size="xm">
+        To add a teammate who is not on Stack, you will need to
         <Button
           className="form__open-invite-button"
           type="button"
