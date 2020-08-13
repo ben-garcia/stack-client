@@ -10,6 +10,7 @@ import './styles.scss';
 const MenuDrawer: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  // TODO: move to separate file for testing
   const logout = async () => {
     // send request to delete session on the server
     await sendRequest({
