@@ -63,6 +63,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           scrollbarPositionStartAtBottom
         >
           <div>
+            {/* NOTE: move to new component */}
             {currentChannel.id !== 0 && !currentTeammate.id && (
               <div>
                 <h1 className="channel-view__inner">
@@ -158,6 +159,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                 </div>
               </div>
             )}
+            {/* NOTE: move to new component */}
             {currentTeammate && currentChannel.id === 0 && (
               <div className="channel-view__inner">
                 {currentChannel.id || currentTeammate.id ? (
