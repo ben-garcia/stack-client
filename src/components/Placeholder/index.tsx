@@ -14,12 +14,15 @@ const Placeholder: React.FC<PlaceholderProps> = ({
   let classesToAdd: string = 'placeholder';
   let jsxToRender: React.ReactNode;
   const styles = { height: '', width: '' };
+
   if (className.trim() !== '') {
     classesToAdd += ` ${className}`;
   }
+
   if (height.trim() !== '') {
     styles.height = height;
   }
+
   if (width.trim() !== '') {
     styles.width = width;
   }
