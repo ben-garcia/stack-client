@@ -1,0 +1,29 @@
+@import '../../sass/variables';
+
+.teammate-view {
+  align-items: center;
+  display: flex;
+  margin: 0.8rem 0;
+
+  &__username {
+    margin: 0 0.3rem;
+  }
+
+  &__circle-icon {
+    background-color: $color-green;
+    border-radius: 50%;
+  }
+
+  &__inner {
+    font-size: 0.9rem;
+  }
+
+  &__message {
+    font-weight: 900;
+    margin-right: 0.3rem;
+
+    &--margin-left {
+      margin-left: 0.3rem;
+    }
+  }
+}

@@ -80,48 +80,6 @@ describe('<ViewWrapper />', () => {
     expect(viewWrapper.childAt(0).name()).toBe('main');
   });
 
-  describe('currentTeammate.id !== 0 && !currentChannel.id', () => {
-    const newState = {
-      ...mockState,
-      currentChannel: { id: 0 },
-      currentTeammate: { ...mockState.currentTeammate, id: 1 },
-    };
-    const newStore = createStore(rootReducer, newState as any);
-    const newWrapper = mountComponent(newStore);
-
-    it('should render <WorkspaceInfo>, <Scrollbar>, <CreateMessage>', () => {
-      expect(newWrapper.find('WorkspaceInfo').exists()).toBe(true);
-      expect(newWrapper.find('Scrollbar').exists()).toBe(true);
-      expect(newWrapper.find('CreateMessage').exists()).toBe(true);
-    });
-
-    it('should render currentTeammate.username', () => {
-      expect(newWrapper.find('Text.c-teammate__username').text()).toBe(
-        mockState.currentTeammate.username
-      );
-    });
-
-    it('should render correct text about teammate(user.id === currentTeammate.id)', () => {
-      expect(newWrapper.find('div.c-teammate__inner').text()).toMatch(
-        'This is your space.Draft messages, list your to-dos, or keep links and files handy. You can also talk to yourself here, but please bear in mind you’ll have to supply both sides of the conversation.'
-      );
-    });
-
-    it('should render correct text about teammate(user.id !== currentTeammate.id)', () => {
-      const newNewState = {
-        ...mockState,
-        currentChannel: { id: 0 },
-        currentTeammate: { ...mockState.user, id: 2 },
-      };
-      const newNewStore = createStore(rootReducer, newNewState as any);
-      const wrapperNew = mountComponent(newNewStore);
-
-      expect(wrapperNew.find('div.c-teammate__inner').text()).toMatch(
-        `This is the very beginning of your direct message history with${newState.currentTeammate.username}`
-      );
-    });
-  });
-
   describe('<Placeholder>', () => {
     it('render when directMessage.isLoading ', () => {
       const newState = {
@@ -144,6 +102,21 @@ describe('<ViewWrapper />', () => {
 
       expect(newWrapper.find('Placeholder').exists()).toBe(true);
     });
+  });
+
+  it('should render <ChannelView', () => {
+    expect(wrapper.find('ChannelView').exists()).toBe(true);
+  });
+
+  it('should render <TeammateView', () => {
+    const newState = {
+      ...mockState,
+      currentChannel: { ...mockState.currentChannel, id: 0 },
+      currentTeammate: { ...mockState.currentTeammate, id: 1 },
+    };
+    const newStore = createStore(rootReducer, newState as any);
+    const newWrapper = mountComponent(newStore);
+    expect(newWrapper.find('TeammateView').exists()).toBe(true);
   });
 
   it('should render <ChannelDetails>', () => {

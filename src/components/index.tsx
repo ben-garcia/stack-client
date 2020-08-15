@@ -25,6 +25,7 @@ import Navbar from './Navbar';
 import Scrollbar from './Scrollbar';
 import TeammateInfo from './TeammateInfo';
 import TeammatesList from './TeammatesList';
+import TeammateView from './TeammateView';
 import Text from './Text';
 import ViewWrapper from './ViewWrapper';
 import Workspace from './Workspace';
@@ -60,6 +61,7 @@ export {
   Scrollbar,
   TeammateInfo,
   TeammatesList,
+  TeammateView,
   Text,
   ViewWrapper,
   Workspace,
