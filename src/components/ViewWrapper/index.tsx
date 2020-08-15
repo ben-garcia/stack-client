@@ -1,48 +1,33 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
+import { useSelector } from 'react-redux';
 
 import {
-  AddPeople,
-  Button,
-  CreateMessage,
   ChannelDetails,
-  EditChannelDescription,
+  ChannelView,
+  CreateMessage,
   Icon,
   MessageList,
-  Modal,
   Placeholder,
   Scrollbar,
   Text,
   WorkspaceInfo,
 } from 'components';
 import { AppState } from 'store';
-import { closeAddPeopleModal, openAddPeopleModal } from 'store/addPeopleModal';
-import {
-  closeEditChannelDescriptionModal,
-  openEditChannelDescriptionModal,
-} from 'store/editChannelDescriptionModal';
-import { printFormattedDate } from 'utils';
 import { ViewWrapperProps } from './types';
 import './styles.scss';
 
 const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
-  const dispatch: Dispatch = useDispatch();
   const {
-    addPeopleModalIsOpen,
     channelDetails,
     currentChannel,
     currentTeammate,
-    editChannelDescriptionModalIsOpen,
     directMessages,
     messages,
     user,
   } = useSelector((state: AppState) => ({
-    addPeopleModalIsOpen: state.addPeopleModalIsOpen,
     channelDetails: state.channelDetails,
     currentChannel: state.currentChannel,
     currentTeammate: state.currentTeammate,
-    editChannelDescriptionModalIsOpen: state.editChannelDescriptionModalIsOpen,
     directMessages: state.directMessages,
     messages: state.messages,
     user: state.user,
@@ -63,102 +48,7 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
           scrollbarPositionStartAtBottom
         >
           <div>
-            {/* NOTE: move to new component */}
-            {currentChannel.id !== 0 && !currentTeammate.id && (
-              <div>
-                <h1 className="view-wrapper__inner">
-                  <Icon
-                    className="view-wrapper__hash-icon"
-                    type="hash"
-                    size="xm"
-                  />
-                  <Text className="view-wrapper__name" tag="span">
-                    {currentChannel.name}
-                  </Text>
-                </h1>
-                <div className="view-wrapper__inner">
-                  <Text tag="span" size="sm">
-                    You created this channel on
-                  </Text>
-                  <Text
-                    className="view-wrapper__created-at"
-                    tag="span"
-                    size="sm"
-                  >
-                    {printFormattedDate(currentChannel.createdAt!)}
-                  </Text>
-                  <Text tag="span" size="sm">
-                    This is the very beginning of the
-                  </Text>
-                  <strong className="view-wrapper__inner-two">
-                    <Icon type="hash" size="sm" />
-                    <Text tag="span">{currentChannel.name}</Text>
-                  </strong>
-                  {currentChannel.description && (
-                    <div className="channel-view__inner-three">
-                      <Text tag="span" size="sm">
-                        Description:
-                      </Text>
-                      <Text className="view-wrapper__description" tag="span">
-                        {currentChannel.description}
-                      </Text>
-                      <Text tag="span">
-                        (
-                        <Button
-                          className="view-wrapper__edit-button"
-                          type="button"
-                          color="transparent"
-                          title="Edit Channel Description"
-                          onClick={() =>
-                            dispatch(openEditChannelDescriptionModal())
-                          }
-                        >
-                          <Text tag="span" size="sm">
-                            edit
-                          </Text>
-                        </Button>
-                        )
-                      </Text>
-                      {editChannelDescriptionModalIsOpen && (
-                        <Modal
-                          header="Edit channel description"
-                          size="md"
-                          onClose={() =>
-                            dispatch(closeEditChannelDescriptionModal())
-                          }
-                        >
-                          <EditChannelDescription
-                            value={currentChannel?.description}
-                          />
-                        </Modal>
-                      )}
-                    </div>
-                  )}
-                  <div className="view-wrapper__inner-four">
-                    <Icon type="user" size="xm" />
-                    <Button
-                      className="view-wrapper__user-icon"
-                      type="button"
-                      color="transparent"
-                      onClick={() => dispatch(openAddPeopleModal())}
-                    >
-                      <Text tag="span" size="xm">
-                        Add people
-                      </Text>
-                    </Button>
-                    {addPeopleModalIsOpen && (
-                      <Modal
-                        header="Add People"
-                        size="md"
-                        onClose={() => dispatch(closeAddPeopleModal())}
-                      >
-                        <AddPeople />
-                      </Modal>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
+            {currentChannel.id !== 0 && !currentTeammate.id && <ChannelView />}
             {/* NOTE: move to new component */}
             {currentTeammate && currentChannel.id === 0 && (
               <div className="view-wrapper__inner">

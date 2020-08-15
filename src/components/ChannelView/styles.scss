@@ -1,0 +1,59 @@
+@import '../../sass/variables';
+
+.channel-view {
+  flex: auto;
+
+  &__inner {
+    margin: 0.8rem 0;
+  }
+
+  // channel
+  &__name,
+  &__created-at,
+  &__description {
+    margin: 0 0.3rem;
+  }
+
+  &__name {
+    font-size: 1.5rem !important;
+  }
+
+  &__inner-two {
+    margin: 0 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  &__inner-three {
+    display: inline;
+  }
+
+  &__inner-four {
+    margin-top: 0.5rem;
+  }
+
+  &__user-icon {
+    margin-left: 0.3rem;
+  }
+
+  &__edit-button,
+  &__user-icon {
+    padding: 0;
+    color: $color-blue-active;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__message {
+    margin-right: 0.7rem;
+  }
+
+  &__placeholder {
+    margin-right: 0.8rem;
+  }
+
+  &__details {
+    background-color: $background-color;
+  }
+}

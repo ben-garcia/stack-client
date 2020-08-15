@@ -3,6 +3,7 @@ import Button from './Button';
 import ChannelDetails from './ChannelDetails';
 import ChannelInfo from './ChannelInfo';
 import ChannelList from './ChannelList';
+import ChannelView from './ChannelView';
 import CreateChannelForm from './CreateChannelForm';
 import CreateMessage from './CreateMessage';
 import CreateWorkspaceForm from './CreateWorkspaceForm';
@@ -37,6 +38,7 @@ export {
   ChannelDetails,
   ChannelInfo,
   ChannelList,
+  ChannelView,
   CreateChannelForm,
   CreateMessage,
   CreateWorkspaceForm,
