@@ -1,7 +1,6 @@
 import AddPeople from './AddPeople';
 import Button from './Button';
 import ChannelDetails from './ChannelDetails';
-import ChannelView from './ChannelView';
 import ChannelInfo from './ChannelInfo';
 import ChannelList from './ChannelList';
 import CreateChannelForm from './CreateChannelForm';
@@ -26,6 +25,7 @@ import Scrollbar from './Scrollbar';
 import TeammateInfo from './TeammateInfo';
 import TeammatesList from './TeammatesList';
 import Text from './Text';
+import ViewWrapper from './ViewWrapper';
 import Workspace from './Workspace';
 import WorkspaceInfo from './WorkspaceInfo';
 import WorkspaceList from './WorkspaceList';
@@ -35,7 +35,6 @@ export {
   AddPeople,
   Button,
   ChannelDetails,
-  ChannelView,
   ChannelInfo,
   ChannelList,
   CreateChannelForm,
@@ -60,6 +59,7 @@ export {
   TeammateInfo,
   TeammatesList,
   Text,
+  ViewWrapper,
   Workspace,
   WorkspaceInfo,
   WorkspaceList,

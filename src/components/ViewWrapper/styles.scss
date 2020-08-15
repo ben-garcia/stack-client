@@ -15,18 +15,18 @@
 
   // tablet size
   @media screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-lg) {
-    .channel-view {
+    .view-wrapper {
       width: 50%;
     }
 
-    .channel-view__details {
+    .view-wrapper__details {
       width: 50%;
     }
   }
 
   // phone
   @media screen and (min-width: 0) and (max-width: $breakpoint-sm) {
-    .channel-view__details {
+    .view-wrapper__details {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -35,7 +35,7 @@
     }
   }
 
-  .channel-view {
+  .view-wrapper {
     flex: auto;
 
     &__inner {

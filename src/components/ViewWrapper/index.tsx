@@ -23,10 +23,10 @@ import {
   openEditChannelDescriptionModal,
 } from 'store/editChannelDescriptionModal';
 import { printFormattedDate } from 'utils';
-import { ChannelViewProps } from './types';
+import { ViewWrapperProps } from './types';
 import './styles.scss';
 
-const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
+const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
   const {
     addPeopleModalIsOpen,
@@ -55,7 +55,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
 
   return (
     <main className={classesToAdd}>
-      <section className="channel-view">
+      <section className="view-wrapper">
         <WorkspaceInfo />
         <Scrollbar
           color="dark"
@@ -66,22 +66,22 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
             {/* NOTE: move to new component */}
             {currentChannel.id !== 0 && !currentTeammate.id && (
               <div>
-                <h1 className="channel-view__inner">
+                <h1 className="view-wrapper__inner">
                   <Icon
-                    className="channel-view__hash-icon"
+                    className="view-wrapper__hash-icon"
                     type="hash"
                     size="xm"
                   />
-                  <Text className="channel-view__name" tag="span">
+                  <Text className="view-wrapper__name" tag="span">
                     {currentChannel.name}
                   </Text>
                 </h1>
-                <div className="channel-view__inner">
+                <div className="view-wrapper__inner">
                   <Text tag="span" size="sm">
                     You created this channel on
                   </Text>
                   <Text
-                    className="channel-view__created-at"
+                    className="view-wrapper__created-at"
                     tag="span"
                     size="sm"
                   >
@@ -90,7 +90,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                   <Text tag="span" size="sm">
                     This is the very beginning of the
                   </Text>
-                  <strong className="channel-view__inner-two">
+                  <strong className="view-wrapper__inner-two">
                     <Icon type="hash" size="sm" />
                     <Text tag="span">{currentChannel.name}</Text>
                   </strong>
@@ -99,13 +99,13 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                       <Text tag="span" size="sm">
                         Description:
                       </Text>
-                      <Text className="channel-view__description" tag="span">
+                      <Text className="view-wrapper__description" tag="span">
                         {currentChannel.description}
                       </Text>
                       <Text tag="span">
                         (
                         <Button
-                          className="channel-view__edit-button"
+                          className="view-wrapper__edit-button"
                           type="button"
                           color="transparent"
                           title="Edit Channel Description"
@@ -134,10 +134,10 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
                       )}
                     </div>
                   )}
-                  <div className="channel-view__inner-four">
+                  <div className="view-wrapper__inner-four">
                     <Icon type="user" size="xm" />
                     <Button
-                      className="channel-view__user-icon"
+                      className="view-wrapper__user-icon"
                       type="button"
                       color="transparent"
                       onClick={() => dispatch(openAddPeopleModal())}
@@ -161,7 +161,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
             )}
             {/* NOTE: move to new component */}
             {currentTeammate && currentChannel.id === 0 && (
-              <div className="channel-view__inner">
+              <div className="view-wrapper__inner">
                 {currentChannel.id || currentTeammate.id ? (
                   <div className="c-teammate">
                     <Icon
@@ -217,17 +217,17 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
         <div>
           {(currentChannel.id && !currentTeammate.id) ||
           (currentTeammate.id && !currentChannel.id) ? (
-            <div className="channel-view__message">
+            <div className="view-wrapper__message">
               <CreateMessage />
             </div>
           ) : null}
         </div>
       </section>
       {channelDetails.isOpen && (
-        <ChannelDetails className="channel-view__details" />
+        <ChannelDetails className="view-wrapper__details" />
       )}
     </main>
   );
 };
 
-export default ChannelView;
+export default ViewWrapper;

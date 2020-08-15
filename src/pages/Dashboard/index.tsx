@@ -4,7 +4,7 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 
 import {
   Button,
-  ChannelView,
+  ViewWrapper,
   Icon,
   Placeholder,
   WorkspaceList,
@@ -162,7 +162,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           </Button>
         ) : null}
       </div>
-      <ChannelView className="dashboard__main" />
+      <ViewWrapper className="dashboard__main" />
     </div>
   );
 };

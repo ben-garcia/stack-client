@@ -15,9 +15,9 @@ import { teammatesReducer } from 'store/teammates';
 import { userReducer } from 'store/user';
 import { viewportReducer } from 'store/viewport';
 import { workspaceReducer } from 'store/workspace';
-import ChannelView from '.';
+import ViewWrapper from '.';
 
-describe('<ChannelView />', () => {
+describe('<ViewWrapper />', () => {
   const mockState = {
     addPeopleModalIsOpen: false,
     channelDetails: { isOpen: false, withMembers: false },
@@ -62,7 +62,7 @@ describe('<ChannelView />', () => {
   const mountComponent = (mockStore = store): ReactWrapper =>
     mount(
       <Provider store={mockStore}>
-        <ChannelView />
+        <ViewWrapper />
       </Provider>
     );
   let wrapper: ReactWrapper;
@@ -76,8 +76,8 @@ describe('<ChannelView />', () => {
   });
 
   it('should render as a <main>', () => {
-    const channelViewWrapper: ReactWrapper = wrapper.find('ChannelView');
-    expect(channelViewWrapper.childAt(0).name()).toBe('main');
+    const viewWrapper: ReactWrapper = wrapper.find('ViewWrapper');
+    expect(viewWrapper.childAt(0).name()).toBe('main');
   });
 
   describe('currenChannel.id !== 0 && !curentTeammate.id', () => {
@@ -88,19 +88,19 @@ describe('<ChannelView />', () => {
     });
 
     it('should render currentChannel.name', () => {
-      expect(wrapper.find('Text.channel-view__name').text()).toBe(
+      expect(wrapper.find('Text.view-wrapper__name').text()).toBe(
         mockState.currentChannel.name
       );
     });
 
     it('should render currentChannel.createdAt', () => {
-      expect(wrapper.find('div.channel-view__inner').text()).toMatch(
+      expect(wrapper.find('div.view-wrapper__inner').text()).toMatch(
         'You created this channel onToday'
       );
     });
 
     it('should render currentChannel.description', () => {
-      expect(wrapper.find('div.channel-view__inner').text()).toMatch(
+      expect(wrapper.find('div.view-wrapper__inner').text()).toMatch(
         `This is the very beginning of the${mockState.currentChannel.name}`
       );
     });
@@ -116,7 +116,7 @@ describe('<ChannelView />', () => {
 
       const newWrapper = mountComponent(newStore);
 
-      newWrapper.find('Button.channel-view__edit-button').simulate('click');
+      newWrapper.find('Button.view-wrapper__edit-button').simulate('click');
 
       expect(newStore.dispatch).toHaveBeenCalledTimes(1);
       expect(newStore.dispatch).toHaveBeenCalledWith(
@@ -135,7 +135,7 @@ describe('<ChannelView />', () => {
         expect(wrapper.find('Modal').exists()).toBe(false);
         expect(wrapper.find('EditChannelDescription').exists()).toBe(false);
 
-        wrapper.find('Button.channel-view__edit-button').simulate('click');
+        wrapper.find('Button.view-wrapper__edit-button').simulate('click');
 
         expect(wrapper.find('Modal').exists()).toBe(true);
         expect(wrapper.find('EditChannelDescription').exists()).toBe(true);
@@ -144,7 +144,7 @@ describe('<ChannelView />', () => {
       it('should render <Modal> with <AddPeople> when "user-icon" is clicked', () => {
         expect(wrapper.find('AddPeople').exists()).toBe(false);
 
-        wrapper.find('Button.channel-view__user-icon').simulate('click');
+        wrapper.find('Button.view-wrapper__user-icon').simulate('click');
 
         expect(wrapper.find('AddPeople').exists()).toBe(true);
       });
