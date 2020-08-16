@@ -94,5 +94,31 @@ describe('<CreateChannelForm />', () => {
     it('should render a checkbox', () => {
       expect(wrapper.find('input[type="checkbox"]').length).toBe(1);
     });
+
+    it('should change the value of the name when user types', () => {
+      const nameWrapper = wrapper.find('input[type="text"]').first();
+      nameWrapper.simulate('change', {
+        target: { name: 'name', value: 'thisvalue' },
+      });
+      expect((nameWrapper.instance() as any).value).toBe('thisvalue');
+    });
+
+    it('should change the value of the description when user types', () => {
+      const descriptionWrapper = wrapper.find('input[type="text"]').at(1);
+      descriptionWrapper.simulate('change', {
+        target: { name: 'description', value: 'thisdescription' },
+      });
+      expect((descriptionWrapper.instance() as any).value).toBe(
+        'thisdescription'
+      );
+    });
+
+    it('should change the value of the checkbox when user types', () => {
+      const privateWrapper = wrapper.find('input[type="checkbox"]');
+      privateWrapper.simulate('change', {
+        target: { name: 'private', checked: true },
+      });
+      expect((privateWrapper.instance() as any).value).toBeTruthy();
+    });
   });
 });
