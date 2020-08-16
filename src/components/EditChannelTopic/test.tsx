@@ -12,6 +12,7 @@ describe('<EditChannelTopic />', () => {
     currentChannel: {
       id: 1,
       name: 'channel name',
+      topic: 'channel topic',
     },
     user: { id: 1, username: 'user525' },
   };
@@ -23,7 +24,7 @@ describe('<EditChannelTopic />', () => {
   const mountComponent = (mockStore = store): ReactWrapper =>
     mount(
       <Provider store={mockStore}>
-        <EditChannelTopic />
+        <EditChannelTopic value={mockState.currentChannel.topic} />
       </Provider>
     );
   let wrapper: ReactWrapper;
@@ -49,5 +50,26 @@ describe('<EditChannelTopic />', () => {
 
   it('should render submit button with "Set topic"', () => {
     expect(wrapper.find('Button').text()).toBe('Set topic');
+  });
+
+  it('should render channel topic when channel has a topic', () => {
+    expect(wrapper.find('textarea').text()).toBe(
+      mockState.currentChannel.topic
+    );
+  });
+
+  it('should change value when user types', () => {
+    const textareaWrapper = wrapper.find('textarea');
+    textareaWrapper.simulate('change', { target: { value: 'new topic' } });
+    expect(textareaWrapper.text()).toBe('new topic');
+  });
+
+  it('should render nothing when channel.topic === ""', () => {
+    const newWrapper = mount(
+      <Provider store={store}>
+        <EditChannelTopic value="" />
+      </Provider>
+    );
+    expect(newWrapper.find('textarea').text()).toBe('');
   });
 });
