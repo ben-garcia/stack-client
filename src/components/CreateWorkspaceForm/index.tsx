@@ -141,7 +141,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             onChange={handleChange}
             inputId="open"
             label="Open Workspace"
-            value={workspaceName}
+            value={openWorkspace}
           />
           <Text className="create-workspace__message">
             This option will (if checked) open the newly created workspace upon

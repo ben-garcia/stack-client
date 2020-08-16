@@ -118,7 +118,7 @@ describe('<CreateChannelForm />', () => {
       privateWrapper.simulate('change', {
         target: { name: 'private', checked: true },
       });
-      expect((privateWrapper.instance() as any).value).toBeTruthy();
+      expect((privateWrapper.instance() as any).value).toBe('true');
     });
   });
 });

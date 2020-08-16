@@ -91,5 +91,21 @@ describe('<CreateWorkspaceForm />', () => {
     it('should render a checkbox', () => {
       expect(wrapper.find('input[type="checkbox"]').length).toBe(1);
     });
+
+    it('should change the value of the name when user types', () => {
+      const nameWrapper = wrapper.find('input[type="text"]');
+      nameWrapper.simulate('change', {
+        target: { value: 'thisname' },
+      });
+      expect((nameWrapper.instance() as any).value).toBe('thisname');
+    });
+
+    it('should change the value of the checkbox when user types', () => {
+      const openWrapper = wrapper.find('input[type="checkbox"]');
+      openWrapper.simulate('change', {
+        target: { name: 'open', checked: true },
+      });
+      expect((openWrapper.instance() as any).value).toBe('true');
+    });
   });
 });

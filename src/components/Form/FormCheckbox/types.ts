@@ -12,5 +12,5 @@ export interface FormCheckboxProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   // function to be called when the input losses focus
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
-  value?: string;
+  value?: string | boolean;
 }
