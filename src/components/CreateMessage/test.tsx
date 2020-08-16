@@ -76,4 +76,12 @@ describe('<CreateMessage />', () => {
   it('should render with a textarea field', () => {
     expect(wrapper.find('textarea').length).toBe(1);
   });
+
+  it('should change value of textarea when user types', () => {
+    const textareaWrapper = wrapper.find('textarea');
+    textareaWrapper.simulate('change', {
+      target: { value: 'thismessage' },
+    });
+    expect((textareaWrapper.instance() as any).value).toBe('thismessage');
+  });
 });
