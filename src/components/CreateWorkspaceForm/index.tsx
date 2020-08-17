@@ -110,6 +110,10 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             dispatch(clearChannels());
             // remove the list of teammates from the previous workspace
             dispatch(clearTeammates());
+            // remove the current messages(if any) from the previous workspace
+            dispatch(clearMessages());
+            // remove the current direct messages(if any) from the previous workspace
+            dispatch(clearDirectMessages());
           }
         }
       } catch (err) {
@@ -141,7 +145,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
             onChange={handleChange}
             inputId="open"
             label="Open Workspace"
-            value={openWorkspace}
+            value={`${openWorkspace}`}
           />
           <Text className="create-workspace__message">
             This option will (if checked) open the newly created workspace upon
