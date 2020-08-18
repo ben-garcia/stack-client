@@ -6,7 +6,7 @@ import {
 } from './types';
 
 export const addMember = (member: Member): MembersActionTypes => ({
-  type: MembersActions.ADD_MEMBER,
+  type: MembersActions.ADD_MEMBERS,
   payload: member,
 });
 

@@ -1,5 +1,5 @@
 export enum MembersActions {
-  ADD_MEMBER = 'ADD_MEMBERS',
+  ADD_MEMBERS = 'ADD_MEMBERS',
   CLEAR_CHANNEL_MEMBERS = 'CLEAR_CHANNEL_MEMBERS',
   REQUEST_CHANNEL_MEMBERS = 'REQUEST_CHANNEL_MEMBERS',
   RECEIVED_CHANNEL_MEMBERS = 'RECEIVED_CHANNEL_MEMBERS',
@@ -20,7 +20,7 @@ export interface MembersState {
 }
 
 interface AddMember {
-  type: typeof MembersActions.ADD_MEMBER;
+  type: typeof MembersActions.ADD_MEMBERS;
   payload: Member;
 }
 

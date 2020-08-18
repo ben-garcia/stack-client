@@ -7,7 +7,7 @@ const MembersReducer = (
   action: MembersActionTypes
 ) => {
   switch (action.type) {
-    case MembersActions.ADD_MEMBER:
+    case MembersActions.ADD_MEMBERS:
       return {
         list: [...state.list, action.payload],
       };
