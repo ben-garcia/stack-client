@@ -49,7 +49,7 @@ describe('ChannelsReducer', () => {
     expect(result).toEqual(expected);
   });
 
-  it('return isLoading === true when action.type === "REQUEST_WORKSPACE_CHANNELS"', () => {
+  it('return isLoading === false when action.type === "REQUEST_WORKSPACE_CHANNELS"', () => {
     const action: any = {
       type: 'RECEIVED_WORKSPACE_CHANNELS',
       payload: [channel],
