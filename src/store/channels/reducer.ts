@@ -36,7 +36,6 @@ const ChannelsReducer = (
         error: action.payload,
         isLoading: false,
       };
-
     default:
       return state;
   }

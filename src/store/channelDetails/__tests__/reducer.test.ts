@@ -1,6 +1,6 @@
 import ChannelDetailsReducer from '../reducer';
 
-describe('ChannelReducer', () => {
+describe('ChannelDetailsReducer', () => {
   const initialState = {
     isOpen: false,
   };

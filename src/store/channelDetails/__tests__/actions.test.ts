@@ -4,7 +4,7 @@ import {
   closeChannelDetails,
 } from '../actions';
 
-describe('channel actions', () => {
+describe('channelDetails actions', () => {
   describe('openChannelDetails', () => {
     it('should return the correct type', () => {
       const result = openChannelDetails();
