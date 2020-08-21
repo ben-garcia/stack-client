@@ -3,11 +3,13 @@ import { TeammatesState } from '../types';
 
 describe('TeammatesReducer', () => {
   const initialState: TeammatesState = { list: [], isLoading: false };
-  const teammate = {
-    id: 1,
-    email: 'gkajg@email.com',
-    username: 'user54156',
-  };
+  const teammate = [
+    {
+      id: 1,
+      email: 'user54156@example.com',
+      username: 'user54156',
+    },
+  ];
 
   it('return initial state when action.type doesnt match a valid type', () => {
     const action: any = { type: 'INVALID' };
@@ -34,6 +36,37 @@ describe('TeammatesReducer', () => {
     };
     const result = TeammatesReducer(initialState, action);
     expect(result).toEqual(initialState);
+  });
+
+  it('return user with active set to true when action.type === "TEAMMATE_CONNECTED"', () => {
+    const action: any = {
+      type: 'TEAMMATE_CONNECTED',
+      payload: teammate[0].username,
+    };
+    const newState = { ...initialState, list: [...teammate] };
+    const result = TeammatesReducer(newState, action);
+    const expectedState = {
+      list: [{ ...teammate[0], active: true }],
+      isLoading: false,
+    };
+    expect(result).toEqual(expectedState);
+  });
+
+  it('return user with active set to false when action.type === "TEAMMATE_DISCONNECTED"', () => {
+    const action: any = {
+      type: 'TEAMMATE_DISCONNECTED',
+      payload: teammate[0].username,
+    };
+    const newState = {
+      ...initialState,
+      list: [{ ...teammate[0], active: true }],
+    };
+    const result = TeammatesReducer(newState as any, action);
+    const expectedState = {
+      list: [{ ...teammate[0], active: false }],
+      isLoading: false,
+    };
+    expect(result).toEqual(expectedState);
   });
 
   it('return isLoading === true when action.type === "REQUEST_WORKSPACE_TEAMMATES"', () => {
