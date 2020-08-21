@@ -17,7 +17,7 @@ function* GetUserWorkspaces() {
     yield put(receivedUserWorkspaces(workspaces));
   } catch (e) {
     // eslint-disable-next-line
-    console.log('getUserWorkspaces saga Error: ', e);
+    // console.log('getUserWorkspaces saga Error: ', e);
     // dispatch an error
     yield put(receivedUserWorkspacesError(e.message));
   }
