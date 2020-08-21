@@ -8,9 +8,11 @@ import {
 } from './actions';
 
 // selector to get the current user id
-const getCurrentTeammateId = (state: AppState) => state.currentTeammate.id;
-const getCurrentTeammates = (state: AppState) => state.teammates.list;
-const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
+export const getCurrentTeammateId = (state: AppState) =>
+  state.currentTeammate.id;
+export const getCurrentTeammates = (state: AppState) => state.teammates.list;
+export const getCurrentWorkspaceId = (state: AppState) =>
+  state.currentWorkspace.id;
 
 function* getUserDirectMessages() {
   try {
@@ -36,7 +38,7 @@ function* getUserDirectMessages() {
     yield put(receivedUserDirectMessages(directMessages));
   } catch (e) {
     // eslint-disable-next-line
-    console.log('getUserDirectMessages saga error: ', e);
+    // console.log('getUserDirectMessages saga error: ', e);
     // dispatch an error
     yield put(receivedUserDirectMessagesError(e.message));
   }
