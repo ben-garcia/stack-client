@@ -9,8 +9,9 @@ import {
 } from './actions';
 
 // selector to get the current workspace id
-const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
-const getCurrentUserId = (state: AppState) => state.user.id;
+export const getCurrentWorkspaceId = (state: AppState) =>
+  state.currentWorkspace.id;
+export const getCurrentUserId = (state: AppState) => state.user.id;
 
 function* GetAllCurrentWorkspaceTeammates() {
   try {
@@ -39,7 +40,7 @@ function* GetAllCurrentWorkspaceTeammates() {
     yield put(receivedWorkspaceTeammates(teammates));
   } catch (e) {
     // eslint-disable-next-line
-    console.log('getWorkspaceMembers saga error: ', e);
+    // console.log('getWorkspaceMembers saga error: ', e);
     // dispatch an error
     yield put(receivedWorkspaceTeammatesError(e.message));
   }
