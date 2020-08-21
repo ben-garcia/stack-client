@@ -8,7 +8,8 @@ import {
 } from './actions';
 
 // selector to get current workspace id
-const getCurrentWorkspaceId = (state: AppState) => state.currentWorkspace.id;
+export const getCurrentWorkspaceId = (state: AppState) =>
+  state.currentWorkspace.id;
 
 function* getAllCurrentWorkspaceChannels() {
   try {
@@ -24,7 +25,7 @@ function* getAllCurrentWorkspaceChannels() {
     yield put(receivedWorkspaceChannels(channels));
   } catch (e) {
     // eslint-disable-next-line
-    console.log('getWorkspaceChannels saga Error: ', e);
+    // console.log('getWorkspaceChannels saga Error: ', e);
     // dispatch an error
     yield put(receivedWorkspaceChannelsError(e.message));
   }
