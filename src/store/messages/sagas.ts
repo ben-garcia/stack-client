@@ -8,8 +8,8 @@ import {
 } from './actions';
 
 // selector to get the current channel id
-const getCurrentChannelId = (state: AppState) => state.currentChannel.id;
-const getCurrentTeammates = (state: AppState) => state.teammates.list;
+export const getCurrentChannelId = (state: AppState) => state.currentChannel.id;
+export const getCurrentTeammates = (state: AppState) => state.teammates.list;
 
 function* getAllChannelMessages() {
   try {
@@ -34,7 +34,7 @@ function* getAllChannelMessages() {
     yield put(receivedChannelMessages(messages));
   } catch (e) {
     // eslint-disable-next-line
-    console.log('getChannelMessages saga error: ', e);
+    // console.log('getChannelMessages saga error: ', e);
     // dispatch an error
     yield put(receivedChannelMessagesError(e.message));
   }
