@@ -10,7 +10,7 @@ export const emailSchema: yup.StringSchema<string> = yup
 export const usernameSchema: yup.StringSchema<string> = yup
   .string()
   .trim()
-  .min(2, 'minumun length of 3')
+  .min(2, 'minumum length of 3')
   .required();
 
 export const passwordSchema: yup.StringSchema<string> = yup
