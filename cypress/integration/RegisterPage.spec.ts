@@ -55,6 +55,23 @@ describe('RegisterPage', () => {
     });
   });
 
+  it('should open "LoginPage" modal', () => {
+    cy.visit('/');
+    cy.contains('Register').click();
+    cy.get('.register-modal').should('be.visible');
+    cy.contains('Login using a test account!').click();
+    cy.get('.register-modal').should('not.be.visible');
+    cy.get('.login-modal').should('be.visible');
+  });
+
+  it('should close the "Register" modal', () => {
+    cy.visit('/');
+    cy.contains('Register').click();
+    cy.get('.register-modal').should('be.visible');
+    cy.get('.modal__button-close').click();
+    cy.get('.register-modal').should('not.be.visible');
+  });
+
   it('should successfully register a user', () => {
     cy.visit('/');
     cy.contains('Register').click();
