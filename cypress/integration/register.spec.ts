@@ -1,4 +1,4 @@
-describe('RegisterPage', () => {
+describe('Register', () => {
   afterEach(() => {
     cy.request({
       method: 'POST',
