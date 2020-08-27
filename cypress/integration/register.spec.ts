@@ -1,5 +1,5 @@
 describe('Register', () => {
-  afterEach(() => {
+  beforeEach(() => {
     cy.request({
       method: 'POST',
       url: 'localhost:8080/tests/clear',

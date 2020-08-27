@@ -5,14 +5,12 @@ describe('Login', () => {
     username: 'user1',
   };
 
-  afterEach(() => {
+  beforeEach(() => {
     cy.request({
       method: 'POST',
       url: 'localhost:8080/tests/clear',
     });
-  });
 
-  beforeEach(() => {
     (cy as any).registerUser(user);
     cy.visit('/');
     cy.contains('Log In').click();
@@ -25,7 +23,7 @@ describe('Login', () => {
     cy.get('.login-modal').should('be.visible');
   });
 
-  it.only('should contain test account information', () => {
+  it('should contain test account information', () => {
     cy.contains('Test Account 1').should('be.visible');
     cy.contains('email: stackguest@stack.com').should('be.visible');
     cy.contains('password: stackguest').should('be.visible');
