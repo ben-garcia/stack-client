@@ -1,9 +1,6 @@
 describe('Register', () => {
   beforeEach(() => {
-    cy.request({
-      method: 'POST',
-      url: 'localhost:8080/tests/clear',
-    });
+    (cy as any).clearDB();
 
     cy.visit('/');
     cy.contains('Register').click();

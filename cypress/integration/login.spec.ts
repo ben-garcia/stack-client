@@ -6,11 +6,7 @@ describe('Login', () => {
   };
 
   beforeEach(() => {
-    cy.request({
-      method: 'POST',
-      url: 'localhost:8080/tests/clear',
-    });
-
+    (cy as any).clearDB();
     (cy as any).registerUser(user);
     cy.visit('/');
     cy.contains('Log In').click();
@@ -57,7 +53,6 @@ describe('Login', () => {
     cy.get('.icon--loading').should('be.visible');
 
     cy.get('@submit').should(() => {
-      console.log(localStorage.getItem('user'));
       expect(localStorage.getItem('user')).to.matches(
         /(?=.*id)(?=.*createdAt)(?=.*email)(?=.*updatedAt)(?=.*username)/
       );
