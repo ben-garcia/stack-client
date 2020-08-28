@@ -26,5 +26,8 @@ Cypress.Commands.add('login', () => {
     method: 'POST',
     url: 'localhost:8080/api/auth/login',
     body: { ...user },
+  }).then(res => {
+    // store the user in local storage
+    localStorage.setItem('user', JSON.stringify(res.body.user));
   });
 });

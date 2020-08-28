@@ -2,10 +2,6 @@ describe('Logout', () => {
   beforeEach(() => {
     (cy as any).clearDB();
     (cy as any).login();
-    localStorage.setItem(
-      'user',
-      JSON.stringify({ email: 'user1@email.com', id: 1, username: 'user1' })
-    );
   });
 
   it('should successfully logout', () => {

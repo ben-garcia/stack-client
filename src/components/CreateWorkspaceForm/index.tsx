@@ -105,6 +105,9 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
 
           // check whether the newly created workspace should open
           if (openWorkspace) {
+            // save current channel to localStorage
+            localStorage.setItem('currentChannel', JSON.stringify(workspace));
+
             dispatch(getCurrentWorkspace(workspace));
             // remove the list of channels from the previous workspace
             dispatch(clearChannels());
