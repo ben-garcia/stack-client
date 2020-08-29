@@ -27,7 +27,7 @@ describe('Add workspace', () => {
     cy.get('.icon--loading').should('be.visible');
 
     cy.get('@submit').should(() => {
-      expect(localStorage.getItem('currentChannel')).to.eq(null);
+      expect(localStorage.getItem('currentWorkspace')).to.eq(null);
     });
     cy.get('.workspace-list').should('exist');
     cy.contains('No workspace yet').should('be.visible');
@@ -50,7 +50,7 @@ describe('Add workspace', () => {
       .as('submit');
     cy.get('.icon--loading').should('be.visible');
     cy.get('@submit').should(() => {
-      expect(localStorage.getItem('currentChannel')).to.matches(
+      expect(localStorage.getItem('currentWorkspace')).to.matches(
         /(?=.*id)(?=.*createdAt)(?=.*name)(?=.*updatedAt)/
       );
     });
@@ -61,10 +61,14 @@ describe('Add workspace', () => {
     cy.contains('Channels').should('be.visible');
 
     cy.get('.channel-list__add-button').should('be.visible');
+    cy.get('.teammates-list__button').should('not.exist');
 
     cy.contains('Teammates').should('be.visible');
 
     cy.get('.teammates-list__add-button').should('be.visible');
+    cy.get('.teammates-list__button')
+      .should('have.length', 1)
+      .and('have.text', 'user1 (You)');
     cy.get('.list__item--active')
       .should('be.visible')
       .and('contain.text', workspaceName[0].toUpperCase());

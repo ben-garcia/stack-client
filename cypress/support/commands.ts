@@ -27,7 +27,21 @@ Cypress.Commands.add('login', () => {
     url: 'localhost:8080/api/auth/login',
     body: { ...user },
   }).then(res => {
-    // store the user in local storage
     localStorage.setItem('user', JSON.stringify(res.body.user));
+  });
+});
+
+Cypress.Commands.add('addWorkspace', workspace => {
+  const userInLocalStorage = JSON.parse(localStorage.getItem('user') as any);
+  cy.request({
+    method: 'POST',
+    url: 'localhost:8080/tests/workspaces',
+    body: {
+      name: workspace.name,
+      owner: userInLocalStorage.id,
+      teammates: [userInLocalStorage],
+    },
+  }).then(res => {
+    localStorage.setItem('currentWorkspace', JSON.stringify(res.body));
   });
 });

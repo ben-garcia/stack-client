@@ -6,6 +6,10 @@
   padding-left: 0.8rem;
   width: 100%;
 
+  .view-wrapper__details {
+    min-width: 300px;
+  }
+
   // desktop
   @media screen and (min-width: $breakpoint-md) {
     .channel-view__details {

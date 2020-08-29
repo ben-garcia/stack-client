@@ -36,7 +36,7 @@ describe('Register', () => {
           .blur();
 
         cy.contains('this is a required field').should('be.visible');
-        cy.contains('minumum length of 3').should('be.visible');
+        cy.contains('minumum length of 6').should('be.visible');
       });
     });
 
@@ -53,8 +53,6 @@ describe('Register', () => {
   });
 
   it('should open "LoginPage" modal', () => {
-    cy.visit('/');
-    cy.contains('Register').click();
     cy.get('.register-modal').should('be.visible');
     cy.contains('Login using a test account!').click();
     cy.get('.register-modal').should('not.be.visible');
@@ -62,19 +60,13 @@ describe('Register', () => {
   });
 
   it('should close the "Register" modal', () => {
-    cy.visit('/');
-    cy.contains('Register').click();
     cy.get('.register-modal').should('be.visible');
     cy.get('.modal__button-close').click();
     cy.get('.register-modal').should('not.be.visible');
   });
 
   it('should successfully register a user', () => {
-    cy.visit('/');
-    cy.contains('Register').click();
-
     cy.get('.button').should('be.disabled');
-
     cy.get('input[name="email"]').type(user.email);
     cy.get('.button').should('be.disabled');
 
@@ -89,53 +81,47 @@ describe('Register', () => {
     cy.get('.icon--loading').should('be.visible');
   });
 
-  it('should fail when user types in duplicate email', () => {
-    (cy as any).registerUser(user);
+  describe('fails', () => {
+    beforeEach(() => {
+      (cy as any).registerUser(user);
+    });
 
-    cy.visit('/');
+    it('should fail when user types in duplicate email', () => {
+      cy.get('input[name="email"]').type(user.email);
+      cy.get('input[name="username"]').type('user1234');
+      cy.get('input[name="password"]').type('bestpassword');
+      cy.get('button[type="submit"]').click();
 
-    cy.contains('Register').click();
+      cy.contains('User with that email already exists').should('be.visible');
+      cy.contains('User with that username already exists').should(
+        'not.be.visible'
+      );
+    });
 
-    cy.get('input[name="email"]').type(user.email);
-    cy.get('input[name="username"]').type('user1234');
-    cy.get('input[name="password"]').type('bestpassword');
-    cy.get('button[type="submit"]').click();
+    it('should fail when user types in duplicate username', () => {
+      cy.get('input[name="email"]').type('test@emai.com');
+      cy.get('input[name="username"]').type(user.username);
+      cy.get('input[name="password"]').type('bestpassword');
+      cy.get('button[type="submit"]').click();
 
-    cy.contains('User with that email already exists').should('be.visible');
-    cy.contains('User with that username already exists').should(
-      'not.be.visible'
-    );
-  });
+      cy.contains('User with that email already exists').should(
+        'not.be.visible'
+      );
+      cy.contains('User with that username already exists').should(
+        'be.visible'
+      );
+    });
 
-  it('should fail when user types in duplicate username', () => {
-    (cy as any).registerUser(user);
+    it('should fail when user types in duplicate email and username', () => {
+      cy.get('input[name="email"]').type(user.email);
+      cy.get('input[name="username"]').type(user.username);
+      cy.get('input[name="password"]').type('bestpassword');
+      cy.get('button[type="submit"]').click();
 
-    cy.visit('/');
-
-    cy.contains('Register').click();
-
-    cy.get('input[name="email"]').type('test@emai.com');
-    cy.get('input[name="username"]').type(user.username);
-    cy.get('input[name="password"]').type('bestpassword');
-    cy.get('button[type="submit"]').click();
-
-    cy.contains('User with that email already exists').should('not.be.visible');
-    cy.contains('User with that username already exists').should('be.visible');
-  });
-
-  it('should fail when user types in duplicate email and username', () => {
-    (cy as any).registerUser(user);
-
-    cy.visit('/');
-
-    cy.contains('Register').click();
-
-    cy.get('input[name="email"]').type(user.email);
-    cy.get('input[name="username"]').type(user.username);
-    cy.get('input[name="password"]').type('bestpassword');
-    cy.get('button[type="submit"]').click();
-
-    cy.contains('User with that email already exists').should('be.visible');
-    cy.contains('User with that username already exists').should('be.visible');
+      cy.contains('User with that email already exists').should('be.visible');
+      cy.contains('User with that username already exists').should(
+        'be.visible'
+      );
+    });
   });
 });
