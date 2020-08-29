@@ -25,6 +25,8 @@
   }
 
   &__inner {
+    display: flex;
+    flex-direction: column;
     color: $background-color;
     overflow: hidden;
     max-width: 140px;
@@ -40,6 +42,10 @@
   &__inner-two {
     display: flex;
     align-items: baseline;
+  }
+
+  &__container {
+    align-self: flex-start;
   }
 
   &__name {

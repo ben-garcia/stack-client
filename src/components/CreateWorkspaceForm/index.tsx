@@ -8,7 +8,7 @@ import { AppState } from 'store';
 import { clearChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { clearMessages } from 'store/messages';
-import { clearTeammates } from 'store/teammates';
+import { clearTeammates, requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
@@ -106,13 +106,15 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
           // check whether the newly created workspace should open
           if (openWorkspace) {
             // save current channel to localStorage
-            localStorage.setItem('currentChannel', JSON.stringify(workspace));
+            localStorage.setItem('currentWorkspace', JSON.stringify(workspace));
 
             dispatch(getCurrentWorkspace(workspace));
             // remove the list of channels from the previous workspace
             dispatch(clearChannels());
             // remove the list of teammates from the previous workspace
             dispatch(clearTeammates());
+            // get the list of teammates(which is only the user)
+            dispatch(requestWorkspaceTeammates());
             // remove the current messages(if any) from the previous workspace
             dispatch(clearMessages());
             // remove the current direct messages(if any) from the previous workspace

@@ -47,15 +47,17 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
             type="chevron-down"
           />
         </div>
-        <Icon
-          type="circle"
-          size="xm"
-          color="green"
-          className="workspace__circle-icon"
-        />
-        <Text tag="span" className="workspace__username">
-          {username}
-        </Text>
+        <div className="workspace__container">
+          <Icon
+            type="circle"
+            size="xm"
+            color="green"
+            className="workspace__circle-icon"
+          />
+          <Text tag="span" className="workspace__username">
+            {username}
+          </Text>
+        </div>
       </Button>
       <Button
         className="workspace__add-button"

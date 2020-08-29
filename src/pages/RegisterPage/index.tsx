@@ -201,12 +201,21 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       console.log('handleSubmit error: ', { err });
 
       if (err.response) {
-        setErrors({
-          email: [],
-          username: [],
-          password: [],
-          response: [...err.response.data.error],
-        });
+        if (typeof err.response.data.error !== 'string') {
+          setErrors({
+            email: [],
+            username: [],
+            password: [],
+            response: [...err.response.data.error],
+          });
+        } else {
+          setErrors({
+            email: [],
+            username: [],
+            password: [],
+            response: [err.response.data.error],
+          });
+        }
       } else {
         setErrors({
           email: [],
@@ -224,7 +233,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       {errors.response.length > 0 && (
         <div className="register-page__error">
           {errors.response.map((err: string) => (
-            <Text>{err}</Text>
+            <Text key={err}>{err}</Text>
           ))}
         </div>
       )}
