@@ -45,3 +45,21 @@ Cypress.Commands.add('addWorkspace', workspace => {
     localStorage.setItem('currentWorkspace', JSON.stringify(res.body));
   });
 });
+
+Cypress.Commands.add('addChannel', channel => {
+  const userInLocalStorage = JSON.parse(localStorage.getItem('user') as any);
+  const workspaceInLocalStorage = JSON.parse(
+    localStorage.getItem('currentWorkspace') as any
+  );
+  cy.request({
+    method: 'POST',
+    url: 'localhost:8080/tests/channels',
+    body: {
+      ...channel,
+      workspace: workspaceInLocalStorage.id,
+      members: [userInLocalStorage],
+    },
+  }).then(res => {
+    localStorage.setItem('currentChannel', JSON.stringify(res.body));
+  });
+});
