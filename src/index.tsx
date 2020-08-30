@@ -10,9 +10,9 @@ import App from 'App';
 import 'index.scss';
 
 const sagaMiddleware = createSagaMiddleware();
-// redux dev tools in development
+// redux dev tools in development ONLY
 const middleware =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV === 'production' || (window as any).Cypress
     ? compose(applyMiddleware(sagaMiddleware))
     : compose(
         applyMiddleware(sagaMiddleware),
