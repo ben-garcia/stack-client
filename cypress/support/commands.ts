@@ -17,7 +17,7 @@ Cypress.Commands.add('login', () => {
   const user = {
     email: 'user1@email.com',
     password: 'user1user1',
-    username: 'user1',
+    username: 'user1user1',
   };
 
   (cy as any).registerUser(user);
