@@ -93,7 +93,8 @@
       "stylelint --fix"
     ],
     "*test.(ts|tsx)": [
-      "jest"
+      "jest",
+			"yarn cy:run"
     ],
     "*.(ts|tsx)": [
       "eslint --fix",
