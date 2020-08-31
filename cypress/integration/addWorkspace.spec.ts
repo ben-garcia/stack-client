@@ -61,14 +61,14 @@ describe('Add workspace', () => {
     cy.contains('Channels').should('be.visible');
 
     cy.get('.channel-list__add-button').should('be.visible');
-    cy.get('.teammates-list__button').should('not.exist');
+    cy.get('.teammates-list__button').should('be.visible');
 
     cy.contains('Teammates').should('be.visible');
 
     cy.get('.teammates-list__add-button').should('be.visible');
     cy.get('.teammates-list__button')
       .should('have.length', 1)
-      .and('have.text', 'user1 (You)');
+      .and('have.text', 'user1user1 (You)');
     cy.get('.list__item--active')
       .should('be.visible')
       .and('contain.text', workspaceName[0].toUpperCase());

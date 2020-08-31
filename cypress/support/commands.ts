@@ -63,3 +63,18 @@ Cypress.Commands.add('addChannel', channel => {
     localStorage.setItem('currentChannel', JSON.stringify(res.body));
   });
 });
+
+Cypress.Commands.add('addTeammate', teammateUsername => {
+  const workspaceInLocalStorage = JSON.parse(
+    localStorage.getItem('currentWorkspace') as any
+  );
+  cy.request({
+    method: 'PUT',
+    url: `localhost:8080/api/workspaces/${workspaceInLocalStorage.id}`,
+    body: {
+      'username-1': teammateUsername,
+    },
+  }).then(res => {
+    localStorage.setItem('currentTeammate', JSON.stringify(res.body));
+  });
+});
