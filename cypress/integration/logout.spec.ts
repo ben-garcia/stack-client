@@ -13,6 +13,9 @@ describe('Logout', () => {
     cy.contains('Logout')
       .click()
       .should(() => {
+        expect(localStorage.getItem('currentChannel')).to.eq(null);
+        expect(localStorage.getItem('currentTeammate')).to.eq(null);
+        expect(localStorage.getItem('currentWorkspace')).to.eq(null);
         expect(localStorage.getItem('user')).to.eq(null);
       });
 
