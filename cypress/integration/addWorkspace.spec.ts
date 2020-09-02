@@ -22,13 +22,10 @@ describe('Add workspace', () => {
     cy.get('button[type="submit"]')
       .should('be.enabled')
       .click()
-      .as('submit');
-
-    cy.get('.icon--loading').should('be.visible');
-
-    cy.get('@submit').should(() => {
-      expect(localStorage.getItem('currentWorkspace')).to.eq(null);
-    });
+      .should($el => {
+        expect($el.find('.icon--loading')).to.have.lengthOf(1);
+        expect(localStorage.getItem('currentWorkspace')).to.eq(null);
+      });
     cy.get('.workspace-list').should('exist');
     cy.contains('No workspace yet').should('be.visible');
     cy.contains(workspaceName).should('not.exist');
@@ -47,13 +44,12 @@ describe('Add workspace', () => {
     cy.get('input[type="checkbox"]').click();
     cy.get('button[type="submit"]')
       .click()
-      .as('submit');
-    cy.get('.icon--loading').should('be.visible');
-    cy.get('@submit').should(() => {
-      expect(localStorage.getItem('currentWorkspace')).to.matches(
-        /(?=.*id)(?=.*createdAt)(?=.*name)(?=.*updatedAt)/
-      );
-    });
+      .should($el => {
+        expect($el.find('.icon--loading')).to.have.lengthOf(1);
+        expect(localStorage.getItem('currentWorkspace')).to.matches(
+          /(?=.*id)(?=.*createdAt)(?=.*name)(?=.*updatedAt)/
+        );
+      });
     cy.get('.workspace-list').should('exist');
 
     cy.contains('No workspace yet').should('not.be.visible');

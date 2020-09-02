@@ -26,13 +26,12 @@ describe('Add channel', () => {
     cy.get('input[name="description"]').type(channel.description);
     cy.get('button[type="submit"]')
       .click()
-      .as('submit');
-    cy.get('.icon--loading').should('be.visible');
-    cy.get('@submit').should(() => {
-      expect(localStorage.getItem('currentChannel')).to.matches(
-        /(?=.*id)(?=.*createdAt)(?=.*name)(?=.*description)(?=.*topic)(?=.*private)(?=.*members)(?=.*updatedAt)/
-      );
-    });
+      .should($el => {
+        expect($el.find('.icon--loading')).to.have.lengthOf(1);
+        expect(localStorage.getItem('currentChannel')).to.matches(
+          /(?=.*id)(?=.*createdAt)(?=.*name)(?=.*description)(?=.*topic)(?=.*private)(?=.*members)(?=.*updatedAt)/
+        );
+      });
     cy.get('.list__item--active').should('have.length', 2);
     cy.get('.view-wrapper')
       .contains(channel.name)
