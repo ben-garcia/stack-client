@@ -5,11 +5,11 @@ describe('Add teammate', () => {
     password: 'user2user2',
   };
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    (cy as any).addWorkspace({ name: 'CypressTest' });
-    (cy as any).registerUser(teammate);
-    cy.visit('/dashboard');
+    cy.clearDB()
+      .login()
+      .addWorkspace({ name: 'CypressTest' })
+      .registerUser(teammate)
+      .visit('/dashboard');
   });
 
   it('should close the modal', () => {

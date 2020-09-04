@@ -1,9 +1,9 @@
 describe('Add channel', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    (cy as any).addWorkspace({ name: 'CypressTest' });
-    cy.visit('/dashboard');
+    cy.clearDB()
+      .login()
+      .addWorkspace({ name: 'CypressTest' })
+      .visit('/dashboard');
   });
   const channel = {
     name: 'channel 1',

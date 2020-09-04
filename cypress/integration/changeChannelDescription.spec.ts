@@ -1,17 +1,16 @@
 describe('Change channel description', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    (cy as any).addWorkspace({ name: 'CypressTest' });
+    cy.clearDB()
+      .login()
+      .addWorkspace({ name: 'CypressTest' });
   });
 
   it('should close the modal', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'channel description',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
     cy.get('button.channel-view__edit-button').click();
     cy.contains('Edit channel description').should('be.visible');
     cy.get('.modal').should('exist');
@@ -20,12 +19,11 @@ describe('Change channel description', () => {
   });
 
   it('should change channel description', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'old description',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newDescription = 'new description';
 
@@ -49,12 +47,11 @@ describe('Change channel description', () => {
   });
 
   it('should change channel description(via channel details)', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'old description',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newDescription = 'new description';
 

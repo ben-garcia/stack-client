@@ -1,11 +1,11 @@
 describe('Logout', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
+    cy.clearDB()
+      .login()
+      .visit('/');
   });
 
   it('should successfully logout', () => {
-    cy.visit('/');
     cy.url().should('include', '/dashboard');
 
     cy.get('button.workspace__inner').click();

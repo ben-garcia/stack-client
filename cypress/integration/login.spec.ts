@@ -6,10 +6,11 @@ describe('Login', () => {
   };
 
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).registerUser(user);
-    cy.visit('/');
-    cy.contains('Log In').click();
+    cy.clearDB()
+      .registerUser(user)
+      .visit('/')
+      .contains('Log In')
+      .click();
   });
 
   it('should open modal with "try it now" button', () => {

@@ -1,8 +1,8 @@
 describe('Add workspace', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    cy.visit('/dashboard');
+    cy.clearDB()
+      .login()
+      .visit('/dashboard');
   });
   const workspaceName = 'new workspace';
 

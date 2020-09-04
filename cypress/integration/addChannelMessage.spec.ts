@@ -5,11 +5,11 @@ describe('Add channel message', () => {
     private: false,
   };
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    (cy as any).addWorkspace({ name: 'CypressTest' });
-    (cy as any).addChannel(channel);
-    cy.visit('/dashboard');
+    cy.clearDB()
+      .login()
+      .addWorkspace({ name: 'CypressTest' })
+      .addChannel(channel)
+      .visit('/dashboard');
   });
 
   it('should successfully add a channel message', () => {

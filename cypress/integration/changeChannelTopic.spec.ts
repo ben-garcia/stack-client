@@ -1,12 +1,12 @@
 describe('Change channel topic', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-    (cy as any).login();
-    (cy as any).addWorkspace({ name: 'CypressTest' });
+    cy.clearDB()
+      .login()
+      .addWorkspace({ name: 'CypressTest' });
   });
 
   it('should close the modal', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'testing test',
       private: false,
@@ -20,12 +20,11 @@ describe('Change channel topic', () => {
   });
 
   it('should change channel topic when topic start is empty', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'testing test',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newTopic = 'new topic';
 
@@ -47,12 +46,11 @@ describe('Change channel topic', () => {
   });
 
   it('should change channel topic when topic start is empty(via channel details)', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'testing test',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newTopic = 'new topic';
 
@@ -80,13 +78,12 @@ describe('Change channel topic', () => {
   });
 
   it('should change channel topic when topic start is NOT empty', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'testing test',
       topic: 'old topic',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newTopic = 'new topic';
 
@@ -110,12 +107,11 @@ describe('Change channel topic', () => {
   });
 
   it('should change channel topic when topic start is NOT empty(via channel details)', () => {
-    (cy as any).addChannel({
+    cy.addChannel({
       name: 'channel 1',
       description: 'testing test',
       private: false,
-    });
-    cy.visit('/dashboard');
+    }).visit('/dashboard');
 
     const newTopic = 'new topic';
 

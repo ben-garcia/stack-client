@@ -1,9 +1,9 @@
 describe('Register', () => {
   beforeEach(() => {
-    (cy as any).clearDB();
-
-    cy.visit('/');
-    cy.contains('Register').click();
+    cy.clearDB()
+      .visit('/')
+      .contains('Register')
+      .click();
   });
 
   const user = {
