@@ -45,22 +45,22 @@ This repo will hold the front-end code for stack which is a minuature slack clon
 4. install dependencies with
    `cd server` and `npm install` or `yarn`
 
-5) start the server
+5. run the tests
 
-   `npm run start`
+   - jest
 
-   or
+     `npm test` or `yarn test`
 
-   `yarn start`
+   - cypress
 
-   which will start the server on port 8080.
+     - via gui
 
-6) start the client
+       `npm run cy:open` or `yarn cy:open`
 
-   `npm run start`
+     - via terminal
 
-   or
+       `npm rn cy:run` or `yarn cy:run`
 
-   `yarn start`
+6) start the server `npm start` or `yarn start` which will start the server on port 8080.
 
-   which will start the client on port 3000.
+7) start the client `npm start` or `yarn start` which will start the client on port 3000.
