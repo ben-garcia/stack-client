@@ -58,8 +58,8 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
     if (workspaceName.length > 0 && !workspaceNameError) {
       try {
         if (
-          user.username === 'stackguest' ||
-          user.username === 'stacktestuser'
+          user.username === 'stackguest2' ||
+          user.username === 'stacktestuser2'
         ) {
           const workspace = {
             id: Math.random(),

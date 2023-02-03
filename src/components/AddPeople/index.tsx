@@ -55,7 +55,10 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
     e.preventDefault();
 
     try {
-      if (user.username === 'stackguest' || user.username === 'stacktestuser') {
+      if (
+        user.username === 'stackguest2' ||
+        user.username === 'stacktestuser2'
+      ) {
         // when the user is a test account
       } else {
         // send request to the server
