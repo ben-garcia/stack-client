@@ -75,8 +75,8 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
     if (isSubmittable) {
       try {
         if (
-          user.username === 'stackguest2' ||
-          user.username === 'stacktestuser2'
+          user.username === 'stackguest' ||
+          user.username === 'stacktestuser'
         ) {
           // loop through the usernames
           Object.values(values).forEach((username: string) => {

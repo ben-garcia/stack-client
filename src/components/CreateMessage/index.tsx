@@ -121,8 +121,8 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
         }
 
         if (
-          user.username !== 'stackguest2' &&
-          user.username !== 'stacktestuser2'
+          user.username !== 'stackguest' &&
+          user.username !== 'stacktestuser'
         ) {
           await sendRequest({
             method: 'POST',

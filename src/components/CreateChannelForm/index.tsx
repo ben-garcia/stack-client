@@ -123,8 +123,8 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
         }
 
         if (
-          user.username === 'stackguest2' ||
-          user.username === 'stacktestuser2'
+          user.username === 'stackguest' ||
+          user.username === 'stacktestuser'
         ) {
           const newChannel = {
             ...channel,

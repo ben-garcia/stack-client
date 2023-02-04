@@ -25,10 +25,7 @@ const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
 
     try {
       // check for testing accounts
-      if (
-        user.username === 'stackguest2' ||
-        user.username === 'stacktestuser2'
-      ) {
+      if (user.username === 'stackguest' || user.username === 'stacktestuser') {
         // dispatch action to update the current channel topic
         dispatch(updateChannelDescription(description));
         // close the modal
