@@ -97,17 +97,17 @@ const LoginPage: React.FC<LoginPageProps> = ({
       } catch (err) {
         // eslint-disable-next-line
         console.log('handleSubmit error: ', { err });
-        if (err.response) {
+        if ((err as any).response) {
           setErrors({
             email: [],
             password: [],
-            response: [err.response.data.error],
+            response: [(err as any).response.data.error],
           });
         } else {
           setErrors({
             email: [],
             password: [],
-            response: [err.message],
+            response: [(err as any).message],
           });
         }
         setIsSubmitting(false);

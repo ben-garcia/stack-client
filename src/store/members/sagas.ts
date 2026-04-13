@@ -10,7 +10,9 @@ export const getCurrentTeammates = (state: AppState) => state.teammates.list;
 
 function* getAllChannelMembers() {
   try {
+    // @ts-ignore
     const currentChannelId = yield select(getCurrentChannelId);
+    // @ts-ignore
     const currentTeammates = yield select(getCurrentTeammates);
     const {
       data: { members },
@@ -34,7 +36,7 @@ function* getAllChannelMembers() {
     // eslint-disable-next-line
     // console.log('getChannelMembers saga error: ', e);
     // dispatch an error
-    yield put(receivedChannelMembersError(e.message));
+    yield put(receivedChannelMembersError((e as any).message));
   }
 }
 

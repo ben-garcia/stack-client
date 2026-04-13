@@ -55,7 +55,8 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   // customAttribute should be an empty object.
-  if (customAttribute !== {}) {
+  // if (customAttribute !== {}) {
+  if (Object.keys(customAttribute).length === 0) {
     const [key] = Object.keys(customAttribute);
     const [value] = Object.values(customAttribute);
     props[`data-${key?.toLowerCase()}`] = value;

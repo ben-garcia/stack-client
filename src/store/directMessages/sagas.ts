@@ -16,8 +16,11 @@ export const getCurrentWorkspaceId = (state: AppState) =>
 
 function* getUserDirectMessages() {
   try {
+    // @ts-ignore
     const currentTeammates = yield select(getCurrentTeammates);
+    // @ts-ignore
     const currentTeammateId = yield select(getCurrentTeammateId);
+    // @ts-ignore
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
     const {
       data: { directMessages },
@@ -40,7 +43,7 @@ function* getUserDirectMessages() {
     // eslint-disable-next-line
     // console.log('getUserDirectMessages saga error: ', e);
     // dispatch an error
-    yield put(receivedUserDirectMessagesError(e.message));
+    yield put(receivedUserDirectMessagesError((e as any).message));
   }
 }
 

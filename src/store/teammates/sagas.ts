@@ -15,7 +15,9 @@ export const getCurrentUserId = (state: AppState) => state.user.id;
 
 function* GetAllCurrentWorkspaceTeammates() {
   try {
+    // @ts-ignore
     const currentWorkspaceId = yield select(getCurrentWorkspaceId);
+    // @ts-ignore
     const currentUserId = yield select(getCurrentUserId);
     const {
       data: { teammates },
@@ -42,7 +44,7 @@ function* GetAllCurrentWorkspaceTeammates() {
     // eslint-disable-next-line
     // console.log('getWorkspaceMembers saga error: ', e);
     // dispatch an error
-    yield put(receivedWorkspaceTeammatesError(e.message));
+    yield put(receivedWorkspaceTeammatesError((e as any).message));
   }
 }
 

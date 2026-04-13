@@ -22,7 +22,7 @@ const Text: React.FC<TextProps> = ({
   }
 
   // p tag is rendered by default
-  let elementToRender: JSX.Element = <p className={classesToAdd}>{children}</p>;
+  let elementToRender = <p className={classesToAdd}>{children}</p>;
 
   if (tag === 'span') {
     elementToRender = <span className={classesToAdd}>{children}</span>;

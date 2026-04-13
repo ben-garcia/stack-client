@@ -1,5 +1,4 @@
 import { call, put, select } from 'redux-saga/effects';
-
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import {
@@ -13,10 +12,13 @@ export const getCurrentTeammates = (state: AppState) => state.teammates.list;
 
 function* getAllChannelMessages() {
   try {
+    // @ts-ignore
     const currentChannelId = yield select(getCurrentChannelId);
+    // @ts-ignore
     const currentTeammates = yield select(getCurrentTeammates);
     const {
       data: { messages },
+      // @ts-ignore
     } = yield call(sendRequest, {
       method: 'GET',
       url: `/messages?channelId=${currentChannelId}`,
@@ -36,7 +38,7 @@ function* getAllChannelMessages() {
     // eslint-disable-next-line
     // console.log('getChannelMessages saga error: ', e);
     // dispatch an error
-    yield put(receivedChannelMessagesError(e.message));
+    yield put(receivedChannelMessagesError((e as any).message));
   }
 }
 

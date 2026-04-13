@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="61mm" height="13mm" version="1.1" viewBox="0 0 61 13" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="61mm" height="13mm" version="1.1" viewBox="0 0 61 13" xmlns="http://www.w3.org/2000/svg">
  <g transform="translate(-45,-50)">
   <path d="m56 60-6 4-6-4v-6l6-4 6 4z" fill="#320e40" stroke-width=".05"/>
   <path d="m55 60-5 3-5-3v-6l5-3 5 3z" stroke-width=".04"/>

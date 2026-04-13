@@ -43,17 +43,17 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       if (targetName === 'email') {
         setErrors({
           ...errors,
-          email: [...err.errors],
+          email: [...(err as any).errors],
         });
       } else if (targetName === 'username') {
         setErrors({
           ...errors,
-          username: [...err.errors],
+          username: [...(err as any).errors],
         });
       } else if (targetName === 'password') {
         setErrors({
           ...errors,
-          password: [...err.errors],
+          password: [...(err as any).errors],
         });
       }
       setIsSubmitting(false);
@@ -200,20 +200,20 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
       // eslint-disable-next-line
       console.log('handleSubmit error: ', { err });
 
-      if (err.response) {
-        if (typeof err.response.data.error !== 'string') {
+      if ((err as any).response) {
+        if (typeof (err as any).response.data.error !== 'string') {
           setErrors({
             email: [],
             username: [],
             password: [],
-            response: [...err.response.data.error],
+            response: [...(err as any).response.data.error],
           });
         } else {
           setErrors({
             email: [],
             username: [],
             password: [],
-            response: [err.response.data.error],
+            response: [(err as any).response.data.error],
           });
         }
       } else {
@@ -221,7 +221,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
           email: [],
           username: [],
           password: [],
-          response: [err.message],
+          response: [(err as any).message],
         });
       }
       setIsSubmitting(false);
