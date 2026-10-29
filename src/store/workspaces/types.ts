@@ -14,13 +14,13 @@ export interface Workspace {
   updatedAt: string;
 }
 
+export type WorkspacesError = string;
+
 export interface WorkspacesState {
   error?: WorkspacesError;
   isLoading: boolean;
   list: Workspace[];
 }
-
-export type WorkspacesError = string;
 
 interface AddWorkspace {
   type: typeof WorkspacesActions.ADD_WORKSPACE;

@@ -104,7 +104,8 @@ const isMessageFromYesterday = (
     if (todayToCompare === dateInQuestion) {
       return true;
     }
-    // check that month isn't January and date is 1
+    // check that month isn't January and day is the 1st
+    // eslint-disable-next-line
   } else if (date === 1 && month !== 1) {
     const newDate = monthMaxDays.get(month - 1);
     dateToCompare = `${month - 1}/${newDate}/${year}`;

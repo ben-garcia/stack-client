@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import io from 'socket.io-client';
+import io, { Socket } from 'socket.io-client';
 
 import { sendRequest } from 'api';
 import { Form } from 'components';
@@ -12,7 +12,7 @@ import { CreateMessageProps, UserConnected } from './types';
 import './styles.scss';
 
 const CreateMessage: React.FC<CreateMessageProps> = () => {
-  const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
+  const [socket, setSocket] = useState<typeof Socket | null>(null);
   const dispatch = useDispatch();
   const {
     currentChannel,

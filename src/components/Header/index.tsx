@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   // variable will contain the correct heading tag.
-  let headingToRender: JSX.Element;
+  let headingToRender: React.ReactElement;
 
   switch (as) {
     case 'h2':

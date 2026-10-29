@@ -130,8 +130,8 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
           {/* show scrollbar only when the scrollable area is greater than
             the height of the div */}
           {containerRef.current &&
-          containerRef.current?.scrollHeight -
-            containerRef.current?.clientHeight >
+          (containerRef.current?.scrollHeight as number) -
+            (containerRef.current?.clientHeight as number) >
             0 ? (
             <div
               className={
