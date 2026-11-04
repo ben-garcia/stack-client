@@ -3,12 +3,14 @@ import React from 'react';
 import './styles.scss';
 import { HeaderProps } from './types';
 
-const Header: React.FC<HeaderProps> = ({
+// eslint-disable-next-line
+const Header: React.FC<HeaderProps & { modalId?: string }> = ({
   className = '',
   heading,
   as = 'h1',
   headerPosition = 'center',
   children,
+  modalId = undefined,
 }) => {
   // classnames that are to be added to the heading itself.
   let classNamesToAdd: string = 'header';
@@ -73,7 +75,10 @@ const Header: React.FC<HeaderProps> = ({
     default:
       headingClassNamesToAdd += ' header__heading--xxl';
       headingToRender = (
-        <h1 className={`header__heading ${headingClassNamesToAdd}`}>
+        <h1
+          id={`modal-${modalId}__label`}
+          className={`header__heading ${headingClassNamesToAdd}`}
+        >
           {heading}
         </h1>
       );

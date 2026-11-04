@@ -1,5 +1,6 @@
 export interface CreateChannelFormProps {
   createChannelFormIsOpen: (state: boolean) => void;
+  modalId?: string;
 }
 
 export interface Channel {

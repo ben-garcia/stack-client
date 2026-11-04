@@ -17,6 +17,7 @@ import './styles.scss';
 
 const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   createChannelFormIsOpen,
+  modalId = undefined,
 }) => {
   const dispatch: Dispatch = useDispatch();
   const {
@@ -198,7 +199,10 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
 
   return (
     <div className="create-channel">
-      <Text className="create-channel__sub-header">
+      <Text
+        modalId={`modal-${modalId}__description`}
+        className="create-channel__sub-header"
+      >
         Channels are where your team communicates. They’re best when organized
         around a topic — #marketing, for example.
       </Text>

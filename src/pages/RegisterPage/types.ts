@@ -1,6 +1,9 @@
+import React from 'react';
+
 export interface RegisterPageProps {
   setRegisterModalIsOpen: (value: React.SetStateAction<boolean>) => void;
   setLoginModalIsOpen: (value: React.SetStateAction<boolean>) => void;
+  modalId?: string;
 }
 
 export interface User {

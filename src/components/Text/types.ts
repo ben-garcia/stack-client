@@ -1,6 +1,9 @@
+import React from 'react';
+
 export interface TextProps {
   children: React.ReactNode;
   className?: string;
-  tag?: 'p' | 'span' | 'div';
+  modalId?: string;
   size?: 'xm' | 'sm' | 'md' | 'lg' | 'xlg';
+  tag?: 'p' | 'span' | 'div';
 }

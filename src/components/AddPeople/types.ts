@@ -1,1 +1,3 @@
-export interface AddPeopleProps {}
+export interface AddPeopleProps {
+  modalId?: string;
+}

@@ -12,45 +12,59 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+}
 
-  .modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    color: $color-black;
-    border-radius: 5px;
-    background-color: $background-color;
-    margin: 0 auto;
-    padding: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
-      rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
+.modal-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
+  pointer-events: none; /* let clicks pass through the container and land directly on the background overlay. */
+}
 
-    &__button-close {
-      align-self: flex-end;
-      opacity: 0.5;
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1100;
+  color: $color-black;
+  border-radius: 5px;
+  background-color: $background-color;
+  padding: 1rem;
+  pointer-events: auto; /* restores normal behavior. */
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 3px 3px 0,
+    rgba(0, 0, 0, 0.2) 1px 3px 15px 2px;
 
-      &:hover {
-        opacity: 1;
-        background-color: rgba($color-dark-grey, 0.1);
-      }
+  &__button-close {
+    align-self: flex-end;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba($color-dark-grey, 0.1);
     }
+  }
 
-    &__header {
-      border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-      font-size: 1.2rem;
-      font-family: Coolvetica, Helvertica, sans-serif;
-      width: 100%;
-    }
+  &__header {
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    font-size: 1.2rem;
+    font-family: Coolvetica, Helvertica, sans-serif;
+    width: 100%;
   }
 }
 
 .modal-background--dark {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 .modal-background--transparent {

@@ -11,7 +11,7 @@ import { Teammate } from 'store/teammates/types';
 import { AddPeopleProps } from './types';
 import './styles.scss';
 
-const AddPeople: React.FC<AddPeopleProps> = () => {
+const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
   const dispatch = useDispatch();
   const {
     currentChannelId,
@@ -84,7 +84,7 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Text className="form__message">
+      <Text modalId={`modal-${modalId}__description`} className="form__message">
         Select the teammate/s you would like to become member/s of
         <Text tag="span" className="channel-name">
           {channelName}
@@ -124,7 +124,7 @@ const AddPeople: React.FC<AddPeopleProps> = () => {
         })}
       </div>
       <Text className="form__message" size="xm">
-        To add a teammate who is not on Stack, you will need to
+        To add a teammate, who is not on Stack, you will need to
         <Button
           className="form__open-invite-button"
           type="button"

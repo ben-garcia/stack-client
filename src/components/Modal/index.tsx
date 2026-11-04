@@ -1,4 +1,12 @@
-import React, { useLayoutEffect, useRef } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 import { ModalProps } from './types';
@@ -13,16 +21,26 @@ const Modal: React.FC<ModalProps> = ({
   onClose = () => {},
   background = true,
 }) => {
-  // background div ref
-  const backgroundRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   // keeps track of all classes to add to the modal
   let classesToAdd: string = 'modal';
+  const modalId = useMemo(
+    () =>
+      Math.random()
+        .toString(36)
+        .substring(2, 8),
+    []
+  );
 
   // runs synchronously
   useLayoutEffect(() => {
-    if (backgroundRef?.current) {
-      backgroundRef.current.focus();
-    }
+    const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+      'button:enabled, input:enabled, textarea:enabled, select:enabled, a[href]'
+    );
+    const first = focusableElements![0];
+    if (!first) return;
+
+    first.focus();
   }, []);
 
   // make sure className isn't empty
@@ -35,55 +53,112 @@ const Modal: React.FC<ModalProps> = ({
     classesToAdd += ` modal--${size}`;
   }
 
-  return createPortal(
-    <div
-      ref={background ? backgroundRef : null}
-      role="button"
-      tabIndex={0}
-      className={
-        background
-          ? 'modal-background modal-background--dark'
-          : 'modal-background modal-background--transparent'
+  const handleKeypress = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+        return;
       }
-      onClick={e => {
-        // close modal ONLY when background is clicked
-        if (e.currentTarget === e.target) {
-          onClose();
+
+      if (event.key === 'Tab') {
+        const focusableElements = modalRef.current!.querySelectorAll<
+          HTMLElement
+        >(
+          'button:enabled, input:enabled, textarea:enabled, select:enabled, a[href]'
+        );
+
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = focusableElements[0];
+        const lastFocusableElement =
+          focusableElements[focusableElements.length - 1];
+
+        // Shift + Tab: If the first element has focus,
+        // wrap to the last focusable element
+        if (
+          event.shiftKey &&
+          document.activeElement === firstFocusableElement
+        ) {
+          lastFocusableElement.focus();
+          event.preventDefault();
         }
-      }}
-      onKeyUp={e => {
-        // close modal when escape key is pressed
-        if (background && e.keyCode === 27) {
-          onClose();
+        // Tab: If the last element has focus,
+        // wrap to the first focusable element
+        else if (
+          !event.shiftKey &&
+          document.activeElement === lastFocusableElement
+        ) {
+          firstFocusableElement.focus();
+          event.preventDefault();
         }
-      }}
-    >
-      <section className={classesToAdd}>
-        {header?.trim() !== '' && (
-          <Button
-            type="button"
-            className="modal__button-close"
-            color="transparent"
-            onClick={onClose}
-          >
-            <Icon
-              type="times"
-              color="black"
-              size="sm"
-              className="modal__times-icon"
+      }
+    },
+    [onClose]
+  );
+
+  const handleClick = useCallback(() => {
+    onClose();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeypress);
+    return () => {
+      window.removeEventListener('keydown', handleKeypress);
+    };
+  }, [handleKeypress]);
+
+  return createPortal(
+    <>
+      <div
+        aria-hidden="true"
+        className={
+          background
+            ? 'modal-background modal-background--dark'
+            : 'modal-background modal-background--transparent'
+        }
+        onClick={handleClick}
+      />
+      <div className="modal-container">
+        <section
+          aria-modal="true"
+          aria-labelledby={`modal-${modalId}__label`}
+          aria-describedby={`modal-${modalId}__description`}
+          role="dialog"
+          ref={modalRef}
+          className={classesToAdd}
+        >
+          {header?.trim() !== '' && (
+            <Button
+              type="button"
+              className="modal__button-close"
+              color="transparent"
+              onClick={onClose}
+            >
+              <Icon
+                type="times"
+                color="black"
+                size="sm"
+                className="modal__times-icon"
+              />
+            </Button>
+          )}
+          {header?.trim() !== '' && (
+            <Header
+              className="modal__header"
+              headerPosition="center"
+              heading={header}
+              modalId={modalId}
             />
-          </Button>
-        )}
-        {header?.trim() !== '' && (
-          <Header
-            headerPosition="center"
-            heading={header}
-            className="modal__header"
-          />
-        )}
-        {children}
-      </section>
-    </div>,
+          )}
+          {React.Children.map(children, child => {
+            if (React.isValidElement<any>(child)) {
+              return React.cloneElement(child, { modalId });
+            }
+            return child;
+          })}
+        </section>
+      </div>
+    </>,
     document.getElementById('modal-root') as Element
   );
 };

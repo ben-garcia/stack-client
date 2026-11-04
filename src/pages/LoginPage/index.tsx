@@ -13,6 +13,7 @@ import './styles.scss';
 const LoginPage: React.FC<LoginPageProps> = ({
   setRegisterModalIsOpen,
   setLoginModalIsOpen,
+  modalId = undefined,
 }) => {
   const dispatch: Dispatch = useDispatch();
   const [user, setUser] = useState<User>({
@@ -116,11 +117,18 @@ const LoginPage: React.FC<LoginPageProps> = ({
   };
 
   return (
-    <div className="login-page">
+    <div role="alert" className="login-page">
       {errors.response.length > 0 && (
         <div className="login-page__error">{errors.response[0]}</div>
       )}
+
       <Form onSubmit={handleSubmit}>
+        <Text
+          modalId={`modal-${modalId}__description`}
+          className="form__description"
+        >
+          Enter your email and password.
+        </Text>
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
             className="form-input"

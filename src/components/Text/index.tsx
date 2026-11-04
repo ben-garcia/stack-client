@@ -6,6 +6,7 @@ import './styles.scss';
 const Text: React.FC<TextProps> = ({
   children,
   className = '',
+  modalId = undefined,
   tag = 'p',
   size = 'md',
 }) => {
@@ -22,12 +23,24 @@ const Text: React.FC<TextProps> = ({
   }
 
   // p tag is rendered by default
-  let elementToRender = <p className={classesToAdd}>{children}</p>;
+  let elementToRender = (
+    <p id={modalId} className={classesToAdd}>
+      {children}
+    </p>
+  );
 
   if (tag === 'span') {
-    elementToRender = <span className={classesToAdd}>{children}</span>;
+    elementToRender = (
+      <span id={modalId} className={classesToAdd}>
+        {children}
+      </span>
+    );
   } else if (tag === 'div') {
-    elementToRender = <div className={classesToAdd}>{children}</div>;
+    elementToRender = (
+      <div id={modalId} className={classesToAdd}>
+        {children}
+      </div>
+    );
   }
 
   return elementToRender;

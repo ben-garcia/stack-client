@@ -8,10 +8,6 @@
   box-sizing: border-box;
 }
 
-*:focus {
-  outline-color: transparent;
-}
-
 html,
 body {
   font-size: 16px;
@@ -21,4 +17,12 @@ body {
 // remove default scrollbar in chrome
 ::-webkit-scrollbar {
   display: none;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 3px solid #4299e1;
+  outline-offset: 2px;
+  box-shadow: rgba(8, 11, 14, 0.06) 0 0 1px 0, rgba(8, 11, 14, 0.1) 0 6px 6px -1px;
 }

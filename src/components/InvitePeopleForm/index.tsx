@@ -11,7 +11,9 @@ import { Teammate } from 'store/teammates/types';
 import { InvitePeopleFormProps, Username, UsernameValues } from './types';
 import './styles.scss';
 
-const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
+const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
+  modalId = undefined,
+}) => {
   const dispatch: Dispatch = useDispatch();
   const { currentWorkspace, user } = useSelector((state: AppState) => ({
     currentWorkspace: state.currentWorkspace,
@@ -138,7 +140,10 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = () => {
 
   return (
     <div className="invite-people-form">
-      <Text className="invite-people-form__sub-header">
+      <Text
+        modalId={`modal-${modalId}__description`}
+        className="invite-people-form__sub-header"
+      >
         Invite people who are part of your team.
       </Text>
       <Form onSubmit={handleSubmit}>

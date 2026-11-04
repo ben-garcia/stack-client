@@ -1,4 +1,6 @@
-export interface InvitePeopleFormProps {}
+export interface InvitePeopleFormProps {
+  modalId?: string;
+}
 
 export interface Username {
   id: number;

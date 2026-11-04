@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form } from 'components';
+import { Button, Form, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { updateChannelTopic } from 'store/channel';
@@ -10,7 +10,10 @@ import { closeEditChannelTopicModal } from 'store/editChannelTopicModal';
 import { EditChannelTopicProps } from './types';
 import './styles.scss';
 
-const EditChannelTopic: React.FC<EditChannelTopicProps> = ({ value }) => {
+const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
+  value,
+  modalId = undefined,
+}) => {
   const dispatch: Dispatch = useDispatch();
   const { currentChannel, user } = useSelector((state: AppState) => ({
     currentChannel: state.currentChannel,
@@ -59,6 +62,12 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({ value }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Text
+        modalId={`modal-${modalId}__description`}
+        className="form__description"
+      >
+        Update the channel topic.
+      </Text>
       <textarea
         className="form__textarea"
         onChange={handleChange}

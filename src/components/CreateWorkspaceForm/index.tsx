@@ -14,9 +14,10 @@ import { addWorkspace } from 'store/workspaces';
 import { CreateWorkspaceFormProps } from './types';
 import './styles.scss';
 
-const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
-  createWorkspaceFormIsOpen,
-}) => {
+const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
+  // eslint-disable-next-line
+  modalId?: string;
+}> = ({ createWorkspaceFormIsOpen, modalId = undefined }) => {
   const dispatch: Dispatch = useDispatch();
   const { user } = useSelector((state: AppState) => ({
     user: state.user,
@@ -131,7 +132,10 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps> = ({
 
   return (
     <div className="create-workspace">
-      <Text className="create-workspace__sub-header">
+      <Text
+        modalId={`modal-${modalId}__description`}
+        className="create-workspace__sub-header"
+      >
         Workspaces are where you set up your team for a particular project. Then
         you can split up the work via channels.
       </Text>

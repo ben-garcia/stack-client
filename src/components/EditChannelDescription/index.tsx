@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form } from 'components';
+import { Button, Form, Text } from 'components';
 import { sendRequest } from 'api';
 import { AppState } from 'store';
 import { updateChannelDescription } from 'store/channel';
@@ -12,6 +12,7 @@ import './styles.scss';
 
 const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
   value,
+  modalId = undefined,
 }) => {
   const dispatch: Dispatch = useDispatch();
   const { currentChannel, user } = useSelector((state: AppState) => ({
@@ -61,6 +62,12 @@ const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Text
+        modalId={`modal-${modalId}__description`}
+        className="form__description"
+      >
+        Update the channel descrption.
+      </Text>
       <textarea
         className="form__textarea"
         onChange={handleChange}

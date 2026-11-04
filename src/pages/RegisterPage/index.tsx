@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 
 import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
-import { RegisterPageProps, User, UserErrors } from './types';
 import { emailSchema, usernameSchema, passwordSchema } from './utils';
+import { RegisterPageProps, User, UserErrors } from './types';
 import './styles.scss';
 
 const RegisterPage: React.FC<RegisterPageProps> = ({
   setRegisterModalIsOpen,
   setLoginModalIsOpen,
+  modalId = undefined,
 }) => {
   const [user, setUser] = useState<User>({
     email: '',
@@ -229,7 +230,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
   };
 
   return (
-    <div className="register-page">
+    <div role="alert" className="register-page">
       {errors.response.length > 0 && (
         <div className="register-page__error">
           {errors.response.map((err: string) => (
@@ -238,6 +239,12 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
         </div>
       )}
       <Form onSubmit={handleSubmit}>
+        <Text
+          modalId={`modal-${modalId}__description`}
+          className="form__description"
+        >
+          Create you account.
+        </Text>
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
             className="form-input"
