@@ -4,6 +4,7 @@ import { ButtonProps } from './types';
 import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
+  ariaLabel = undefined,
   type,
   children,
   color = 'primary',
@@ -62,7 +63,11 @@ const Button: React.FC<ButtonProps> = ({
     props[`data-${key?.toLowerCase()}`] = value;
   }
 
-  return <button {...props}>{children}</button>;
+  return (
+    <button {...props} aria-label={ariaLabel}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;

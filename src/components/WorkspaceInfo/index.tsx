@@ -35,6 +35,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
           color="transparent"
           onClick={() => dispatch(openMobileSidebar())}
           type="button"
+          title="Show workspaces and channels"
         >
           <Icon color="black" size="sm" type="hamburger-menu" />
         </Button>

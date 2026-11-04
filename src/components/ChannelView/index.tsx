@@ -38,7 +38,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
   }
 
   return (
-    <div className={classesToAdd}>
+    <header className={classesToAdd}>
       <h1 className="channel-view__inner">
         <Icon className="channel-view__hash-icon" type="hash" size="xm" />
         <Text className="channel-view__name" tag="span">
@@ -100,6 +100,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
             type="button"
             color="transparent"
             onClick={() => dispatch(openAddPeopleModal())}
+            title="Add people to channel."
           >
             <Text tag="span" size="xm">
               Add people
@@ -116,7 +117,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

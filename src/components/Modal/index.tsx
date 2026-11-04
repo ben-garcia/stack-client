@@ -129,6 +129,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           {header?.trim() !== '' && (
             <Button
+              ariaLabel="Close the modal"
               type="button"
               className="modal__button-close"
               color="transparent"

@@ -36,7 +36,7 @@ const Icon: React.FC<IconProps> = ({
     classesToAdd += ' icon--loading';
   }
 
-  return <i className={classesToAdd} />;
+  return <i aria-hidden="true" className={classesToAdd} />;
 };
 
 export default Icon;

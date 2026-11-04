@@ -88,6 +88,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             color="transparent"
             className="channel__edit-topic"
             onClick={() => dispatch(openEditChannelTopicModal())}
+            title="Edit channel topic"
           >
             Edit
           </Button>

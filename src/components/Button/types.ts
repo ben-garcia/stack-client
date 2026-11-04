@@ -1,4 +1,7 @@
+import React from 'react';
+
 export interface ButtonProps {
+  ariaLabel?: string;
   children: React.ReactNode;
   type: 'button' | 'submit';
   onClick?: (e: React.SyntheticEvent) => void;
