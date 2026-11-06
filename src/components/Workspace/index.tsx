@@ -31,6 +31,8 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
   return (
     <section className={classesToAdd}>
       <Button
+        ariaLabel={`Current Workspace: ${workspaceName}. ${username}. Click to open logout modal.}`}
+        ariaExpanded={logoutModalIsOpen}
         className="workspace__inner"
         color="transparent"
         onClick={() => setLogoutModalIsOpen(!logoutModalIsOpen)}
@@ -40,6 +42,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
           <Text tag="span" size="md" className="workspace__name">
             {workspaceName || 'No workspace yet'}
           </Text>
+
           <Icon
             className="workspace__chevron-down-icon"
             color="white"
@@ -47,6 +50,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
             type="chevron-down"
           />
         </div>
+
         <div className="workspace__container">
           <Icon
             type="circle"
@@ -54,20 +58,24 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
             color="green"
             className="workspace__circle-icon"
           />
+
           <Text tag="span" className="workspace__username">
             {username}
           </Text>
         </div>
       </Button>
+
       <Button
         className="workspace__add-button"
         type="button"
         color="transparent"
         onClick={() => setCreateWorkspaceFormIsOpen(true)}
         title="Create a new Workspace"
+        ariaLabel="Create a new Workspace"
       >
         <Icon color="white" type="plus" size="sm" />
       </Button>
+
       {createWorkspaceFormIsOpen && (
         <Modal
           header="Create a Workspace"

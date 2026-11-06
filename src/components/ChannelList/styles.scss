@@ -1,5 +1,10 @@
 @import '../../sass/variables';
 
+.header {
+  font-size: 0.9rem;
+  align-self: center;
+}
+
 .channel-list {
   &__inner {
     display: flex;

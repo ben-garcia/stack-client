@@ -8,6 +8,7 @@ const ListItem: React.FC<ListItemProps> = ({
   children,
   className = '',
   hover = true,
+  role = undefined,
 }) => {
   let classesToAdd: string = 'list__item';
 
@@ -23,7 +24,11 @@ const ListItem: React.FC<ListItemProps> = ({
     classesToAdd += ' list__item--active';
   }
 
-  return <li className={classesToAdd}>{children}</li>;
+  return (
+    <li role={role} className={classesToAdd}>
+      {children}
+    </li>
+  );
 };
 
 export default ListItem;

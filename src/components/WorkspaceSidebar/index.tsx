@@ -30,7 +30,7 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
   }
 
   return (
-    <div className={classesToAdd}>
+    <nav aria-label="Workspace Navigation" className={classesToAdd}>
       {!channels.isLoading || !teammates.isLoading ? (
         <>
           <Workspace />
@@ -49,7 +49,7 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
           type="list"
         />
       )}
-    </div>
+    </nav>
   );
 };
 

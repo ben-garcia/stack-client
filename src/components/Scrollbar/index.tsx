@@ -126,7 +126,12 @@ const Scrollbar: React.FC<ScrollbarProps> = ({
         >
           {children}
         </div>
-        <div className="scrollbar-track" style={scrollbarStyles}>
+
+        <div
+          aria-hidden="true"
+          className="scrollbar-track"
+          style={scrollbarStyles}
+        >
           {/* show scrollbar only when the scrollable area is greater than
             the height of the div */}
           {containerRef.current &&

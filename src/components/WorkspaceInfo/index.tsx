@@ -59,6 +59,7 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
             color="transparent"
             onClick={() => dispatch(openChannelDetails())}
             title="Show channel details"
+            ariaLabel="Show channel details"
             type="button"
           >
             <Icon className="details-button__icon" type="info" size="sm" />

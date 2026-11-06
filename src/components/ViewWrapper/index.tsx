@@ -39,6 +39,7 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
     <main className={classesToAdd}>
       <section className="view-wrapper">
         <WorkspaceInfo />
+
         <Scrollbar
           color="dark"
           containerHeight="84vh"
@@ -55,14 +56,13 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
             )}
           </div>
         </Scrollbar>
-        <div>
-          {(currentChannel.id && !currentTeammate.id) ||
-          (currentTeammate.id && !currentChannel.id) ? (
-            <div className="view-wrapper__message">
-              <CreateMessage />
-            </div>
-          ) : null}
-        </div>
+
+        {(currentChannel.id && !currentTeammate.id) ||
+        (currentTeammate.id && !currentChannel.id) ? (
+          <div className="view-wrapper__message">
+            <CreateMessage />
+          </div>
+        ) : null}
       </section>
       {channelDetails.isOpen && (
         <ChannelDetails className="view-wrapper__details" />

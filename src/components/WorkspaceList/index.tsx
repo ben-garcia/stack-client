@@ -69,8 +69,8 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   };
 
   return (
-    <aside className={classesToAdd}>
-      <List className="workspace-list__list">
+    <aside aria-label="Workspaces" className={classesToAdd}>
+      <List role="list" className="workspace-list__list">
         {workspaces.map(w => (
           <List.Item
             className="workspace-list__item"
@@ -78,6 +78,10 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
             active={w.id === currentWorkspace.id}
           >
             <Button
+              ariaCurrent={w.id === currentWorkspace.id ? true : undefined}
+              ariaLabel={`Workspace ${w.name} ${
+                w.id === currentWorkspace.id ? ', Active' : ''
+              }`}
               type="button"
               color="transparent"
               className="workspace-list__button"

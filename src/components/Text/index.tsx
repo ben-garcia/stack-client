@@ -4,6 +4,7 @@ import { TextProps } from './types';
 import './styles.scss';
 
 const Text: React.FC<TextProps> = ({
+  ariaLabel = undefined,
   children,
   className = '',
   modalId = undefined,
@@ -24,20 +25,20 @@ const Text: React.FC<TextProps> = ({
 
   // p tag is rendered by default
   let elementToRender = (
-    <p id={modalId} className={classesToAdd}>
+    <p aria-label={ariaLabel} id={modalId} className={classesToAdd}>
       {children}
     </p>
   );
 
   if (tag === 'span') {
     elementToRender = (
-      <span id={modalId} className={classesToAdd}>
+      <span aria-label={ariaLabel} id={modalId} className={classesToAdd}>
         {children}
       </span>
     );
   } else if (tag === 'div') {
     elementToRender = (
-      <div id={modalId} className={classesToAdd}>
+      <div aria-label={ariaLabel} id={modalId} className={classesToAdd}>
         {children}
       </div>
     );

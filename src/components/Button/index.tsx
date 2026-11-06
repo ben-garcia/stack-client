@@ -4,14 +4,17 @@ import { ButtonProps } from './types';
 import './styles.scss';
 
 const Button: React.FC<ButtonProps> = ({
+  ariaControls = undefined,
+  ariaExpanded = undefined,
   ariaLabel = undefined,
+  ariaCurrent = undefined,
   type,
   children,
   color = 'primary',
   onClick,
   className = '',
   disabled = false,
-  title = '',
+  title = undefined,
   customAttribute = {},
 }) => {
   let classesToAdd: string = 'button';
@@ -64,7 +67,13 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button {...props} aria-label={ariaLabel}>
+    <button
+      {...props}
+      aria-controls={ariaControls}
+      aria-expanded={ariaExpanded}
+      aria-current={ariaCurrent}
+      aria-label={ariaLabel}
+    >
       {children}
     </button>
   );

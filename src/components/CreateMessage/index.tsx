@@ -227,6 +227,11 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
             ? `Message #${currentChannel.name}`
             : `Message #${currentTeammate.username}`
         }
+        aria-label={
+          currentChannel.id
+            ? `Message #${currentChannel.name}`
+            : `Message #${currentTeammate.username}`
+        }
         value={message}
       />
     </Form>

@@ -49,29 +49,33 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
   };
 
   return (
-    <section className={classesToAdd}>
+    <section aria-labelledby="channels-heading" className={classesToAdd}>
       <div className="channel-list__inner">
-        <Text tag="span" size="sm">
-          Channels
-        </Text>
+        <h2 className="header">Channels</h2>
+
         <Button
           className="channel-list__add-button"
           type="button"
           color="transparent"
           onClick={() => setCreateChannelFormIsOpen(true)}
           title="Create a new Channel"
+          ariaLabel="Create a new Channel"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
-      <List>
+
+      <List role="list">
         {channels.list.map((c: Channel) => (
           <List.Item key={c.id} active={c.id === currentChannel.id}>
             <Button
+              ariaLabel={`${c.name}, ${
+                c.private ? 'private' : 'public'
+              } channel`}
               className="channel-list__button"
               color="transparent"
               onClick={() => saveChannel(c)}
-              title={`${c.name}`}
+              title={`${c.name}, ${c.private ? 'private' : 'public'} channel`}
               type="button"
             >
               <Icon
@@ -80,6 +84,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
                 type={c.private ? 'lock' : 'hash'}
                 size="xm"
               />
+
               <Text className="channel-list__name" tag="span" size="sm">
                 {c.name}
               </Text>
@@ -87,6 +92,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
           </List.Item>
         ))}
       </List>
+
       {createChannelFormIsOpen && (
         <Modal
           header="Create a Channel"

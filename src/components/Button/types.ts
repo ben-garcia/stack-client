@@ -1,6 +1,17 @@
 import React from 'react';
 
 export interface ButtonProps {
+  ariaControls?: string;
+  ariaExpanded?: boolean;
+  ariaCurrent?:
+    | boolean
+    | 'time'
+    | 'false'
+    | 'true'
+    | 'page'
+    | 'step'
+    | 'location'
+    | 'date';
   ariaLabel?: string;
   children: React.ReactNode;
   type: 'button' | 'submit';

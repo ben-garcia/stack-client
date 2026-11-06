@@ -39,34 +39,45 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
 
   return (
     <header className={classesToAdd}>
-      <h1 className="channel-view__inner">
+      <h1>
         <Icon className="channel-view__hash-icon" type="hash" size="xm" />
         <Text className="channel-view__name" tag="span">
           {currentChannel.name}
         </Text>
       </h1>
+
       <div className="channel-view__inner">
         <Text tag="span" size="sm">
           You created this channel on
         </Text>
-        <Text className="channel-view__created-at" tag="span" size="sm">
+
+        <time
+          className="channel-view__created-at"
+          dateTime={currentChannel.createdAt?.split('T')[0]}
+        >
           {printFormattedDate(currentChannel.createdAt!)}
-        </Text>
+          <span>.</span>
+        </time>
+
         <Text tag="span" size="sm">
           This is the very beginning of the
         </Text>
+
         <strong className="channel-view__inner-two">
           <Icon type="hash" size="sm" />
           <Text tag="span">{currentChannel.name}</Text>
         </strong>
+
         {currentChannel.description && (
           <div className="channel-view__inner-three">
             <Text tag="span" size="sm">
               Description:
             </Text>
+
             <Text className="channel-view__description" tag="span">
               {currentChannel.description}
             </Text>
+
             <Text tag="span">
               (
               <Button
@@ -82,6 +93,7 @@ const ChannelView: React.FC<ChannelViewProps> = ({ className = '' }) => {
               </Button>
               )
             </Text>
+
             {editChannelDescriptionModalIsOpen && (
               <Modal
                 header="Edit channel description"

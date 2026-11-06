@@ -82,80 +82,100 @@ const MessageList: React.FC = () => {
   }
 
   return (
-    <List className="message-list">
-      {listItems.map((messages: Message[] | DirectMessage[]) => (
-        <List.Item
-          className="message message-list__item"
-          hover={false}
-          key={`${Math.random()}:${messages[0].id}`}
-        >
-          <>
-            <hr className="horizontal-line" />
-            <div className="position-sticky">
-              <Text size="xm" tag="span" className="message__date-created">
-                {printFormattedDate(messages[0].createdAt)}
-              </Text>
-            </div>
-            {messages.map((message: Message | DirectMessage, i: number) => (
-              <div className="message__wrapper" key={message.id}>
-                {printFormattedDate(messages[i - 1]?.createdAt) !==
-                  printFormattedDate(messages[i].createdAt) ||
-                (printFormattedDate(messages[i - 1]?.createdAt) ===
-                  printFormattedDate(messages[i].createdAt) &&
-                  messages[i - 1]?.user?.username !==
-                    messages[i].user?.username) ? (
-                  <div className="message__inner">
-                    <Icon
-                      className="user-icon"
-                      type="user"
-                      color={
-                        user.username === message.user?.username
-                          ? 'purple'
-                          : (message.user.color as any)
-                      }
-                    />
-                    <div className="message__inner-two">
-                      <div>
-                        <Text
-                          className="message__username"
-                          size="sm"
-                          tag="span"
-                        >
-                          {message.user?.username}
-                        </Text>
-                        <Text
-                          className="message__timestamp"
-                          size="xm"
-                          tag="span"
-                        >
-                          {getTime(message.createdAt)}
+    <section aria-label="Message history">
+      <List className="message-list" role="log" ariaLabel="Channel messages">
+        {listItems.map((messages: Message[] | DirectMessage[]) => (
+          <List.Item
+            className="message message-list__item"
+            hover={false}
+            key={`${messages[0].id}`}
+            role="article"
+          >
+            <>
+              <hr aria-hidden="true" className="horizontal-line" />
+              <div className="position-sticky">
+                <Text size="xm" tag="span" className="message__date-created">
+                  <time dateTime={messages[0].createdAt.split('T')[0]}>
+                    {printFormattedDate(messages[0].createdAt)}
+                  </time>
+                </Text>
+              </div>
+
+              {messages.map((message: Message | DirectMessage, i: number) => (
+                <article
+                  aria-label={`${message.user.username}, ${getTime(
+                    message.createdAt
+                  )}`}
+                  className="message__wrapper"
+                  key={message.id}
+                >
+                  {printFormattedDate(messages[i - 1]?.createdAt) !==
+                    printFormattedDate(messages[i].createdAt) ||
+                  (printFormattedDate(messages[i - 1]?.createdAt) ===
+                    printFormattedDate(messages[i].createdAt) &&
+                    messages[i - 1]?.user?.username !==
+                      messages[i].user?.username) ? (
+                    <div className="message__inner">
+                      <Icon
+                        className="user-icon"
+                        type="user"
+                        color={
+                          user.username === message.user?.username
+                            ? 'purple'
+                            : (message.user.color as any)
+                        }
+                      />
+
+                      <div className="message__inner-two">
+                        <div>
+                          <Text
+                            className="message__username"
+                            size="sm"
+                            tag="span"
+                          >
+                            {message.user?.username}
+                          </Text>
+
+                          <Text
+                            className="message__timestamp"
+                            size="xm"
+                            tag="span"
+                          >
+                            <time dateTime={message.createdAt.split('T')[0]}>
+                              {getTime(message.createdAt)}
+                            </time>
+                          </Text>
+                        </div>
+
+                        <Text className="message__content" size="sm" tag="span">
+                          {message.content}
                         </Text>
                       </div>
-                      <Text className="message__content" size="sm" tag="span">
+                    </div>
+                  ) : (
+                    <div className="message__inner-three">
+                      <Text className="hover-timestamp" size="xm" tag="span">
+                        <time dateTime={message.createdAt}>
+                          {getTime(message.createdAt, false)}
+                        </time>
+                      </Text>
+
+                      <Text
+                        tag="p"
+                        className="message__content left-margin"
+                        size="sm"
+                      >
                         {message.content}
                       </Text>
                     </div>
-                  </div>
-                ) : (
-                  <div className="message__inner-three">
-                    <Text className="hover-timestamp" size="xm" tag="span">
-                      {getTime(message.createdAt, false)}
-                    </Text>
-                    <Text
-                      className="message__content left-margin"
-                      size="sm"
-                      tag="span"
-                    >
-                      {message.content}
-                    </Text>
-                  </div>
-                )}
-              </div>
-            ))}
-          </>
-        </List.Item>
-      ))}
-    </List>
+                  )}
+                </article>
+              ))}
+            </>
+          </List.Item>
+        ))}
+      </List>
+    </section>
   );
 };
 

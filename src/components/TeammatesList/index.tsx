@@ -65,21 +65,22 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   };
 
   return (
-    <section className={classesToAdd}>
+    <section aria-labelledby="teammates-heading" className={classesToAdd}>
       <div className="teammates-list__inner">
-        <Text tag="span" className="teammates-list__header" size="sm">
-          Teammates
-        </Text>
+        <h2 className="header">Teammates</h2>
+
         <Button
           className="teammates-list__add-button"
           type="button"
           color="transparent"
           onClick={() => dispatch(openInvitePeopleModal())}
           title="Invite People"
+          ariar-label="Invite People"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
+
       <List>
         {teammates.list.map((t: Teammate) => (
           <List.Item key={t.id} active={t.id === currentTeammate.id}>
@@ -89,6 +90,9 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
               className="teammates-list__button"
               onClick={() => saveTeammate({ id: t.id, username: t.username })}
               title={t.active || t.id === user.id ? 'Active' : 'Away'}
+              ariaLabel={`${t.username}${user.id === t.id ? ' You,' : ','}${
+                t.active || t.id === user.id ? ' Active' : ' Away'
+              } status`}
             >
               <Icon
                 type="circle"
@@ -100,6 +104,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
                     : 'teammates-list__icon'
                 }
               />
+
               <Text className="teammates-list__username" size="sm" tag="span">
                 {t.username}
                 {user.id === t.id ? ` (You)` : ''}
