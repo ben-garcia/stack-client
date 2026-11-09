@@ -31,7 +31,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
   return (
     <section className={classesToAdd}>
       <Button
-        ariaLabel={`Current Workspace: ${workspaceName}. ${username}. Click to open logout modal.}`}
+        ariaLabel={`Current Workspace: ${workspaceName}. ${username}. Click to open logout modal.`}
         ariaExpanded={logoutModalIsOpen}
         className="workspace__inner"
         color="transparent"
@@ -89,6 +89,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
       )}
       {logoutModalIsOpen && (
         <Modal
+          nonModal
           background={false}
           className="workspace__drawer"
           onClose={() => setLogoutModalIsOpen(false)}

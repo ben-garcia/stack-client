@@ -51,7 +51,9 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
   return (
     <section aria-labelledby="channels-heading" className={classesToAdd}>
       <div className="channel-list__inner">
-        <h2 className="header">Channels</h2>
+        <h2 id="channels-heading" className="header">
+          Channels
+        </h2>
 
         <Button
           className="channel-list__add-button"

@@ -20,9 +20,9 @@ const List: ListComponent = ({
   return (
     <ul
       aria-label={ariaLabel}
-      role={role}
       aria-live={ariaLive}
       className={classesToAdd}
+      role={role}
     >
       {children}
     </ul>

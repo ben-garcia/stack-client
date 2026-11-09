@@ -28,6 +28,8 @@ const MenuDrawer: React.FC = () => {
   return (
     <div className="menu-drawer">
       <Button
+        ariaLabel="Logout"
+        title="Logout"
         className="menu-drawer__button"
         color="transparent"
         onClick={() => logout()}

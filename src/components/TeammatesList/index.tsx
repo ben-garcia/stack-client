@@ -67,7 +67,9 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   return (
     <section aria-labelledby="teammates-heading" className={classesToAdd}>
       <div className="teammates-list__inner">
-        <h2 className="header">Teammates</h2>
+        <h2 id="teammates-heading" className="header">
+          Teammates
+        </h2>
 
         <Button
           className="teammates-list__add-button"
@@ -75,7 +77,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
           color="transparent"
           onClick={() => dispatch(openInvitePeopleModal())}
           title="Invite People"
-          ariar-label="Invite People"
+          ariaLabel="Invite People"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>

@@ -14,6 +14,7 @@ import './styles.scss';
 import { Button, Header, Icon } from '..';
 
 const Modal: React.FC<ModalProps> = ({
+  nonModal = false,
   header = '',
   children,
   size = '',
@@ -121,8 +122,10 @@ const Modal: React.FC<ModalProps> = ({
       <div className="modal-container">
         <section
           aria-modal="true"
-          aria-labelledby={`modal-${modalId}__label`}
-          aria-describedby={`modal-${modalId}__description`}
+          aria-labelledby={!nonModal ? `modal-${modalId}__label` : undefined}
+          aria-describedby={
+            !nonModal ? `modal-${modalId}__description` : undefined
+          }
           role="dialog"
           ref={modalRef}
           className={classesToAdd}

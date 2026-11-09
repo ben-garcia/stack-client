@@ -44,6 +44,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
           {channel?.name}
         </Text>
       </div>
+
       <div className="channel__inner">
         <div className="channel__inner-inside">
           <Button
@@ -64,6 +65,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
             </Text>
           </Button>
         </div>
+
         <div className="channel__inner-two">
           <div className="channel__add-topic">
             {currentChannel?.topic ? (
@@ -83,6 +85,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
               </div>
             )}
           </div>
+
           <Button
             type="button"
             color="transparent"
@@ -94,6 +97,7 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
           </Button>
         </div>
       </div>
+
       {editChannelTopicModalIsOpen && (
         <Modal
           header="Edit channel topic"
