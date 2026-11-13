@@ -26,7 +26,13 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "utils": ["./utils"],
+      "components": ["./components"],
+      "store": ["./store"],
+      "store/*": ["./store/*"]
+    } 
   },
   "include": ["src", "setupTests.ts"],
   "exclude": ["node_modules", "**/*.test.(ts|tsx)"]
