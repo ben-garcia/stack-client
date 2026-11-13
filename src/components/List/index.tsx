@@ -10,6 +10,7 @@ const List: ListComponent = ({
   role = undefined,
   className = ' ',
   children,
+  tabIndex = undefined,
 }) => {
   let classesToAdd: string = 'list';
 
@@ -23,6 +24,7 @@ const List: ListComponent = ({
       aria-live={ariaLive}
       className={classesToAdd}
       role={role}
+      tabIndex={tabIndex}
     >
       {children}
     </ul>

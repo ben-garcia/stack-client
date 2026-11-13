@@ -7,6 +7,7 @@ export interface ListProps {
   ariaLive?: 'off' | 'assertive' | 'polite';
   role?: string;
   ariaLabel?: string;
+  tabIndex?: number;
 }
 
 // nested components for the List component

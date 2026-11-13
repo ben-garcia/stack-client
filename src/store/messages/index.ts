@@ -3,7 +3,7 @@
 // '--isolatedModules' flag is provided"
 // erorr
 import {
-  Message as MessageAlias,
+  ChannelMessage as MessageAlias,
   MessagesState as MessagesStateAlias,
   MessagesActionTypes as MessagesActionTypesAlias,
 } from './types';
@@ -19,7 +19,7 @@ export {
 } from './actions';
 export { MessagesActions } from './types';
 
-export type Message = MessageAlias;
+export type ChannelMessage = MessageAlias;
 export type MessagesState = MessagesStateAlias;
 export type MessagesActionTypes = MessagesActionTypesAlias;
 export const messagesReducer = MessagesReducer;

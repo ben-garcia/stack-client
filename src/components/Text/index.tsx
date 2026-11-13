@@ -24,11 +24,7 @@ const Text: React.FC<TextProps> = ({
   }
 
   // p tag is rendered by default
-  let elementToRender = (
-    <p aria-label={ariaLabel} id={modalId} className={classesToAdd}>
-      {children}
-    </p>
-  );
+  let elementToRender;
 
   if (tag === 'span') {
     elementToRender = (
@@ -41,6 +37,12 @@ const Text: React.FC<TextProps> = ({
       <div aria-label={ariaLabel} id={modalId} className={classesToAdd}>
         {children}
       </div>
+    );
+  } else {
+    elementToRender = (
+      <p aria-label={ariaLabel} id={modalId} className={classesToAdd}>
+        {children}
+      </p>
     );
   }
 

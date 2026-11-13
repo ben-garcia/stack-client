@@ -6,7 +6,7 @@ export enum MessagesActions {
   RECEIVED_CHANNEL_MESSAGES_ERROR = 'RECEIVED_CHANNEL_MESSAGES_ERROR',
 }
 
-export interface Message {
+export interface ChannelMessage {
   id: number;
   content: string;
   createdAt: string;
@@ -19,12 +19,12 @@ export type MessagesError = string;
 export interface MessagesState {
   isLoading: boolean;
   error?: MessagesError;
-  list: Message[];
+  list: ChannelMessage[];
 }
 
 interface AddMessage {
   type: typeof MessagesActions.ADD_MESSAGE;
-  payload: Message;
+  payload: ChannelMessage;
 }
 
 interface ClearMessages {
@@ -33,7 +33,7 @@ interface ClearMessages {
 
 interface ReceivedChannelMessages {
   type: typeof MessagesActions.RECEIVED_CHANNEL_MESSAGES;
-  payload: Message[];
+  payload: ChannelMessage[];
 }
 
 interface ReceivedChannelMessagesError {

@@ -1,197 +1,17 @@
-// import React, { useEffect, useRef, useState } from 'react';
-// import { useSelector } from 'react-redux';
-//
-// import { Icon, List, Text } from 'components';
-// import { AppState } from 'store';
-// import { DirectMessage } from 'store/directMessages';
-// import { Message } from 'store/messages';
-// import { getTime, printFormattedDate } from 'utils';
-// import './styles.scss';
-//
-// const MessageList: React.FC = () => {
-//   const { channelMessages, directMessages, user, members } = useSelector(
-//     (state: AppState) => ({
-//       channelMessages: state.messages.list,
-//       directMessages: state.directMessages.list,
-//       members: state.members.list,
-//       user: state.user,
-//     })
-//   );
-//   const [messagesToRender, setMessagesToRender] = useState<
-//     DirectMessage[] | Message[]
-//   >();
-//   const announcements = useRef(0);
-//
-//   useEffect(() => {
-//     if (directMessages.length > 0 && channelMessages.length === 0) {
-//       setMessagesToRender(directMessages);
-//       announcements.current = directMessages.length;
-//     }
-//     if (channelMessages.length > 0 && directMessages.length === 0) {
-//       setMessagesToRender(channelMessages);
-//       announcements.current = channelMessages.length;
-//     }
-//     // when there's no messages
-//     if (directMessages.length === 0 && channelMessages.length === 0) {
-//       setMessagesToRender([]);
-//     }
-//   }, [directMessages, channelMessages]);
-//
-//   const listItems: Message[][] | DirectMessage[][] = [];
-//
-//   if (messagesToRender && messagesToRender.length) {
-//     for (let i = 0; i < messagesToRender.length; i += 1) {
-//       const messagesWithSameDates: Message[] | DirectMessage[] = [];
-//
-//       messagesWithSameDates.push(messagesToRender[i]);
-//
-//       for (let j = i + 1; j < messagesToRender.length; j += 1) {
-//         if (
-//           printFormattedDate(messagesToRender[i].createdAt) ===
-//           printFormattedDate(messagesToRender[j].createdAt)
-//         ) {
-//           messagesWithSameDates.push(messagesToRender[j]);
-//           // when it reaches the last messagae
-//           if (j === messagesToRender.length - 1) {
-//             // set i so that it fails the condition and end the outer loop
-//             i = messagesToRender.length;
-//           }
-//         } else {
-//           // if the dates don't match, then set i to that position
-//           // and end the inner loop
-//           i = j - 1;
-//           break;
-//         }
-//       }
-//       listItems.push(messagesWithSameDates);
-//     }
-//   }
-//
-//   // make sure that message.user has a color property
-//   // so that each user icon has a color
-//   for (let i = 0; i < listItems.length; i += 1) {
-//     for (let j = 0; j < listItems[i].length; j += 1) {
-//       // when message.user's color property is undefined
-//       if (!listItems[i][j].user.color) {
-//         // loop through the members array
-//         // which will contain the correct color for that member
-//         for (let k = 0; k < members.length; k += 1) {
-//           // match the usernames
-//           if (members[k].username === listItems[i][j].user.username)
-//             listItems[i][j].user.color = members[k].color!;
-//         }
-//       }
-//     }
-//   }
-//
-//   return (
-//     <section aria-label="Message history">
-//       <List className="message-list" role="log" ariaLabel="Channel messages">
-//         {listItems.map((messages: Message[] | DirectMessage[]) => (
-//           <List.Item
-//             className="message message-list__item"
-//             hover={false}
-//             key={printFormattedDate(messages[0].createdAt)}
-//           >
-//             <>
-//               <hr aria-hidden="true" className="horizontal-line" />
-//               <div className="position-sticky">
-//                 <Text size="xm" tag="span" className="message__date-created">
-//                   <time dateTime={messages[0].createdAt.split('T')[0]}>
-//                     {printFormattedDate(messages[0].createdAt)}
-//                   </time>
-//                 </Text>
-//               </div>
-//
-//               {messages.map((message: Message | DirectMessage, i: number) => (
-//                 <article
-//                   aria-label={`${message.user.username}, ${getTime(
-//                     message.createdAt
-//                   )}`}
-//                   className="message__wrapper"
-//                   key={message.id}
-//                 >
-//                   {printFormattedDate(messages[i - 1]?.createdAt) !==
-//                     printFormattedDate(messages[i].createdAt) ||
-//                   (printFormattedDate(messages[i - 1]?.createdAt) ===
-//                     printFormattedDate(messages[i].createdAt) &&
-//                     messages[i - 1]?.user?.username !==
-//                       messages[i].user?.username) ? (
-//                     <div className="message__inner">
-//                       <Icon
-//                         className="user-icon"
-//                         type="user"
-//                         color={
-//                           user.username === message.user?.username
-//                             ? 'purple'
-//                             : (message.user.color as any)
-//                         }
-//                       />
-//
-//                       <div className="message__inner-two">
-//                         <div>
-//                           <Text
-//                             className="message__username"
-//                             size="sm"
-//                             tag="span"
-//                           >
-//                             {message.user?.username}
-//                           </Text>
-//
-//                           <Text
-//                             className="message__timestamp"
-//                             size="xm"
-//                             tag="span"
-//                           >
-//                             <time dateTime={message.createdAt.split('T')[0]}>
-//                               {getTime(message.createdAt)}
-//                             </time>
-//                           </Text>
-//                         </div>
-//
-//                         <Text className="message__content" size="sm" tag="span">
-//                           {message.content}
-//                         </Text>
-//                       </div>
-//                     </div>
-//                   ) : (
-//                     <div className="message__inner-three">
-//                       <Text className="hover-timestamp" size="xm" tag="span">
-//                         <time dateTime={message.createdAt}>
-//                           {getTime(message.createdAt, false)}
-//                         </time>
-//                       </Text>
-//
-//                       <Text
-//                         tag="p"
-//                         className="message__content left-margin"
-//                         size="sm"
-//                       >
-//                         {message.content}
-//                       </Text>
-//                     </div>
-//                   )}
-//                 </article>
-//               ))}
-//             </>
-//           </List.Item>
-//         ))}
-//       </List>
-//     </section>
-//   );
-// };
-//
-// export default MessageList;
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Icon, List, Text } from 'components';
+import { Icon, Text } from 'components';
 import { AppState } from 'store';
 import { DirectMessage } from 'store/directMessages';
-import { Message } from 'store/messages';
+import { ChannelMessage } from 'store/messages';
 import { getTime, printFormattedDate } from 'utils';
 import './styles.scss';
+
+type ChatMessage = ChannelMessage | DirectMessage;
+type RenderMessage = ChatMessage & {
+  user: { color?: string; username: string };
+};
 
 const MessageList: React.FC = () => {
   const { channelMessages, directMessages, user, members } = useSelector(
@@ -203,37 +23,77 @@ const MessageList: React.FC = () => {
     })
   );
 
-  const [messagesToRender, setMessagesToRender] = useState<
-    DirectMessage[] | Message[]
-  >();
-
-  // State to hold the text string announced to screen readers via aria-live
+  // Track the messages, whether they're channel or direct messages.
+  const [messagesToRender, setMessagesToRender] = useState<ChatMessage[]>([]);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  // Track the newly appended message, and read out by screen readers.
   const [latestAnnouncement, setLatestAnnouncement] = useState('');
-
-  // Track previous length using your existing announcements ref
-  const announcements = useRef(0);
+  // Track the references of all rendered messages.
+  const messageRefs = useRef<(HTMLElement | null)[]>([]);
+  // Track the current length of messages for when a new message is added.
+  const currentMessagesLength = useRef(0);
+  // Track initialization and the first message ID to reliably detect true channel switches
+  const hasInitializedFocus = useRef(false);
+  const prevFirstMessageIdRef = useRef<string | number | null>(null);
+  // Track the ID of the currently focused message so focus persists even if indices shift
+  const focusedMessageIdRef = useRef<string | number | null>(null);
 
   useEffect(() => {
-    let currentMessages: DirectMessage[] | Message[] = [];
+    let currentMessages: ChatMessage[] = [];
 
+    // Determine what type of messages to render.
     if (directMessages.length > 0 && channelMessages.length === 0) {
       currentMessages = directMessages;
-      setMessagesToRender(directMessages);
     } else if (channelMessages.length > 0 && directMessages.length === 0) {
       currentMessages = channelMessages;
-      setMessagesToRender(channelMessages);
-    } else {
-      setMessagesToRender([]);
     }
 
-    // Check if a new message has been appended since the last render
-    if (
-      currentMessages.length > announcements.current &&
-      announcements.current !== 0
-    ) {
-      const newestMessage = currentMessages[currentMessages.length - 1];
+    // Track the id of the first message, check when user switches channels.
+    const currentFirstId = currentMessages[0]?.id ?? null;
 
-      // Ignore your own message.
+    // Detect if the user switched channels, first message id changed.
+    if (currentFirstId !== prevFirstMessageIdRef.current) {
+      hasInitializedFocus.current = false;
+      focusedMessageIdRef.current = null;
+      prevFirstMessageIdRef.current = currentFirstId;
+    }
+
+    const prevLength = messagesToRender.length;
+    setMessagesToRender(currentMessages);
+
+    if (currentMessages.length > 0) {
+      if (!hasInitializedFocus.current) {
+        // On initial chanel load, focus the latest message
+        const lastIndex = currentMessages.length - 1;
+
+        setFocusedIndex(lastIndex);
+        focusedMessageIdRef.current = currentMessages[lastIndex].id;
+        hasInitializedFocus.current = true;
+      } else if (currentMessages.length > prevLength) {
+        // New messages arrived in the SAME channel:
+        const oldFocusedId = focusedMessageIdRef.current;
+        const oldIndex = currentMessages.findIndex(m => m.id === oldFocusedId);
+        const wasAtBottom = oldIndex === prevLength - 1;
+
+        if (wasAtBottom || oldIndex === -1) {
+          // If they were at the bottom tracking new messages, pin to the new last message
+          const newLastIndex = currentMessages.length - 1;
+          setFocusedIndex(newLastIndex);
+          focusedMessageIdRef.current = currentMessages[newLastIndex].id;
+        } else {
+          // If user -- using the keyboard -- navigated up to view an older
+          // message, preserve the exact focus position!
+          setFocusedIndex(oldIndex);
+        }
+      }
+    }
+
+    if (
+      currentMessages.length > currentMessagesLength.current &&
+      currentMessagesLength.current !== 0
+    ) {
+      // Add to the live region so that it's announced by screen readers.
+      const newestMessage = currentMessages[currentMessages.length - 1];
       if (newestMessage.user.username !== user.username) {
         setLatestAnnouncement(
           `New message from ${newestMessage.user.username} at ${getTime(
@@ -243,146 +103,207 @@ const MessageList: React.FC = () => {
       }
     }
 
-    // Update reference to the latest length
-    announcements.current = currentMessages.length;
-  }, [directMessages, channelMessages]);
+    // Update messages length.
+    currentMessagesLength.current = currentMessages.length;
+  }, [directMessages, channelMessages, user.username, messagesToRender.length]);
 
-  const listItems: Message[][] | DirectMessage[][] = [];
+  // Keep track of the length of messages to render. When a new message is appended,
+  // updated the message references.
+  useEffect(() => {
+    messageRefs.current = messageRefs.current.slice(0, messagesToRender.length);
+  }, [messagesToRender]);
 
-  if (messagesToRender && messagesToRender.length) {
-    for (let i = 0; i < messagesToRender.length; i += 1) {
-      const messagesWithSameDates: Message[] | DirectMessage[] = [];
+  // Safely clamp the focused index so it never goes out of bounds.
+  const safeFocusedIndex =
+    messagesToRender.length > 0
+      ? Math.min(focusedIndex, messagesToRender.length - 1)
+      : 0;
 
-      messagesWithSameDates.push(messagesToRender[i]);
+  // Implement keyboard navigation.
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    // Nothing to do when there are no message to render.
+    if (messagesToRender.length === 0) return;
 
-      for (let j = i + 1; j < messagesToRender.length; j += 1) {
-        if (
-          printFormattedDate(messagesToRender[i].createdAt) ===
-          printFormattedDate(messagesToRender[j].createdAt)
-        ) {
-          messagesWithSameDates.push(messagesToRender[j]);
-          if (j === messagesToRender.length - 1) {
-            i = messagesToRender.length;
-          }
-        } else {
-          i = j - 1;
-          break;
-        }
+    let newIndex = index;
+
+    switch (e.key) {
+      case 'ArrowUp': {
+        e.preventDefault();
+        newIndex = index <= 0 ? messagesToRender.length - 1 : index - 1;
+        break;
       }
-      listItems.push(messagesWithSameDates);
-    }
-  }
-
-  // Make sure that message.user has a color property
-  // so that each user icon has a color
-  for (let i = 0; i < listItems.length; i += 1) {
-    for (let j = 0; j < listItems[i].length; j += 1) {
-      // when message.user's color property is undefined
-      if (!listItems[i][j].user.color) {
-        // loop through the members array
-        // which will contain the correct color for that member
-        for (let k = 0; k < members.length; k += 1) {
-          // match the usernames
-          if (members[k].username === listItems[i][j].user.username)
-            listItems[i][j].user.color = members[k].color!;
-        }
+      case 'ArrowDown': {
+        e.preventDefault();
+        newIndex = index === messagesToRender.length - 1 ? 0 : index + 1;
+        break;
       }
+      case 'Home': {
+        e.preventDefault();
+        newIndex = 0;
+        break;
+      }
+      case 'End': {
+        e.preventDefault();
+        newIndex = messagesToRender.length - 1;
+        break;
+      }
+      default:
+        return;
     }
-  }
+
+    setFocusedIndex(newIndex);
+
+    focusedMessageIdRef.current = messagesToRender[newIndex]?.id || null;
+    messageRefs.current[newIndex]?.focus();
+  };
+
+  // Add color and user to the messages.
+  const processedMessages: RenderMessage[] = messagesToRender.map(message => {
+    const userColor =
+      message.user.color ||
+      members.find(m => m.username === message.user.username)?.color;
+    return {
+      ...message,
+      user: { ...message.user, color: userColor },
+    } as RenderMessage;
+  });
+
+  const groups: {
+    date: string;
+    dateTime: string;
+    items: { message: RenderMessage; index: number; showUserHeader: boolean }[];
+  }[] = [];
+
+  // Group the messages by date.
+  processedMessages.forEach((message, index) => {
+    const date = printFormattedDate(message.createdAt);
+    let group = groups[groups.length - 1];
+
+    if (!group || group.date !== date) {
+      group = { date, dateTime: message.createdAt.split('T')[0], items: [] };
+      groups.push(group);
+    }
+
+    const prevInGroup = group.items[group.items.length - 1]?.message;
+    const showUserHeader =
+      !prevInGroup || prevInGroup.user.username !== message.user.username;
+
+    group.items.push({ message, index, showUserHeader });
+  });
 
   return (
     <section aria-label="Message history">
-      <List className="message-list" ariaLabel="Channel messages">
-        {listItems.map((messages: Message[] | DirectMessage[]) => (
-          <List.Item
-            className="message message-list__item"
-            hover={false}
-            key={printFormattedDate(messages[0].createdAt)}
+      {/* NOTE: 1. WAI-ARIA specifies role="log" for messaging logs. The issue is
+                that this overrides arrow keys. This is a problem because I
+                have implemented a custom roving tabindex widget that uses
+                ArrowDown, ArrowUp, End, Home keys to navigate the message list.
+                2. As I understand it, role="log" expects a static document rather
+                than an interactive one. Keyboard navigation is breaking because
+                screen reader -- orca in this case -- intercepts the array keys
+                before React has a change to run the callback function(handleKeyDown).
+                3. Adding role="listbox" and role="option"
+                signals to screen readers that this is an interactive widget
+                and respects the custom keyboard navigation.
+
+                A role="feed" is for scrollable lists of messages where items are
+                dynamically appended. The issue is it has spotty support on orca
+                running on Wayland. So, role="listbox" is a fallback that
+                real-world chat apps use to force keyboard navigation. */}
+      <div
+        className="list message-list"
+        role="listbox"
+        aria-label="Channel messages"
+        tabIndex={-1}
+      >
+        {groups.map(group => (
+          <div
+            key={group.dateTime}
+            role="group"
+            aria-label={group.date}
+            className="message-group"
           >
-            <>
+            <div className="message-group__header" aria-hidden="true">
               <hr aria-hidden="true" className="horizontal-line" />
-              <div className="position-sticky">
-                <Text size="xm" tag="span" className="message__date-created">
-                  <time dateTime={messages[0].createdAt.split('T')[0]}>
-                    {printFormattedDate(messages[0].createdAt)}
-                  </time>
-                </Text>
-              </div>
+              <Text size="xm" tag="span" className="message__date-created">
+                <time dateTime={group.dateTime}>{group.date}</time>
+              </Text>
+            </div>
 
-              {messages.map((message: Message | DirectMessage, i: number) => (
-                <article
-                  aria-label={`${message.user.username}, ${getTime(
-                    message.createdAt
-                  )}`}
-                  className="message__wrapper"
-                  key={message.id}
-                >
-                  {printFormattedDate(messages[i - 1]?.createdAt) !==
-                    printFormattedDate(messages[i].createdAt) ||
-                  (printFormattedDate(messages[i - 1]?.createdAt) ===
-                    printFormattedDate(messages[i].createdAt) &&
-                    messages[i - 1]?.user?.username !==
-                      messages[i].user?.username) ? (
-                    <div className="message__inner">
-                      <Icon
-                        className="user-icon"
-                        type="user"
-                        color={
-                          user.username === message.user?.username
-                            ? 'purple'
-                            : (message.user.color as any)
-                        }
-                      />
+            {group.items.map(({ message, index, showUserHeader }) => (
+              <div
+                key={message.id}
+                role="option"
+                aria-selected={safeFocusedIndex === index}
+                aria-label={`Message from ${message.user.username} at ${getTime(
+                  message.createdAt
+                )}: ${message.content}`}
+                className="message message-list__item message__wrapper"
+                onKeyDown={e => handleKeyDown(e, index)}
+                ref={el => {
+                  messageRefs.current[index] = el;
+                }}
+                tabIndex={safeFocusedIndex === index ? 0 : -1}
+              >
+                {showUserHeader ? (
+                  <div className="message__inner">
+                    <Icon
+                      className="user-icon"
+                      type="user"
+                      color={
+                        user.username === message.user?.username
+                          ? 'purple'
+                          : (message.user.color as any)
+                      }
+                    />
 
-                      <div className="message__inner-two">
-                        <div>
-                          <Text
-                            className="message__username"
-                            size="sm"
-                            tag="span"
-                          >
-                            {message.user?.username}
-                          </Text>
+                    <div className="message__inner-two">
+                      <div>
+                        <Text
+                          className="message__username"
+                          size="sm"
+                          tag="span"
+                        >
+                          {message.user?.username}
+                        </Text>
 
-                          <Text
-                            className="message__timestamp"
-                            size="xm"
-                            tag="span"
-                          >
-                            <time dateTime={message.createdAt.split('T')[0]}>
-                              {getTime(message.createdAt)}
-                            </time>
-                          </Text>
-                        </div>
-
-                        <Text className="message__content" size="sm" tag="span">
-                          {message.content}
+                        <Text
+                          className="message__timestamp"
+                          size="xm"
+                          tag="span"
+                        >
+                          <time dateTime={message.createdAt}>
+                            {getTime(message.createdAt)}
+                          </time>
                         </Text>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="message__inner-three">
-                      <Text className="hover-timestamp" size="xm" tag="span">
-                        <time dateTime={message.createdAt}>
-                          {getTime(message.createdAt, false)}
-                        </time>
-                      </Text>
 
-                      <Text
-                        tag="p"
-                        className="message__content left-margin"
-                        size="sm"
-                      >
+                      <Text className="message__content" size="sm" tag="span">
                         {message.content}
                       </Text>
                     </div>
-                  )}
-                </article>
-              ))}
-            </>
-          </List.Item>
+                  </div>
+                ) : (
+                  <div className="message__inner-three">
+                    <Text className="hover-timestamp" size="xm" tag="span">
+                      <time dateTime={message.createdAt}>
+                        {getTime(message.createdAt, false)}
+                      </time>
+                    </Text>
+
+                    <Text
+                      tag="p"
+                      className="message__content left-margin"
+                      size="sm"
+                    >
+                      {message.content}
+                    </Text>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         ))}
-      </List>
+      </div>
 
       <div aria-live="polite" aria-atomic="true" className="visibly-hidden">
         {latestAnnouncement}

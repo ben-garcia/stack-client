@@ -1,11 +1,11 @@
 import {
   MessagesActions,
   MessagesError,
-  Message,
+  ChannelMessage,
   MessagesActionTypes,
 } from './types';
 
-export const addMessage = (message: Message): MessagesActionTypes => ({
+export const addMessage = (message: ChannelMessage): MessagesActionTypes => ({
   type: MessagesActions.ADD_MESSAGE,
   payload: message,
 });
@@ -15,7 +15,7 @@ export const clearMessages = (): MessagesActionTypes => ({
 });
 
 export const receivedChannelMessages = (
-  messages: Message[]
+  messages: ChannelMessage[]
 ): MessagesActionTypes => ({
   type: MessagesActions.RECEIVED_CHANNEL_MESSAGES,
   payload: messages,
