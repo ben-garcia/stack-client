@@ -72,3 +72,22 @@
     grid-area: dashboard__main;
   }
 }
+
+.skip-link {
+  position: absolute;
+  text-decoration: none;
+  top: 0;
+  left: -400px;
+  background: $primary-color;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  transition: left 0.3s;
+}
+
+.skip-link:focus {
+  top: 10px;
+  left: 10px;
+}

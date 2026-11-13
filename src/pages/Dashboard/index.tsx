@@ -132,38 +132,46 @@ const Dashboard: React.FC<DashboardProps> = () => {
   }
 
   return (
-    <div className="dashboard">
-      <div
-        className={
-          mobileSidebarIsOpen
-            ? 'dashboard__inner dashboard__inner--mobile'
-            : 'dashboard__inner'
-        }
-      >
-        {workspaces.list.length > 0 && !workspaces.isLoading ? (
-          <WorkspaceList
-            className="dashboard__workspace-list"
-            workspaces={workspaces.list}
-          />
-        ) : (
-          <div>
-            <Placeholder color="light" numberOfTags={5} type="info" />
-          </div>
-        )}
-        <WorkspaceSidebar className="dashboard__sidebar" />
-        {isPhone || isTablet ? (
-          <Button
-            className="mobile-close-button"
-            color="transparent"
-            onClick={() => dispatch(closeMobileSidebar())}
-            type="button"
-          >
-            <Icon color="white" size="sm" type="times" />
-          </Button>
-        ) : null}
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+
+      <div className="dashboard">
+        <div
+          className={
+            mobileSidebarIsOpen
+              ? 'dashboard__inner dashboard__inner--mobile'
+              : 'dashboard__inner'
+          }
+        >
+          {workspaces.list.length > 0 && !workspaces.isLoading ? (
+            <WorkspaceList
+              className="dashboard__workspace-list"
+              workspaces={workspaces.list}
+            />
+          ) : (
+            <div>
+              <Placeholder color="light" numberOfTags={5} type="info" />
+            </div>
+          )}
+
+          <WorkspaceSidebar className="dashboard__sidebar" />
+          {isPhone || isTablet ? (
+            <Button
+              className="mobile-close-button"
+              color="transparent"
+              onClick={() => dispatch(closeMobileSidebar())}
+              type="button"
+            >
+              <Icon color="white" size="sm" type="times" />
+            </Button>
+          ) : null}
+        </div>
+
+        <ViewWrapper className="dashboard__main" />
       </div>
-      <ViewWrapper className="dashboard__main" />
-    </div>
+    </>
   );
 };
 

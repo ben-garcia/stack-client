@@ -36,7 +36,7 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
   }
 
   return (
-    <main className={classesToAdd}>
+    <main className={classesToAdd} id="main-content" tabIndex={-1}>
       <section className="view-wrapper">
         <WorkspaceInfo />
 
