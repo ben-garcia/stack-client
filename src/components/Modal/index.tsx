@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
   useCallback,
   useEffect,
@@ -23,7 +21,10 @@ const Modal: React.FC<ModalProps> = ({
   background = true,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  // keeps track of all classes to add to the modal
+  // Track the element that triggered to modal, so that focus can return
+  // when modal is closed.
+  const triggerRef = useRef<HTMLElement | null>(null);
+  // Track of all classes to add to the modal
   let classesToAdd: string = 'modal';
   const modalId = useMemo(
     () =>
@@ -35,6 +36,9 @@ const Modal: React.FC<ModalProps> = ({
 
   // runs synchronously
   useLayoutEffect(() => {
+    // Get a reference to the button that triggered the modal.
+    triggerRef.current = document.activeElement as HTMLElement;
+
     const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
       'button:enabled, input:enabled, textarea:enabled, select:enabled, a[href]'
     );
@@ -43,6 +47,14 @@ const Modal: React.FC<ModalProps> = ({
 
     first.focus();
   }, []);
+
+  // Return focus to the button that triggered it.
+  useEffect(
+    () => () => {
+      if (triggerRef.current) triggerRef.current.focus();
+    },
+    []
+  );
 
   // make sure className isn't empty
   if (className.trim() !== '') {
