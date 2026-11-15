@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -12,6 +12,7 @@ import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { Workspace } from 'store/workspaces';
+import useRovingTabIndex from 'hooks/useRovingTabIndex';
 import { WorkspaceListProps } from './types';
 import './styles.scss';
 
@@ -19,65 +20,19 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
   workspaces,
   className,
 }) => {
-  const [focusedIndex, setFocusedIndex] = useState(0);
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
   const dispatch: Dispatch = useDispatch();
   const { currentWorkspace } = useSelector((state: AppState) => ({
     currentWorkspace: state.currentWorkspace,
   }));
+  const { buttonRefs, focusedIndex, handleKeyDown } = useRovingTabIndex(
+    workspaces,
+    currentWorkspace
+  );
   let classesToAdd: string = 'workspace-list';
 
   if (className?.trim() !== '') {
     classesToAdd += ` ${className}`;
   }
-
-  useEffect(() => {
-    buttonRefs.current = buttonRefs.current.slice(0, workspaces.length);
-  }, [workspaces.length]);
-
-  useEffect(() => {
-    const index = workspaces.findIndex(w => w.id === currentWorkspace.id);
-
-    setFocusedIndex(index);
-  }, [workspaces.length, currentWorkspace]);
-
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    // Nothing to do when there are no workspaces to render.
-    if (workspaces.length === 0) return;
-
-    let newIndex = index;
-
-    switch (e.key) {
-      case 'ArrowRight':
-      case 'ArrowUp': {
-        e.preventDefault(); // Prevent default scrolling behavior.
-        newIndex = index === 0 ? workspaces.length - 1 : index - 1;
-        break;
-      }
-      case 'ArrowLeft':
-      case 'ArrowDown': {
-        e.preventDefault();
-        newIndex = index === workspaces.length - 1 ? 0 : index + 1;
-        break;
-      }
-      case 'Home': {
-        e.preventDefault();
-        newIndex = 0;
-        break;
-      }
-      case 'End': {
-        e.preventDefault();
-        newIndex = workspaces.length - 1;
-        break;
-      }
-      default:
-        return;
-    }
-
-    setFocusedIndex(newIndex);
-    buttonRefs.current[newIndex]?.focus();
-  };
 
   const saveWorkspace = (workspace: Workspace) => {
     // make sure the user hasn't clicked on the current workspace

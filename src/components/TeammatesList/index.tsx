@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
+import useRovingTabIndex from 'hooks/useRovingTabIndex';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import {
@@ -26,9 +27,13 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   } = useSelector((state: AppState) => ({
     currentTeammate: state.currentTeammate,
     invitePeopleModalIsOpen: state.invitePeopleModalIsOpen,
-    teammates: state.teammates,
+    teammates: state.teammates.list,
     user: state.user,
   }));
+  const { buttonRefs, focusedIndex, handleKeyDown } = useRovingTabIndex(
+    teammates,
+    currentTeammate
+  );
   let classesToAdd: string = 'teammates-list';
 
   if (className?.trim() !== '') {
@@ -83,18 +88,24 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
         </Button>
       </div>
 
-      <List>
-        {teammates.list.map((t: Teammate) => (
+      <List tabIndex={-1}>
+        {teammates.map((t: Teammate, i) => (
           <List.Item key={t.id} active={t.id === currentTeammate.id}>
             <Button
+              ariaCurrent={t.id === currentTeammate.id ? true : undefined}
+              ariaLabel={`${t.username} is ${
+                t.active || t.id === user.id ? 'Active' : 'Away'
+              }`}
               type="button"
               color="transparent"
               className="teammates-list__button"
               onClick={() => saveTeammate({ id: t.id, username: t.username })}
+              onKeyDown={e => handleKeyDown(e, i)}
+              ref={(el: HTMLButtonElement | null) => {
+                buttonRefs.current[i] = el;
+              }}
+              tabIndex={focusedIndex === i ? 0 : -1}
               title={t.active || t.id === user.id ? 'Active' : 'Away'}
-              ariaLabel={`${t.username}${user.id === t.id ? ' You,' : ','}${
-                t.active || t.id === user.id ? ' Active' : ' Away'
-              } status`}
             >
               <Icon
                 type="circle"

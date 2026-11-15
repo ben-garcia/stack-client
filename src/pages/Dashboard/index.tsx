@@ -10,7 +10,7 @@ import {
   WorkspaceList,
   WorkspaceSidebar,
 } from 'components';
-import useMediaQuery from 'hooks';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { AppState } from 'store';
 import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
