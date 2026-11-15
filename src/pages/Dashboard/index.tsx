@@ -102,13 +102,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     }
     // make sure the current workspace id is stored in local storage
     if (teammateFromLocalStorage && workspaceFromLocalStorage) {
-      // const interval = setInterval(() => {
-      // const { directMessages } = store.getState();
-      // if (directMessages.length > 0) {
       dispatch(requestUserDirectMessages());
-      // clearInterval(interval);
-      // }
-      // }, 100);
     }
     // set up channelId on page reload
     if (channelFromLocalStorage && !currentTeammate.id) {

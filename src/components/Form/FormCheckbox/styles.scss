@@ -13,6 +13,7 @@
   .checkbox-hack {
     display: flex;
     align-items: center;
+    border-radius: 15px;
 
     &::before {
       border-radius: 50%;

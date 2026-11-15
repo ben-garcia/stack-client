@@ -14,13 +14,15 @@ export interface ButtonProps {
     | 'date';
   ariaLabel?: string;
   children: React.ReactNode;
-  type: 'button' | 'submit';
+  className?: string;
+  color?: 'primary' | 'transparent';
+  customAttribute?: { [key: string]: string };
+  disabled?: boolean;
+  onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
   onClick?: (e: React.SyntheticEvent) => void;
   onFocus?: (e: React.FocusEvent<HTMLButtonElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
-  color?: 'primary' | 'transparent';
-  className?: string;
-  disabled?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  tabIndex?: number;
   title?: string;
-  customAttribute?: { [key: string]: string };
+  type?: 'button' | 'submit';
 }

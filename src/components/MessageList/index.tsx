@@ -23,8 +23,9 @@ const MessageList: React.FC = () => {
     })
   );
 
-  // Track the messages, whether they're channel or direct messages.
+  // Track the messages, regardless whether they're channel or direct messages.
   const [messagesToRender, setMessagesToRender] = useState<ChatMessage[]>([]);
+  // Track what message has focus
   const [focusedIndex, setFocusedIndex] = useState(0);
   // Track the newly appended message, and read out by screen readers.
   const [latestAnnouncement, setLatestAnnouncement] = useState('');
@@ -35,13 +36,14 @@ const MessageList: React.FC = () => {
   // Track initialization and the first message ID to reliably detect true channel switches
   const hasInitializedFocus = useRef(false);
   const prevFirstMessageIdRef = useRef<string | number | null>(null);
-  // Track the ID of the currently focused message so focus persists even if indices shift
+  // Track the ID of the currently focused message so focus persists even if
+  // message tab stop loses focus.
   const focusedMessageIdRef = useRef<string | number | null>(null);
 
   useEffect(() => {
     let currentMessages: ChatMessage[] = [];
 
-    // Determine what type of messages to render.
+    // Determine the type of message.
     if (directMessages.length > 0 && channelMessages.length === 0) {
       currentMessages = directMessages;
     } else if (channelMessages.length > 0 && directMessages.length === 0) {
@@ -127,11 +129,13 @@ const MessageList: React.FC = () => {
     let newIndex = index;
 
     switch (e.key) {
+      case 'ArowRight':
       case 'ArrowUp': {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default scrolling behavior.
         newIndex = index <= 0 ? messagesToRender.length - 1 : index - 1;
         break;
       }
+      case 'ArrowLeft':
       case 'ArrowDown': {
         e.preventDefault();
         newIndex = index === messagesToRender.length - 1 ? 0 : index + 1;
@@ -169,18 +173,22 @@ const MessageList: React.FC = () => {
   });
 
   const groups: {
-    date: string;
+    formattedDate: string;
     dateTime: string;
     items: { message: RenderMessage; index: number; showUserHeader: boolean }[];
   }[] = [];
 
   // Group the messages by date.
   processedMessages.forEach((message, index) => {
-    const date = printFormattedDate(message.createdAt);
+    const formattedDate = printFormattedDate(message.createdAt);
     let group = groups[groups.length - 1];
 
-    if (!group || group.date !== date) {
-      group = { date, dateTime: message.createdAt.split('T')[0], items: [] };
+    if (!group || group.formattedDate !== formattedDate) {
+      group = {
+        formattedDate,
+        dateTime: message.createdAt.split('T')[0],
+        items: [],
+      };
       groups.push(group);
     }
 
@@ -219,13 +227,13 @@ const MessageList: React.FC = () => {
           <div
             key={group.dateTime}
             role="group"
-            aria-label={group.date}
+            aria-label={group.formattedDate}
             className="message-group"
           >
             <div className="message-group__header" aria-hidden="true">
               <hr aria-hidden="true" className="horizontal-line" />
               <Text size="xm" tag="span" className="message__date-created">
-                <time dateTime={group.dateTime}>{group.date}</time>
+                <time dateTime={group.dateTime}>{group.formattedDate}</time>
               </Text>
             </div>
 

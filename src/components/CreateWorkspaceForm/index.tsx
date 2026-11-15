@@ -106,7 +106,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
 
           // check whether the newly created workspace should open
           if (openWorkspace) {
-            // save current channel to localStorage
+            // save current workspace to localStorage
             localStorage.setItem('currentWorkspace', JSON.stringify(workspace));
 
             dispatch(getCurrentWorkspace(workspace));
@@ -139,6 +139,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
         Workspaces are where you set up your team for a particular project. Then
         you can split up the work via channels.
       </Text>
+
       <Form onSubmit={handleSubmit}>
         <Form.Group flexDirection="column">
           <Form.Input
@@ -149,6 +150,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
             value={workspaceName}
             error={workspaceNameError}
           />
+
           <Form.Checkbox
             onBlur={handleBlur}
             onChange={handleChange}
@@ -156,10 +158,12 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
             label="Open Workspace"
             value={`${openWorkspace}`}
           />
+
           <Text className="create-workspace__message">
             This option will (if checked) open the newly created workspace upon
             creation. To keep the you current workspace, leave unchecked.
           </Text>
+
           <Button
             className="create-workspace__submit-button"
             disabled={submitButtonIsDisabled && !isSubmitting}
