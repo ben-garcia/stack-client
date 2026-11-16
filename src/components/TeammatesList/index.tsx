@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Icon, InvitePeopleForm, List, Modal, Text } from 'components';
+import { Button, Icon, InvitePeopleForm, Modal, Text } from 'components';
 import useRovingTabIndex from 'hooks/useRovingTabIndex';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
@@ -72,60 +72,66 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   return (
     <section aria-labelledby="teammates-heading" className={classesToAdd}>
       <div className="teammates-list__inner">
-        <h2 id="teammates-heading" className="header">
+        <h2 id="teammates-heading" className="teammates-list__header">
           Teammates
         </h2>
 
         <Button
+          ariaLabel="Invite People"
           className="teammates-list__add-button"
-          type="button"
           color="transparent"
           onClick={() => dispatch(openInvitePeopleModal())}
           title="Invite People"
-          ariaLabel="Invite People"
+          type="button"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
 
-      <List tabIndex={-1}>
-        {teammates.map((t: Teammate, i) => (
-          <List.Item key={t.id} active={t.id === currentTeammate.id}>
-            <Button
-              ariaCurrent={t.id === currentTeammate.id ? true : undefined}
-              ariaLabel={`${t.username} is ${
-                t.active || t.id === user.id ? 'Active' : 'Away'
-              }`}
-              type="button"
-              color="transparent"
-              className="teammates-list__button"
-              onClick={() => saveTeammate({ id: t.id, username: t.username })}
-              onKeyDown={e => handleKeyDown(e, i)}
-              ref={(el: HTMLButtonElement | null) => {
-                buttonRefs.current[i] = el;
-              }}
-              tabIndex={focusedIndex === i ? 0 : -1}
-              title={t.active || t.id === user.id ? 'Active' : 'Away'}
-            >
-              <Icon
-                type="circle"
-                size="xm"
-                color={t.active || user.id === t.id ? 'green' : 'white'}
-                className={
-                  t.active || user.id === t.id
-                    ? 'teammates-list__icon teammates-list__icon--active'
-                    : 'teammates-list__icon'
-                }
-              />
+      <div
+        aria-describedby="teammates-heading"
+        aria-orientation="vertical"
+        role="listbox"
+        style={{ padding: '0.3rem' }}
+      >
+        {teammates.map((t, i) => (
+          <Button
+            ariaLabel={`${t.username} is ${
+              t.active || t.id === user.id ? 'Active' : 'Away'
+            }`}
+            ariaSelected={t.id === currentTeammate.id}
+            className="teammates-list__button"
+            color="transparent"
+            key={t.id}
+            onClick={() => saveTeammate({ id: t.id, username: t.username })}
+            onKeyDown={e => handleKeyDown(e, i)}
+            ref={(el: HTMLButtonElement | null) => {
+              buttonRefs.current[i] = el;
+            }}
+            role="option"
+            tabIndex={focusedIndex === i ? 0 : -1}
+            title={t.active || t.id === user.id ? 'Active' : 'Away'}
+            type="button"
+          >
+            <Icon
+              type="circle"
+              size="xm"
+              color={t.active || user.id === t.id ? 'green' : 'white'}
+              className={
+                t.active || user.id === t.id
+                  ? 'teammates-list__icon teammates-list__icon--active'
+                  : 'teammates-list__icon'
+              }
+            />
 
-              <Text className="teammates-list__username" size="sm" tag="span">
-                {t.username}
-                {user.id === t.id ? ` (You)` : ''}
-              </Text>
-            </Button>
-          </List.Item>
+            <Text className="teammates-list__username" size="sm" tag="span">
+              {t.username}
+              {user.id === t.id ? ` (You)` : ''}
+            </Text>
+          </Button>
         ))}
-      </List>
+      </div>
+
       {invitePeopleModalIsOpen && (
         <Modal
           header="Invite People"

@@ -30,13 +30,11 @@ const useRovingTabIndex = (items: ItemType[], currentItem: ItemType) => {
     let newIndex = index;
 
     switch (e.key) {
-      case 'ArrowRight':
       case 'ArrowUp': {
         e.preventDefault(); // Prevent default scrolling behavior.
         newIndex = index === 0 ? items.length - 1 : index - 1;
         break;
       }
-      case 'ArrowLeft':
       case 'ArrowDown': {
         e.preventDefault();
         newIndex = index === items.length - 1 ? 0 : index + 1;

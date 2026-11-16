@@ -1,8 +1,6 @@
 import React from 'react';
 
 export interface ButtonProps {
-  ariaControls?: string;
-  ariaExpanded?: boolean;
   ariaCurrent?:
     | boolean
     | 'time'
@@ -12,6 +10,9 @@ export interface ButtonProps {
     | 'step'
     | 'location'
     | 'date';
+  ariaControls?: string;
+  ariaExpanded?: boolean;
+  ariaSelected?: boolean;
   ariaLabel?: string;
   children: React.ReactNode;
   className?: string;
@@ -22,6 +23,7 @@ export interface ButtonProps {
   onClick?: (e: React.SyntheticEvent) => void;
   onFocus?: (e: React.FocusEvent<HTMLButtonElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
+  role?: string;
   tabIndex?: number;
   title?: string;
   type?: 'button' | 'submit';

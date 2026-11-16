@@ -10,18 +10,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ariaCurrent = undefined,
       ariaExpanded = undefined,
       ariaLabel = undefined,
-      type = undefined,
+      ariaSelected = undefined,
       children,
+      className = '',
       color = 'primary',
+      customAttribute = {},
+      disabled = false,
       onClick = undefined,
       onFocus = undefined,
       onBlur = undefined,
       onKeyDown = undefined,
-      className = '',
-      disabled = false,
+      role = undefined,
       tabIndex = undefined,
       title = undefined,
-      customAttribute = {},
+      type = undefined,
     },
     ref
   ) => {
@@ -54,11 +56,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // props to pass along
     const props: any = {
       className: classesToAdd,
+      disabled,
       onClick,
       onBlur,
       onFocus,
       onKeyDown,
-      disabled,
+      role,
       title,
     };
 
@@ -76,11 +79,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
+      // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <button
         {...props}
         aria-controls={ariaControls}
-        aria-expanded={ariaExpanded}
         aria-current={ariaCurrent}
+        aria-expanded={ariaExpanded}
+        aria-selected={ariaSelected}
         aria-label={ariaLabel}
         ref={ref}
         tabIndex={tabIndex}

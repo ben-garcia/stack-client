@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, CreateChannelForm, Icon, List, Modal, Text } from 'components';
+import { Button, CreateChannelForm, Icon, Modal, Text } from 'components';
 import useRovingTabIndex from 'hooks/useRovingTabIndex';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
@@ -57,55 +57,57 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
   return (
     <section aria-labelledby="channels-heading" className={classesToAdd}>
       <div className="channel-list__inner">
-        <h2 id="channels-heading" className="header">
+        <h2 id="channels-heading" className="channel-list__header">
           Channels
         </h2>
 
         <Button
           ariaLabel="Create a new Channel"
           className="channel-list__add-button"
-          type="button"
           color="transparent"
           onClick={() => setCreateChannelFormIsOpen(true)}
           title="Create a new Channel"
+          type="button"
         >
           <Icon type="plus" color="white" size="sm" />
         </Button>
       </div>
 
-      <List tabIndex={-1}>
+      <div
+        aria-describedby="channel-heading"
+        aria-orientation="vertical"
+        role="listbox"
+        style={{ padding: '0.3rem' }}
+      >
         {channels.map((c, i) => (
-          <List.Item key={c.id} active={c.id === currentChannel.id}>
-            <Button
-              ariaCurrent={c.id === currentChannel.id ? true : undefined}
-              ariaLabel={`${c.name}, ${
-                c.private ? 'private' : 'public'
-              } channel`}
-              className="channel-list__button"
-              color="transparent"
-              onClick={() => saveChannel(c)}
-              onKeyDown={e => handleKeyDown(e, i)}
-              ref={(el: HTMLButtonElement | null) => {
-                buttonRefs.current[i] = el;
-              }}
-              tabIndex={focusedIndex === i ? 0 : -1}
-              title={`${c.name}, ${c.private ? 'private' : 'public'} channel`}
-              type="button"
-            >
-              <Icon
-                className="channel-list__icon"
-                color="white"
-                type={c.private ? 'lock' : 'hash'}
-                size="xm"
-              />
+          <Button
+            ariaLabel={`${c.name}, ${c.private ? 'private' : 'public'} channel`}
+            ariaSelected={c.id === currentChannel.id}
+            className="channel-list__button"
+            color="transparent"
+            key={c.id}
+            onClick={() => saveChannel(c)}
+            onKeyDown={e => handleKeyDown(e, i)}
+            ref={(el: HTMLButtonElement | null) => {
+              buttonRefs.current[i] = el;
+            }}
+            role="option"
+            tabIndex={focusedIndex === i ? 0 : -1}
+            title={`${c.name}, ${c.private ? 'private' : 'public'} channel`}
+          >
+            <Icon
+              className="channel-list__icon"
+              color="white"
+              type={c.private ? 'lock' : 'hash'}
+              size="xm"
+            />
 
-              <Text className="channel-list__name" tag="span" size="sm">
-                {c.name}
-              </Text>
-            </Button>
-          </List.Item>
+            <Text className="channel-list__name" tag="span" size="sm">
+              {c.name}
+            </Text>
+          </Button>
         ))}
-      </List>
+      </div>
 
       {createChannelFormIsOpen && (
         <Modal

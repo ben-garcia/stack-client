@@ -9,23 +9,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  &__item {
-    align-items: center;
-    border-radius: 100%;
-    display: flex;
     justify-content: center;
-    height: 40px;
+    border-radius: 100%;
     padding: 0;
-    width: 40px;
   }
 
   &__button {
-    color: rgba($background-color, 0.8);
     display: flex;
-    font-weight: 700;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    border-radius: 100%;
+    color: rgba($background-color, 0.8);
+    font-weight: 700;
+    margin: 0.2rem 0;
+    width: 40px;
+    height: 40px;
+
+    &[aria-selected="true"] {
+      background-color: $color-blue-active;
+    }
+
+    &:hover:not([aria-selected="true"]) {
+      background-color: $primary-color-hover;
+    }
   }
 }

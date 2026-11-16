@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, List } from 'components';
+import { Button } from 'components';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
@@ -75,39 +75,40 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
 
   return (
     <nav className={classesToAdd}>
-      <List
-        ariaLabel="Workspaces"
+      <div
+        aria-label="Workspaces"
         className="workspace-list__list"
-        tabIndex={-1}
+        /* NOTE: Using custom element because it needs to be interactive.
+         *        Using <ul> and <li> would cause the focus to escape the
+         *        workspace list. The issue was, the list(ul,li) element
+         *        create a static document structure rather an an interactive
+         *        on neccessary for a screen reader. */
+        role="listbox"
       >
         {workspaces.map((w, i) => (
-          <List.Item
-            active={w.id === currentWorkspace.id}
-            className="workspace-list__item"
+          <Button
+            ariaLabel={`Workspace ${w.name}${
+              w.id === currentWorkspace.id ? ', Active' : ''
+            }`}
+            ariaSelected={w.id === currentWorkspace.id}
+            className="workspace-list__button"
+            color="transparent"
             key={w.id}
+            // NOTE: React uses event delegation under the hood, so no need to
+            // worry about performance.
+            onClick={() => saveWorkspace(w)}
+            onKeyDown={e => handleKeyDown(e, i)}
+            ref={(el: HTMLButtonElement | null) => {
+              buttonRefs.current[i] = el;
+            }}
+            role="option"
+            tabIndex={focusedIndex === i ? 0 : -1}
+            title={w.name}
           >
-            <Button
-              ariaCurrent={w.id === currentWorkspace.id ? true : undefined}
-              ariaLabel={`Workspace ${w.name}${
-                w.id === currentWorkspace.id ? ', Active' : ''
-              }`}
-              color="transparent"
-              className="workspace-list__button"
-              // NOTE: React uses event delegation under the hood, so no need to
-              // worry about performance.
-              onClick={() => saveWorkspace(w)}
-              onKeyDown={e => handleKeyDown(e, i)}
-              tabIndex={focusedIndex === i ? 0 : -1}
-              title={w.name}
-              ref={(el: HTMLButtonElement | null) => {
-                buttonRefs.current[i] = el;
-              }}
-            >
-              {w.name[0].toUpperCase()}
-            </Button>
-          </List.Item>
+            {w.name[0].toUpperCase()}
+          </Button>
         ))}
-      </List>
+      </div>
     </nav>
   );
 };

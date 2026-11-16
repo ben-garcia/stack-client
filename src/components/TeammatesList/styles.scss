@@ -1,27 +1,15 @@
 @import '../../sass/variables';
 
 .teammates-list {
+  &__header {
+    font-size: 1.2rem;
+    align-self: center;
+  }
+
   &__inner {
     display: flex;
     justify-content: space-between;
     padding: 0.3rem 1rem;
-  }
-
-  &__list {
-    list-style: none;
-  }
-
-  &__item {
-    padding-left: 0.85rem;
-
-    &:hover:not(&--active) {
-      cursor: pointer;
-      background-color: $primary-color-hover;
-    }
-
-    &--active {
-      background-color: $color-blue-active;
-    }
   }
 
   &__icon {
@@ -60,7 +48,16 @@
   &__button {
     color: rgba($background-color, 0.8);
     display: flex;
+    margin: 0.2rem 0;
     align-items: center;
     width: 100%;
+
+    &[aria-selected="true"] {
+      background-color: $color-blue-active;
+    }
+
+    &:hover:not([aria-selected="true"]) {
+      background-color: $primary-color-hover;
+    }
   }
 }
