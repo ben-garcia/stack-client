@@ -77,6 +77,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     <nav className={classesToAdd}>
       <div
         aria-label="Workspaces"
+        aria-orientation="vertical"
         className="workspace-list__list"
         /* NOTE: Using custom element because it needs to be interactive.
          *        Using <ul> and <li> would cause the focus to escape the

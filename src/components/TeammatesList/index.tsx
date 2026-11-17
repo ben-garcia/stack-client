@@ -89,7 +89,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
       </div>
 
       <div
-        aria-describedby="teammates-heading"
+        aria-labelledby="teammates-heading"
         aria-orientation="vertical"
         role="listbox"
         style={{ padding: '0.3rem' }}

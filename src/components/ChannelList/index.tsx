@@ -74,7 +74,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
       </div>
 
       <div
-        aria-describedby="channel-heading"
+        aria-labelledby="channels-heading"
         aria-orientation="vertical"
         role="listbox"
         style={{ padding: '0.3rem' }}
