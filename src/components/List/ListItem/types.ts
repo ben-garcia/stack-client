@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface ListItemProps {
   active?: boolean;
+  ariaLabel?: string;
   ariaSelected?: boolean;
   children: React.ReactNode;
   className?: string;

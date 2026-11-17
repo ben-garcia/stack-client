@@ -79,11 +79,11 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
         aria-label="Workspaces"
         aria-orientation="vertical"
         className="workspace-list__list"
-        /* NOTE: Using custom element because it needs to be interactive.
-         *        Using <ul> and <li> would cause the focus to escape the
-         *        workspace list. The issue was, the list(ul,li) element
-         *        create a static document structure rather an an interactive
-         *        on neccessary for a screen reader. */
+        /* NOTE: Using custom widget because it needs to be interactive.
+         *       Using <ul> and <li> would cause the focus to escape the
+         *       workspace list. The issue was, the list(ul,li) element
+         *       create a static document structure rather an an interactive
+         *       on neccessary for a screen reader. */
         role="listbox"
       >
         {workspaces.map((w, i) => (

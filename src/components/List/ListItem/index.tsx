@@ -5,6 +5,7 @@ import './styles.scss';
 
 const ListItem: React.FC<ListItemProps> = ({
   active = false,
+  ariaLabel = undefined,
   ariaSelected = undefined,
   children,
   className = '',
@@ -26,7 +27,12 @@ const ListItem: React.FC<ListItemProps> = ({
   }
 
   return (
-    <li aria-selected={ariaSelected} className={classesToAdd} role={role}>
+    <li
+      aria-label={ariaLabel}
+      aria-selected={ariaSelected}
+      className={classesToAdd}
+      role={role}
+    >
       {children}
     </li>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Icon, List, Text } from 'components';
@@ -22,7 +22,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
       user: state.user,
     })
   );
-  // keep track of when the user clicks the about dropdown
+  // Store reference to the close button to give focus on mount.
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  // Keep track of when the user clicks the about dropdown
   const [aboutDropdownIsOpen, setAboutDropdownIsOpen] = useState<boolean>(
     false
   );
@@ -36,13 +38,32 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
     classesToAdd += ` ${className}`;
   }
 
+  useEffect(() => {
+    if (closeButtonRef.current) {
+      // Focuse the close button.
+      closeButtonRef.current.focus();
+    }
+
+    return () => {
+      // NOTE: As it's currently implemented, the show details button is
+      //       removed from the DOM when thsi components is mounted.
+      //       To solve this, a setTimeout is used to wait for the button
+      //       to be added.
+      setTimeout(() => {
+        const detailsButton = document.querySelector(
+          '[aria-label="Show channel details"]'
+        );
+        // Return focus back to the show channel details button.
+        (detailsButton as HTMLElement).focus();
+      }, 0);
+    };
+  }, []);
+
   return (
     <section aria-label="Channel Details" className={classesToAdd}>
       <div className="channel-details__inner">
         <div className="channel-details__inside">
-          <Text className="channel-details__text" tag="span" size="sm">
-            Details
-          </Text>
+          <h2 className="channel-details__text">Details</h2>
 
           <Text className="channel-details__channel-name" tag="span" size="xm">
             {`# ${currentChannel.name}`}
@@ -54,6 +75,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
           className="channel-details__close-button"
           color="transparent"
           onClick={() => dispatch(closeChannelDetails())}
+          ref={closeButtonRef}
           type="button"
         >
           <Icon
@@ -125,8 +147,8 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
             <div className="channel-details__topic">
               <Text
                 className="channel-details__subtext channel-details__subtext--dark"
-                tag="div"
                 size="xm"
+                tag="div"
               >
                 Topic
               </Text>
@@ -147,7 +169,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
                 onClick={() => dispatch(openEditChannelTopicModal())}
                 type="button"
               >
-                <Text size="xm">edit</Text>
+                <Text size="xm" tag="span">
+                  edit
+                </Text>
               </Button>
             </div>
 
@@ -176,7 +200,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
                 onClick={() => dispatch(openEditChannelDescriptionModal())}
                 type="button"
               >
-                <Text size="xm">edit</Text>
+                <Text size="xm" tag="span">
+                  edit
+                </Text>
               </Button>
             </div>
 
@@ -208,7 +234,9 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
 
             <div className="channel-details__inner-three">
               <Text
-                ariaLabel={`${members.length} member/s`}
+                ariaLabel={`${members.length}${
+                  members.length === 1 ? ' member' : ' members'
+                }`}
                 className="channel-details__member-count"
                 size="xm"
                 tag="span"
@@ -233,12 +261,12 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
               membersDropdownIsOpen ? { display: 'block' } : { display: 'none' }
             }
           >
-            <List
-              role="list"
-              className="channel-details__members-info members-list"
-            >
+            <List className="channel-details__members-info members-list">
               {members.map((m: Member) => (
                 <List.Item
+                  // ariaLabel={`${m.username}${
+                  //   user.username === m.username ? ' you' : ''
+                  // }`}
                   className="members-list__item"
                   hover={false}
                   key={m.id}
@@ -250,9 +278,14 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
                     type="user"
                   />
 
-                  {user.username === m.username
-                    ? `${m.username}(you)`
-                    : m.username}
+                  {user.username === m.username ? (
+                    <>
+                      {m.username}
+                      <span aria-hidden="true">(you)</span>
+                    </>
+                  ) : (
+                    m.username
+                  )}
                 </List.Item>
               ))}
             </List>
