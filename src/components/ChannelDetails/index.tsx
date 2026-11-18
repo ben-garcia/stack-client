@@ -114,6 +114,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
             ariaControls="about-info-panel"
             className="channel-details__dropdown-button"
             color="transparent"
+            id="about-accordion-button"
             onClick={() => {
               if (membersDropdownIsOpen) {
                 setMembersDropdownIsOpen(false);
@@ -138,75 +139,93 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
           </Button>
 
           <div
+            aria-labelledby="about-accordion-button"
             className="channel-details__about-info"
+            // removes the content from the accessibility tree and from the tab order.
+            hidden={!aboutDropdownIsOpen}
             id="about-info-panel"
-            style={
-              aboutDropdownIsOpen ? { display: 'block' } : { display: 'none' }
-            }
+            role="region"
           >
             <div className="channel-details__topic">
-              <Text
-                className="channel-details__subtext channel-details__subtext--dark"
-                size="xm"
-                tag="div"
-              >
+              <h3 className="channel-details__subtext channel-details__subtext--dark">
                 Topic
-              </Text>
-              {currentChannel.topic ? (
-                <Text className="channel-details__subtext" tag="div" size="xm">
-                  {currentChannel.topic}
-                </Text>
-              ) : (
-                <Text className="channel-details__subtext" tag="div" size="xm">
-                  Whats up for discussion?
-                </Text>
-              )}
+              </h3>
 
-              <Button
-                ariaLabel="Edit channel topic"
-                className="channel-details__edit-button"
-                color="transparent"
-                onClick={() => dispatch(openEditChannelTopicModal())}
-                type="button"
-              >
-                <Text size="xm" tag="span">
-                  edit
-                </Text>
-              </Button>
+              <div>
+                {currentChannel.topic ? (
+                  <Text
+                    modalId="channel-topic-text"
+                    className="channel-details__subtext display-inline"
+                    tag="p"
+                    size="sm"
+                  >
+                    {currentChannel.topic}
+                  </Text>
+                ) : (
+                  <Text
+                    modalId="channel-topic-text"
+                    className="channel-details__subtext display-inline"
+                    tag="p"
+                    size="sm"
+                  >
+                    {`What's s up for discussion?`}
+                  </Text>
+                )}
+
+                <Button
+                  ariaLabel="Edit channel topic"
+                  ariaDescribedBy="channel-topic-text"
+                  className="channel-details__edit-button"
+                  color="transparent"
+                  onClick={() => dispatch(openEditChannelTopicModal())}
+                  type="button"
+                >
+                  <Text size="sm" tag="span">
+                    (edit)
+                  </Text>
+                </Button>
+              </div>
             </div>
 
             <div className="channel-details__description">
-              <Text
-                className="channel-details__subtext channel-details__subtext--dark"
-                tag="div"
-                size="xm"
-              >
+              <h3 className="channel-details__subtext channel-details__subtext--dark">
                 Description
-              </Text>
+              </h3>
 
               {currentChannel.description ? (
-                <Text className="channel-details__subtext" tag="div" size="xm">
+                <Text
+                  modalId="channel-description-text"
+                  className="channel-details__subtext display-inline"
+                  tag="p"
+                  size="sm"
+                >
                   {currentChannel.description}
                 </Text>
               ) : (
-                <Text className="channel-details__subtext" tag="div" size="xm">
-                  Whats up for discussion?
+                <Text
+                  modalId="channel-description-text"
+                  className="channel-details__subtext display-inline"
+                  tag="p"
+                  size="sm"
+                >
+                  {`What's s up for discussion?`}
                 </Text>
               )}
               <Button
                 ariaLabel="Edit channel description"
+                ariaDescribedBy="channel-description-text"
                 className="channel-details__edit-button"
                 color="transparent"
                 onClick={() => dispatch(openEditChannelDescriptionModal())}
                 type="button"
               >
-                <Text size="xm" tag="span">
-                  edit
+                <Text size="sm" tag="span">
+                  (edit)
                 </Text>
               </Button>
             </div>
 
-            <Text className="channel-details__created" size="xm" tag="div">
+            <Text className="channel-details__created" size="sm" tag="p">
               {`Created ${printFormattedDate(
                 currentChannel.createdAt as string
               )}`}
@@ -220,6 +239,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
             ariaControls="members-info-panel"
             className="channel-details__dropdown-button"
             color="transparent"
+            id="members-accordion-button"
             onClick={() => {
               if (aboutDropdownIsOpen) {
                 setAboutDropdownIsOpen(false);
@@ -255,11 +275,13 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
               />
             </div>
           </Button>
+
           <div
+            aria-labelledby="members-accordion-button"
+            // removes the content from the accessibility tree and from the tab order.
+            hidden={!membersDropdownIsOpen}
             id="members-info-panel"
-            style={
-              membersDropdownIsOpen ? { display: 'block' } : { display: 'none' }
-            }
+            role="region"
           >
             <List className="channel-details__members-info members-list">
               {members.map((m: Member) => (

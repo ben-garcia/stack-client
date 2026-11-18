@@ -9,6 +9,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ariaControls = undefined,
       ariaCurrent = undefined,
       ariaExpanded = undefined,
+      ariaDescribedBy = undefined,
       ariaLabel = undefined,
       ariaSelected = undefined,
       children,
@@ -20,6 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onFocus = undefined,
       onBlur = undefined,
       onKeyDown = undefined,
+      id = undefined,
       role = undefined,
       tabIndex = undefined,
       title = undefined,
@@ -61,6 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onBlur,
       onFocus,
       onKeyDown,
+      id,
       role,
       title,
     };
@@ -84,6 +87,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         aria-controls={ariaControls}
         aria-current={ariaCurrent}
+        aria-describedby={ariaDescribedBy}
         aria-expanded={ariaExpanded}
         aria-selected={ariaSelected}
         aria-label={ariaLabel}

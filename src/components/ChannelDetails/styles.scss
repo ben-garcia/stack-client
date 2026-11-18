@@ -148,7 +148,7 @@
     font-size: 0.7rem !important;
     margin-right: 0.5rem;
     transform: rotate(0);
-    transition: tranform 0.4s ease-in;
+    transition: transform 0.05s ease-in;
 
     &--translate-rotate {
       transform: translateX(-3px) rotate(90deg);
@@ -169,4 +169,8 @@
     font-weight: 400;
     margin: 0.3rem 0.1rem;
   }
+}
+
+.display-inline {
+  display: inline;
 }

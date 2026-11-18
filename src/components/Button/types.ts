@@ -12,6 +12,7 @@ export interface ButtonProps {
     | 'date';
   ariaControls?: string;
   ariaExpanded?: boolean;
+  ariaDescribedBy?: string;
   ariaSelected?: boolean;
   ariaLabel?: string;
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export interface ButtonProps {
   color?: 'primary' | 'transparent';
   customAttribute?: { [key: string]: string };
   disabled?: boolean;
+  id?: string;
   onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
   onClick?: (e: React.SyntheticEvent) => void;
   onFocus?: (e: React.FocusEvent<HTMLButtonElement>) => void;
