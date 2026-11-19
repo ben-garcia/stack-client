@@ -1,6 +1,8 @@
 @import '../../sass/variables';
 
 .channel-details {
+  z-index: 1000;
+
   &__inner {
     align-items: center;
     border-bottom: $border-line;
