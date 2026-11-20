@@ -10,14 +10,14 @@
     min-width: 300px;
   }
 
-  // desktop
+  /* desktop */
   @media screen and (min-width: $breakpoint-md) {
     .channel-view__details {
       width: 440px;
     }
   }
 
-  // tablet size
+  /* tablet size */
   @media screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-lg) {
     .view-wrapper {
       width: 50%;
@@ -28,7 +28,7 @@
     }
   }
 
-  // phone
+  /* phone */
   @media screen and (min-width: 0) and (max-width: $breakpoint-sm) {
     .view-wrapper__details {
       position: absolute;
@@ -54,4 +54,11 @@
       background-color: $background-color;
     }
   }
+}
+
+.center-items {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
 }

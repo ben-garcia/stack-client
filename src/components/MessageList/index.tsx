@@ -14,14 +14,22 @@ type RenderMessage = ChatMessage & {
 };
 
 const MessageList: React.FC = () => {
-  const { channelMessages, directMessages, user, members } = useSelector(
-    (state: AppState) => ({
-      channelMessages: state.messages.list,
-      directMessages: state.directMessages.list,
-      members: state.members.list,
-      user: state.user,
-    })
-  );
+  const {
+    channelMessages,
+    // currentChannel,
+    // currentTeammate,
+    directMessages,
+    user,
+    members,
+  } = useSelector((state: AppState) => ({
+    channelMessages: state.messages.list,
+    currentChannel: state.currentChannel,
+    currentTeammate: state.currentTeammate,
+    directMessages: state.directMessages.list,
+    members: state.members.list,
+    user: state.user,
+    workspaces: state.workspaces.list,
+  }));
 
   // Track the messages, regardless whether they're channel or direct messages.
   const [messagesToRender, setMessagesToRender] = useState<ChatMessage[]>([]);
@@ -199,7 +207,7 @@ const MessageList: React.FC = () => {
     group.items.push({ message, index, showUserHeader });
   });
 
-  return (
+  return groups.length ? (
     <section aria-label="Message history">
       {/* NOTE: 1. WAI-ARIA specifies role="log" for messaging logs. The issue is
                 that this overrides arrow keys. This is a problem because I
@@ -313,10 +321,15 @@ const MessageList: React.FC = () => {
         ))}
       </div>
 
-      <div aria-live="polite" aria-atomic="true" className="visibly-hidden">
+      <div aria-live="polite" aria-atomic="true" className="visually-hidden">
         {latestAnnouncement}
       </div>
     </section>
+  ) : (
+    <header className="center-items">
+      <h1 className="visually-hidden">Workspace Home</h1>
+      <Text tag="p">There are no messages.</Text>
+    </header>
   );
 };
 

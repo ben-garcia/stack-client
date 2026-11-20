@@ -26,3 +26,15 @@ textarea:focus {
   outline-offset: 2px;
   box-shadow: rgba(8, 11, 14, 0.06) 0 0 1px 0, rgba(8, 11, 14, 0.1) 0 6px 6px -1px;
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

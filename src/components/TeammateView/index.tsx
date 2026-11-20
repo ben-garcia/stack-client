@@ -21,7 +21,7 @@ const TeammateView: React.FC<ViewWrapperProps> = ({ className = '' }) => {
   }
 
   return (
-    <div className={classesToAdd}>
+    <div className={classesToAdd.trim() !== '' ? classesToAdd : undefined}>
       {currentChannel.id || currentTeammate.id ? (
         <div className="teammate-view">
           <Icon className="teammate-view__user-icon" type="user" size="lg" />
