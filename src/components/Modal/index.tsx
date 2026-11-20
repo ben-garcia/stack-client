@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ModalProps } from './types';
@@ -34,8 +28,12 @@ const Modal: React.FC<ModalProps> = ({
     []
   );
 
-  // runs synchronously
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // Modal needs to be the only interactive element.
+    // I already have focus lock. The issue is on mobile. TalkBack and VoiceOver
+    // access the accessiblity tree without running Javascript.
+    document.getElementById('root')!.inert = true;
+
     // Get a reference to the button that triggered the modal.
     triggerRef.current = document.activeElement as HTMLElement;
 
@@ -46,15 +44,15 @@ const Modal: React.FC<ModalProps> = ({
     if (!first) return;
 
     first.focus();
-  }, []);
 
-  // Return focus to the button that triggered it.
-  useEffect(
-    () => () => {
+    // eslint-disable-next-line consistent-return
+    return () => {
+      // Restore default behavior before trigger can receive focus.
+      document.getElementById('root')!.inert = false;
+      // Return focus to the button that triggered it.
       if (triggerRef.current) triggerRef.current.focus();
-    },
-    []
-  );
+    };
+  }, []);
 
   // make sure className isn't empty
   if (className.trim() !== '') {
