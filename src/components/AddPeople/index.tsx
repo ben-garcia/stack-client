@@ -95,11 +95,10 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
           const active = usernames.includes(t.username);
           return (
             <Button
-              key={t.id}
+              ariaLabel={`Add user ${t.username} to the channel`}
               className={`form__button ${active ? 'form__button--active' : ''}`}
-              type="button"
               color="transparent"
-              title={t.username}
+              key={t.id}
               onClick={() => {
                 const newUsernames = usernames.filter(
                   (n: string) => n !== t.username
