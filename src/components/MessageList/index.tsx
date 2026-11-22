@@ -14,22 +14,17 @@ type RenderMessage = ChatMessage & {
 };
 
 const MessageList: React.FC = () => {
-  const {
-    channelMessages,
-    // currentChannel,
-    // currentTeammate,
-    directMessages,
-    user,
-    members,
-  } = useSelector((state: AppState) => ({
-    channelMessages: state.messages.list,
-    currentChannel: state.currentChannel,
-    currentTeammate: state.currentTeammate,
-    directMessages: state.directMessages.list,
-    members: state.members.list,
-    user: state.user,
-    workspaces: state.workspaces.list,
-  }));
+  const { channelMessages, directMessages, user, members } = useSelector(
+    (state: AppState) => ({
+      channelMessages: state.messages.list,
+      currentChannel: state.currentChannel,
+      currentTeammate: state.currentTeammate,
+      directMessages: state.directMessages.list,
+      members: state.members.list,
+      user: state.user,
+      workspaces: state.workspaces.list,
+    })
+  );
 
   // Track the messages, regardless whether they're channel or direct messages.
   const [messagesToRender, setMessagesToRender] = useState<ChatMessage[]>([]);
