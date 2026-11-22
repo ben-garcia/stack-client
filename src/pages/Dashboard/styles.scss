@@ -83,8 +83,8 @@
   font-weight: 700;
   color: #fff;
   padding: 8px;
-  z-index: 100;
-  transition: left 0.3s;
+  z-index: 1100;
+  transition: left 0.3s, top 0.3s;
 }
 
 .skip-link:focus {

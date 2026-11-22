@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Icon, List, Text } from 'components';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { AppState } from 'store';
 import { openAddPeopleModal } from 'store/addPeopleModal';
 import { closeChannelDetails } from 'store/channelDetails';
@@ -14,6 +15,7 @@ import './styles.scss';
 
 const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
   const dispatch = useDispatch();
+  const isDesktop = useMediaQuery('(min-width: 998px)');
   const { channelDetails, currentChannel, members, user } = useSelector(
     (state: AppState) => ({
       currentChannel: state.currentChannel,
@@ -39,16 +41,26 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
   }
 
   useEffect(() => {
+    let viewWrapper: HTMLElement | null;
+
+    if (!isDesktop) {
+      // On mobile, when the channel details is open, everything else
+      // shouln't be interactive, to be a11y compliant.
+      viewWrapper = document.querySelector('.view-wrapper');
+      viewWrapper!.inert = true;
+    }
+
     if (closeButtonRef.current) {
-      // Focuse the close button.
+      // Focus the close button.
       closeButtonRef.current.focus();
     }
 
     return () => {
+      viewWrapper!.inert = false;
       // NOTE: As it's currently implemented, the show details button is
       //       removed from the DOM when thsi components is mounted.
       //       To solve this, a setTimeout is used to wait for the button
-      //       to be added.
+      //       to be rendered.
       setTimeout(() => {
         const detailsButton = document.querySelector(
           '[aria-label="Show channel details"]'
@@ -286,9 +298,6 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
             <List className="channel-details__members-info members-list">
               {members.map((m: Member) => (
                 <List.Item
-                  // ariaLabel={`${m.username}${
-                  //   user.username === m.username ? ' you' : ''
-                  // }`}
                   className="members-list__item"
                   hover={false}
                   key={m.id}

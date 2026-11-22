@@ -195,7 +195,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
               color="transparent"
               onClick={() => dispatch(closeMobileSidebar())}
               ref={closeButtonRef}
-              type="button"
             >
               <Icon color="white" size="sm" type="times" />
             </Button>

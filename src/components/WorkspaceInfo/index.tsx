@@ -58,12 +58,11 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
       {currentChannel.id && !currentTeammate.id && !channelDetails.isOpen ? (
         <div className="container">
           <Button
+            ariaLabel="Show channel details"
             className="details-button"
             color="transparent"
             onClick={() => dispatch(openChannelDetails())}
             title="Show channel details"
-            ariaLabel="Show channel details"
-            type="button"
           >
             <Icon className="details-button__icon" type="info" size="sm" />
             <Text className="details-button__text" tag="span" size="sm">
