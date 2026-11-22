@@ -26,6 +26,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
         <Navbar.Item>
           <Image src={logo} alt="Stack Logo" size="sm" />
         </Navbar.Item>
+
         <Navbar.Item>
           <Button
             type="button"
@@ -34,11 +35,13 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           >
             Log In
           </Button>
+
           <Button type="button" onClick={() => setRegisterModalIsOpen(true)}>
             Register
           </Button>
         </Navbar.Item>
       </Navbar>
+
       <main>
         <div className="header-hero">
           <Header
@@ -52,6 +55,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
             </Button>
           </Header>
         </div>
+
         <section className="landing-page__description">
           <Header
             headerPosition="center"
@@ -66,16 +70,17 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                 href="https://slack.com/"
                 target="_black"
               >
-                Slack
+                Slack.
               </a>
-              .
             </Text>
           </Header>
         </section>
       </main>
+
       <Footer>
         <Text>Ben Garcia 2020</Text>
       </Footer>
+
       {registerModalIsOpen && (
         <Modal
           className="register-modal"
@@ -89,6 +94,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           />
         </Modal>
       )}
+
       {loginModalIsOpen && (
         <Modal
           className="login-modal"

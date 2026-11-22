@@ -12,6 +12,7 @@ import {
 } from 'store/invitePeopleModal';
 import { requestUserDirectMessages } from 'store/directMessages';
 import { clearMessages } from 'store/messages';
+import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { Teammate } from 'store/teammates/types';
 import { TeammatesListProps } from './types';
@@ -22,11 +23,13 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
   const {
     currentTeammate,
     invitePeopleModalIsOpen,
+    mobileSidebarIsOpen,
     teammates,
     user,
   } = useSelector((state: AppState) => ({
     currentTeammate: state.currentTeammate,
     invitePeopleModalIsOpen: state.invitePeopleModalIsOpen,
+    mobileSidebarIsOpen: state.mobileSidebarIsOpen,
     teammates: state.teammates.list,
     user: state.user,
   }));
@@ -103,7 +106,10 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
             className="teammates-list__button"
             color="transparent"
             key={t.id}
-            onClick={() => saveTeammate({ id: t.id, username: t.username })}
+            onClick={() => {
+              if (mobileSidebarIsOpen) dispatch(closeMobileSidebar());
+              saveTeammate({ id: t.id, username: t.username });
+            }}
             onKeyDown={e => handleKeyDown(e, i)}
             ref={(el: HTMLButtonElement | null) => {
               buttonRefs.current[i] = el;

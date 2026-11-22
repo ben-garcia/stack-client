@@ -4,11 +4,15 @@
 .workspace-info {
   display: flex;
   flex-direction: row;
+
+  &__inner-right {
+    margin-left: 0.5rem;
+  }
 }
 
 .hamburger-button {
-  padding: 0;
-  width: 3rem;
+  align-self: center;
+  padding: 0.3rem;
 }
 
 .container {

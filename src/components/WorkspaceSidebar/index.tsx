@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -34,6 +33,7 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
       {!channels.isLoading || !teammates.isLoading ? (
         <>
           <Workspace />
+
           {currentWorkspace.id ? (
             <Scrollbar color="light" containerHeight="92vh">
               <ChannelList />

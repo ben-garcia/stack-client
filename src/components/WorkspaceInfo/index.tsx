@@ -31,27 +31,30 @@ const WorkspaceInfo: React.FC<WorkspaceInfoProps> = ({ className = '' }) => {
     <div className={classesToAdd}>
       {(viewport.isPhone || viewport.isTablet) && (
         <Button
+          ariaLabel="Open sidebar menu"
           className="hamburger-button"
           color="transparent"
           onClick={() => dispatch(openMobileSidebar())}
-          type="button"
-          title="Show workspaces and channels"
+          title="Open sidebar menu"
         >
           <Icon color="black" size="sm" type="hamburger-menu" />
         </Button>
       )}
+
       {currentChannel.id && !currentTeammate.id ? (
         <ChannelInfo
           channel={currentChannel as any}
           className="workspace-info__inner-right"
         />
       ) : null}
+
       {currentTeammate.id && !currentChannel.id ? (
         <TeammateInfo
           currentTeammate={currentTeammate as any}
           className="workspace-info__inner-right"
         />
       ) : null}
+
       {currentChannel.id && !currentTeammate.id && !channelDetails.isOpen ? (
         <div className="container">
           <Button

@@ -87,20 +87,13 @@ const ChannelInfo: React.FC<ChannelInfoProps> = ({
           </div>
 
           <Button
-            type="button"
+            ariaLabel="Edit channel topic"
             color="transparent"
             className="channel__edit-topic"
             onClick={() => dispatch(openEditChannelTopicModal())}
-            onFocus={(e: React.FocusEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.opacity = '1';
-            }}
-            onBlur={(e: React.FocusEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.opacity = '0';
-            }}
             title="Edit channel topic"
-            ariaLabel="Edit channel topic"
           >
-            Edit
+            (edit)
           </Button>
         </div>
       </div>

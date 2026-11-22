@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
@@ -52,6 +52,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
   }));
   const dispatch = useDispatch();
   const history = useHistory();
+  // Reference to the close button on the sidebar, when on mobile,
+  // used to focus when it's open.
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  // Reference to the button that triggered the mobile sidebar,
+  // used to return focus when sidebar is closed.
+  const hamburgerButtonRef = useRef<HTMLButtonElement | null>(null);
+  // Reference to the sidebar wrapper, used to set inert property when
+  // on mobile.
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (isPhone) {
@@ -62,7 +71,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(viewportIsDesktop());
       dispatch(closeMobileSidebar());
     }
-    // eslint-disable-next-line
   }, [isPhone, isTablet, isDesktop]);
 
   // set up redux store via localStorage on page reload
@@ -125,6 +133,32 @@ const Dashboard: React.FC<DashboardProps> = () => {
     }
   }
 
+  useEffect(() => {
+    // Remove mobile sidebar from the tab order when it's closed.
+    if (!isDesktop && mobileSidebarIsOpen && sidebarRef.current) {
+      sidebarRef.current.inert = false;
+    } else if (!isDesktop && !mobileSidebarIsOpen && sidebarRef.current) {
+      sidebarRef.current!.inert = true;
+    }
+
+    // Manage focus when the mobile sidebar is opened. The close button must
+    // receive the focus. The hamburger button receives focus when the mobiel
+    // sidebar is closed.
+    if (!isDesktop && mobileSidebarIsOpen) {
+      hamburgerButtonRef.current = document.activeElement as HTMLButtonElement;
+      closeButtonRef.current!.focus();
+
+      // Only the sidebar needs to be interactive.
+      document.querySelector('main')!.inert = true;
+    } else if (!isDesktop && !mobileSidebarIsOpen) {
+      // Enable interactivity
+      document.querySelector('main')!.inert = false;
+
+      // Return focus to the hamgurger button.
+      if (hamburgerButtonRef.current) hamburgerButtonRef.current!.focus();
+    }
+  }, [isDesktop, mobileSidebarIsOpen]);
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -138,6 +172,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
               ? 'dashboard__inner dashboard__inner--mobile'
               : 'dashboard__inner'
           }
+          ref={sidebarRef}
         >
           {workspaces.list.length > 0 && !workspaces.isLoading ? (
             <WorkspaceList
@@ -151,11 +186,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
           )}
 
           <WorkspaceSidebar className="dashboard__sidebar" />
-          {isPhone || isTablet ? (
+
+          {/* Sidebar close button for mobile devices. */}
+          {!isDesktop ? (
             <Button
+              ariaLabel="Close the sidebar"
               className="mobile-close-button"
               color="transparent"
               onClick={() => dispatch(closeMobileSidebar())}
+              ref={closeButtonRef}
               type="button"
             >
               <Icon color="white" size="sm" type="times" />

@@ -10,16 +10,20 @@ import { Channel } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { requestChannelMembers } from 'store/members';
 import { requestChannelMessages } from 'store/messages';
+import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { ChannelListProps } from './types';
 import './styles.scss';
 
 const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
   const dispatch: Dispatch = useDispatch();
-  const { currentChannel, channels } = useSelector((state: AppState) => ({
-    currentChannel: state.currentChannel,
-    channels: state.channels.list,
-  }));
+  const { channels, currentChannel, mobileSidebarIsOpen } = useSelector(
+    (state: AppState) => ({
+      channels: state.channels.list,
+      currentChannel: state.currentChannel,
+      mobileSidebarIsOpen: state.mobileSidebarIsOpen,
+    })
+  );
 
   const { buttonRefs, focusedIndex, handleKeyDown } = useRovingTabIndex(
     channels,
@@ -86,7 +90,10 @@ const ChannelList: React.FC<ChannelListProps> = ({ className = '' }) => {
             className="channel-list__button"
             color="transparent"
             key={c.id}
-            onClick={() => saveChannel(c)}
+            onClick={() => {
+              if (mobileSidebarIsOpen) dispatch(closeMobileSidebar());
+              saveChannel(c);
+            }}
             onKeyDown={e => handleKeyDown(e, i)}
             ref={(el: HTMLButtonElement | null) => {
               buttonRefs.current[i] = el;

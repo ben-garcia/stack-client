@@ -87,6 +87,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ className = '' }) => {
           />
         </Modal>
       )}
+
       {logoutModalIsOpen && (
         <Modal
           nonModal
