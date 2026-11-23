@@ -15,40 +15,44 @@ const FormInput: React.FC<FormInputProps> = ({
   value = '',
   required = true,
 }) => {
-  let classNamesToRender: string = 'form__field';
+  const errorId = `${inputId}__error-message`;
+  const hasError = Array.isArray(error) ? error.length > 0 : error !== '';
+  let classNamesToAdd: string = 'form__field';
 
   if (className?.trim() !== '') {
-    classNamesToRender += ` ${className}`;
+    classNamesToAdd += ` ${className}`;
   }
 
   return (
-    <div className={classNamesToRender}>
+    <div className={classNamesToAdd}>
       <label className="field-label" htmlFor={inputId}>
         {label}
         {required ? (
           <Text tag="span" size="xm" className="field-label__message">
-            {' '}
-            (Required)
+            {' (Required)'}
           </Text>
         ) : (
           <Text tag="span" size="xm" className="field-label__message">
-            {' '}
-            (Optional)
+            {' (Optional)'}
           </Text>
         )}
       </label>
       <input
+        aria-describedby={hasError ? errorId : undefined}
+        aria-invalid={hasError}
+        className="field-input"
+        id={inputId}
         onChange={onChange}
         onBlur={onBlur}
-        className="field-input"
         name={inputId}
-        id={inputId}
         type={type}
         value={value}
       />
-      {error !== '' && error.length > 0 && (
-        <Dialog failure className="field-error" content={error} />
-      )}
+      {/* In order for screen readers to announce the error,
+          this div must be in the DOM. */}
+      <div aria-live="polite" id={errorId}>
+        {hasError && <Dialog failure className="field-error" content={error} />}
+      </div>
     </div>
   );
 };

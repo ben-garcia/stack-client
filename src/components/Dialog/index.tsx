@@ -28,7 +28,7 @@ const Dialog: React.FC<DialogProps> = ({
   }
 
   // check if content being passed in an array
-  if (typeof content === 'object') {
+  if (Array.isArray(content)) {
     contentToRender = (
       <ul className="dialog-list">
         {content.map(error => (

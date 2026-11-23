@@ -36,7 +36,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // check if the event referes to the checkbox
+    // check if the event refers to the checkbox
     if (e.target.name === 'open') {
       setOpenWorkspace(e.target.checked);
       // no need to continue
