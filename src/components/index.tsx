@@ -10,7 +10,6 @@ import CreateWorkspaceForm from './CreateWorkspaceForm';
 import Dialog from './Dialog';
 import EditChannelDescription from './EditChannelDescription';
 import EditChannelTopic from './EditChannelTopic';
-import Footer from './Footer';
 import Form from './Form';
 import Header from './Header';
 import Icon from './Icon';
@@ -46,7 +45,6 @@ export {
   Dialog,
   EditChannelDescription,
   EditChannelTopic,
-  Footer,
   Form,
   Header,
   Icon,

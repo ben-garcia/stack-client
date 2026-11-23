@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Button, Footer, Header, Image, Modal, Navbar, Text } from 'components';
+import { Button, Header, Image, Modal, Navbar, Text } from 'components';
 import logo from 'logo.svg';
 import { RegisterPage, LoginPage } from '..';
 import { LandingPageProps } from './types';
@@ -76,10 +76,6 @@ const LandingPage: React.FC<LandingPageProps> = () => {
           </Header>
         </section>
       </main>
-
-      <Footer>
-        <Text>Ben Garcia 2020</Text>
-      </Footer>
 
       {registerModalIsOpen && (
         <Modal
