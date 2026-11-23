@@ -57,22 +57,22 @@
     opacity: 0;
     z-index: 10;
 
-    &:focus~.checkbox-hack {
-      outline: 4px solid #4299e1;
+    &:focus ~ .checkbox-hack {
+      outline: 3px solid $color-focus-ring;
       outline-offset: 2px;
       box-shadow: rgba(8, 11, 14, 0.06) 0 0 1px 0, rgba(8, 11, 14, 0.1) 0 6px 6px -1px;
     }
 
-    &:checked~.checkbox-hack::before {
+    &:checked ~ .checkbox-hack::before {
       background-color: $background-color;
       transform: translateX(28px);
     }
 
-    &:checked~.checkbox-hack::after {
+    &:checked ~ .checkbox-hack::after {
       background-color: $primary-color;
     }
 
-    &:checked~.checkbox-hack .checkbox-hack__checkmark {
+    &:checked ~ .checkbox-hack .checkbox-hack__checkmark {
       opacity: 1;
     }
 

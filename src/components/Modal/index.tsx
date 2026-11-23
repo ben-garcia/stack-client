@@ -156,6 +156,7 @@ const Modal: React.FC<ModalProps> = ({
               />
             </Button>
           )}
+
           {header?.trim() !== '' && (
             <Header
               className="modal__header"
@@ -164,6 +165,7 @@ const Modal: React.FC<ModalProps> = ({
               modalId={modalId}
             />
           )}
+
           {React.Children.map(children, child => {
             if (React.isValidElement<any>(child)) {
               return React.cloneElement(child, { modalId });
