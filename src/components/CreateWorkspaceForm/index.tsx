@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
+import { Button, Form, Icon, Text } from 'components';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { clearChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
@@ -29,6 +30,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
     true
   );
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const nameInitialRef = useInitialFocus<HTMLInputElement>();
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
@@ -143,12 +145,13 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
       <Form onSubmit={handleSubmit}>
         <Form.Group flexDirection="column">
           <Form.Input
-            onChange={handleChange}
-            inputId="name"
-            type="text"
-            label="Name"
-            value={workspaceName}
             error={workspaceNameError}
+            label="Name"
+            inputId="name"
+            onChange={handleChange}
+            ref={nameInitialRef}
+            type="text"
+            value={workspaceName}
           />
 
           <Form.Checkbox

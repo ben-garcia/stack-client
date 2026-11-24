@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Text } from 'components';
 import { sendRequest } from 'api';
+import { Button, Form, Text } from 'components';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { updateChannelDescription } from 'store/channel';
 import { closeEditChannelDescriptionModal } from 'store/editChannelDescriptionModal';
@@ -20,6 +21,7 @@ const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
     user: state.user,
   }));
   const [description, setDescription] = useState<string>(value || '');
+  const channelDescriptionRef = useInitialFocus<HTMLTextAreaElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,6 +73,7 @@ const EditChannelDescription: React.FC<EditChannelDescriptionProps> = ({
       <textarea
         className="form__textarea"
         onChange={handleChange}
+        ref={channelDescriptionRef}
         value={description}
       />
       <Button type="submit">Update description</Button>

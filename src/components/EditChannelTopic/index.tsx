@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Text } from 'components';
 import { sendRequest } from 'api';
+import { Button, Form, Text } from 'components';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { updateChannelTopic } from 'store/channel';
 import { closeEditChannelTopicModal } from 'store/editChannelTopicModal';
@@ -20,6 +21,7 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
     user: state.user,
   }));
   const [topic, setTopic] = useState<string>(value || '');
+  const editChannelTopicRef = useInitialFocus<HTMLTextAreaElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,6 +73,7 @@ const EditChannelTopic: React.FC<EditChannelTopicProps> = ({
       <textarea
         className="form__textarea"
         onChange={handleChange}
+        ref={editChannelTopicRef}
         value={topic}
       />
       <Button type="submit">Set topic</Button>

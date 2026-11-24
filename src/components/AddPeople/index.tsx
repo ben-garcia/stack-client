@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { closeAddPeopleModal } from 'store/addPeopleModal';
 import { openInvitePeopleModal } from 'store/invitePeopleModal';
@@ -32,6 +33,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
   // list of the possible teammates that can be added to the channel
   // starts by being the same as teammates
   const [membersToAdd, setMembersToAdd] = useState<Teammate[]>(teammates);
+  const initialFocusRef = useInitialFocus<HTMLButtonElement>();
 
   // determine the teammates that are available to add as members
   // that is, teammates that aren't already members of the channel
@@ -91,7 +93,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
         </Text>
       </Text>
       <div className="form__inner">
-        {membersToAdd.map((t: Teammate) => {
+        {membersToAdd.map((t, i) => {
           const active = usernames.includes(t.username);
           return (
             <Button
@@ -110,6 +112,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
                   setUsernames([...usernames, t.username]);
                 }
               }}
+              ref={i === 0 ? initialFocusRef : undefined}
             >
               {t.username}
               <Icon
@@ -122,6 +125,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
           );
         })}
       </div>
+
       <Text className="form__message" size="xm">
         To add a teammate, who is not on Stack, you will need to
         <Button
@@ -136,6 +140,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
           invite them first
         </Button>
       </Text>
+
       <Button
         className="form__submit-button"
         type="submit"

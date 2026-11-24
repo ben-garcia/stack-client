@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
+import { Button, Form, Icon, Text } from 'components';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { emailSchema, usernameSchema, passwordSchema } from './utils';
 import { RegisterPageProps, User, UserErrors } from './types';
 import './styles.scss';
@@ -24,6 +25,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
   });
   const [buttonIsDisabled, setButtonIsDisabled] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const emailInitialRef = useInitialFocus<HTMLInputElement>();
 
   /**
    *
@@ -245,27 +247,31 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
         >
           Create you account.
         </Text>
+
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
+            error={errors.email}
             className="form-input"
+            inputId="email"
+            label="email"
             onChange={handleChange}
             onBlur={handleBlur}
-            inputId="email"
+            ref={emailInitialRef}
             type="email"
-            label="email"
             value={user.email}
-            error={errors.email}
           />
+
           <Form.Input
             className="form-input"
+            error={errors.username}
+            inputId="username"
+            label="username"
             onChange={handleChange}
             onBlur={handleBlur}
-            inputId="username"
             type="text"
-            label="username"
             value={user.username}
-            error={errors.username}
           />
+
           <Form.Input
             className="form-input"
             onChange={handleChange}
@@ -277,9 +283,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
             error={errors.password}
           />
         </Form.Group>
+
         <Button
-          color="transparent"
           className="register-page__test-account-button"
+          color="transparent"
           onClick={() => {
             setRegisterModalIsOpen(false);
             setLoginModalIsOpen(true);
@@ -288,6 +295,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({
         >
           Login using a test account!
         </Button>
+
         <Button type="submit" disabled={buttonIsDisabled && !isSubmitting}>
           {isSubmitting ? (
             <Icon color="white" isLoading size="sm" type="spinner" />

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { sendRequest } from 'api';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { Button, Form, Icon, Text } from 'components';
 import { userLoggedIn } from 'store/user';
 import { requestUserWorkspaces } from 'store/workspaces';
@@ -26,6 +27,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
     response: [],
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const emailInitialRef = useInitialFocus<HTMLInputElement>();
   const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,29 +131,33 @@ const LoginPage: React.FC<LoginPageProps> = ({
         >
           Enter your email and password.
         </Text>
+
         <Form.Group className="form-group" flexDirection="column">
           <Form.Input
             className="form-input"
-            onChange={handleChange}
-            inputId="email"
-            type="email"
-            label="email"
-            value={user.email}
             error={errors.email}
+            inputId="email"
+            label="email"
+            onChange={handleChange}
+            ref={emailInitialRef}
+            type="email"
+            value={user.email}
           />
+
           <Form.Input
             className="form-input"
-            onChange={handleChange}
-            inputId="password"
-            type="password"
-            label="password"
-            value={user.password}
             error={errors.password}
+            inputId="password"
+            label="password"
+            onChange={handleChange}
+            value={user.password}
+            type="password"
           />
         </Form.Group>
+
         <Button
-          color="transparent"
           className="login-page__need-account-button"
+          color="transparent"
           onClick={() => {
             setLoginModalIsOpen(false);
             setRegisterModalIsOpen(true);
@@ -160,18 +166,21 @@ const LoginPage: React.FC<LoginPageProps> = ({
         >
           Dont have an account yet?
         </Button>
+
         <div className="login-page__testing-accounts">
           <div className="stackguest">
             <Text>Test Account 1</Text>
             <Text size="sm">email: stackguest@stack.com</Text>
             <Text size="sm">password: stackguest</Text>
           </div>
+
           <div className="stacktestuser">
             <Text>Test Account 2</Text>
             <Text size="sm">email: stacktestuser@stack.com</Text>
             <Text size="sm">password: stacktestuser</Text>
           </div>
         </div>
+
         <Button type="submit">
           {isSubmitting ? (
             <Icon color="white" isLoading size="sm" type="spinner" />

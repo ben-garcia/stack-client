@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, FocusEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Button, Form, Icon, Text } from 'components';
 import { sendRequest } from 'api';
+import { Button, Form, Icon, Text } from 'components';
+import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { addChannel } from 'store/channels';
@@ -15,7 +16,7 @@ import { Teammate } from 'store/teammates';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
 import './styles.scss';
 
-const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
+const CreateChannelForm: FC<CreateChannelFormProps> = ({
   createChannelFormIsOpen,
   modalId = undefined,
 }) => {
@@ -46,10 +47,11 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
   });
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const nameInputRef = useInitialFocus<HTMLInputElement>();
 
   // TODO: move 'handle' functions to a seperate file so that it's easier to
-  // // mock then during testing
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  // mock then during testing
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value === '') {
       setErrors({
         ...errors,
@@ -57,7 +59,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
       });
     }
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     // check if the event referes to the checkbox
     if (e.target.name === 'private') {
       setChannel({
@@ -95,7 +97,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setIsSubmitting(true);
@@ -209,14 +211,16 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
       <Form onSubmit={handleSubmit}>
         <Form.Group flexDirection="column">
           <Form.Input
+            error={errors.name}
+            inputId="name"
+            label="Name"
             onBlur={handleBlur}
             onChange={handleChange}
-            inputId="name"
+            ref={nameInputRef}
             type="text"
-            label="Name"
             value={channel.name}
-            error={errors.name}
           />
+
           <Form.Input
             onBlur={handleBlur}
             onChange={handleChange}
@@ -226,6 +230,7 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
             value={channel.description}
             error={errors.description}
           />
+
           <Form.Checkbox
             onChange={handleChange}
             inputId="private"
@@ -233,14 +238,17 @@ const CreateChannelForm: React.FC<CreateChannelFormProps> = ({
             value={`${channel.private}`}
           />
         </Form.Group>
+
         <Text className="create-channel__message">
           When a channel is set to private, it can only be viewed or joined by
           invitation.
         </Text>
+
         <Text className="create-channel__message">
           When a channel is set to public, ALL teammates will be added as
           members of the channel.
         </Text>
+
         <Button type="submit" disabled={disableButton && !isSubmitting}>
           {isSubmitting ? (
             <Icon color="white" isLoading size="sm" type="spinner" />
