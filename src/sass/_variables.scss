@@ -15,19 +15,16 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 998px;
 $breakpoint-xlg: 1200px;
-
 $primary-color: #3f0e40;
 $primary-color-hover: #350d36;
-$background-color: rgb(255, 255, 255);
-$color-black: rgb(0, 0, 0);
+$background-color: rgb(255 255 255);
+$color-black: rgb(0 0 0);
 $color-dark-grey: #616061;
 $color-green: #2bac76;
 $color-blue-active: #1164a3;
-$color-white-hover: rgba(207, 195, 207, 0.2);
+$color-white-hover: rgb(207 195 207 / 20%);
 $color-alert: red;
 $color-focus-ring: #4299e1;
-
 $border-line: 1px solid #ccc;
-
-$font-header: Coolvetica, Helvetica sans-serif;
-$font-text: ChampagneLimousines, sans-serif;
+$font-header: coolvetica, helvetica sans-serif;
+$font-text: champagnelimousines, sans-serif;

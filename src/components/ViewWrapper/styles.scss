@@ -6,10 +6,6 @@
   padding-left: 0.8rem;
   width: 100%;
 
-  .view-wrapper__details {
-    min-width: 300px;
-  }
-
   /* desktop */
   @media screen and (min-width: $breakpoint-md) {
     .channel-view__details {
@@ -29,13 +25,10 @@
   }
 
   /* phone */
-  @media screen and (min-width: 0) and (max-width: $breakpoint-sm) {
+  @media screen and (width >=0) and (max-width: $breakpoint-sm) {
     .view-wrapper__details {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
+      inset: 0;
     }
   }
 
@@ -52,13 +45,14 @@
 
     &__details {
       background-color: $background-color;
+      min-width: 300px;
     }
   }
-}
 
-.center-items {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-top: 5rem;
+  .center-items {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+  }
 }

@@ -1,12 +1,12 @@
-@import '../../sass/variables.scss';
-@import '../../sass/mixins.scss';
+@import '../../sass/variables';
+@import '../../sass/mixins';
 
 .landing-page {
   background-color: #fff;
 
   &__nav {
     padding: 0 11.5rem;
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0;
 
     @include media-query($breakpoint-xlg) {
       padding: 0 0 0 2rem;
@@ -18,7 +18,7 @@
   }
 
   .header-hero {
-    background-image: url(../../hero.svg);
+    background-image: url("../../hero.svg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 75vmin;

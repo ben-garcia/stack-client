@@ -31,11 +31,11 @@
   width: 100%;
 
   &--light {
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgb(255 255 255 / 45%);
   }
 
   &--dark {
-    background-color: rgba(137, 136, 137, 1);
+    background-color: rgb(137 136 137 / 100%);
   }
 
   &--invisible {
