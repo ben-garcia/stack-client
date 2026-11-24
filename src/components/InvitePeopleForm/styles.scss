@@ -34,7 +34,7 @@
       margin-right: 0.3rem;
     }
 
-    &:hover .invite-people-form__plus-icon {
+    &:hover:not(:disabled) .invite-people-form__plus-icon {
       border-color: $color-dark-grey;
     }
 

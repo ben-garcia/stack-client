@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -32,6 +32,8 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
     'username-1': '',
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  // References for all rendered inputs.
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -138,6 +140,16 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
     });
   };
 
+  useEffect(() => {
+    const { length } = Object.values(values);
+
+    inputRefs.current = inputRefs.current.slice(0, length);
+    // Using setTimeout here to focus the initial input.
+    setTimeout(() => {
+      inputRefs.current[length - 1]!.focus();
+    }, 0);
+  }, [values]);
+
   return (
     <div className="invite-people-form">
       <Text
@@ -149,7 +161,7 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
       <Form onSubmit={handleSubmit}>
         <Form.Group className="invite-people-form__group">
           {usernames.map(
-            (u: Username) =>
+            (u: Username, index: number) =>
               u.visible && (
                 <div
                   key={`${u.key}--${u.id}`}
@@ -157,10 +169,13 @@ const InvitePeopleForm: React.FC<InvitePeopleFormProps> = ({
                 >
                   <Form.Input
                     inputId={`username-${u.id}`}
-                    type="text"
                     label="Username"
-                    value={values[`username-${u.id}`]}
                     onChange={handleChange}
+                    ref={el => {
+                      inputRefs.current[index] = el;
+                    }}
+                    type="text"
+                    value={values[`username-${u.id}`]}
                   />
                   <Button
                     type="button"
