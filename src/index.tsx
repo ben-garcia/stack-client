@@ -16,9 +16,8 @@ const composeEnhancers =
     // eslint-disable-next-line
     !(window as any).Cypress &&
     // eslint-disable-next-line
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__) ||
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
-
 const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(sagaMiddleware))
