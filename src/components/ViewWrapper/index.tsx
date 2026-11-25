@@ -32,7 +32,7 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
     currentWorkspace: state.currentWorkspace,
     directMessages: state.directMessages,
     messages: state.messages,
-    workspaces: state.workspaces.list,
+    workspaces: state.workspaces,
   }));
   let classesToAdd: string = 'main-container';
 
@@ -52,7 +52,7 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
         >
           <div style={{ height: '100%' }}>
             {/* When the user has no workspaces. */}
-            {workspaces.length === 0 ? (
+            {workspaces.list.length === 0 && workspaces.isLoading ? (
               <header className="center-items">
                 <h1 className="visually-hidden">Workspace Home</h1>
                 <Text tag="p">{`You don't have any workspaces yet!`}</Text>
