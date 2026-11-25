@@ -22,15 +22,30 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
       teammates: state.teammates,
     })
   );
-  let classesToAdd: string = 'workspace-sidebar';
-
-  if (className?.trim() !== '') {
-    classesToAdd += ` ${className}`;
-  }
+  const classesToAdd = ['workspace-sidebar', className.trim()]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <nav aria-label="Workspace Navigation" className={classesToAdd}>
-      {!channels.isLoading || !teammates.isLoading ? (
+      {channels.isLoading || teammates.isLoading ? (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '15px',
+            height: '100%',
+          }}
+        >
+          <Placeholder
+            height="40px"
+            color="light"
+            numberOfTags={1}
+            type="info"
+          />
+          <Placeholder color="light" numberOfTags={2} type="list" />
+        </div>
+      ) : (
         <>
           <Workspace />
 
@@ -41,13 +56,6 @@ const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({
             </Scrollbar>
           ) : null}
         </>
-      ) : (
-        <Placeholder
-          className="workspace-left-margin"
-          color="light"
-          numberOfTags={2}
-          type="list"
-        />
       )}
     </nav>
   );

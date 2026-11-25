@@ -65,9 +65,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
   // on mobile.
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-  console.log(workspaces.list.length);
-  console.log(workspaces.isLoading);
-
   useEffect(() => {
     if (isPhone) {
       dispatch(viewportIsPhone());
@@ -198,7 +195,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           <WorkspaceSidebar className="dashboard__sidebar" />
 
           {/* Sidebar close button for mobile devices. */}
-          {!isDesktop ? (
+          {!isDesktop && (
             <Button
               ariaLabel="Close the sidebar"
               className="mobile-close-button"
@@ -208,7 +205,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             >
               <Icon color="white" size="sm" type="times" />
             </Button>
-          ) : null}
+          )}
         </div>
 
         <ViewWrapper className="dashboard__main" />

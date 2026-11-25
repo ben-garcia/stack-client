@@ -63,7 +63,7 @@ const Placeholder: React.FC<PlaceholderProps> = ({
         {arr.map(index => (
           <div
             className="p-list__wrapper"
-            style={{ height: `${(1 / numberOfTags) * 100}%` }}
+            style={{ height: '20%' }}
             key={index}
           >
             <div className={`horizontal-bar placeholder--${color}`} />
