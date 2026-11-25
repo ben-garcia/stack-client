@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -12,11 +12,14 @@ import {
   Text,
   WorkspaceInfo,
 } from 'components';
+import useMediaQuery from 'hooks/useMediaQuery';
 import { AppState } from 'store';
 import { ViewWrapperProps } from './types';
 import './styles.scss';
 
-const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
+// FIXME: name is too generic, need a more descriptive name.
+const ViewWrapper: FC<ViewWrapperProps> = ({ className = '' }) => {
+  const isDesktop = useMediaQuery('(min-width: 998px)');
   const {
     channelDetails,
     currentChannel,
@@ -34,11 +37,28 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
     messages: state.messages,
     workspaces: state.workspaces,
   }));
-  let classesToAdd: string = 'main-container';
 
-  if (className?.trim() !== '') {
-    classesToAdd += ` ${className}`;
-  }
+  const classesToAdd = ['main-container', className?.trim()]
+    .filter(Boolean)
+    .join(' ');
+
+  const hasWorkspace = currentWorkspace.id !== 0;
+  const isChannelView =
+    hasWorkspace && currentChannel.id !== 0 && currentTeammate.id === 0;
+  const isTeammateView =
+    hasWorkspace && currentTeammate.id !== 0 && currentChannel.id === 0;
+  const hasConversation = isChannelView || isTeammateView;
+  // Tracks whether mesasages are being fetched from api.
+  const isLoadingConversation =
+    (isChannelView && messages.isLoading) ||
+    (isTeammateView && directMessages.isLoading);
+
+  // eslint-disable-next-line
+  const activeMessageCount = isChannelView
+    ? messages.list.length
+    : isTeammateView
+    ? directMessages.list.length
+    : 0;
 
   return (
     <main className={classesToAdd} id="main-content" tabIndex={-1}>
@@ -52,26 +72,24 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
         >
           <div style={{ height: '100%' }}>
             {/* When the user has no workspaces. */}
-            {workspaces.list.length === 0 && workspaces.isLoading ? (
+            {!workspaces.isLoading && workspaces.list.length === 0 && (
               <header className="center-items">
                 <h1 className="visually-hidden">Workspace Home</h1>
-                <Text tag="p">{`You don't have any workspaces yet!`}</Text>
+                <Text tag="p">You don&apos;t have any workspaces yet!</Text>
               </header>
-            ) : null}
+            )}
 
             {/* When there is no workspace selected. */}
-            {currentWorkspace.id === 0 ? (
-              <header className="center-items">
-                <h1 className="visually-hidden">Workspace Home</h1>
-                <Text tag="p">Select a workspace to get started.</Text>
-              </header>
-            ) : null}
+            {!hasWorkspace &&
+              (workspaces.isLoading || workspaces.list.length > 0) && (
+                <header className="center-items">
+                  <h1 className="visually-hidden">Workspace Home</h1>
+                  <Text tag="p">Select a workspace to get started.</Text>
+                </header>
+              )}
 
             {/* When there is no channel or teammate selected. */}
-            {(messages.list.length === 0 || directMessages.list.length === 0) &&
-            currentWorkspace.id !== 0 &&
-            currentTeammate.id === 0 &&
-            currentChannel.id === 0 ? (
+            {hasWorkspace && !hasConversation && (
               <header className="center-items">
                 <h1 className="visually-hidden">Workspace Home</h1>
                 <Text tag="p">
@@ -79,34 +97,32 @@ const ViewWrapper: React.FC<ViewWrapperProps> = ({ className = '' }) => {
                   chatting.
                 </Text>
               </header>
-            ) : null}
+            )}
 
-            {currentChannel.id !== 0 && currentTeammate.id === 0 ? (
-              <ChannelView />
-            ) : null}
+            {isChannelView && <ChannelView />}
+            {isTeammateView && <TeammateView />}
 
-            {currentTeammate.id !== 0 && currentChannel.id === 0 ? (
-              <TeammateView />
-            ) : null}
-
-            {(directMessages.list.length > 0 && directMessages.isLoading) ||
-            (messages.list.length > 0 && messages.isLoading) ? (
-              <Placeholder color="dark" numberOfTags={4} type="message" />
-            ) : (
-              (currentChannel.id !== 0 ||
-                (currentTeammate.id !== 0 && currentWorkspace.id !== 0)) && (
-                <MessageList />
-              )
+            {hasConversation && (
+              <>
+                {isLoadingConversation && activeMessageCount === 0 && (
+                  // User feedback to let them know the messages are being fetched.
+                  <Placeholder
+                    color="dark"
+                    numberOfTags={isDesktop ? 4 : 2}
+                    type="message"
+                  />
+                )}
+                {activeMessageCount > 0 && <MessageList />}
+              </>
             )}
           </div>
         </Scrollbar>
 
-        {(currentChannel.id && !currentTeammate.id) ||
-        (currentTeammate.id && !currentChannel.id) ? (
+        {hasConversation && (
           <div className="view-wrapper__message">
             <CreateMessage />
           </div>
-        ) : null}
+        )}
       </section>
 
       {channelDetails.isOpen && (

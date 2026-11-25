@@ -5,27 +5,20 @@ import './styles.scss';
 
 const Placeholder: React.FC<PlaceholderProps> = ({
   className = '',
-  color,
+  color = 'dark',
   height = '',
   numberOfTags = 1,
   type,
   width = '',
 }) => {
-  let classesToAdd: string = 'placeholder';
+  const classesToAdd = ['placeholder', className.trim()]
+    .filter(Boolean)
+    .join(' ');
   let jsxToRender: React.ReactNode;
   const styles = { height: '', width: '' };
 
-  if (className.trim() !== '') {
-    classesToAdd += ` ${className}`;
-  }
-
-  if (height.trim() !== '') {
-    styles.height = height;
-  }
-
-  if (width.trim() !== '') {
-    styles.width = width;
-  }
+  if (height.trim() !== '') styles.height = height;
+  if (width.trim() !== '') styles.width = width;
 
   // used to get the number of tags to render
   const arr: number[] = [];
@@ -36,11 +29,11 @@ const Placeholder: React.FC<PlaceholderProps> = ({
   if (type === 'message') {
     jsxToRender = (
       <div className="placeholder__message p-message">
-        {arr.map(() => (
+        {arr.map(index => (
           <div
             className="p-message__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
-            key={Math.random()}
+            key={index}
           >
             <div className={`p-message__date placeholder--${color}`} />
             <div className="p-message__inner">
@@ -67,11 +60,11 @@ const Placeholder: React.FC<PlaceholderProps> = ({
   } else if (type === 'list') {
     jsxToRender = (
       <div className="placeholder__list p-list">
-        {arr.map(() => (
+        {arr.map(index => (
           <div
             className="p-list__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
-            key={Math.random()}
+            key={index}
           >
             <div className={`horizontal-bar placeholder--${color}`} />
             <div
@@ -96,11 +89,11 @@ const Placeholder: React.FC<PlaceholderProps> = ({
   } else {
     jsxToRender = (
       <div className="placeholder__info p-info">
-        {arr.map(() => (
+        {arr.map(index => (
           <div
             className="p-info__wrapper"
             style={{ height: `${(1 / numberOfTags) * 100}%` }}
-            key={Math.random()}
+            key={index}
           >
             <div
               className={`horizontal-bar horizontal-bar--extended horizontal-bar--block placeholder--${color}`}
