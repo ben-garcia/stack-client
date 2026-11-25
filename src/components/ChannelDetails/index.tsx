@@ -56,7 +56,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
     }
 
     return () => {
-      viewWrapper!.inert = false;
+      if (!isDesktop) viewWrapper!.inert = false;
       // NOTE: As it's currently implemented, the show details button is
       //       removed from the DOM when thsi components is mounted.
       //       To solve this, a setTimeout is used to wait for the button
