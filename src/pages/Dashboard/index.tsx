@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector, useStore } from 'react-redux';
 
 import {
   Button,
@@ -42,14 +42,17 @@ const Dashboard: React.FC<DashboardProps> = () => {
     mobileSidebarIsOpen,
     user,
     workspaces,
-  } = useSelector((state: AppState) => ({
-    currentChannel: state.currentChannel,
-    currentTeammate: state.currentTeammate,
-    channels: state.channels,
-    mobileSidebarIsOpen: state.mobileSidebarIsOpen,
-    user: state.user,
-    workspaces: state.workspaces,
-  }));
+  } = useSelector(
+    (state: AppState) => ({
+      currentChannel: state.currentChannel,
+      currentTeammate: state.currentTeammate,
+      channels: state.channels,
+      mobileSidebarIsOpen: state.mobileSidebarIsOpen,
+      user: state.user,
+      workspaces: state.workspaces,
+    }),
+    shallowEqual
+  );
   const dispatch = useDispatch();
   const history = useHistory();
   // Reference to the close button on the sidebar, when on mobile,
@@ -61,6 +64,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
   // Reference to the sidebar wrapper, used to set inert property when
   // on mobile.
   const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+  console.log(workspaces.list.length);
+  console.log(workspaces.isLoading);
 
   useEffect(() => {
     if (isPhone) {
@@ -174,15 +180,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
           }
           ref={sidebarRef}
         >
-          {workspaces.list.length > 0 && !workspaces.isLoading ? (
+          {workspaces.isLoading ? (
+            <div style={{ minWidth: '30px', width: '60px' }}>
+              <Placeholder
+                color="light"
+                numberOfTags={isDesktop ? 6 : 3}
+                type="info"
+              />
+            </div>
+          ) : (
             <WorkspaceList
               className="dashboard__workspace-list"
               workspaces={workspaces.list}
             />
-          ) : (
-            <div>
-              <Placeholder color="light" numberOfTags={5} type="info" />
-            </div>
           )}
 
           <WorkspaceSidebar className="dashboard__sidebar" />
