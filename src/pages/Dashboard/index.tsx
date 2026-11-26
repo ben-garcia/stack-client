@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { shallowEqual, useDispatch, useSelector, useStore } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import {
   Button,
@@ -32,7 +32,7 @@ import { DashboardProps } from './types';
 import './styles.scss';
 
 const Dashboard: React.FC<DashboardProps> = () => {
-  const store = useStore();
+  const hasReloaded = useRef(false);
   const isPhone = useMediaQuery('(min-width: 0) and (max-width: 576px)');
   const isTablet = useMediaQuery('(min-width: 576px) and (max-width: 998px)');
   const isDesktop = useMediaQuery('(min-width: 998px)');
@@ -40,6 +40,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     currentChannel,
     currentTeammate,
     mobileSidebarIsOpen,
+    teammates,
     user,
     workspaces,
   } = useSelector(
@@ -48,6 +49,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       currentTeammate: state.currentTeammate,
       channels: state.channels,
       mobileSidebarIsOpen: state.mobileSidebarIsOpen,
+      teammates: state.teammates.list,
       user: state.user,
       workspaces: state.workspaces,
     }),
@@ -76,8 +78,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
     }
   }, [isPhone, isTablet, isDesktop]);
 
-  // set up redux store via localStorage on page reload
-  if (!user.isLoggedIn) {
+  useEffect(() => {
+    // set up redux store via localStorage on page reload
+    if (user.isLoggedIn) return;
+
+    hasReloaded.current = true;
+
     const userFromLocalStorage = localStorage.getItem('user');
     const teammateFromLocalStorage = localStorage.getItem('currentTeammate');
     const workspaceFromLocalStorage = localStorage.getItem('currentWorkspace');
@@ -122,19 +128,20 @@ const Dashboard: React.FC<DashboardProps> = () => {
       dispatch(getCurrentChannel(channel));
       // dispatch action to update the current channel's topic
       dispatch(updateChannelTopic(channel.topic));
-      // make sure that workspace teammates have been received
-      const interval = setInterval(() => {
-        const { teammates } = store.getState();
-        if (teammates.list.length > 0) {
-          // dispatch action to get the current channel's members
-          dispatch(requestChannelMembers());
-          // dispatch action to get the current channel's messages
-          dispatch(requestChannelMessages());
-          clearInterval(interval);
-        }
-      }, 100);
     }
-  }
+  }, []);
+
+  // make sure that workspace teammates have been received
+  useEffect(() => {
+    if (!hasReloaded.current && teammates.length > 0) return;
+
+    // dispatch action to get the current channel's members
+    dispatch(requestChannelMembers());
+    // dispatch action to get the current channel's messages
+    dispatch(requestChannelMessages());
+
+    hasReloaded.current = false;
+  }, [hasReloaded.current, teammates.length]);
 
   useEffect(() => {
     // Remove mobile sidebar from the tab order when it's closed.
