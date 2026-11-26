@@ -11,7 +11,7 @@ import {
   closeInvitePeopleModal,
 } from 'store/invitePeopleModal';
 import { requestUserDirectMessages } from 'store/directMessages';
-import { clearMessages } from 'store/messages';
+import { clearChannelMessages } from 'store/channelMessages';
 import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { Teammate } from 'store/teammates/types';
@@ -62,7 +62,7 @@ const TeammatesList: React.FC<TeammatesListProps> = ({ className = '' }) => {
       })
     );
     // dispatch action to clear all channel messages
-    dispatch(clearMessages());
+    dispatch(clearChannelMessages());
     // dispatch action to get the direct messages the
     // user has with a particular teammate
     dispatch(requestUserDirectMessages());

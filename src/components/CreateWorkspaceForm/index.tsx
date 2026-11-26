@@ -8,7 +8,7 @@ import useInitialFocus from 'hooks/useInitialFocus';
 import { AppState } from 'store';
 import { clearChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
-import { clearMessages } from 'store/messages';
+import { clearChannelMessages } from 'store/channelMessages';
 import { clearTeammates, requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
 import { addWorkspace } from 'store/workspaces';
@@ -84,7 +84,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
             // remove the list of teammates from the previous workspace
             dispatch(clearTeammates());
             // remove the current messages(if any) from the previous workspace
-            dispatch(clearMessages());
+            dispatch(clearChannelMessages());
             // remove the current direct messages(if any) from the previous workspace
             dispatch(clearDirectMessages());
           }
@@ -119,7 +119,7 @@ const CreateWorkspaceForm: React.FC<CreateWorkspaceFormProps & {
             // get the list of teammates(which is only the user)
             dispatch(requestWorkspaceTeammates());
             // remove the current messages(if any) from the previous workspace
-            dispatch(clearMessages());
+            dispatch(clearChannelMessages());
             // remove the current direct messages(if any) from the previous workspace
             dispatch(clearDirectMessages());
           }

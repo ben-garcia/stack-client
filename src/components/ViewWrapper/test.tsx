@@ -9,7 +9,7 @@ import { channelDetailsReducer } from 'store/channelDetails';
 import { directMessagesReducer } from 'store/directMessages';
 import { editChannelDescriptionModalReducer } from 'store/editChannelDescriptionModal';
 import { membersReducer } from 'store/members';
-import { messagesReducer } from 'store/messages';
+import { channelMessagesReducer } from 'store/channelMessages';
 import { teammateReducer } from 'store/teammate';
 import { teammatesReducer } from 'store/teammates';
 import { userReducer } from 'store/user';
@@ -53,7 +53,7 @@ describe('<ViewWrapper />', () => {
     directMessages: directMessagesReducer,
     editChannelDescriptionModalIsOpen: editChannelDescriptionModalReducer,
     members: membersReducer,
-    messages: messagesReducer,
+    messages: channelMessagesReducer,
     user: userReducer,
     teammates: teammatesReducer,
     viewport: viewportReducer,

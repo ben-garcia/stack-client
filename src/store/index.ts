@@ -24,10 +24,10 @@ import {
   getAllCurrentChannelMembers,
 } from './members';
 import {
-  messagesReducer,
-  MessagesActions,
+  channelMessagesReducer,
+  ChannelMessagesActions,
   getAllChannelMessages,
-} from './messages';
+} from './channelMessages';
 import { mobileSidebarReducer } from './mobileSidebar';
 import { teammateReducer } from './teammate';
 import {
@@ -46,17 +46,17 @@ import {
 
 export const rootReducer = combineReducers({
   addPeopleModalIsOpen: addPeopleModalReducer,
+  channels: channelsReducer,
+  channelDetails: channelDetailsReducer,
+  channelMessages: channelMessagesReducer,
   currentChannel: channelReducer,
   currentTeammate: teammateReducer,
   currentWorkspace: workspaceReducer,
-  channels: channelsReducer,
-  channelDetails: channelDetailsReducer,
   directMessages: directMessagesReducer,
   editChannelDescriptionModalIsOpen: editChannelDescriptionModalReducer,
   editChannelTopicModalIsOpen: editChannelTopicModalReducer,
   invitePeopleModalIsOpen: invitePeopleModalReducer,
   members: membersReducer,
-  messages: messagesReducer,
   mobileSidebarIsOpen: mobileSidebarReducer,
   teammates: teammatesReducer,
   user: userReducer,
@@ -79,7 +79,7 @@ export function* rootSaga() {
   );
 
   yield takeLatest(
-    MessagesActions.REQUEST_CHANNEL_MESSAGES,
+    ChannelMessagesActions.REQUEST_CHANNEL_MESSAGES,
     getAllChannelMessages
   );
 

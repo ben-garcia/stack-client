@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Icon, Text } from 'components';
 import { AppState } from 'store';
 import { DirectMessage } from 'store/directMessages';
-import { ChannelMessage } from 'store/messages';
+import { ChannelMessage } from 'store/channelMessages';
 import { getTime, printFormattedDate } from 'utils';
 import './styles.scss';
 
@@ -16,7 +16,7 @@ type RenderMessage = ChatMessage & {
 const MessageList: React.FC = () => {
   const { channelMessages, directMessages, user, members } = useSelector(
     (state: AppState) => ({
-      channelMessages: state.messages.list,
+      channelMessages: state.channelMessages.list,
       currentChannel: state.currentChannel,
       currentTeammate: state.currentTeammate,
       directMessages: state.directMessages.list,

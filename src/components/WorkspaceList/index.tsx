@@ -7,7 +7,7 @@ import { AppState } from 'store';
 import { getCurrentChannel } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
-import { clearMessages } from 'store/messages';
+import { clearChannelMessages } from 'store/channelMessages';
 import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
 import { getCurrentWorkspace } from 'store/workspace';
@@ -70,7 +70,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
     dispatch(requestWorkspaceTeammates());
     // Clear all messages
     dispatch(clearDirectMessages());
-    dispatch(clearMessages());
+    dispatch(clearChannelMessages());
   };
 
   return (

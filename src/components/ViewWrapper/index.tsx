@@ -22,11 +22,11 @@ const ViewWrapper: FC<ViewWrapperProps> = ({ className = '' }) => {
   const isDesktop = useMediaQuery('(min-width: 998px)');
   const {
     channelDetails,
+    channelMessages,
     currentChannel,
     currentTeammate,
     currentWorkspace,
     directMessages,
-    messages,
     workspaces,
   } = useSelector((state: AppState) => ({
     channelDetails: state.channelDetails,
@@ -34,7 +34,7 @@ const ViewWrapper: FC<ViewWrapperProps> = ({ className = '' }) => {
     currentTeammate: state.currentTeammate,
     currentWorkspace: state.currentWorkspace,
     directMessages: state.directMessages,
-    messages: state.messages,
+    channelMessages: state.channelMessages,
     workspaces: state.workspaces,
   }));
 
@@ -50,12 +50,12 @@ const ViewWrapper: FC<ViewWrapperProps> = ({ className = '' }) => {
   const hasConversation = isChannelView || isTeammateView;
   // Tracks whether mesasages are being fetched from api.
   const isLoadingConversation =
-    (isChannelView && messages.isLoading) ||
+    (isChannelView && channelMessages.isLoading) ||
     (isTeammateView && directMessages.isLoading);
 
   // eslint-disable-next-line
   const activeMessageCount = isChannelView
-    ? messages.list.length
+    ? channelMessages.list.length
     : isTeammateView
     ? directMessages.list.length
     : 0;

@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import { messagesReducer } from 'store/messages';
+import { channelMessagesReducer } from 'store/channelMessages';
 
 import MessageList from '.';
 
@@ -25,7 +25,7 @@ describe('<MessageList />', () => {
     members: { list: [{}] },
     user: { color: 'black', username: 'user123' },
   };
-  const store = createStore(messagesReducer, mockState as any);
+  const store = createStore(channelMessagesReducer, mockState as any);
   const mountComponent = (mockStore = store): ReactWrapper =>
     mount(
       <Provider store={mockStore}>
@@ -49,7 +49,10 @@ describe('<MessageList />', () => {
 
   it('should render empty <ul> tag when there are no messages', () => {
     const newMockState = { ...mockState, messages: { list: [] } };
-    const newMockstore = createStore(messagesReducer, newMockState as any);
+    const newMockstore = createStore(
+      channelMessagesReducer,
+      newMockState as any
+    );
     const newWrapper = mountComponent(newMockstore);
     const ulWrapper: ReactWrapper = newWrapper.find('ul.message-list');
     expect(ulWrapper.text()).toBe('');
@@ -83,7 +86,10 @@ describe('<MessageList />', () => {
       messages: { list: [] },
       directMessages: mockState.messages,
     };
-    const newMockstore = createStore(messagesReducer, newMockState as any);
+    const newMockstore = createStore(
+      channelMessagesReducer,
+      newMockState as any
+    );
     const newWrapper = mountComponent(newMockstore);
 
     const receivedDateCreated = newWrapper.find('span.message__date-created');

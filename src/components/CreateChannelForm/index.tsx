@@ -10,7 +10,7 @@ import { getCurrentChannel } from 'store/channel';
 import { addChannel } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { addMember, clearMembers } from 'store/members';
-import { clearMessages } from 'store/messages';
+import { clearChannelMessages } from 'store/channelMessages';
 import { getCurrentTeammate } from 'store/teammate';
 import { Teammate } from 'store/teammates';
 import { Channel, ChannelErrors, CreateChannelFormProps } from './types';
@@ -25,14 +25,14 @@ const CreateChannelForm: FC<CreateChannelFormProps> = ({
     currentTeammate,
     currentWorkspace,
     directMessages,
-    messages,
+    channelMessages,
     teammates,
     user,
   } = useSelector((state: AppState) => ({
     currentTeammate: state.currentTeammate,
     currentWorkspace: state.currentWorkspace,
     directMessages: state.directMessages.list,
-    messages: state.messages.list,
+    channelMessages: state.channelMessages.list,
     teammates: state.teammates.list,
     user: state.user,
   }));
@@ -139,7 +139,7 @@ const CreateChannelForm: FC<CreateChannelFormProps> = ({
           // dispatch action to remove all current members
           dispatch(clearMembers());
           // dispatch action to remove all messages
-          dispatch(clearMessages());
+          dispatch(clearChannelMessages());
           // dispatch action to add newly created channel to the store.
           dispatch(addChannel(newChannel));
           // dispatch action to change the current channel in the store
@@ -164,8 +164,8 @@ const CreateChannelForm: FC<CreateChannelFormProps> = ({
           // dispatch action to change the current channel in the store
           dispatch(getCurrentChannel(newChannel));
           // dispatch action to clear all channel messages(if needed)
-          if (messages.length !== 0) {
-            dispatch(clearMessages());
+          if (channelMessages.length !== 0) {
+            dispatch(clearChannelMessages());
           }
           // dispatch action to clear all direct messages(if needed)
           if (directMessages.length !== 0) {

@@ -6,7 +6,7 @@ import { sendRequest } from 'api';
 import { Form } from 'components';
 import { AppState } from 'store';
 import { addUserDirectMessage } from 'store/directMessages';
-import { addMessage } from 'store/messages';
+import { addChannelMessage } from 'store/channelMessages';
 import { teammateConnected, teammateDisconnected } from 'store/teammates';
 import { CreateMessageProps, UserConnected } from './types';
 import './styles.scss';
@@ -57,7 +57,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
           };
           // dispatch action to add newly created message to the store
           dispatch(
-            addMessage({
+            addChannelMessage({
               ...data.message,
               id: randomNumber,
               createdAt: new Date().toISOString(),
@@ -191,7 +191,7 @@ const CreateMessage: React.FC<CreateMessageProps> = () => {
       // do nothing when the user emits the event
       if (parsedMessage.user.username === user.username) return;
       // add message to the store so that it's rendered
-      dispatch(addMessage(parsedMessage));
+      dispatch(addChannelMessage(parsedMessage));
     });
     mySocket.on('direct-message', (directMessage: string) => {
       const parsedMessage = JSON.parse(directMessage);

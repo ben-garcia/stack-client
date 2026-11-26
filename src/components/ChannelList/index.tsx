@@ -9,7 +9,7 @@ import { getCurrentChannel } from 'store/channel';
 import { Channel } from 'store/channels';
 import { clearDirectMessages } from 'store/directMessages';
 import { requestChannelMembers } from 'store/members';
-import { requestChannelMessages } from 'store/messages';
+import { requestChannelMessages } from 'store/channelMessages';
 import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { ChannelListProps } from './types';

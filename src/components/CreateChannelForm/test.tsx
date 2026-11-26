@@ -5,7 +5,7 @@ import { createStore, combineReducers } from 'redux';
 
 import { channelReducer } from 'store/channel';
 import { teammateReducer } from 'store/teammate';
-import { messagesReducer } from 'store/messages';
+import { channelMessagesReducer } from 'store/channelMessages';
 import { directMessagesReducer } from 'store/directMessages';
 import { teammatesReducer } from 'store/teammates';
 import { workspaceReducer } from 'store/workspace';
@@ -32,7 +32,7 @@ describe('<CreateChannelForm />', () => {
     currentChannel: channelReducer,
     currentTeammate: teammateReducer,
     currentWorkspace: workspaceReducer,
-    messages: messagesReducer,
+    messages: channelMessagesReducer,
     directMessages: directMessagesReducer,
     teammates: teammatesReducer,
     user: userReducer,
