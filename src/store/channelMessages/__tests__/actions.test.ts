@@ -1,6 +1,6 @@
 import {
-  addMessage,
-  clearMessages,
+  addChannelMessage,
+  clearChannelMessages,
   receivedChannelMessages,
   receivedChannelMessagesError,
   requestChannelMessages,
@@ -15,22 +15,22 @@ describe('messages actions', () => {
     user: { color: '', username: 'user644' },
   };
 
-  describe('addMessage', () => {
+  describe('addChannelMessage', () => {
     it('should return object correct type with the message', () => {
-      const result = addMessage(message);
+      const result = addChannelMessage(message);
       const expected = {
-        type: 'ADD_MESSAGE',
+        type: 'ADD_CHANNEL_MESSAGE',
         payload: message,
       };
       expect(result).toEqual(expected);
     });
   });
 
-  describe('clearMessages', () => {
+  describe('clearChannelMessages', () => {
     it('should return object correct type', () => {
-      const result = clearMessages();
+      const result = clearChannelMessages();
       const expected = {
-        type: 'CLEAR_MESSAGES',
+        type: 'CLEAR_CHANNEL_MESSAGES',
       };
       expect(result).toEqual(expected);
     });

@@ -1,8 +1,8 @@
 import MessagesReducer from '../reducer';
-import { MessagesState } from '../types';
+import { ChannelMessagesState } from '../types';
 
 describe('MessagesReducer', () => {
-  const initialState: MessagesState = { isLoading: false, list: [] };
+  const initialState: ChannelMessagesState = { isLoading: false, list: [] };
   const message = {
     content: 'content',
     createdAt: '',
@@ -17,9 +17,9 @@ describe('MessagesReducer', () => {
     expect(result).toEqual(initialState);
   });
 
-  it('return new message to the list when action.type === "ADD_MESSAGE"', () => {
+  it('return new message to the list when action.type === "ADD_CHANNEL_MESSAGE"', () => {
     const action: any = {
-      type: 'ADD_MESSAGE',
+      type: 'ADD_CHANNEL_MESSAGE',
       payload: message,
     };
     const expected = {
@@ -30,9 +30,9 @@ describe('MessagesReducer', () => {
     expect(result).toEqual(expected);
   });
 
-  it('return no message when action.type === "CLEAR_MESSAGES"', () => {
+  it('return no message when action.type === "CLEAR_CHANNEL_MESSAGES"', () => {
     const action: any = {
-      type: 'CLEAR_MESSAGES',
+      type: 'CLEAR_CHANNEL_MESSAGES',
     };
     const result = MessagesReducer(initialState, action);
     expect(result).toEqual(initialState);

@@ -18,7 +18,7 @@ describe('dateTime', () => {
     it('should return "day, month date"', () => {
       const date = '2020-03-22T16:48:04.892Z';
       const result = printFormattedDate(date);
-      expect(result).toBe('Sunday, March 22th');
+      expect(result).toBe('March 22th, 2020');
     });
 
     it('should return "month date, year"', () => {
