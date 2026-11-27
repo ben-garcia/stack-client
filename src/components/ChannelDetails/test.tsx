@@ -10,6 +10,16 @@ import { userReducer } from 'store/user';
 import ChannelDetails from '.';
 
 describe('<ChannelDetails />', () => {
+  let viewWrapper: HTMLDivElement;
+  beforeEach(() => {
+    viewWrapper = document.createElement('div');
+    viewWrapper.className = 'view-wrapper';
+    document.body.appendChild(viewWrapper);
+  });
+
+  afterEach(() => {
+    viewWrapper.remove();
+  });
   const user = { id: 1, username: 'user1' };
   const members = [
     user,
@@ -50,35 +60,27 @@ describe('<ChannelDetails />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <section>', () => {
-    const channelDetailsWrapper: ReactWrapper = wrapper.find('ChannelDetails');
-    expect(channelDetailsWrapper.childAt(0).name()).toBe('section');
-  });
-
   it('should render the top section correctly', () => {
-    expect(wrapper.find('Text.channel-details__text').text()).toBe('Details');
+    expect(wrapper.find('h2.channel-details__text').text()).toBe('Details');
     expect(wrapper.find('Text.channel-details__channel-name').text()).toBe(
       `# ${mockState.currentChannel.name}`
     );
-    expect(wrapper.find('Button.channel-details__close-button').exists()).toBe(
+    expect(wrapper.find('button.channel-details__close-button').exists()).toBe(
       true
     );
   });
 
   it('should render "add-people" button with "Add"', () => {
     expect(
-      wrapper.find('Button.channel-details__add-people-button').text()
+      wrapper.find('button.channel-details__add-people-button').text()
     ).toBe('Add');
   });
 
   describe('about section', () => {
     it('should render channel.topic', () => {
-      expect(
-        wrapper
-          .find('Text.channel-details__subtext')
-          .at(1)
-          .text()
-      ).toBe(mockState.currentChannel.topic);
+      expect(wrapper.find('p#channel-topic-text').text()).toBe(
+        mockState.currentChannel.topic
+      );
     });
 
     it('should render placeholder text when channel.topic === ""', () => {
@@ -89,21 +91,15 @@ describe('<ChannelDetails />', () => {
       const newStore = createStore(rootReducer, newState as any);
       const newWrapper = mountComponent(newStore);
 
-      expect(
-        newWrapper
-          .find('Text.channel-details__subtext')
-          .at(1)
-          .text()
-      ).toBe('Whats up for discussion?');
+      expect(newWrapper.find('p#channel-topic-text').text()).toBe(
+        "What's up for discussion?"
+      );
     });
 
     it('should render channel.description', () => {
-      expect(
-        wrapper
-          .find('Text.channel-details__subtext')
-          .at(3)
-          .text()
-      ).toBe(mockState.currentChannel.description);
+      expect(wrapper.find('p#channel-description-text').text()).toBe(
+        mockState.currentChannel.description
+      );
     });
 
     it('should render "Created" text', () => {
@@ -154,7 +150,7 @@ describe('<ChannelDetails />', () => {
         type: 'CLOSE_CHANNEL_DETAILS',
       };
 
-      newWrapper.find('Button.channel-details__close-button').simulate('click');
+      newWrapper.find('button.channel-details__close-button').simulate('click');
 
       expect(newStore.dispatch).toHaveBeenCalledTimes(1);
       expect(newStore.dispatch).toHaveBeenCalledWith(
@@ -168,7 +164,7 @@ describe('<ChannelDetails />', () => {
       };
 
       newWrapper
-        .find('Button.channel-details__add-people-button')
+        .find('button.channel-details__add-people-button')
         .simulate('click');
 
       expect(newStore.dispatch).toHaveBeenCalledTimes(1);
@@ -181,7 +177,7 @@ describe('<ChannelDetails />', () => {
       };
 
       newWrapper
-        .find('Button.channel-details__edit-button')
+        .find('button.channel-details__edit-button')
         .first()
         .simulate('click');
 
@@ -197,7 +193,7 @@ describe('<ChannelDetails />', () => {
       };
 
       newWrapper
-        .find('Button.channel-details__edit-button')
+        .find('button.channel-details__edit-button')
         .at(1)
         .simulate('click');
 

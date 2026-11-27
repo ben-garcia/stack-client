@@ -80,7 +80,7 @@ describe('<CreateWorkspaceForm />', () => {
   });
 
   it('should render a button with text "Create" by default', () => {
-    expect(wrapper.find('Button[type="submit"]').text()).toBe('Create');
+    expect(wrapper.find('button[type="submit"]').text()).toBe('Create');
   });
 
   describe('form', () => {

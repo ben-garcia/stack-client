@@ -49,7 +49,9 @@ describe('<EditChannelDescription />', () => {
   });
 
   it('should render submit button with "Update description"', () => {
-    expect(wrapper.find('Button').text()).toBe('Update description');
+    expect(wrapper.find('button[type="submit"]').text()).toBe(
+      'Update description'
+    );
   });
 
   it('should render channel description when channel has a description', () => {

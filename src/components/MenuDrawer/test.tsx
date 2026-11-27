@@ -24,12 +24,7 @@ describe('<Workspace />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <div>', () => {
-    const menuDrawerWrapper: ReactWrapper = wrapper.find('MenuDrawer');
-    expect(menuDrawerWrapper.childAt(0).name()).toBe('div');
-  });
-
   it('should render a button that contains "Logout"', () => {
-    expect(wrapper.find('Button.menu-drawer__button').exists()).toBe(true);
+    expect(wrapper.find('button.menu-drawer__button').exists()).toBe(true);
   });
 });

@@ -82,7 +82,7 @@ describe('<InvitePeopleForm />', () => {
 
   it('should render 3 input field when "Add another" is clicked 3 times', () => {
     const buttonWrapper = wrapper.find(
-      'Button.invite-people-form__add-input-button'
+      'button.invite-people-form__add-input-button'
     );
     buttonWrapper.simulate('click');
     buttonWrapper.simulate('click');

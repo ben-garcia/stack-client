@@ -112,7 +112,7 @@ describe('<ChannelInfo />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    newWrapper.find('Button.channel__edit-topic').simulate('click');
+    newWrapper.find('button.channel__edit-topic').simulate('click');
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(1);
     expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
@@ -131,7 +131,7 @@ describe('<ChannelInfo />', () => {
     expect(wrapper.find('Modal').length).toBe(0);
     expect(wrapper.find('Modal').find('EditChannelTopic').length).toBe(0);
 
-    wrapper.find('Button.channel__edit-topic').simulate('click');
+    wrapper.find('button.channel__edit-topic').simulate('click');
 
     expect(wrapper.find('Modal').length).toBe(1);
     expect(wrapper.find('Modal').find('EditChannelTopic').length).toBe(1);

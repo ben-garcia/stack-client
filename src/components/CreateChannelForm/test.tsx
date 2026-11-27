@@ -14,6 +14,7 @@ import CreateChannelForm from '.';
 
 describe('<CreateChannelForm />', () => {
   const mockState = {
+    channelMessages: { list: [{}] },
     currentChannel: {
       id: 1,
       name: 'channel name',
@@ -24,15 +25,14 @@ describe('<CreateChannelForm />', () => {
     },
     currentWorkspace: { id: 1 },
     directMessages: { list: [{}] },
-    messages: { list: [{}] },
     teammates: { list: [{}] },
     user: { id: 2, username: 'user22626' },
   };
   const rootReducer = combineReducers({
+    channelMessages: channelMessagesReducer,
     currentChannel: channelReducer,
     currentTeammate: teammateReducer,
     currentWorkspace: workspaceReducer,
-    messages: channelMessagesReducer,
     directMessages: directMessagesReducer,
     teammates: teammatesReducer,
     user: userReducer,
@@ -82,8 +82,9 @@ describe('<CreateChannelForm />', () => {
     );
   });
 
-  it('should render a button with text "Create" by default', () => {
-    expect(wrapper.find('Button[type="submit"]').text()).toBe('Create');
+  it('should render a button with text "Create" and is disabled by default', () => {
+    expect(wrapper.find('button[type="submit"]').prop('disabled')).toBe(true);
+    expect(wrapper.find('button[type="submit"]').text()).toBe('Create');
   });
 
   describe('form', () => {

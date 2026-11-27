@@ -31,34 +31,7 @@ describe('<ChannelList />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <section>', () => {
-    const channelListWrapper: ReactWrapper = wrapper.find('ChannelList');
-    expect(channelListWrapper.childAt(0).name()).toBe('section');
-  });
-
-  it('should render "Channels" inside a <Text>', () => {
-    expect(wrapper.find('Text').text()).toBe('Channels');
-  });
-
-  it('should render empty <ul> tag when there are no channels', () => {
-    const ulWrapper: ReactWrapper = wrapper.find('ul');
-    expect(ulWrapper.text()).toBe('');
-  });
-
-  it('should render 3 <li> tags when there are 3 channels', () => {
-    const stateWithThreeChannels = {
-      ...mockState,
-      channels: { list: [{ id: 1 }, { id: 2 }, { id: 3 }] },
-    };
-    const newWrapper = mountComponent(
-      createStore(channelsReducer, stateWithThreeChannels as any)
-    );
-    const liWrapper: ReactWrapper = newWrapper.find('ListItem').find('li');
-
-    expect(liWrapper.length).toBe(3);
-  });
-
-  it('should render the name of the channel in a <Text>', () => {
+  it('should render the name of the channel', () => {
     const stateWithThreeChannels = {
       ...mockState,
       channels: { list: [{ id: 1, name: 'channelName' }] },
@@ -66,7 +39,9 @@ describe('<ChannelList />', () => {
     const newWrapper = mountComponent(
       createStore(channelsReducer, stateWithThreeChannels as any)
     );
-    const textWrapper: ReactWrapper = newWrapper.find('ListItem').find('Text');
+    const textWrapper: ReactWrapper = newWrapper.find(
+      'span.channel-list__name'
+    );
 
     expect(textWrapper.text()).toBe('channelName');
   });
@@ -111,10 +86,7 @@ describe('<ChannelList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    newWrapper
-      .find('li')
-      .find('Button')
-      .simulate('click');
+    newWrapper.find('button[role="option"]').simulate('click');
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(5);
     expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
@@ -156,22 +128,19 @@ describe('<ChannelList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    newWrapper
-      .find('li')
-      .find('Button')
-      .simulate('click');
+    newWrapper.find('button[role="option"]').simulate('click');
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
   });
 
   it('should render a <Modal> with a <CreateChannelForm> when the create channel button is clicked', () => {
     const newState = {
-      currentChannel: { id: 1 },
+      channelMessages: { list: [] },
       channels: {
         list: [{ id: 10 }],
       },
+      currentChannel: { id: 1 },
       directMessages: { list: [] },
-      messages: { list: [] },
       teammates: { list: [] },
     };
     // add the div node for the modal
@@ -188,8 +157,7 @@ describe('<ChannelList />', () => {
     expect(newWrapper.find('Modal').find('CreateChannelForm').length).toBe(0);
 
     createNewChannelButton
-      .find('Button')
-      .at(0)
+      .find('button[aria-label="Create a new Channel"]')
       .simulate('click');
 
     expect(newWrapper.find('Modal').length).toBe(1);

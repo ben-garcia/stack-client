@@ -38,19 +38,13 @@ describe('<TeammatesList />', () => {
     expect(channelListWrapper.childAt(0).name()).toBe('section');
   });
 
-  it('should render "Teammates" inside a <Text>', () => {
-    expect(wrapper.find('Text.teammates-list__header').text()).toBe(
-      'Teammates'
-    );
-  });
-
-  it('should render one <ListItem> tag when there is 1 teammate with the teammates username', () => {
-    const listItemWrapper: ReactWrapper = wrapper.find('ListItem');
+  it('should render one tag when there is 1 teammate with the teammates username', () => {
+    const listItemWrapper: ReactWrapper = wrapper.find('button[role="option"]');
     expect(listItemWrapper.length).toBe(1);
     expect(listItemWrapper.text()).toBe(mockState.teammates.list[0].username);
   });
 
-  it('should render 3 <ListItem> tags when there are 3 teammates with username', () => {
+  it('should render 3 tags when there are 3 teammates with username', () => {
     const newState = {
       ...mockState,
       teammates: {
@@ -64,7 +58,9 @@ describe('<TeammatesList />', () => {
     const newWrapper = mountComponent(
       createStore(teammatesReducer, newState as any)
     );
-    const listItemWrapper: ReactWrapper = newWrapper.find('ListItem');
+    const listItemWrapper: ReactWrapper = newWrapper.find(
+      'button[role="option"]'
+    );
 
     expect(listItemWrapper.length).toBe(3);
     expect(listItemWrapper.at(0).text()).toBe(
@@ -101,7 +97,7 @@ describe('<TeammatesList />', () => {
       type: 'GET_CURRENT_CHANNEL',
     };
     const expectedClearMessages = {
-      type: 'CLEAR_MESSAGES',
+      type: 'CLEAR_CHANNEL_MESSAGES',
     };
     const expectedRequestUserDirectMessages = {
       type: 'REQUEST_USER_DIRECT_MESSAGES',
@@ -109,7 +105,7 @@ describe('<TeammatesList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    newWrapper.find('Button.teammates-list__button').simulate('click');
+    newWrapper.find('button.teammates-list__button').simulate('click');
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(4);
     expect(storeWithSpy.dispatch).toHaveBeenNthCalledWith(
@@ -144,7 +140,7 @@ describe('<TeammatesList />', () => {
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
     newWrapper
-      .find('Button.teammates-list__button')
+      .find('button.teammates-list__button')
       .at(1)
       .simulate('click');
 

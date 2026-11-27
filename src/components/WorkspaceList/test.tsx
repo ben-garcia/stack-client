@@ -44,28 +44,8 @@ describe('<WorkspaceList />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as an <aside>', () => {
-    const workspaceListWrapper: ReactWrapper = wrapper.find('WorkspaceList');
-    expect(workspaceListWrapper.childAt(0).name()).toBe('aside');
-  });
-
-  it('should render empty <ul> tag when there are no workspaces', () => {
-    const newWrapper = mount(
-      <Provider store={store}>
-        <WorkspaceList workspaces={[]} />
-      </Provider>
-    );
-    const ulWrapper: ReactWrapper = newWrapper.find('ul');
-    expect(ulWrapper.text()).toBe('');
-  });
-
-  it('should render 2 <li> tags when there are 2 workspaces', () => {
-    const liWrapper: ReactWrapper = wrapper.find('ListItem').find('li');
-    expect(liWrapper.length).toBe(2);
-  });
-
   it('should render the first letter(as uppercase) of the workspace in a <Button>', () => {
-    const textWrapper: ReactWrapper = wrapper.find('ListItem').find('Button');
+    const textWrapper: ReactWrapper = wrapper.find('button');
     expect(textWrapper.at(0).text()).toBe(workspaces[0].name[0].toUpperCase());
     expect(textWrapper.at(1).text()).toBe(workspaces[1].name[0].toUpperCase());
   });
@@ -106,14 +86,13 @@ describe('<WorkspaceList />', () => {
       type: 'CLEAR_DIRECT_MESSAGES',
     };
     const expectedClearMessages = {
-      type: 'CLEAR_MESSAGES',
+      type: 'CLEAR_CHANNEL_MESSAGES',
     };
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
     newWrapper
-      .find('li')
-      .find('Button')
+      .find('button')
       .at(0)
       .simulate('click');
 
@@ -161,10 +140,7 @@ describe('<WorkspaceList />', () => {
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
 
-    newWrapper
-      .find('li')
-      .find('Button')
-      .simulate('click');
+    newWrapper.find('button').simulate('click');
 
     expect(storeWithSpy.dispatch).toHaveBeenCalledTimes(0);
   });

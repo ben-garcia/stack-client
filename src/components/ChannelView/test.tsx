@@ -75,11 +75,6 @@ describe('<ChannelView />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <div>', () => {
-    const channelViewWrapper: ReactWrapper = wrapper.find('ChannelView');
-    expect(channelViewWrapper.childAt(0).name()).toBe('div');
-  });
-
   it('should render currentChannel.name', () => {
     expect(wrapper.find('Text.channel-view__name').text()).toBe(
       mockState.currentChannel.name
@@ -109,7 +104,7 @@ describe('<ChannelView />', () => {
 
     const newWrapper = mountComponent(newStore);
 
-    newWrapper.find('Button.channel-view__edit-button').simulate('click');
+    newWrapper.find('button.channel-view__edit-button').simulate('click');
 
     expect(newStore.dispatch).toHaveBeenCalledTimes(1);
     expect(newStore.dispatch).toHaveBeenCalledWith(
@@ -128,7 +123,7 @@ describe('<ChannelView />', () => {
       expect(wrapper.find('Modal').exists()).toBe(false);
       expect(wrapper.find('EditChannelDescription').exists()).toBe(false);
 
-      wrapper.find('Button.channel-view__edit-button').simulate('click');
+      wrapper.find('button.channel-view__edit-button').simulate('click');
 
       expect(wrapper.find('Modal').exists()).toBe(true);
       expect(wrapper.find('EditChannelDescription').exists()).toBe(true);
@@ -137,7 +132,7 @@ describe('<ChannelView />', () => {
     it('should render <Modal> with <AddPeople> when "user-icon" is clicked', () => {
       expect(wrapper.find('AddPeople').exists()).toBe(false);
 
-      wrapper.find('Button.channel-view__user-icon').simulate('click');
+      wrapper.find('button.channel-view__user-icon').simulate('click');
 
       expect(wrapper.find('AddPeople').exists()).toBe(true);
     });

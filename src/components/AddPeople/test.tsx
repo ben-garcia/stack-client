@@ -69,12 +69,12 @@ describe('<AddPeople />', () => {
   it('should render correct text to inform the user about inviting teammates', () => {
     const textWrapper: ReactWrapper = wrapper.find('Text.form__message');
     expect(textWrapper.at(1).text()).toBe(
-      `To add a teammate who is not on Stack, you will need toinvite them first`
+      `To add a teammate, who is not on Stack, you will need to invite them first`
     );
   });
 
   it('should render the usernames of the teammates', () => {
-    const buttonsWrapper = wrapper.find('Button.form__button');
+    const buttonsWrapper = wrapper.find('button.form__button');
     expect(buttonsWrapper.at(0).text()).toBe(
       mockState.teammates.list[0].username
     );
@@ -96,7 +96,7 @@ describe('<AddPeople />', () => {
 
     const newWrapper = mountComponent(newStore);
 
-    newWrapper.find('Button.form__open-invite-button').simulate('click');
+    newWrapper.find('button.form__open-invite-button').simulate('click');
 
     expect(newStore.dispatch).toHaveBeenCalledTimes(2);
     expect(newStore.dispatch).toHaveBeenNthCalledWith(

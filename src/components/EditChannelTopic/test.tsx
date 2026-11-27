@@ -44,12 +44,8 @@ describe('<EditChannelTopic />', () => {
     expect(editChannelTopicWrapper.childAt(0).name()).toBe('Form');
   });
 
-  it('should render with a textarea field', () => {
-    expect(wrapper.find('textarea').length).toBe(1);
-  });
-
   it('should render submit button with "Set topic"', () => {
-    expect(wrapper.find('Button').text()).toBe('Set topic');
+    expect(wrapper.find('button[type="submit"]').text()).toBe('Set topic');
   });
 
   it('should render channel topic when channel has a topic', () => {

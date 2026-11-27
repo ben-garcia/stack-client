@@ -111,7 +111,7 @@ describe('<WorkspaceInfo />', () => {
 
     it('should render hamburger button when viewport.isPhone === true', () => {
       const hamburgerButtonWrapper: ReactWrapper = newWrapper.find(
-        'Button.hamburger-button'
+        'button.hamburger-button'
       );
 
       expect(hamburgerButtonWrapper.exists()).toBe(true);
@@ -131,7 +131,7 @@ describe('<WorkspaceInfo />', () => {
         type: 'OPEN_MOBILE_SIDEBAR',
       };
 
-      wrapperNew.find('Button.hamburger-button').simulate('click');
+      wrapperNew.find('button.hamburger-button').simulate('click');
 
       expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
       expect(storeMock.dispatch).toHaveBeenCalledWith(
@@ -147,7 +147,7 @@ describe('<WorkspaceInfo />', () => {
       const storeMock = createStore(rootReducer, newState as any);
       const wrapperNew = mountComponent(storeMock);
       const hamburgerButtonWrapper: ReactWrapper = wrapperNew.find(
-        'Button.hamburger-button'
+        'button.hamburger-button'
       );
 
       expect(hamburgerButtonWrapper.exists()).toBe(true);
@@ -167,7 +167,7 @@ describe('<WorkspaceInfo />', () => {
         type: 'OPEN_MOBILE_SIDEBAR',
       };
 
-      wrapperNew.find('Button.hamburger-button').simulate('click');
+      wrapperNew.find('button.hamburger-button').simulate('click');
 
       expect(storeMock.dispatch).toHaveBeenCalledTimes(1);
       expect(storeMock.dispatch).toHaveBeenCalledWith(
@@ -183,7 +183,7 @@ describe('<WorkspaceInfo />', () => {
       const storeMock = createStore(rootReducer, newState as any);
       const wrapperNew = mountComponent(storeMock);
       const hamburgerButtonWrapper: ReactWrapper = wrapperNew.find(
-        'Button.hamburger-button'
+        'button.hamburger-button'
       );
 
       expect(hamburgerButtonWrapper.exists()).toBe(false);
@@ -208,7 +208,7 @@ describe('<WorkspaceInfo />', () => {
       type: 'OPEN_CHANNEL_DETAILS',
     };
 
-    newWrapper.find('Button.details-button').simulate('click');
+    newWrapper.find('button.details-button').simulate('click');
 
     expect(newMockStore.dispatch).toHaveBeenCalledTimes(1);
     expect(newMockStore.dispatch).toHaveBeenCalledWith(

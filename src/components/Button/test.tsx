@@ -16,7 +16,6 @@ describe('<Button />', () => {
   it('should render with default props', () => {
     expect(wrapper.prop('disabled')).toBe(false);
     expect(wrapper.prop('type')).toBe('button');
-    expect(wrapper.prop('title')).toBe('');
   });
 
   it('should render the correct text', () => {

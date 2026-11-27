@@ -9,6 +9,12 @@ describe('<Modal />', () => {
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
+    if (!document.getElementById('root')) {
+      const root = document.createElement('div');
+      root.setAttribute('id', 'root');
+      document.body.appendChild(root);
+    }
+
     const modalRoot = (global as any).document.createElement('div');
     modalRoot.setAttribute('id', 'modal-root');
     const body = (global as any).document.querySelector('body');
@@ -16,6 +22,13 @@ describe('<Modal />', () => {
 
     // wrapper = mount(<Modal>modal</Modal>);
     wrapper = shallow(<Modal>modal</Modal>);
+  });
+
+  afterEach(() => {
+    const root = document.getElementById('root');
+    if (root) {
+      (root as HTMLElement & { inert?: boolean }).inert = false;
+    }
   });
 
   it('should be defined', () => {
@@ -26,9 +39,11 @@ describe('<Modal />', () => {
     expect(wrapper.find('.modal-background').name()).toBe('div');
   });
 
-  it('should be focused by default', () => {
-    const newWrapper = mount(<Modal>modal</Modal>);
-    expect(newWrapper.is(':focus')).toBe(true);
+  it('should be focus the close button default', () => {
+    const newWrapper = mount(<Modal header="test">modal</Modal>);
+    expect(newWrapper.find('button.modal__button-close').is(':focus')).toBe(
+      true
+    );
   });
 
   it('should be focused when passing background={false}', () => {
@@ -62,15 +77,20 @@ describe('<Modal />', () => {
 
   it('should call the onClose callback when ESC key is pressed', () => {
     const onCloseSpy = jest.fn();
-    const newWrapper = mount(
+    mount(
       <Modal header="heading" onClose={onCloseSpy}>
         modal
       </Modal>
     );
 
-    newWrapper
-      .find('.modal-background--dark')
-      .simulate('keyup', { keyCode: 27 });
+    window.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Escape',
+        keyCode: 27,
+        which: 27,
+        bubbles: true,
+      })
+    );
 
     expect(onCloseSpy).toHaveBeenCalledTimes(1);
   });

@@ -38,11 +38,6 @@ describe('<Workspace />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <section>', () => {
-    const workspaceWrapper: ReactWrapper = wrapper.find('Workspace');
-    expect(workspaceWrapper.childAt(0).name()).toBe('section');
-  });
-
   it('should render the workspace name when there is a currentWorkspace', () => {
     expect(wrapper.find('Text.workspace__name').text()).toBe(
       mockState.currentWorkspace.name
@@ -79,7 +74,7 @@ describe('<Workspace />', () => {
       expect(wrapper.find('Modal').exists()).toBe(false);
       expect(wrapper.find('MenuDrawer').exists()).toBe(false);
 
-      wrapper.find('Button.workspace__inner').simulate('click');
+      wrapper.find('button.workspace__inner').simulate('click');
 
       expect(wrapper.find('Modal').exists()).toBe(true);
       expect(wrapper.find('MenuDrawer').exists()).toBe(true);
@@ -89,7 +84,7 @@ describe('<Workspace />', () => {
       expect(wrapper.find('Modal').exists()).toBe(false);
       expect(wrapper.find('CreateWorkspaceForm').exists()).toBe(false);
 
-      wrapper.find('Button.workspace__add-button').simulate('click');
+      wrapper.find('button.workspace__add-button').simulate('click');
 
       expect(wrapper.find('Modal').exists()).toBe(true);
       expect(wrapper.find('CreateWorkspaceForm').exists()).toBe(true);

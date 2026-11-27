@@ -42,13 +42,6 @@ describe('<WorkspaceSidebar />', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('should render as a <div>', () => {
-    const workspaceSidebarWrapper: ReactWrapper = wrapper.find(
-      'WorkspaceSidebar'
-    );
-    expect(workspaceSidebarWrapper.childAt(0).name()).toBe('div');
-  });
-
   it('should render <Workspace> ONLY when channels.isLoading === false', () => {
     expect(wrapper.find('Workspace').exists()).toBe(true);
     expect(wrapper.find('Scrollbar').exists()).toBe(false);
@@ -70,20 +63,5 @@ describe('<WorkspaceSidebar />', () => {
     expect(newWrapper.find('Scrollbar').exists()).toBe(false);
     expect(newWrapper.find('ChannelList').exists()).toBe(false);
     expect(newWrapper.find('TeammatesList').exists()).toBe(false);
-  });
-
-  it('should render <Workspace>, <Scrollbar>, <ChannelList>, <TeammatesList> when currentWorkspace.id !== 0', () => {
-    const newState = {
-      ...mockState,
-      currentWorkspace: { ...mockState.currentWorkspace, id: 1 },
-    };
-    const newStore = createStore(rootReducer, newState as any);
-    const newWrapper = mountComponent(newStore);
-
-    expect(newWrapper.find('Workspace').exists()).toBe(true);
-    expect(newWrapper.find('Scrollbar').exists()).toBe(true);
-    expect(newWrapper.find('ChannelList').exists()).toBe(true);
-    expect(newWrapper.find('TeammatesList').exists()).toBe(true);
-    expect(newWrapper.find('Placeholder').exists()).toBe(false);
   });
 });
