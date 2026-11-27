@@ -180,7 +180,7 @@ const ChannelDetails: React.FC<ChannelDetailsProps> = ({ className = '' }) => {
                     tag="p"
                     size="sm"
                   >
-                    {`What's s up for discussion?`}
+                    {`What's up for discussion?`}
                   </Text>
                 )}
 

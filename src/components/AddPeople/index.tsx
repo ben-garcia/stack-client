@@ -137,7 +137,7 @@ const AddPeople: React.FC<AddPeopleProps> = ({ modalId = undefined }) => {
             dispatch(openInvitePeopleModal());
           }}
         >
-          invite them first
+          {' invite them first'}
         </Button>
       </Text>
 

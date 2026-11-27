@@ -1,5 +1,7 @@
+import { ReactElement } from 'react';
+
 export interface ScrollbarProps {
-  children: React.ReactElement | React.ReactElement[];
+  children: ReactElement | ReactElement[];
   className?: string;
   color: 'light' | 'dark';
   containerHeight?: string; // height for the top container div

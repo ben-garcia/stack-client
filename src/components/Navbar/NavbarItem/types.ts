@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface NavbarItemProps {
-  children: React.ReactNode[] | React.ReactNode;
+  children: ReactNode[] | ReactNode;
 }

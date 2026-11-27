@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 export interface FormGroupProps {
-  children: React.ReactNode[] | React.ReactNode;
+  children: ReactNode[] | ReactNode;
   className?: string;
   flexDirection?: 'row' | 'column';
 }

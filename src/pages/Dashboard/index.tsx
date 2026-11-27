@@ -16,7 +16,7 @@ import { getCurrentChannel, updateChannelTopic } from 'store/channel';
 import { requestWorkspaceChannels } from 'store/channels';
 import { requestUserDirectMessages } from 'store/directMessages';
 import { requestChannelMembers } from 'store/members';
-import { requestChannelMessages } from 'store/messages';
+import { requestChannelMessages } from 'store/channelMessages';
 import { closeMobileSidebar } from 'store/mobileSidebar';
 import { getCurrentTeammate } from 'store/teammate';
 import { requestWorkspaceTeammates } from 'store/teammates';
